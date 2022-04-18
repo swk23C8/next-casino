@@ -3,7 +3,7 @@ import Table from '@/components/Table';
 import { prisma } from '@/lib/prisma';
 import axios from 'axios';
 import { getSession } from 'next-auth/react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export async function getServerSideProps(context) {
 	const session = await getSession(context);
@@ -32,10 +32,16 @@ export async function getServerSideProps(context) {
 }
 
 export default function Stat({ stats = [] }) {
+	const [userStats, setUserStats] = useState(stats);
+
 
 	const addTokens = data => {
-		// console.log(data);
-		axios.patch(`/api/users/${stats.id}`, data);
+		let test = axios.patch(`/api/users/${stats.id}`, data);
+		// console log api output
+		test.then(res => {
+			// console.log(res.data);
+			setUserStats(res.data);
+		});
 	};
 
 	// console.log(stats)
@@ -49,16 +55,26 @@ export default function Stat({ stats = [] }) {
 			</p>
 			<div className="mt-8">
 				{/* <Grid homes={homes} /> */}
-				<Table stats={stats} />
+				<Table stats={userStats} />
 				{/* button to increase stats.gameTokens by 10 */}
 				<button
 					className="bg-green-600 text-white py-2 px-6 rounded-md focus:outline-none focus:ring-4 focus:ring-green-600 focus:ring-opacity-50 hover:bg-green-500 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-green-600"
 					onClick={() => {
-						console.log("stats.gameTokens ", stats.gameTokens);
+						// console.log("stats.gameTokens ", stats.gameTokens);
 						addTokens({ gameTokens: 10 });
 					}}
 				>
-					Add 10 Tokens
+					INCREASE 10 Tokens
+				</button>
+				{/* button to decrease stats.gameTokens by 10 */}
+				<button
+					className="bg-green-600 text-white py-2 px-6 rounded-md focus:outline-none focus:ring-4 focus:ring-green-600 focus:ring-opacity-50 hover:bg-green-500 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-green-600"
+					onClick={() => {
+						// console.log("stats.gameTokens ", stats.gameTokens);
+						addTokens({ gameTokens: -10 });
+					}}
+				>
+					DECREASE 10 Tokens
 				</button>
 			</div>
 		</Layout>

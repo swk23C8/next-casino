@@ -21,13 +21,12 @@ const Table = ({ stats = [] }) => {
       </p>
    ) : (
       <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-         {/* {stats.map(stat => (
-        <Card key={stat.id} {...stat} onClickFavorite={toggleFavorite} />
-      ))} */}
-         {console.log(stats)}
+
+         {/* {console.log(stats)}
          {console.log(stats.id)}
          {console.log(stats.email)}
-         {console.log(stats.gameTokens)}
+         {console.log(stats.gameTokens)} */}
+         
          {/* insert table to show stats data */}
          <table className="table-auto">
             <thead>
