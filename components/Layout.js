@@ -14,25 +14,26 @@ import {
   PlusIcon,
   SparklesIcon,
   UserIcon,
+  PuzzleIcon,
 } from '@heroicons/react/outline';
 import { ChevronDownIcon } from '@heroicons/react/solid';
 
 const menuItems = [
   {
-    label: 'Edit Account Settings',
+    label: 'Settings',
     icon: PlusIcon,
     href: '/create',
   },
   {
-    label: 'My stats',
+    label: 'My Stats',
     icon: HomeIcon,
     href: '/stats',
   },
-  {
-    label: 'Favorites',
-    icon: HeartIcon,
-    href: '/favorites',
-  },
+  // {
+  //   label: 'Favorites',
+  //   icon: HeartIcon,
+  //   href: '/favorites',
+  // },
   {
     label: 'Logout',
     icon: LogoutIcon,
@@ -75,6 +76,29 @@ const Layout = ({ children = null }) => {
                   </span>
                 </a>
               </Link>
+
+              {/* display buttons to other pages*/}
+              <div className="flex items-center space-x-10">
+                <Link href="/cee_lo">
+                  <a className="flex items-center space-x-1">
+                    <PuzzleIcon className="shrink-0 w-8 h-8 text-rose-500" />
+                    <span className="text-xl font-semibold tracking-wide">
+                      Cee-Lo
+                    </span>
+                  </a>
+                </Link>
+
+                <Link href="/stats">
+                  <a className="flex items-center space-x-1">
+                    <HomeIcon className="shrink-0 w-8 h-8 text-rose-500" />
+                    <span className="text-xl font-semibold tracking-wide">
+                      Some_Menu
+                    </span>
+                  </a>
+                </Link>
+              </div>
+              {/* display buttons to other pages*/}
+
               <div className="flex items-center space-x-4">
                 <button
                   onClick={() => {
@@ -82,7 +106,7 @@ const Layout = ({ children = null }) => {
                   }}
                   className="hidden sm:block hover:bg-gray-200 transition px-3 py-1 rounded-md"
                 >
-                   Account Stats
+                  Account Stats
                 </button>
                 {isLoadingUser ? (
                   <div className="h-8 w-[75px] bg-gray-200 animate-pulse rounded-md" />
