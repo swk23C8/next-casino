@@ -3,11 +3,23 @@
 @tailwind utilities;
 
 .box {
-	@apply bg-indigo-700 text-gray-100 min-w-full h-full min-h-full rounded;
+	@apply border-opacity-40 border-2 border-black bg-green-300 text-black min-w-full h-full min-h-full rounded;
 }
 
 .box2 {
-	@apply bg-pink-700 text-gray-100 min-w-full h-full min-h-full rounded;
+	@apply bg-green-800 bg-opacity-20 text-black min-w-full h-full min-h-full rounded;
+}
+
+.item {
+	@apply text-black text-xl font-bold flex items-center content-center justify-center rounded
+}
+
+.diceContainer {
+	@apply py-2 pl-5
+}
+
+.diceResult{
+	@apply text-black text-xl font-bold flex items-center content-center justify-center rounded
 }
 
 @layer components {

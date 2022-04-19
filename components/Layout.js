@@ -203,7 +203,7 @@ const Layout = ({ children = null }) => {
         </header>
 
         <main className="flex-grow container mx-auto">
-          <div className="px-5 py-5">
+          <div className="px-5 py-4">
             {typeof children === 'function' ? children(openModal) : children}
           </div>
         </main>

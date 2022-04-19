@@ -227,10 +227,6 @@ const Round = () => {
 		pScoreRef.current = pScore;
 	}, [pScore]);
 
-	// // logic for player money ref
-	// useEffect(() => {
-	// 	pMoneyRef.current = pMoneyRef;
-	// }, [pMoney]);
 
 	useEffect(() => {
 		if (bScore === 10) {
@@ -253,78 +249,88 @@ const Round = () => {
 			<div className="grid min-h-max it grid-cols-3 grid-rows-2 gap-2 w-auto h-auto">
 				<div className="box row-start-1 row-span-1">
 					<div className="grid overflow-hidden grid-cols-2 grid-rows-4 gap-2 w-auto h-auto">
-						<div className="box row-start-1 row-span-2">
+						<div className="diceContainer row-start-1 row-span-2">
 							<h2> Banker</h2>
-							<div>
-								<Dice
-									onRoll={(value) => {
-										setBDie_1(value);
+							<div className="flex justify-center space-x-3">
+								<div className="item w-32 h-32">
+									<Dice
+										onRoll={(value) => {
+											setBDie_1(value);
 
-									}}
-									size={85}
-									cheatValue={1}
-									ref={bRef1}
-									// disabled={bDie_1 !== null} />
-									disabled={true} />
-
-								<Dice
-									onRoll={(value) => {
-										setBDie_2(value)
-									}}
-									size={85}
-									cheatValue={1}
-									ref={bRef2}
-									// disabled={bDie_2 !== null} />
-									disabled={true} />
-
-								<Dice
-									onRoll={(value) => {
-										setBDie_3(value)
-									}}
-									size={85}
-									cheatValue={2}
-									ref={bRef3}
-									// disabled={bDie_3 !== null} />
-									disabled={true} />
+										}}
+										size={85}
+										cheatValue={1}
+										ref={bRef1}
+										// disabled={bDie_1 !== null} />
+										disabled={true} />
+								</div>
+								<div className="item w-32 h-32">
+									<Dice
+										onRoll={(value) => {
+											setBDie_2(value)
+										}}
+										size={85}
+										cheatValue={1}
+										ref={bRef2}
+										// disabled={bDie_2 !== null} />
+										disabled={true} />
+								</div>
+								<div className="item w-32 h-32">
+									<Dice
+										onRoll={(value) => {
+											setBDie_3(value)
+										}}
+										size={85}
+										cheatValue={2}
+										ref={bRef3}
+										// disabled={bDie_3 !== null} />
+										disabled={true} />
+								</div>
 							</div>
 						</div>
 
-						<h3 className="box row-start-1 row-span-2">{bScore === -2 ? "Roll Banker's dice" : pointChecker(bScore, "Banker")}</h3>
+						<h3 className="diceResult row-start-1 row-span-2">{bScore === -2 ? "Roll Banker's dice" : pointChecker(bScore, "Banker")}</h3>
 
-						<div className="box row-start-3 row-span-2">
+						<div className="diceContainer row-start-3 row-span-2">
 							<h2>Player</h2>
-							<div>
-								<Dice
-									onRoll={(value) => {
-										setPDie_1(value)
-										gameResult(bScore, pScore);
-									}}
-									size={85}
-									ref={pRef1}
-									cheatValue={1}
-									disabled={pDie_1 !== null || pBet <= 0} />
-								<Dice
-									onRoll={(value) => {
-										setPDie_2(value)
-										gameResult(bScore, pScore);
-									}}
-									size={85}
-									ref={pRef2}
-									cheatValue={1}
-									disabled={pDie_2 !== null || pBet <= 0} />
-								<Dice
-									onRoll={(value) => {
-										setPDie_3(value)
-										gameResult(bScore, pScore);
-									}}
-									size={85}
-									ref={pRef3}
-									cheatValue={3}
-									disabled={pDie_3 !== null || pBet <= 0} />
+							<div className="flex justify-center space-x-3">
+								<div className="item w-32 h-32">
+									<Dice
+										onRoll={(value) => {
+											setPDie_1(value)
+											gameResult(bScore, pScore);
+										}}
+										size={85}
+										ref={pRef1}
+										cheatValue={1}
+										disabled={pDie_1 !== null || pBet <= 0} />
+								</div>
+								<div className="item w-32 h-32">
+									<Dice
+										onRoll={(value) => {
+											setPDie_2(value)
+											gameResult(bScore, pScore);
+										}}
+										size={85}
+										ref={pRef2}
+										cheatValue={1}
+										disabled={pDie_2 !== null || pBet <= 0} />
+								</div>
+								<div className="item w-32 h-32">
+									<Dice
+										onRoll={(value) => {
+											setPDie_3(value)
+											gameResult(bScore, pScore);
+										}}
+										size={85}
+										ref={pRef3}
+										cheatValue={3}
+										disabled={pDie_3 !== null || pBet <= 0} />
+								</div>
 							</div>
 						</div>
 
-						<h3 className="box row-span-2">{pointChecker(pScore, "Player")}</h3>
+						<h3 className="diceResult row-span-2">{pointChecker(pScore, "Player")}</h3>
 					</div>
 				</div>
 				<div className="box row-start-2 row-span-1 col-start-1 col-end-3">
@@ -349,47 +355,29 @@ const Round = () => {
 					</div>
 				</div>
 				<div className="box row-start-1 row-span-1 col-start-2 col-end-3">
-					<div className="grid grid-cols-2 grid-rows-2 gap-2 w-auto h-auto">
-						<h2>Betting</h2>
-						<div className="box row-start-1 row-span-2">
-							<h3>Banker</h3>
-							<div className="grid grid-cols-2 grid-rows-2 gap-2 w-auto h-auto">
-								<div className="box row-start-1 row-span-2">
-									<h4>Bet</h4>
-									<input
-										type="number"
-										value={pBet}
-										onChange={(e) => {
-											setPBet(e.target.value)
-										}}
-										min="0"
-										max="100"
-										step="1"
-										disabled={pBet > 0} />
-								</div>
-								<div className="box row-start-1 row-span-2">
-									<h4>Betting</h4>
-									<button
-										className="button"
-										onClick={() => {
-											setPBet(pBet + 1)
-										}}
-										disabled={pBet > 0}>
-										+
-									</button>
-									<button
-										className="button"
-										onClick={() => {
-											setPBet(pBet - 1)
-										}}
-										disabled={pBet <= 0}>
-										-
-									</button>
-								</div>
-							</div>
+					<div className="flex flex-col items-center">
+						<div className="item">UserName</div>
+						<div className="item">Tokens: 1000</div>
+						<div className="item">Bet: ____50____ Tokens</div>
+						<div className="item">
+							<form id="test" onSubmit={submitBet1} className={styles.makeBet}>
+								<label>
+									Bet:
+									<input type="number" name="bet" />
+								</label>
+							</form>
 						</div>
-					</div>
+						<button form="test" className={styles.betButton}>
+							BET
+						</button>
 
+						<div className="">GAME RESULT</div>
+						<div className="">HOTKEYS</div>
+						<div className="">SPACE: bet</div>
+						<div className="">E: halve bet</div>
+						<div className="">R: double bet</div>
+						<div className="">D: roll dice</div>
+					</div>
 				</div>
 				<div className="box row-start-1 row-span-2 col-start-3 col-end-4">
 					<table className="w-full shadow-md">
@@ -548,7 +536,7 @@ const Round = () => {
 							</tr>
 						</tbody>
 					</table>
-					add feature to get more coins/ads/something? here
+					add feature to get more coins/ads/captcha/something? here
 				</div>
 			</div>
 		</div>
