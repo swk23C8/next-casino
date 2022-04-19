@@ -13,7 +13,6 @@ export async function getServerSideProps() {
    // Pass the data to the Home page
    return {
       props: {
-         homes: JSON.parse(JSON.stringify(homes)),
          stats: JSON.parse(JSON.stringify(stats)),
       },
    };

@@ -79,7 +79,7 @@ const Layout = ({ children = null }) => {
 
               {/* display buttons to other pages*/}
               <div className="flex items-center space-x-10">
-                <Link href="/cee_lo">
+                <Link href="/cee-lo">
                   <a className="flex items-center space-x-1">
                     <PuzzleIcon className="shrink-0 w-8 h-8 text-rose-500" />
                     <span className="text-xl font-semibold tracking-wide">
