@@ -56,10 +56,10 @@ const Layout = ({ children = null }) => {
   return (
     <>
       <Head>
-        <title>SupaVacation | The Modern Dev</title>
+        <title>Next-Casino | The Modern Casino</title>
         <meta
           name="title"
-          content="Learn how to Build a Fullstack App with Next.js, PlanetScale & Prisma | The Modern Dev"
+          content="Play Casino Games for Free | The Modern Casino"
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -203,7 +203,7 @@ const Layout = ({ children = null }) => {
         </header>
 
         <main className="flex-grow container mx-auto">
-          <div className="px-4 py-12">
+          <div className="px-5 py-5">
             {typeof children === 'function' ? children(openModal) : children}
           </div>
         </main>

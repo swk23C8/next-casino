@@ -249,9 +249,9 @@ const Round = () => {
 	}, [bDie_1, bDie_2, bDie_3, bScore, pDie_1, pDie_2, pDie_3, pScore]);
 
 	return (
-		<div className="min-h-screen flex flex-col">
-			<div className="grid grid-cols-3 grid-rows-2 gap-2 w-auto h-auto">
-				<div className="box">
+		<div className="max-h-screen flex flex-col">
+			<div className="grid min-h-max it grid-cols-3 grid-rows-2 gap-2 w-auto h-auto">
+				<div className="box row-start-1 row-span-1">
 					<div className="grid overflow-hidden grid-cols-2 grid-rows-4 gap-2 w-auto h-auto">
 						<div className="box row-start-1 row-span-2">
 							<h2> Banker</h2>
@@ -303,7 +303,6 @@ const Round = () => {
 									ref={pRef1}
 									cheatValue={1}
 									disabled={pDie_1 !== null || pBet <= 0} />
-
 								<Dice
 									onRoll={(value) => {
 										setPDie_2(value)
@@ -313,7 +312,6 @@ const Round = () => {
 									ref={pRef2}
 									cheatValue={1}
 									disabled={pDie_2 !== null || pBet <= 0} />
-
 								<Dice
 									onRoll={(value) => {
 										setPDie_3(value)
@@ -329,10 +327,28 @@ const Round = () => {
 						<h3 className="box row-span-2">{pointChecker(pScore, "Player")}</h3>
 					</div>
 				</div>
-				<div className="box col-end-2">
-					2nd box
+				<div className="box row-start-2 row-span-1 col-start-1 col-end-3">
+					<div className="grid overflow-hidden grid-cols-12 grid-rows-6 gap-1">
+						<div className="box2 row-start-1 row-span-1 col-start-1 col-span-12">1</div>
+						<div className="box2 row-start-2 row-span-3 col-start-1 col-span-1">2</div>
+						<div className="box2 row-start-5 row-span-3 col-start-1 col-span-1">3</div>
+						<div className="box2 row-start-2 row-span-6 col-start-2 col-span-11">4</div>
+						<div className="box2 row-start-8 row-span-1 col-start-1 col-span-11">5</div>
+						<div className="box2 row-start-8 row-span-1 col-start-12 col-span-1">6</div>
+					</div>
+					<div className="grid overflow-hidden grid-cols-12 grid-rows-6 gap-1">
+						<div className="box2 row-start-1 row-span-1 col-start-1 col-span-12">1</div>
+						<div className="box2 row-start-2 row-span-3 col-start-1 col-span-1">2</div>
+						<div className="box2 row-start-5 row-span-3 col-start-1 col-span-1">3</div>
+						<div className="box2 row-start-2 row-span-6 col-start-2 col-span-11">4</div>
+						<div className="box2 row-start-8 row-span-1 col-start-1 col-span-11">5</div>
+						<div className="box2 row-start-8 row-span-1 col-start-12 col-span-1">6</div>
+					</div>
+					<div className="grid overflow-hidden grid-cols-12 grid-rows-3 gap-1">
+						<div className="box2 row-start-2 row-span-3 col-start-1 col-span-1">2</div>
+					</div>
 				</div>
-				<div className="box row-start-1 row-span-2 col-start-2 col-end-3">
+				<div className="box row-start-1 row-span-1 col-start-2 col-end-3">
 					<div className="grid grid-cols-2 grid-rows-2 gap-2 w-auto h-auto">
 						<h2>Betting</h2>
 						<div className="box row-start-1 row-span-2">
@@ -376,17 +392,19 @@ const Round = () => {
 
 				</div>
 				<div className="box row-start-1 row-span-2 col-start-3 col-end-4">
-					<table>
+					<table className="w-full shadow-md">
 						<thead>
-							<th>Name</th>
-							<th>Example</th>
-							<th>Outcome</th>
-							<th>Comment</th>
+							<tr>
+								<th className="bg-blue-700 text-white p-1 w-auto">Name</th>
+								<th className="bg-blue-700 text-white p-1 w-auto">Example</th>
+								<th className="bg-blue-700 text-white p-1 w-auto">Outcome</th>
+								<th className="bg-blue-700 text-white p-1 w-auto">Comment</th>
+							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>Triple</td>
-								<td>
+							<tr className="bg-blue-100 text-black">
+								<td className="">Triple</td>
+								<td className="">
 									<Image
 										src="https://cdn-icons-png.flaticon.com/512/142/142306.png"
 										alt="Die_face_6b"
@@ -409,13 +427,12 @@ const Round = () => {
 										height={35}
 									/>
 								</td>
-								<td>WIN</td>
-								<td rowSpan={1} colSpan={1}>All three dice show the same number.<br /> 6-6-6 is the highest roll,<br />5-5-5 is the next highest, etc.<br />Any triple is an instant win.</td>
+								<td className="">WIN</td>
+								<td className="">All three dice show the same number.<br /> 6-6-6 is the highest roll,<br />5-5-5 is the next highest, etc.<br />Any triple is an instant win.</td>
 							</tr>
-
-							<tr>
-								<td>4-5-6</td>
-								<td>
+							<tr className="bg-blue-200 text-black">
+								<td className="">4-5-6</td>
+								<td className="">
 									<Image
 										src="https://cdn-icons-png.flaticon.com/512/142/142304.png"
 										alt="Die_face_6b"
@@ -438,13 +455,12 @@ const Round = () => {
 										height={35}
 									/>
 								</td>
-								<td>WIN</td>
-								<td>Sequential 4-5-6;<br /> this is an instant win.</td>
+								<td className="">WIN</td>
+								<td className="">Sequential 4-5-6;<br /> this is an instant win.</td>
 							</tr>
-
-							<tr>
-								<td rowSpan={1} colSpan={1}>Points</td>
-								<td>
+							<tr className="bg-blue-100 text-black">
+								<td className="">Points</td>
+								<td className="">
 									<Image
 										src="https://cdn-icons-png.flaticon.com/512/142/142304.png"
 										alt="Die_face_6b"
@@ -467,13 +483,14 @@ const Round = () => {
 										height={35}
 									/>
 								</td>
-								<td>n points</td>
-								<td>One pair plus any other value; the odd die is the point value. Possible point values range from 2 to 5<br />When the point value is 6, it is an instant win; When the point value is 1, it is an instant loss.</td>
+								<td className="">n points</td>
+								<td className="">
+									One pair plus any other value;<br /> the odd die is the point value.<br /> Possible point values range from 2 to 5<br />When the point value is 6, it is an instant win; <br />When the point value is 1, it is an instant loss.
+								</td>
 							</tr>
-
-							<tr>
-								<td>1-2-3</td>
-								<td>
+							<tr className="bg-blue-200 text-black">
+								<td className="">1-2-3</td>
+								<td className="">
 									<Image
 										src="https://cdn-icons-png.flaticon.com/512/142/142301.png"
 										alt="Die_face_6b"
@@ -496,13 +513,12 @@ const Round = () => {
 										height={35}
 									/>
 								</td>
-								<td>LOSE</td>
-								<td>Sequential 1-2-3;<br /> this is an instant loss.</td>
+								<td className="">LOSE</td>
+								<td className="">Sequential 1-2-3;<br /> this is an instant loss.</td>
 							</tr>
-
-							<tr>
-								<td>Indeterminate</td>
-								<td>
+							<tr className="bg-blue-100 text-black">
+								<td className="">Indeterminate</td>
+								<td className="">
 									<Image
 										src="https://cdn-icons-png.flaticon.com/512/142/142303.png"
 										alt="Die_face_6b"
@@ -525,11 +541,14 @@ const Round = () => {
 										height={35}
 									/>
 								</td>
-								<td>Re-roll</td>
-								<td>Any combination that does not result in a triple, sequential, or points is an indeterminate outcome and requires a re-roll.</td>
+								<td className="">Re-Roll</td>
+								<td className="">
+									Any combination that does not result in a <br />triple, sequential, or points is an <br />indeterminate outcome and requires a re-roll.
+								</td>
 							</tr>
 						</tbody>
 					</table>
+					add feature to get more coins/ads/something? here
 				</div>
 			</div>
 		</div>
