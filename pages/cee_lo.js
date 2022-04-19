@@ -1,16 +1,16 @@
 import Head from 'next/head';
-
-import GamePage from '../components/Game2/GamePage/GamePage';
+import Layout from '@/components/Layout';
+import Round from '@/components/Game2/Round/Round';
 
 const Game = () => {
   return (
-    <>
+    <Layout>
       <Head>
         <title>Cee-Lo | Game</title>
         <meta name="description" content="Game page" />
       </Head>
-      <GamePage />
-    </>
+      <Round />
+    </Layout>
   );
 };
 

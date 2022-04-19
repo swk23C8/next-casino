@@ -380,8 +380,6 @@ const Round = () => {
 			{console.log("4-5-6 instant win: " + score([4, 5, 6]))}
 			{console.log("5-5-1 instant loss: " + score([5, 5, 1]))}
 			{console.log("2-2-1 instant loss: " + score([2, 2, 1]))} */}
-			<h1 className={styles.title}> Cee-Lo: New Yorker&apos;s favorite dice game</h1>
-
 			<div className={styles.game}>
 				<h2 className={styles.Buser}> Banker</h2>
 				<div className={styles.Bdie1}>
