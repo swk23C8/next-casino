@@ -5,11 +5,11 @@ import { useEffect, useState, useReducer, useCallback, Component, useRef, useMem
 import Image from 'next/image'
 import Dice from "react-dice-roll";
 import styles from './Round.module.scss';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 
-const Round = () => {
+const Round = ({ stats = [] }) => {
+	const [userStats, setUserStats] = useState(stats);
+
 	// Banker useStates
 	const [bDie_1, setBDie_1] = useState(null);
 	const [bDie_2, setBDie_2] = useState(null);
@@ -356,13 +356,12 @@ const Round = () => {
 				</div>
 				<div className="box row-start-1 row-span-1 col-start-2 col-end-3">
 					<div className="flex flex-col items-center">
-						<div className="item">UserName</div>
-						<div className="item">Tokens: 1000</div>
-						<div className="item">Bet: ____50____ Tokens</div>
+						<div className="item">ID: {stats.id}</div>
+						<div className="item">Tokens: {stats.gameTokens}</div>
 						<div className="item">
 							<form id="test" onSubmit={submitBet1} className={styles.makeBet}>
 								<label>
-									Bet:
+									Bet Amount:
 									<input type="number" name="bet" />
 								</label>
 							</form>
