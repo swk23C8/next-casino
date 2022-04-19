@@ -40,15 +40,16 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String      @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?     @unique
   emailVerified DateTime?
   image         String?
   gameTokens    Int?
   accounts      Account[]
   sessions      Session[]
   listedHomes   Home[]
+  gameState     GameState[]
 }
 
 model VerificationToken {
@@ -72,4 +73,20 @@ model Home {
   updatedAt   DateTime @updatedAt
   owner       User     @relation(fields: [ownerId], references: [id])
   ownerId     String
+}
+
+model GameState {
+  id     String @id @default(cuid())
+  bDie_1 String
+  bDie_2 String
+  bDie_3 String
+  bScore Int
+  pDie_1 String
+  pDie_2 String
+  pDie_3 String
+  pScore Int
+  result String
+
+  User   User?   @relation(fields: [userId], references: [id])
+  userId String?
 }

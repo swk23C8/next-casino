@@ -7,6 +7,7 @@ import { prisma } from '@/lib/prisma';
 import { useState } from 'react';
 
 
+
 export async function getServerSideProps(context) {
   const session = await getSession(context);
   const redirect = {
@@ -34,6 +35,7 @@ export async function getServerSideProps(context) {
 }
 
 const Game = ({ stats = [] }) => {
+  
   const [userStats, setUserStats] = useState(stats);
 
   return (

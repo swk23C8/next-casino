@@ -2,6 +2,8 @@ import Layout from '@/components/Layout';
 import Grid from '@/components/Grid';
 import { prisma } from '@/lib/prisma';
 
+
+
 export async function getServerSideProps() {
    // Get all homes
    const homes = await prisma.home.findMany();
