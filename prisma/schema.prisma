@@ -46,7 +46,7 @@ model User {
   email         String?     @unique
   emailVerified DateTime?
   image         String?
-  gameTokens    Int?
+  gameTokens    Int?        @default(1000)
   createdAt     DateTime    @default(now())
   accounts      Account[]
   sessions      Session[]
