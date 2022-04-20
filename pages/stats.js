@@ -56,26 +56,44 @@ export default function Stat({ stats = [] }) {
 			<div className="mt-8">
 				{/* <Grid homes={homes} /> */}
 				<Table stats={userStats} />
-				{/* button to increase stats.gameTokens by 10 */}
-				<button
-					className="bg-green-600 text-white py-2 px-6 rounded-md focus:outline-none focus:ring-4 focus:ring-green-600 focus:ring-opacity-50 hover:bg-green-500 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-green-600"
-					onClick={() => {
-						// console.log("stats.gameTokens ", stats.gameTokens);
-						addTokens({ gameTokens: 10 });
-					}}
-				>
-					INCREASE 10 Tokens
-				</button>
-				{/* button to decrease stats.gameTokens by 10 */}
-				<button
-					className="bg-green-600 text-white py-2 px-6 rounded-md focus:outline-none focus:ring-4 focus:ring-green-600 focus:ring-opacity-50 hover:bg-green-500 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-green-600"
-					onClick={() => {
-						// console.log("stats.gameTokens ", stats.gameTokens);
-						addTokens({ gameTokens: -10 });
-					}}
-				>
-					DECREASE 10 Tokens
-				</button>
+
+				{userStats.userType === 'admin' ? (
+					<>
+						<button
+							className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-1"
+							onClick={() => addTokens({ gameTokens: 100 })}
+						>
+							+ 100 Tokens
+						</button>
+						<button
+							className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-1"
+							onClick={() => addTokens({ gameTokens: -100 })}
+						>
+							- 100 Tokens
+						</button>
+						<button
+							className="bg-green-600 text-white py-2 px-6 rounded-md focus:outline-none focus:ring-4 focus:ring-green-600 focus:ring-opacity-50 hover:bg-green-500 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-green-600 mx-1"
+							onClick={() => {
+								// console.log("stats.gameTokens ", stats.gameTokens);
+								addTokens({ gameTokens: 10 });
+							}}
+						>
+							+ 10 Tokens
+						</button>
+						{/* button to decrease stats.gameTokens by 10 */}
+						<button
+							className="bg-green-600 text-white py-2 px-6 rounded-md focus:outline-none focus:ring-4 focus:ring-green-600 focus:ring-opacity-50 hover:bg-green-500 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-green-600 mx-1"
+							onClick={() => {
+								// console.log("stats.gameTokens ", stats.gameTokens);
+								addTokens({ gameTokens: -10 });
+							}}
+						>
+							- 10 Tokens
+						</button>
+					</>
+				) : (
+					<div>You are not an admin!</div>
+				)}
 			</div>
 		</Layout>
 	);
