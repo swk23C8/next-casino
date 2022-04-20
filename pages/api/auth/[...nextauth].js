@@ -65,74 +65,75 @@ const sendVerificationRequest = async ({ identifier, url }) => {
     console.log(`❌ Unable to send sign-in magic email to user (${email})`);
     console.log(error);
   };
+}
 
-  // const sendWelcomeEmail = async ({ user }) => {
-  //   const { email } = user;
+// const sendWelcomeEmail = async ({ user }) => {
+//   const { email } = user;
 
-  //   try {
-  //     const emailFile = readFileSync(path.join(emailsDir, 'welcome.html'), {
-  //       encoding: 'utf8',
-  //     });
-  //     const emailTemplate = Handlebars.compile(emailFile);
-  //     await transporter.sendMail({
-  //       from: `"✨ Next-Casino" ${process.env.EMAIL_FROM}`,
-  //       to: email,
-  //       subject: 'Welcome to Next-Casino! 🎉',
-  //       html: emailTemplate({
-  //         base_url: process.env.NEXTAUTH_URL,
-  //         support_email: 'next-casino@riseup.net',
-  //       }),
-  //     });
-  //   } catch (error) {
-  //     console.log(`❌ Unable to send welcome email to user (${email})`);
-  //   }
-  // };
+//   try {
+//     const emailFile = readFileSync(path.join(emailsDir, 'welcome.html'), {
+//       encoding: 'utf8',
+//     });
+//     const emailTemplate = Handlebars.compile(emailFile);
+//     await transporter.sendMail({
+//       from: `"✨ Next-Casino" ${process.env.EMAIL_FROM}`,
+//       to: email,
+//       subject: 'Welcome to Next-Casino! 🎉',
+//       html: emailTemplate({
+//         base_url: process.env.NEXTAUTH_URL,
+//         support_email: 'next-casino@riseup.net',
+//       }),
+//     });
+//   } catch (error) {
+//     console.log(`❌ Unable to send welcome email to user (${email})`);
+//   }
+// };
 
-  const sendWelcomeEmail = async ({ user }) => {
-    const { email } = user;
+const sendWelcomeEmail = async ({ user }) => {
+  const { email } = user;
 
-    try {
-      const emailFile = readFileSync(path.join(emailsDir, 'welcome.html'), {
-        encoding: 'utf8',
-      });
-      const emailTemplate = Handlebars.compile(emailFile);
-      await sendgrid.send({
-        to: email,
-        // from: `"✨ Next-Casino" ${process.env.EMAIL_FROM}`,
-        from: {
-          email: "next-casino-no-reply@riseup.net",
-          name: "✨ Next-Casino"
-        },
-        subject: 'Welcome to Next-Casino! 🎉',
-        html: emailTemplate({
-          base_url: process.env.NEXTAUTH_URL,
-          support_email: 'next-casino@riseup.net',
-        }),
-      });
-    } catch (error) {
-      console.log(`❌ Unable to send welcome email to user (${email})`);
-      console.log(error);
-    }
-  };
-
-  export default NextAuth({
-    pages: {
-      signIn: '/',
-      signOut: '/',
-      error: '/',
-      verifyRequest: '/',
-    },
-    providers: [
-      EmailProvider({
-        maxAge: 10 * 60,
-        sendVerificationRequest,
+  try {
+    const emailFile = readFileSync(path.join(emailsDir, 'welcome.html'), {
+      encoding: 'utf8',
+    });
+    const emailTemplate = Handlebars.compile(emailFile);
+    await sendgrid.send({
+      to: email,
+      // from: `"✨ Next-Casino" ${process.env.EMAIL_FROM}`,
+      from: {
+        email: "next-casino-no-reply@riseup.net",
+        name: "✨ Next-Casino"
+      },
+      subject: 'Welcome to Next-Casino! 🎉',
+      html: emailTemplate({
+        base_url: process.env.NEXTAUTH_URL,
+        support_email: 'next-casino@riseup.net',
       }),
-      GoogleProvider({
-        clientId: process.env.GOOGLE_ID,
-        clientSecret: process.env.GOOGLE_SECRET,
-      }),
-    ],
-    secret: process.env.NEXTAUTH_SECRET,
-    adapter: PrismaAdapter(prisma),
-    events: { createUser: sendWelcomeEmail },
-  });
+    });
+  } catch (error) {
+    console.log(`❌ Unable to send welcome email to user (${email})`);
+    console.log(error);
+  }
+};
+
+export default NextAuth({
+  pages: {
+    signIn: '/',
+    signOut: '/',
+    error: '/',
+    verifyRequest: '/',
+  },
+  providers: [
+    EmailProvider({
+      maxAge: 10 * 60,
+      sendVerificationRequest,
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_ID,
+      clientSecret: process.env.GOOGLE_SECRET,
+    }),
+  ],
+  secret: process.env.NEXTAUTH_SECRET,
+  adapter: PrismaAdapter(prisma),
+  events: { createUser: sendWelcomeEmail },
+});
