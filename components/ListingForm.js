@@ -97,8 +97,8 @@ const ListingForm = ({
                      <Input
                         name="title"
                         type="text"
-                        label="Title"
-                        placeholder="Entire rental unit - Amsterdam"
+                        label="User ID"
+                        placeholder="Current User ID: JohnDoe123"
                         disabled={disabled}
                      />
 
@@ -106,7 +106,7 @@ const ListingForm = ({
                         name="description"
                         type="textarea"
                         label="Description"
-                        placeholder="Very charming and modern apartment in Amsterdam..."
+                        placeholder="Some Description Here..."
                         disabled={disabled}
                         rows={5}
                      />
@@ -115,7 +115,7 @@ const ListingForm = ({
                         name="price"
                         type="number"
                         min="0"
-                        label="Price per night"
+                        label="Some Setting 1"
                         placeholder="100"
                         disabled={disabled}
                      />
@@ -125,7 +125,7 @@ const ListingForm = ({
                            name="guests"
                            type="number"
                            min="0"
-                           label="Guests"
+                           label="Some Setting 2"
                            placeholder="2"
                            disabled={disabled}
                         />
@@ -133,7 +133,7 @@ const ListingForm = ({
                            name="beds"
                            type="number"
                            min="0"
-                           label="Beds"
+                           label="Some Setting 3"
                            placeholder="1"
                            disabled={disabled}
                         />
@@ -141,7 +141,7 @@ const ListingForm = ({
                            name="baths"
                            type="number"
                            min="0"
-                           label="Baths"
+                           label="Some Setting 3"
                            placeholder="1"
                            disabled={disabled}
                         />

@@ -34,7 +34,7 @@ const Create = () => {
         </p>
         <div className="mt-8">
           <ListingForm
-            buttonText="Add home"
+            buttonText="Update Setting"
             redirectPath="/"
             onSubmit={addHome}
           />
