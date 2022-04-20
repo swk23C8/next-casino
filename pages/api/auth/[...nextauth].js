@@ -8,6 +8,10 @@ import Handlebars from 'handlebars';
 import { readFileSync } from 'fs';
 import path from 'path';
 
+import sendgrid from "@sendgrid/mail";
+sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
+
+
 // Email sender
 const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_SERVER_HOST,
@@ -21,12 +25,29 @@ const transporter = nodemailer.createTransport({
 
 const emailsDir = path.resolve(process.cwd(), 'emails');
 
+// const sendVerificationRequest = ({ identifier, url }) => {
+//   const emailFile = readFileSync(path.join(emailsDir, 'confirm-email.html'), {
+//     encoding: 'utf8',
+//   });
+//   const emailTemplate = Handlebars.compile(emailFile);
+//   transporter.sendMail({
+//     from: `"✨ Next-Casino" ${process.env.EMAIL_FROM}`,
+//     to: identifier,
+//     subject: 'Your sign-in link for Next-Casino',
+//     html: emailTemplate({
+//       base_url: process.env.NEXTAUTH_URL,
+//       signin_url: url,
+//       email: identifier,
+//     }),
+//   });
+// };
+
 const sendVerificationRequest = ({ identifier, url }) => {
   const emailFile = readFileSync(path.join(emailsDir, 'confirm-email.html'), {
     encoding: 'utf8',
   });
   const emailTemplate = Handlebars.compile(emailFile);
-  transporter.sendMail({
+  sendgrid.send({
     from: `"✨ Next-Casino" ${process.env.EMAIL_FROM}`,
     to: identifier,
     subject: 'Your sign-in link for Next-Casino',
@@ -38,6 +59,28 @@ const sendVerificationRequest = ({ identifier, url }) => {
   });
 };
 
+// const sendWelcomeEmail = async ({ user }) => {
+//   const { email } = user;
+
+//   try {
+//     const emailFile = readFileSync(path.join(emailsDir, 'welcome.html'), {
+//       encoding: 'utf8',
+//     });
+//     const emailTemplate = Handlebars.compile(emailFile);
+//     await transporter.sendMail({
+//       from: `"✨ Next-Casino" ${process.env.EMAIL_FROM}`,
+//       to: email,
+//       subject: 'Welcome to Next-Casino! 🎉',
+//       html: emailTemplate({
+//         base_url: process.env.NEXTAUTH_URL,
+//         support_email: 'next-casino@riseup.net',
+//       }),
+//     });
+//   } catch (error) {
+//     console.log(`❌ Unable to send welcome email to user (${email})`);
+//   }
+// };
+
 const sendWelcomeEmail = async ({ user }) => {
   const { email } = user;
 
@@ -46,9 +89,10 @@ const sendWelcomeEmail = async ({ user }) => {
       encoding: 'utf8',
     });
     const emailTemplate = Handlebars.compile(emailFile);
-    await transporter.sendMail({
-      from: `"✨ Next-Casino" ${process.env.EMAIL_FROM}`,
+    await sendgrid.send({
       to: email,
+      // from: `"✨ Next-Casino" ${process.env.EMAIL_FROM}`,
+      from: "next-casino-no-reply@riseup.net",
       subject: 'Welcome to Next-Casino! 🎉',
       html: emailTemplate({
         base_url: process.env.NEXTAUTH_URL,
@@ -57,6 +101,7 @@ const sendWelcomeEmail = async ({ user }) => {
     });
   } catch (error) {
     console.log(`❌ Unable to send welcome email to user (${email})`);
+    console.log(error);
   }
 };
 
