@@ -92,7 +92,10 @@ const sendWelcomeEmail = async ({ user }) => {
     await sendgrid.send({
       to: email,
       // from: `"✨ Next-Casino" ${process.env.EMAIL_FROM}`,
-      from: "next-casino-no-reply@riseup.net",
+      from: {
+        email: "next-casino-no-reply@riseup.net",
+        name: "✨ Next-Casino"
+      },
       subject: 'Welcome to Next-Casino! 🎉',
       html: emailTemplate({
         base_url: process.env.NEXTAUTH_URL,
