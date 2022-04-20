@@ -56,7 +56,7 @@ export default function Stat({ stats = [] }) {
 			<div className="mt-8">
 				{/* <Grid homes={homes} /> */}
 				<Table stats={userStats} />
-				{console.log(userStats)}
+				{/* {console.log(userStats)} */}
 				{userStats.userType === 'admin' ? (
 					<>
 						<button
