@@ -46,6 +46,7 @@ model User {
   emailVerified DateTime?
   image         String?
   gameTokens    Int?
+  createdAt     DateTime    @default(now())
   accounts      Account[]
   sessions      Session[]
   listedHomes   Home[]

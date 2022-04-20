@@ -5,8 +5,6 @@ import { prisma } from '@/lib/prisma';
 
 
 export async function getServerSideProps() {
-   // Get all homes
-   const homes = await prisma.home.findMany();
    // Get current user's stats
    const stats = await prisma.user.findMany(
    );
@@ -18,7 +16,7 @@ export async function getServerSideProps() {
    };
 }
 
-export default function Home({ homes = [], stats = [] }) {
+export default function Home({ stats = [] }) {
    return (
       <Layout>
          <h1 className="text-xl font-medium text-gray-800">

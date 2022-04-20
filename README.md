@@ -1,8 +1,8 @@
 ayo ello
 
-To-Do:
+## TO-DO
 - [ ] fix card component to display list of players correctly
 - [ ] fix round component to use database connection with prisma
 
-Completed:
+## DONE
 - [X] grid design for the game
