@@ -6,3 +6,6 @@ ayo ello
 
 ## DONE
 - [X] grid design for the game
+
+inside scripts
+    // "vercel-build": "prisma generate && prisma migrate deploy && next build"
