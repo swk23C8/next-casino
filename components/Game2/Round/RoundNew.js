@@ -37,213 +37,6 @@ const Round = ({ stats = [] }) => {
 	// testing react-toastify
 	const notify = () => toast(result);
 
-	const submitBet1 = async (event) => {
-		event.preventDefault();
-		const bet = event.target.bet.value;
-		const res = await fetch('/api/makeBet', {
-			body: JSON.stringify({
-				bet: bet,
-			}),
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			method: 'POST',
-		});
-		const result = await res.json();
-		setPBet(Number(result.bet));
-		console.log(`You bet: ${result.bet}`);
-		console.log(result.bet);
-		handleBankerDiceStart();
-	};
-
-
-	const submitBet2 = (event) => {
-		const bet = event.target.bet.value;
-		console.log("bet: ", bet);
-	}
-
-
-	const score = (dice) => {
-		dice.sort();
-		if (dice[0] === null || dice[1] === null || dice[2] === null) {
-			return -2;
-		}
-		if (dice[0] === dice[1] && dice[1] === dice[2]) return 10;
-		if (dice.join() === "4,5,6") return 10;
-		if (dice.join() === "1,2,3") return -1;
-		if (dice[0] !== dice[1] && dice[1] !== dice[2] && dice[1] !== dice[3]) return 0;
-		if (dice[0] === dice[1] || dice[1] === dice[2] || dice[1] === dice[3]) {
-			const pointDie = dice[0] === dice[1] ? dice[2] : dice[0];
-			return pointDie === 1 ? -1 : pointDie === 6 ? 10 : pointDie;
-		}
-	}
-
-	const pointChecker = (score, currentPlayer) => {
-		// check if die values are null
-		if (score === -2) {
-			return "Roll " + currentPlayer + "'s dice";
-		}
-		if (score === 10) {
-			return "INSTANT WIN";
-		}
-		if (score === -1) {
-			return "INSTANT LOSS";
-		}
-		if (score === 0) {
-			// return "INDETERMINATE: ROLL AGAIN!";
-			return "Roll " + currentPlayer + "'s dice";
-		}
-		return "score: " + score;
-
-	}
-
-	// reset round after round is finished
-	const resetRound = () => {
-		setBDie_1(null);
-		setBDie_2(null);
-		setBDie_3(null);
-		setBScore(null);
-		setPDie_1(null);
-		setPDie_2(null);
-		setPDie_3(null);
-		setPScore(null);
-		setPRoll(false);
-		// setPMoney(1000);
-		setPBet(0);
-		setResult(null);
-		setIsRoundStarted(true);
-		setRoundCount(roundCount + 1);
-		setShowRoundStatistic(false);
-	}
-
-	// game result finder
-	const gameResult = () => {
-		console.log(pMoney);
-		console.log(pBet);
-		if (bScoreRef.current === 10) {
-			setResult("BANKER WINS");
-			return "BANKER WINS";
-		}
-		else if (pScoreRef.current === 10) {
-			setResult("PLAYER WINS");
-			return "PLAYER WINS";
-		}
-		else if (pScoreRef.current === -2) {
-			setResult("Please roll your dice!");
-			return "Please roll your dice!";
-		}
-		else if (bScoreRef.current === pScoreRef.current) {
-			setResult("PUSH");
-			return "PUSH";
-		}
-		else if (bScoreRef.current > pScoreRef.current) {
-			setResult("BANKER WINS");
-			console.log(pMoney - pBet);
-
-			setPMoney(currentMoney => currentMoney - pBet);
-			return "BANKER WINS";
-		}
-		else if (bScoreRef.current < pScoreRef.current) {
-			setResult("PLAYER WINS");
-			console.log(pMoney + pBet);
-			console.log(typeof pMoney);
-			console.log(typeof pBet);
-			setPMoney(currentMoney => currentMoney + pBet);
-			return "PLAYER WINS";
-		}
-		else {
-			setResult("Please place a bet!");
-			return "Please place a bet!";
-		}
-	}
-
-	const bRef1 = useRef();
-	const bRef2 = useRef();
-	const bRef3 = useRef();
-	const bIntervalID = useRef();
-	const bScoreRef = useRef(bScore);
-
-	const pRef1 = useRef();
-	const pRef2 = useRef();
-	const pRef3 = useRef();
-	const pIntervalID = useRef();
-	const pScoreRef = useRef(pScore);
-	// const pMoneyRef = useRef(pMoney);
-
-
-	const handleBankerDiceStart = () => {
-		console.log("testing case: " + bScoreRef.current)
-		if (bScoreRef.current === null || bScoreRef.current === -2 || bScoreRef.current === 0) {
-			bIntervalID.current = setInterval(() => {
-				// setBScore(score([bDie_1, bDie_2, bDie_3]))
-				if (bScoreRef.current !== null && bScoreRef.current !== -2 && bScoreRef.current !== 0) {
-					console.log("stop dice case: " + bScoreRef.current)
-					console.log("current banker: " + bScoreRef.current)
-					console.log("current player: " + pScoreRef.current)
-					// setBScore(score([bDie_1, bDie_2, bDie_3]))
-					gameResult(bScore.current, pScore.current);
-					clearInterval(bIntervalID.current);
-					return;
-				}
-				console.log("roll dice case: " + bScoreRef.current)
-				bRef1.current.rollDice();
-				bRef2.current.rollDice();
-				bRef3.current.rollDice();
-
-			}, 2000);
-		}
-		else {
-			console.log("dice not rolling as condition is false")
-		}
-	}
-
-	const handlePlayerDiceStart = () => {
-		if (pScoreRef.current === null || pScoreRef.current === -2 || pScoreRef.current === 0) {
-			pIntervalID.current = setInterval(() => {
-				if (pScoreRef.current !== null && pScoreRef.current !== -2 && pScoreRef.current !== 0) {
-					setPScore(score([pDie_1, pDie_2, pDie_3]))
-					gameResult(bScore.current, pScore.current);
-					clearInterval(pIntervalID.current);
-					resetRound();
-					return;
-				}
-				pRef1.current.rollDice();
-				pRef2.current.rollDice();
-				pRef3.current.rollDice();
-			}, 2000);
-		}
-		else {
-			console.log("dice not rolling as condition is false")
-		}
-	}
-
-	// logic for banker score ref
-	useEffect(() => {
-		bScoreRef.current = bScore;
-	}, [bScore]);
-
-	// logic for player score ref
-	useEffect(() => {
-		pScoreRef.current = pScore;
-	}, [pScore]);
-
-
-	useEffect(() => {
-		if (bScore === 10) {
-			setResult("BANKER WINS");
-			setPDie_1(1);
-			setPDie_2(2);
-			setPDie_3(3);
-		}
-
-		setBScore(score([bDie_1, bDie_2, bDie_3]))
-		setPScore(score([pDie_1, pDie_2, pDie_3]))
-		// bScoreRef.current = bScore;
-		console.log("useEffect current bScore on render: " + bScore);
-		console.log("useEffect current pScore on render: " + pScore);
-
-	}, [bDie_1, bDie_2, bDie_3, bScore, pDie_1, pDie_2, pDie_3, pScore]);
-
 	return (
 		<div className="max-h-screen flex flex-col">
 			<div className="grid min-h-max it grid-cols-3 grid-rows-2 gap-2 w-auto h-auto">
@@ -260,7 +53,7 @@ const Round = ({ stats = [] }) => {
 										}}
 										size={85}
 										cheatValue={1}
-										ref={bRef1}
+										// ref={bRef1}
 										// disabled={bDie_1 !== null} />
 										disabled={true} />
 								</div>
@@ -271,7 +64,7 @@ const Round = ({ stats = [] }) => {
 										}}
 										size={85}
 										cheatValue={1}
-										ref={bRef2}
+										// ref={bRef2}
 										// disabled={bDie_2 !== null} />
 										disabled={true} />
 								</div>
@@ -282,14 +75,14 @@ const Round = ({ stats = [] }) => {
 										}}
 										size={85}
 										cheatValue={2}
-										ref={bRef3}
+										// ref={bRef3}
 										// disabled={bDie_3 !== null} />
 										disabled={true} />
 								</div>
 							</div>
 						</div>
 
-						<h3 className="diceResult row-start-1 row-span-2">{bScore === -2 ? "Roll Banker's dice" : pointChecker(bScore, "Banker")}</h3>
+						<h3 className="diceResult row-start-1 row-span-2">{bScore === -2 ? "Roll Banker's dice" : "some point"}</h3>
 
 						<div className="diceContainer row-start-3 row-span-2">
 							<h2>Player</h2>
@@ -301,7 +94,7 @@ const Round = ({ stats = [] }) => {
 											gameResult(bScore, pScore);
 										}}
 										size={85}
-										ref={pRef1}
+										// ref={pRef1}
 										cheatValue={1}
 										disabled={pDie_1 !== null || pBet <= 0} />
 								</div>
@@ -312,7 +105,7 @@ const Round = ({ stats = [] }) => {
 											gameResult(bScore, pScore);
 										}}
 										size={85}
-										ref={pRef2}
+										// ref={pRef2}
 										cheatValue={1}
 										disabled={pDie_2 !== null || pBet <= 0} />
 								</div>
@@ -323,14 +116,14 @@ const Round = ({ stats = [] }) => {
 											gameResult(bScore, pScore);
 										}}
 										size={85}
-										ref={pRef3}
+										// ref={pRef3}
 										cheatValue={3}
 										disabled={pDie_3 !== null || pBet <= 0} />
 								</div>
 							</div>
 						</div>
 
-						<h3 className="diceResult row-span-2">{pointChecker(pScore, "Player")}</h3>
+						<h3 className="diceResult row-span-2">{"some point"}</h3>
 					</div>
 				</div>
 				<div className="box row-start-2 row-span-1 col-start-1 col-end-3">
@@ -356,10 +149,12 @@ const Round = ({ stats = [] }) => {
 				</div>
 				<div className="box row-start-1 row-span-1 col-start-2 col-end-3">
 					<div className="flex flex-col items-center">
-						<div className="item">ID: {stats.id}</div>
-						<div className="item">Tokens: {stats.gameTokens}</div>
+						<div className="item">ID: {userStats.id}</div>
+						<div className="item">Tokens: {userStats.gameTokens}</div>
 						<div className="item">
-							<form id="test" onSubmit={submitBet1} className={styles.makeBet}>
+							<form id="test"
+								// onSubmit={submitBet1}
+								className={styles.makeBet}>
 								<label>
 									Bet Amount:
 									<input type="number" name="bet" />

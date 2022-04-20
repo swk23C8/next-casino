@@ -26,17 +26,28 @@ export async function getServerSideProps(context) {
   const stats = await prisma.user.findUnique({
     where: { email: session.user.email },
   });
+
+  // Retrive the user's game state
+  const game = await prisma.gameState.findUnique({
+    where: { User: { id: stats.id } },
+  });
+
+
+
   // Pass the data to the Stats page
   return {
     props: {
       stats: JSON.parse(JSON.stringify(stats)),
+      game: JSON.parse(JSON.stringify(game)),
     },
   };
 }
 
-const Game = ({ stats = [] }) => {
+const Game = ({ stats = [], game = [] }) => {
   
   const [userStats, setUserStats] = useState(stats);
+  const [gameState, setGameState] = useState(game);
+  console.log(gameState);
 
   return (
     <Layout>
