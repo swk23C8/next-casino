@@ -4,6 +4,7 @@ import { prisma } from '@/lib/prisma';
 import axios from 'axios';
 import { getSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
+import { Formik, Form } from 'formik';
 
 export async function getServerSideProps(context) {
 	const session = await getSession(context);
@@ -34,8 +35,9 @@ export async function getServerSideProps(context) {
 export default function Stat({ stats = [] }) {
 	const [userStats, setUserStats] = useState(stats);
 
+	// const handleOnSubmit = data => axios.patch(`/api/users/${stats.id}`, data);
 
-	const addTokens = data => {
+	const handleOnSubmit = data => {
 		let test = axios.patch(`/api/users/${stats.id}`, data);
 		// console log api output
 		test.then(res => {
@@ -61,13 +63,13 @@ export default function Stat({ stats = [] }) {
 					<>
 						<button
 							className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-1"
-							onClick={() => addTokens({ gameTokens: 100 })}
+							onClick={() => handleOnSubmit({ gameTokens: 100 })}
 						>
 							+ 100 Tokens
 						</button>
 						<button
 							className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-1"
-							onClick={() => addTokens({ gameTokens: -100 })}
+							onClick={() => handleOnSubmit({ gameTokens: -100 })}
 						>
 							- 100 Tokens
 						</button>
@@ -75,7 +77,7 @@ export default function Stat({ stats = [] }) {
 							className="bg-green-600 text-white py-2 px-6 rounded-md focus:outline-none focus:ring-4 focus:ring-green-600 focus:ring-opacity-50 hover:bg-green-500 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-green-600 mx-1"
 							onClick={() => {
 								// console.log("stats.gameTokens ", stats.gameTokens);
-								addTokens({ gameTokens: 10 });
+								handleOnSubmit({ gameTokens: 10 });
 							}}
 						>
 							+ 10 Tokens
@@ -85,7 +87,7 @@ export default function Stat({ stats = [] }) {
 							className="bg-green-600 text-white py-2 px-6 rounded-md focus:outline-none focus:ring-4 focus:ring-green-600 focus:ring-opacity-50 hover:bg-green-500 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-green-600 mx-1"
 							onClick={() => {
 								// console.log("stats.gameTokens ", stats.gameTokens);
-								addTokens({ gameTokens: -10 });
+								handleOnSubmit({ gameTokens: -10 });
 							}}
 						>
 							- 10 Tokens
@@ -94,6 +96,154 @@ export default function Stat({ stats = [] }) {
 				) : (
 					<div>You are not an admin!</div>
 				)}
+				{/* add field to edit id */}
+				<Formik
+					initialValues={{
+						id: stats.id,
+						gameTokens: stats.gameTokens,
+						userType: stats.userType,
+						email: stats.email,
+						password: stats.password,
+						createdAt: stats.createdAt,
+						updatedAt: stats.updatedAt,
+					}}
+					onSubmit={(values, { setSubmitting }) => {
+						setSubmitting(true);
+						handleOnSubmit(values);
+						setSubmitting(false);
+					}}
+				>
+					{({ isSubmitting }) => (
+						<Form>
+							<div className="flex flex-wrap -mx-3 mb-6">
+								<div className="w-full px-3">
+									<label
+										className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+										htmlFor="id"
+									>
+										ID
+									</label>
+									<input
+										className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+										id="id"
+										type="text"
+										disabled
+									/>
+
+									<label
+										className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+										htmlFor="gameTokens"
+									>
+										Game Tokens
+									</label>
+									<input
+										className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+										id="gameTokens"
+										type="text"
+										disabled
+									/>
+
+									<label
+										className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+										htmlFor="userType"
+									>
+										User Type
+									</label>
+									<input
+										className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+										id="userType"
+										type="text"
+										disabled
+									/>
+
+									<label
+										className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+										htmlFor="email"
+									>
+										Email
+									</label>
+									<input
+										className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+										id="email"
+										type="text"
+										disabled
+									/>
+
+									<label
+										className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+										htmlFor="password"
+									>
+										Password
+									</label>
+									<input
+										className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+										id="password"
+										type="text"
+										disabled
+									/>
+
+									<label
+										className="block uppercase tracking -wide text-gray-700 text-xs font-bold mb-2"
+										htmlFor="createdAt"
+									>
+										Created At
+									</label>
+									<input
+										className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+										id="createdAt"
+										type="text"
+										disabled
+									/>
+
+									<label
+										className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+										htmlFor="deletedAt"
+									>
+										Deleted At
+									</label>
+									<input
+										className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+										id="deletedAt"
+										type="text"
+										disabled
+									/>
+
+									<div className="flex items-center justify-between">
+										<button
+											className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+											type="button"
+											onClick={() => {
+												history.push('/users');
+											}}
+										>
+											Back
+										</button>
+
+										<button
+											className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+											type="button"
+											onClick={() => {
+												history.push('/users/edit/' + user.id);
+											}}
+										>
+											Edit
+										</button>
+
+										<button
+											className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+											type="button"
+											onClick={() => {
+												deleteUser(user.id);
+											}}
+										>
+											Delete
+										</button>
+									</div>
+								</div>
+							</div>
+						</Form>
+					)}
+				</Formik>
 			</div>
 		</Layout>
 	);

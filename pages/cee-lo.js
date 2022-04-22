@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Layout from '@/components/Layout';
-import Round from '@/components/Game2/Round/RoundNew';
+// import Round from '@/components/Game2/Round/RoundNew';
+import Round from '@/components/Game2/Round/RoundTest';
 
 import { getSession } from 'next-auth/react';
 import { prisma } from '@/lib/prisma';
@@ -29,7 +30,7 @@ export async function getServerSideProps(context) {
 
   // Retrive the user's game state
   const game = await prisma.gameState.findUnique({
-    where: { User: { id: stats.id } },
+    where: { userId: stats.id },
   });
 
 
@@ -44,10 +45,12 @@ export async function getServerSideProps(context) {
 }
 
 const Game = ({ stats = [], game = [] }) => {
-  
+
   const [userStats, setUserStats] = useState(stats);
   const [gameState, setGameState] = useState(game);
-  console.log(gameState);
+  // console.log("pages/cee-lo")
+  // console.log(userStats);
+  // console.log(gameState);
 
   return (
     <Layout>
@@ -55,7 +58,7 @@ const Game = ({ stats = [], game = [] }) => {
         <title>Cee-Lo | Game</title>
         <meta name="description" content="Game page" />
       </Head>
-      <Round stats={userStats} />
+      <Round stats={userStats} gameState={gameState}/>
     </Layout>
   );
 };

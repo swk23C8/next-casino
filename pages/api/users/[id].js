@@ -23,9 +23,11 @@ export default async function handler(req, res) {
 			const user = await prisma.user.update({
 				where: { email: session.user.email },
 				data: {
+					// update gameTokens
 					gameTokens: {
 						increment: req.body.gameTokens,
-					}
+					},
+					// id: req.body.id
 				}
 			});
 			// console.log(user);
