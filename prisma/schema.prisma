@@ -40,7 +40,7 @@ model Session {
 }
 
 model User {
-   id            String     @unique @id @default(cuid())
+   id            String     @id @unique @default(cuid())
    userType      Role       @default(USER)
    name          String?
    email         String?    @unique
@@ -78,7 +78,7 @@ model VerificationToken {
 // }
 
 model GameState {
-   id        String   @unique @id @default(cuid())
+   id        String   @id @unique @default(cuid())
    bDie_1    Int
    bDie_2    Int
    bDie_3    Int
@@ -87,6 +87,7 @@ model GameState {
    pDie_2    Int
    pDie_3    Int
    pScore    Int
+   pBet      Int
    result    String
    createdAt DateTime @default(now())
    updatedAt DateTime @updatedAt

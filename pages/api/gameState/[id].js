@@ -11,7 +11,7 @@ export default async function handler(req, res) {
 	// create new GameState if it doesnt exist, otherwise update it
 	if (req.method === 'PUT') {
 		try {
-			const { bDie_1, bDie_2, bDie_3, bScore, pDie_1, pDie_2, pDie_3, pScore, result, userId } =
+			const { bDie_1, bDie_2, bDie_3, bScore, pDie_1, pDie_2, pDie_3, pScore, pBet, result, userId } =
 				req.body.data;
 
 			const user = await prisma.user.findUnique({
@@ -42,6 +42,7 @@ export default async function handler(req, res) {
 						pDie_2: pDie_2,
 						pDie_3: pDie_3,
 						pScore: pScore,
+						pBet:   pBet,
 						result: result,
 						userId: userId,
 					}

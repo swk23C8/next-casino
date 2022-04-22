@@ -5,9 +5,14 @@ import { getSession } from 'next-auth/react';
 import { prisma } from '@/lib/prisma';
 
 
+// export async function getStaticProps({ req }) {
+//   const session = await getSession({ req });
+//   console.log(session)
+// }
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
+  console.log(session)
   const redirect = {
     redirect: {
       destination: '/',
@@ -30,8 +35,6 @@ export async function getServerSideProps(context) {
     where: { userId: stats.id },
   });
 
-
-
   // Pass the data to the Stats page
   return {
     props: {
@@ -49,7 +52,7 @@ const Game = ({ stats = [], game = [] }) => {
         <title>Cee-Lo | Game</title>
         <meta name="description" content="Game page" />
       </Head>
-      <GamePage stats={stats} game={game}/>
+      <GamePage stats={stats} game={game} />
     </Layout>
   );
 };

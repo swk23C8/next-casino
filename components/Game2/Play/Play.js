@@ -1,6 +1,8 @@
 import Dice from '@/components/Game2/Dice/Dice';
 import { useEffect, useState, useReducer, useCallback, Component, useRef, useMemo } from 'react';
 import Image from 'next/image'
+import axios from 'axios';
+import { data } from 'autoprefixer';
 
 
 
@@ -22,7 +24,7 @@ const Play = ({ stats = [], game = [] }) => {
 	const pDie_2 = useRef(game.pDie_2);
 	const pDie_3 = useRef(game.pDie_3);
 	const pScore = useRef(game.pScore);
-	const pBet = useRef(0);
+	const pBet = useRef(game.pBet);
 	const pRef1 = useRef();
 	const pRef2 = useRef();
 	const pRef3 = useRef();
@@ -32,32 +34,22 @@ const Play = ({ stats = [], game = [] }) => {
 	const result = useRef(game.result);
 
 	// api call to make bet
-	const makeBet = useCallback(() => {
-		fetch('/api/gameState/makeBet', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				userId: stats.id,
-				bet: pBet.current,
-			}),
+
+	const makeBet = (e) => {
+		e.preventDefault();
+		axios.post('/api/gameAction/makeBet', {
+			bet: pBet.current,
+			userId: stats.id
 		})
 			.then(res => {
-				res.json()
-				console.log(res)
+				console.log(res.data)
 			})
-			.then(data => {
-				console.log(data);
-				if (data.error) {
-					alert(data.error);
-				} else {
-					setGameState(data.game);
-					setUserStats(data.stats);
-				}
+			.catch(err => {
+				console.log(err)
 			})
-			.catch(err => console.log(err));
-	}, [stats.id]);
+	}
+
+
 
 
 	return (
@@ -97,7 +89,9 @@ const Play = ({ stats = [], game = [] }) => {
 				<div className="game-form">
 					<p>Bet</p>
 					<form
-						onSubmit={makeBet}
+						onSubmit={
+							makeBet
+						}
 					// className={ }
 					>
 						<label>
@@ -112,11 +106,39 @@ const Play = ({ stats = [], game = [] }) => {
 					</form>
 				</div>
 			</div>
+
+			{/* button to add token amount by 100 */}
+			<button onClick={() => {
+				// fetch('/api/gameAction/addToken', {
+				// 	method: 'POST',
+				// 	headers: {
+				// 		'Content-Type': 'application/json',
+				// 	},
+				// 	body: JSON.stringify({
+				// 		userId: stats.id,
+				// 		tokenAmount: 100,
+				// 	}),
+				// })
+				// 	.then(res => {
+				// 		res.json()
+				// 		console.log(res)
+				// 	})
+				// 	.then(data => {
+				// 		console.log(data);
+				// 		if (data.error) {
+				// 			alert(data.error);
+				// 		} else {
+				// 			setGameState(data.game);
+				// 			setUserStats(data.stats);
+				// 		}
+				// 	})
+				// 	.catch(err => console.log(err));
+			}}>
+				Add 100 Tokens
+			</button>
+
 		</>
 	);
 }
 
 export default Play;
-
-
-{ }

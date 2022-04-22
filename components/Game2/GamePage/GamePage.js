@@ -26,6 +26,7 @@ const GamePage = ({ stats = [], game = [] }) => {
 		pDie_2: 0,
 		pDie_3: 0,
 		pScore: 0,
+		pBet:   0,
 		result: "",
 		userId: stats.id,
 	};
@@ -53,6 +54,7 @@ const GamePage = ({ stats = [], game = [] }) => {
 					<p>{"game pDie_3: " + gameState.pDie_3}</p>
 					<p>{"game pDie_3: " + gameState.pDie_3}</p>
 					<p>{"game pScore: " + gameState.pScore}</p>
+					<p>{"game pBet: " + gameState.pBet}</p>
 					<p>{"game updatedAt: " + gameState.updatedAt}</p>
 					<p>{"game createdAt: " + gameState.createdAt}</p>
 					<p>{"game userId: " + gameState.userId}</p>
