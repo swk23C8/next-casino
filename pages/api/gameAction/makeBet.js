@@ -1,18 +1,39 @@
-export default function handler(req, res) {
-	// console.log(req.body.bet);
-	// console.log(res);
+import { getSession } from 'next-auth/react';
+import { prisma } from '@/lib/prisma';
 
 
-	const body = req.body;
-	// console.log(body);
-
-
-	if (!body.bet) {
-		return res.status(500).json({ msg: 'Bet amount not available/zero' });
-	}
-	if (body.bet < 0) {
-		return res.status(500).json({ msg: 'Bet amount less than zero' });
+export default async function handler(req, res) {
+	// Check if user is authenticated
+	const session = await getSession({ req });
+	if (!session) {
+		return res.status(401).json({ message: 'Unauthorized.' });
 	}
 
-	return res.status(200).json({ bet: `${body.bet}` });
+	// Retrieve the authenticated user
+	const user = await prisma.user.findUnique({
+		where: { email: session.user.email },
+	});
+
+	// Update bet amount
+	if (req.method === 'PATCH') {
+		try {
+			const body = req.body;
+			const newBet = await prisma.gameState.update({
+				where: { userId: user.id },
+				data: {
+					pBet: body.bet,
+				}
+			});
+			res.status(200).json(newBet);
+		} catch (e) {
+			res.status(500).json({ message: 'Something went wrong' });
+		}
+	}
+	// HTTP method not supported!
+	else {
+		res.setHeader('Allow', ['POST']);
+		res
+			.status(405)
+			.json({ message: `HTTP method ${req.method} is not supported.` });
+	}
 }

@@ -12,7 +12,6 @@ import { prisma } from '@/lib/prisma';
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
-  console.log(session)
   const redirect = {
     redirect: {
       destination: '/',

@@ -24,7 +24,7 @@ const Play = ({ stats = [], game = [] }) => {
 	const pDie_2 = useRef(game.pDie_2);
 	const pDie_3 = useRef(game.pDie_3);
 	const pScore = useRef(game.pScore);
-	const pBet = useRef(game.pBet);
+	const [pBet, setPBet] = useState(game.pBet);
 	const pRef1 = useRef();
 	const pRef2 = useRef();
 	const pRef3 = useRef();
@@ -37,12 +37,11 @@ const Play = ({ stats = [], game = [] }) => {
 
 	const makeBet = (e) => {
 		e.preventDefault();
-		axios.post('/api/gameAction/makeBet', {
-			bet: pBet.current,
-			userId: stats.id
+		axios.patch('/api/gameAction/makeBet', {
+			bet: e.target.bet.value*1
 		})
 			.then(res => {
-				console.log(res.data)
+				setPBet(res.data.pBet);
 			})
 			.catch(err => {
 				console.log(err)
@@ -83,7 +82,7 @@ const Play = ({ stats = [], game = [] }) => {
 				<div className="game-info">
 					<p>ID: {game.id}</p>
 					<p>Token Amount: {game.tokenAmount}</p>
-					<p>Bet Amount: {game.betAmount}</p>
+					<p>Bet Amount: {pBet}</p>
 					<p>Game Result: {game.result}</p>
 				</div>
 				<div className="game-form">
