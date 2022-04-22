@@ -1,19 +1,20 @@
 // import { prisma } from '@/lib/prisma';
 import axios from 'axios';
-import { getSession } from 'next-auth/react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import Play from '@/components/Game2/Play/Play';
 
 
 
 
-const Round = ({ stats = [], gameState = [] }) => {
+const GamePage = ({ stats = [], game = [] }) => {
 	const [isGameStarted, setIsGameStarted] = useState(false);
 	const [userStats, setUserStats] = useState(stats);
-	const [gameStats, setGameStats] = useState(gameState);
+	const [gameState, setGameState] = useState(game);
+
 
 	const startGame = () => {
 		setIsGameStarted(true);
-	 };
+	};
 
 
 	let data = {
@@ -40,21 +41,21 @@ const Round = ({ stats = [], gameState = [] }) => {
 			<p>{"user gameTokens: " + userStats.gameTokens}</p>
 			<p>{"user creation day: " + userStats.createdAt}</p>
 
-			{gameStats
+			{gameState
 				? <>
-					<p>{"game id: " + gameStats.id}</p>
-					<p>{"game bDie_1: " + gameStats.bDie_1}</p>
-					<p>{"game bDie_2: " + gameStats.bDie_2}</p>
-					<p>{"game bDie_3: " + gameStats.bDie_3}</p>
-					<p>{"game bScore: " + gameStats.bScore}</p>
-					<p>{"game pDie_1: " + gameStats.pDie_1}</p>
-					<p>{"game pDie_2: " + gameStats.pDie_2}</p>
-					<p>{"game pDie_3: " + gameStats.pDie_3}</p>
-					<p>{"game pDie_3: " + gameStats.pDie_3}</p>
-					<p>{"game pScore: " + gameStats.pScore}</p>
-					<p>{"game updatedAt: " + gameStats.updatedAt}</p>
-					<p>{"game createdAt: " + gameStats.createdAt}</p>
-					<p>{"game userId: " + gameStats.userId}</p>
+					<p>{"game id: " + gameState.id}</p>
+					<p>{"game bDie_1: " + gameState.bDie_1}</p>
+					<p>{"game bDie_2: " + gameState.bDie_2}</p>
+					<p>{"game bDie_3: " + gameState.bDie_3}</p>
+					<p>{"game bScore: " + gameState.bScore}</p>
+					<p>{"game pDie_1: " + gameState.pDie_1}</p>
+					<p>{"game pDie_2: " + gameState.pDie_2}</p>
+					<p>{"game pDie_3: " + gameState.pDie_3}</p>
+					<p>{"game pDie_3: " + gameState.pDie_3}</p>
+					<p>{"game pScore: " + gameState.pScore}</p>
+					<p>{"game updatedAt: " + gameState.updatedAt}</p>
+					<p>{"game createdAt: " + gameState.createdAt}</p>
+					<p>{"game userId: " + gameState.userId}</p>
 				</>
 				: <>
 					<p>no game stats</p>
@@ -71,10 +72,9 @@ const Round = ({ stats = [], gameState = [] }) => {
 							data
 						})
 						.then(res => {
-							setGameStats(res.data);
-							console.log(res)
+							setGameState(res.data);
 						});
-						startGame();
+					startGame();
 				}}
 			>
 				Start Game
@@ -82,8 +82,9 @@ const Round = ({ stats = [], gameState = [] }) => {
 
 		</>
 	) : (
-		<p>game is started</p>
+		// <p>game is started</p>
+		<Play stats={stats} game={game} />
 	)
 }
 
-export default Round;
+export default GamePage;

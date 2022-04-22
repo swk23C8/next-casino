@@ -11,8 +11,6 @@ export default async function handler(req, res) {
 	// create new GameState if it doesnt exist, otherwise update it
 	if (req.method === 'PUT') {
 		try {
-			console.log(req.body.data)
-
 			const { bDie_1, bDie_2, bDie_3, bScore, pDie_1, pDie_2, pDie_3, pScore, result, userId } =
 				req.body.data;
 
