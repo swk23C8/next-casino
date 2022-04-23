@@ -179,8 +179,8 @@ const Play = ({ stats = [], game = [] }) => {
 				{/* container  to show ID, Token amount, Bet amount form with Bet button and Game Result*/}
 				<div className="game-container box row-start-1 row-span-1 col-start-2 col-end-3 text-center">
 					<div className="game-info">
-						<p className="text-2xl">Game ID: {game.id}</p>
-						<p className="text-2xl">Token Amount: {stats.gameTokens}</p>
+						<p className="text-xl">Game ID: {game.id}</p>
+						<p className="text-2xl">Account Balance: {stats.gameTokens}</p>
 						<p className="text-2xl">Bet Amount: {pBet}</p>
 						<p className="text-2xl">Game Result: {game.result}</p>
 					</div>
