@@ -42,10 +42,9 @@ const Play = ({ stats = [], game = [] }) => {
 	const pIntervalID = useRef();
 
 	// game useStates
-	const result = useRef(game.result);
+	const [result, setResult] = useState(game.result);
 
 	// api call to make bet
-
 	const makeBet = (e) => {
 		e.preventDefault();
 		axios.patch('/api/gameAction/makeBet', {
@@ -76,12 +75,33 @@ const Play = ({ stats = [], game = [] }) => {
 		}
 	}
 
-	// function to roll dice
+	// function to calculate winner
+	const resultCalc = (bScore, pScore) => {
+		if (bScore === 10) setResult("Banker Wins");
+		if (bScore === -1) setResult("Player Wins");
+		if (pScore === 10) setResult("Player Wins");
+		if (pScore === -1) setResult("Banker Wins");
+		if (bScore === pScore) setResult("Tie");
+		if (bScore > pScore) setResult("Banker Wins");
+		if (bScore < pScore) setResult("Player Wins");
+		setBDie_1(0);
+		setBDie_2(0);
+		setBDie_3(0);
+		setPDie_1(0);
+		setPDie_2(0);
+		setPDie_3(0);
+		setBScore(0);
+		setPScore(0);
+	}
+
+	// function to roll banker dice
 	const rollBankerDice = () => {
 		if (bScoreRef.current === null || bScoreRef.current === -2 || bScoreRef.current === 0) {
 			bIntervalID.current = setInterval(() => {
 				if (bScoreRef.current !== null && bScoreRef.current !== -2 && bScoreRef.current !== 0) {
-					// gameResult(bScore.current, pScore.current);
+					if (bScoreRef.current === 10) {
+						resultCalc(bScoreRef.current, pScoreRef.current);
+					}
 					clearInterval(bIntervalID.current);
 					rollPlayerDice();
 					return;
@@ -97,12 +117,12 @@ const Play = ({ stats = [], game = [] }) => {
 		}
 	}
 
-	// function to roll dice
+	// function to roll player dice
 	const rollPlayerDice = () => {
 		if (pScoreRef.current === null || pScoreRef.current === -2 || pScoreRef.current === 0) {
 			pIntervalID.current = setInterval(() => {
 				if (pScoreRef.current !== null && pScoreRef.current !== -2 && pScoreRef.current !== 0) {
-					// gameResult(bScore.current, pScore.current);
+					resultCalc(bScoreRef.current, pScoreRef.current);
 					clearInterval(pIntervalID.current);
 					return;
 				}
@@ -183,7 +203,7 @@ const Play = ({ stats = [], game = [] }) => {
 						<p className="text-xl">Game ID: {game.id}</p>
 						<p className="text-2xl">Account Balance: {stats.gameTokens}</p>
 						<p className="text-2xl">Bet Amount: {pBet}</p>
-						<p className="text-2xl">Game Result: {game.result}</p>
+						<p className="text-2xl">Game Result: {result}</p>
 					</div>
 					<div className="game-form">
 
