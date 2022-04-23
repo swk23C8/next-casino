@@ -7,7 +7,7 @@ const Dice = ({ refs = [] }) => {
 		<>
 			<Die
 				onRoll={(value) => {
-					refs[3].current = value;
+					refs[3](value);
 				}}
 				size={85}
 				// cheatValue={1}
@@ -15,7 +15,7 @@ const Dice = ({ refs = [] }) => {
 				disabled={true} />
 			<Die
 				onRoll={(value) => {
-					refs[4].current = value;
+					refs[4](value);
 				}}
 				size={85}
 				// cheatValue={1}
@@ -23,7 +23,7 @@ const Dice = ({ refs = [] }) => {
 				disabled={true} />
 			<Die
 				onRoll={(value) => {
-					refs[5].current = value;
+					refs[5](value);
 				}}
 				size={85}
 				// cheatValue={2}

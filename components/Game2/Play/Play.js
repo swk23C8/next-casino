@@ -11,10 +11,14 @@ const Play = ({ stats = [], game = [] }) => {
 	// console.log(game)
 
 	// Banker useStates
-	const bDie_1 = useRef(game.bDie_1);
-	const bDie_2 = useRef(game.bDie_2);
-	const bDie_3 = useRef(game.bDie_3);
-	const bScore = useRef(game.bScore);
+	// const bDie_1 = useRef(game.bDie_1);
+	// const bDie_2 = useRef(game.bDie_2);
+	// const bDie_3 = useRef(game.bDie_3);
+	const [bDie_1, setBDie_1] = useState(game.bDie_1);
+	const [bDie_2, setBDie_2] = useState(game.bDie_2);
+	const [bDie_3, setBDie_3] = useState(game.bDie_3);
+	const [bScore, setBScore] = useState(game.bScore);
+	const bScoreRef = useRef(bScore);
 	const bRef1 = useRef();
 	const bRef2 = useRef();
 	const bRef3 = useRef();
@@ -22,10 +26,14 @@ const Play = ({ stats = [], game = [] }) => {
 
 
 	// Player useStates
-	const pDie_1 = useRef(game.pDie_1);
-	const pDie_2 = useRef(game.pDie_2);
-	const pDie_3 = useRef(game.pDie_3);
-	const pScore = useRef(game.pScore);
+	// const pDie_1 = useRef(game.pDie_1);
+	// const pDie_2 = useRef(game.pDie_2);
+	// const pDie_3 = useRef(game.pDie_3);
+	const [pDie_1, setPDie_1] = useState(game.pDie_1);
+	const [pDie_2, setPDie_2] = useState(game.pDie_2);
+	const [pDie_3, setPDie_3] = useState(game.pDie_3);
+	const [pScore, setPScore] = useState(game.pScore)
+	const pScoreRef = useRef(pScore);
 	const [pBet, setPBet] = useState(game.pBet);
 	const pRef1 = useRef();
 	const pRef2 = useRef();
@@ -44,17 +52,86 @@ const Play = ({ stats = [], game = [] }) => {
 		})
 			.then(res => {
 				setPBet(res.data.bet);
-				bRef1.current.rollDice();
-				bRef2.current.rollDice();
-				bRef3.current.rollDice();
+				rollBankerDice();
 			})
 			.catch(err => {
 				console.log(err)
 			})
 	}
 
-	
+	// function to calculate dice score
+	const score = (dice) => {
+		dice.sort();
+		if (dice[0] === 0 || dice[1] === 0 || dice[2] === 0) {
+			return 0;
+		}
+		if (dice[0] === dice[1] && dice[1] === dice[2]) return 10;
+		if (dice.join() === "4,5,6") return 10;
+		if (dice.join() === "1,2,3") return -1;
+		if (dice[0] !== dice[1] && dice[1] !== dice[2] && dice[1] !== dice[3]) return 0;
+		if (dice[0] === dice[1] || dice[1] === dice[2] || dice[1] === dice[3]) {
+			const pointDie = dice[0] === dice[1] ? dice[2] : dice[0];
+			return pointDie === 1 ? -1 : pointDie === 6 ? 10 : pointDie;
+		}
+	}
 
+	// function to roll dice
+	const rollBankerDice = () => {
+		if (bScoreRef.current === null || bScoreRef.current === -2 || bScoreRef.current === 0) {
+			bIntervalID.current = setInterval(() => {
+				if (bScoreRef.current !== null && bScoreRef.current !== -2 && bScoreRef.current !== 0) {
+					// gameResult(bScore.current, pScore.current);
+					clearInterval(bIntervalID.current);
+					return;
+				}
+				bRef1.current.rollDice();
+				bRef2.current.rollDice();
+				bRef3.current.rollDice();
+
+			}, 2000);
+		}
+		else {
+			console.log("dice not rolling as condition is false")
+		}
+	}
+
+	// function to roll dice
+	const rollPlayerDice = () => {
+		if (pScoreRef.current === null || pScoreRef.current === -2 || pScoreRef.current === 0) {
+			pIntervalID.current = setInterval(() => {
+				if (pScoreRef.current !== null && pScoreRef.current !== -2 && pScoreRef.current !== 0) {
+					// gameResult(bScore.current, pScore.current);
+					clearInterval(pIntervalID.current);
+					return;
+				}
+				pRef1.current.rollDice();
+				pRef2.current.rollDice();
+				pRef3.current.rollDice();
+
+			}, 2000);
+		}
+		else {
+			console.log("dice not rolling as condition is false")
+		}
+	}
+
+	// logic for banker score ref
+	useEffect(() => {
+		bScoreRef.current = bScore;
+	}, [bScore]);
+
+	// logic for player score ref
+	useEffect(() => {
+		pScoreRef.current = pScore;
+	}, [pScore]);
+
+	useEffect(() => {
+		setBScore(score([bDie_1, bDie_2, bDie_3]));
+		setPScore(score([pDie_1, pDie_2, pDie_3]))
+		console.log("")
+		console.log("current banker score: " + bScore)
+		console.log("current player score: " + pScore)
+	}, [bDie_1, bDie_2, bDie_3, bScore, pDie_1, pDie_2, pDie_3, pScore])
 
 	return (
 		<>
@@ -65,29 +142,31 @@ const Play = ({ stats = [], game = [] }) => {
 					<div className="grid overflow-hidden grid-cols-2 grid-rows-4 gap-2 w-auto h-auto">
 						<div className="diceContainer row-start-1 row-span-2">
 							<p>Banker Dice</p>
-							<Dice refs={[bRef1, bRef2, bRef3, bDie_1, bDie_2, bDie_3]} />
+							<Dice refs={[bRef1, bRef2, bRef3, setBDie_1, setBDie_2, setBDie_3]} />
 						</div>
 						<div className="diceResult row-start-1 row-span-2">
-							<button onClick={() => {
-								bRef1.current.rollDice();
-								bRef2.current.rollDice();
-								bRef3.current.rollDice();
-							}}>
-								Roll Banker Dice
-							</button>
+							<div>
+								<button onClick={() => {
+									rollBankerDice();
+								}}>
+									Roll Banker Dice
+								</button>
+								<p>{"score: " + bScore}</p>
+							</div>
 						</div>
 						<div className="diceContainer row-start-3 row-span-2">
 							<p>Player Dice</p>
-							<Dice refs={[pRef1, pRef2, pRef3, pDie_1, pDie_2, pDie_3]} />
+							<Dice refs={[pRef1, pRef2, pRef3, setPDie_1, setPDie_2, setPDie_3]} />
 						</div>
 						<div className="diceResult row-span-2">
-							<button onClick={() => {
-								pRef1.current.rollDice();
-								pRef2.current.rollDice();
-								pRef3.current.rollDice();
-							}}>
-								Roll Player Dice
-							</button>
+							<div>
+								<button onClick={() => {
+									rollPlayerDice();
+								}}>
+									Roll Player Dice
+								</button>
+								<p>{"score: " + pScore}</p>
+							</div>
 						</div>
 					</div>
 				</div>
