@@ -179,34 +179,32 @@ const Play = ({ stats = [], game = [] }) => {
 				{/* container  to show ID, Token amount, Bet amount form with Bet button and Game Result*/}
 				<div className="game-container box row-start-1 row-span-1 col-start-2 col-end-3 text-center">
 					<div className="game-info">
-						<p>Game ID: {game.id}</p>
-						<p>Token Amount: {stats.gameTokens}</p>
-						<p>Bet Amount: {pBet}</p>
-						<p>Game Result: {game.result}</p>
+						<p className="text-2xl">Game ID: {game.id}</p>
+						<p className="text-2xl">Token Amount: {stats.gameTokens}</p>
+						<p className="text-2xl">Bet Amount: {pBet}</p>
+						<p className="text-2xl">Game Result: {game.result}</p>
 					</div>
 					<div className="game-form">
-						<p>Bet</p>
+
 						<form
-							onSubmit={
-								makeBet
-							}
-						// className={ }
-						>
+							id="makeBetForm"
+							onSubmit={makeBet}>
 							<label>
-								Bet:
+								Bet Amount:
 								<input type="number" name="bet" />
 							</label>
-							<input
-								// className={styles.betButton}
-								type="submit"
-								value="BET"
-							/>
 						</form>
-						<p>HOTKEYS</p>
-						<p>SPACE: bet</p>
-						<p>E: halve bet</p>
-						<p>R: double bet</p>
-						<p>D: roll dice</p>
+						<button
+							form="makeBetForm"
+							className="font-bold text-3xl h-2/4 w-3/5 my-5 bg-rose-600 text-white py-2 px-6 rounded-md focus:outline-none focus:ring-4 focus:ring-rose-600 focus:ring-opacity-50 hover:bg-rose-500 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-rose-600">
+							BET
+						</button>
+
+						<p className="text-xl">HOTKEYS</p>
+						<p className="text-xl">SPACE: bet</p>
+						<p className="text-xl">E: halve bet</p>
+						<p className="text-xl">R: double bet</p>
+						<p className="text-xl">D: roll dice</p>
 					</div>
 				</div>
 				{/* container to show game rules/outcomes/explanations */}
