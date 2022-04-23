@@ -30,16 +30,23 @@ export default async function handler(req, res) {
 	// Update bet amount
 	if (req.method === 'PATCH') {
 		try {
-
+			// Update the user's game state
 			const newBet = await prisma.gameState.update({
 				where: { userId: user.id },
 				data: {
 					pBet: body.bet,
 				}
 			});
-			res.status(200).json(newBet);
+			// Return rolled dice
+			return res.status(200).json({
+				message: 'Bet amount updated successfully.',
+				bet: newBet.pBet,
+			});
+
+			// // Return the updated bet amount
+			// res.status(200).json(newBet);
 		} catch (e) {
-			res.status(500).json({ message: 'Something went wrong' });
+			res.status(500).json({ message: 'Error updating bet amount.' });
 		}
 	}
 	// HTTP method not supported!
