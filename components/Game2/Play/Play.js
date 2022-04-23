@@ -436,7 +436,7 @@ const Play = ({ stats = [], game = [] }) => {
 						width={625}
 						height={300}
 					/>
-					add feature to get more coins/ads/captcha/something? here
+					add feature to get more tokens/ads/captcha/banner/something? here
 				</div>
 				{/* container for chat/log */}
 				<div className="box row-start-2 row-span-1 col-start-1 col-end-3">
