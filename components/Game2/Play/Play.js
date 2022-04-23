@@ -186,10 +186,9 @@ const Play = ({ stats = [], game = [] }) => {
 	useEffect(() => {
 		setBScore(score([bDie_1, bDie_2, bDie_3]));
 		setPScore(score([pDie_1, pDie_2, pDie_3]))
-
-		console.log("")
-		console.log("current banker score: " + bScore)
-		console.log("current player score: " + pScore)
+		// console.log("")
+		// console.log("current banker score: " + bScore)
+		// console.log("current player score: " + pScore)
 	}, [bDie_1, bDie_2, bDie_3, bScore, pDie_1, pDie_2, pDie_3, pScore])
 
 	return (
