@@ -83,6 +83,7 @@ const Play = ({ stats = [], game = [] }) => {
 				if (bScoreRef.current !== null && bScoreRef.current !== -2 && bScoreRef.current !== 0) {
 					// gameResult(bScore.current, pScore.current);
 					clearInterval(bIntervalID.current);
+					rollPlayerDice();
 					return;
 				}
 				bRef1.current.rollDice();
