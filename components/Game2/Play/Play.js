@@ -3,9 +3,9 @@ import { useEffect, useState, useReducer, useCallback, Component, useRef, useMem
 import Image from 'next/image'
 import axios from 'axios';
 import { data } from 'autoprefixer';
-import Shrek from 'public/images/latest.png';
-
-
+import Shrek from 'public/images/feltCute.png';
+import Pootin from 'public/images/monke_pootin.png';
+import Egg from 'public/images/egg.png';
 
 const Play = ({ stats = [], game = [] }) => {
 
@@ -43,6 +43,7 @@ const Play = ({ stats = [], game = [] }) => {
 
 	// game useStates
 	const [result, setResult] = useState(game.result);
+
 
 	// api call to make bet
 	const makeBet = (e) => {
@@ -84,14 +85,16 @@ const Play = ({ stats = [], game = [] }) => {
 		if (bScore === pScore) setResult("Tie");
 		if (bScore > pScore) setResult("Banker Wins");
 		if (bScore < pScore) setResult("Player Wins");
-		setBDie_1(0);
-		setBDie_2(0);
-		setBDie_3(0);
-		setPDie_1(0);
-		setPDie_2(0);
-		setPDie_3(0);
-		setBScore(0);
-		setPScore(0);
+		setTimeout(function () {
+			setBDie_1(0);
+			setBDie_2(0);
+			setBDie_3(0);
+			setPDie_1(0);
+			setPDie_2(0);
+			setPDie_3(0);
+			setBScore(0);
+			setPScore(0);
+		}, 2500);
 	}
 
 	// function to roll banker dice
@@ -99,7 +102,7 @@ const Play = ({ stats = [], game = [] }) => {
 		if (bScoreRef.current === null || bScoreRef.current === -2 || bScoreRef.current === 0) {
 			bIntervalID.current = setInterval(() => {
 				if (bScoreRef.current !== null && bScoreRef.current !== -2 && bScoreRef.current !== 0) {
-					if (bScoreRef.current === 10) {
+					if (bScoreRef.current === 10 || bScoreRef.current === -1) {
 						resultCalc(bScoreRef.current, pScoreRef.current);
 					}
 					clearInterval(bIntervalID.current);
@@ -137,6 +140,39 @@ const Play = ({ stats = [], game = [] }) => {
 		}
 	}
 
+	// function to return roll result div
+	const rollString = (score) => {
+		if (score === 10) {
+			return (
+				<>
+					<p>yay I win</p>
+					<Image src={Shrek} alt="Shrek" />
+				</>
+			)
+		}
+		else if (score === -1) {
+			return (
+				<>
+					<p>Pootin loos</p>
+					<Image src={Pootin} alt="Monke Pootin" />
+				</>
+			)
+		}
+		else if (score === 0) {
+			return (
+				<>
+					<p>Roll` Em!</p>
+					<Image src={Egg} alt="Egg Man" />
+				</>
+			)
+		}
+		else {
+			return (
+				<p>{"score: " + score}</p>
+			)
+		}
+	}
+
 	// logic for banker score ref
 	useEffect(() => {
 		bScoreRef.current = bScore;
@@ -150,6 +186,7 @@ const Play = ({ stats = [], game = [] }) => {
 	useEffect(() => {
 		setBScore(score([bDie_1, bDie_2, bDie_3]));
 		setPScore(score([pDie_1, pDie_2, pDie_3]))
+
 		console.log("")
 		console.log("current banker score: " + bScore)
 		console.log("current player score: " + pScore)
@@ -175,7 +212,10 @@ const Play = ({ stats = [], game = [] }) => {
 								}}>
 									Roll Banker Dice
 								</button> */}
-								<p className="font-bold text-3xl">{"score: " + bScore}</p>
+								<p className="font-bold text-3xl">
+									{/* {bScore === 0 ? "Roll` Em!" : "score: " + bScore} */}
+									{rollString(bScore)}
+								</p>
 							</div>
 						</div>
 
@@ -191,7 +231,10 @@ const Play = ({ stats = [], game = [] }) => {
 								}}>
 									Roll Player Dice
 								</button> */}
-								<p className="font-bold text-3xl">{"score: " + pScore}</p>
+								<p className="font-bold text-3xl">
+									{/* {pScore === 0 ? "Roll` Em!" : "score: " + pScore} */}
+									{rollString(pScore)}
+								</p>
 							</div>
 						</div>
 
