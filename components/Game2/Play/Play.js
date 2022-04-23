@@ -161,7 +161,7 @@ const Play = ({ stats = [], game = [] }) => {
 		else if (score === 0) {
 			return (
 				<>
-					<p>Roll` Em!</p>
+					<p>Roll Em!</p>
 					<Image src={Egg} alt="Egg Man" />
 				</>
 			)
