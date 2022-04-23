@@ -14,10 +14,23 @@ export default async function handler(req, res) {
 		where: { email: session.user.email },
 	});
 
+	const body = req.body;
+
+	// Check if the bet amount is less than zero
+	if (body.bet < 0) {
+		return res.status(400).json({ message: 'Bet amount cannot be less than zero.' });
+	}
+
+	// Check if the bet amount is greater than user's balance
+	if (body.bet > user.gameTokens) {
+		return res.status(400).json({ message: 'Bet amount is greater than user\'s balance.' });
+	}
+
+
 	// Update bet amount
 	if (req.method === 'PATCH') {
 		try {
-			const body = req.body;
+
 			const newBet = await prisma.gameState.update({
 				where: { userId: user.id },
 				data: {

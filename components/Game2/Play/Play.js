@@ -8,6 +8,8 @@ import { data } from 'autoprefixer';
 
 const Play = ({ stats = [], game = [] }) => {
 
+	// console.log(game)
+
 	// Banker useStates
 	const bDie_1 = useRef(game.bDie_1);
 	const bDie_2 = useRef(game.bDie_2);
@@ -88,10 +90,10 @@ const Play = ({ stats = [], game = [] }) => {
 				</div>
 
 				{/* container  to show ID, Token amount, Bet amount form with Bet button and Game Result*/}
-				<div className="game-container box row-start-1 row-span-1 col-start-2 col-end-3">
+				<div className="game-container box row-start-1 row-span-1 col-start-2 col-end-3 text-center">
 					<div className="game-info">
-						<p>ID: {game.id}</p>
-						<p>Token Amount: {game.tokenAmount}</p>
+						<p>Game ID: {game.id}</p>
+						<p>Token Amount: {stats.gameTokens}</p>
 						<p>Bet Amount: {pBet}</p>
 						<p>Game Result: {game.result}</p>
 					</div>
@@ -122,7 +124,7 @@ const Play = ({ stats = [], game = [] }) => {
 				</div>
 				{/* container to show game rules/outcomes/explanations */}
 				<div className="game-rules box row-start-1 row-span-2 col-start-3 col-end-4">
-					<table className="w-full min-h-[87vh] shadow-md">
+					<table className="w-full min-h-[50vh] shadow-md">
 						<thead>
 							<tr>
 								<th className="bg-blue-700 text-white p-1 w-auto">Name</th>
@@ -280,6 +282,7 @@ const Play = ({ stats = [], game = [] }) => {
 					</table>
 					add feature to get more coins/ads/captcha/something? here
 				</div>
+				{/* container for chat/log */}
 				<div className="box row-start-2 row-span-1 col-start-1 col-end-3">
 					<div className="grid overflow-hidden grid-cols-12 grid-rows-6 gap-1">
 						<div className="box2 row-start-1 row-span-1 col-start-1 col-span-12">1</div>
