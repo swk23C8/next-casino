@@ -40,17 +40,20 @@ const Play = ({ stats = [], game = [] }) => {
 	const makeBet = (e) => {
 		e.preventDefault();
 		axios.patch('/api/gameAction/makeBet', {
-			bet: e.target.bet.value * 1
+			bet: e.target.bet.value * 1,
 		})
 			.then(res => {
-				setPBet(res.data.pBet);
+				setPBet(res.data.bet);
+				bRef1.current.rollDice();
+				bRef2.current.rollDice();
+				bRef3.current.rollDice();
 			})
 			.catch(err => {
 				console.log(err)
 			})
 	}
 
-
+	
 
 
 	return (
