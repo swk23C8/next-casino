@@ -26,7 +26,7 @@ const GamePage = ({ stats = [], game = [] }) => {
 		pDie_2: 0,
 		pDie_3: 0,
 		pScore: 0,
-		pBet:   0,
+		pBet: 0,
 		result: "",
 		userId: stats.id,
 	};
@@ -34,7 +34,7 @@ const GamePage = ({ stats = [], game = [] }) => {
 
 	return !isGameStarted ? (
 		<>
-			<p>{"user id: " + userStats.id}</p>
+			{/* <p>{"user id: " + userStats.id}</p>
 			<p>{"user type: " + userStats.userType}</p>
 			<p>{"user name: " + userStats.name}</p>
 			<p>{"user email: " + userStats.email}</p>
@@ -63,24 +63,36 @@ const GamePage = ({ stats = [], game = [] }) => {
 					<p>no game stats</p>
 
 				</>
-			}
+			} */}
+
+			<h1 className="flex justify-center text-xl font-medium text-black-800">
+				This game is in early alpha stages.
+			</h1>
+			<h1 className="flex justify-center text-xl font-medium text-black-800">
+				Please feel free to try out the available features and report any bugs!
+			</h1>
+			<h2 className="flex justify-center text-2xl font-bold text-black-800 py-5">
+				Welcome to Cee-Lo!
+			</h2>
 
 			{/* button to initiate gameState by calling api */}
-			<button
-				className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-				onClick={() => {
-					axios
-						.put(`/api/gameState/${userStats.id}`, {
-							data
-						})
-						.then(res => {
-							setGameState(res.data);
-						});
-					startGame();
-				}}
-			>
-				Start Game
-			</button>
+			<div className="flex justify-center py-5">
+				<button
+					className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+					onClick={() => {
+						axios
+							.put(`/api/gameState/${userStats.id}`, {
+								data
+							})
+							.then(res => {
+								setGameState(res.data);
+							});
+						startGame();
+					}}
+				>
+					Start Game
+				</button>
+			</div>
 
 		</>
 	) : (

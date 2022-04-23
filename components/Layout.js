@@ -15,25 +15,28 @@ import {
   SparklesIcon,
   UserIcon,
   PuzzleIcon,
+  SupportIcon,
+  QuestionMarkCircleIcon,
+  CogIcon,
 } from '@heroicons/react/outline';
 import { ChevronDownIcon } from '@heroicons/react/solid';
 
 const menuItems = [
   {
     label: 'Settings',
-    icon: PlusIcon,
+    icon: CogIcon,
+    href: '/stats',
+  },
+  {
+    label: 'Support Ticket',
+    icon: SupportIcon,
     href: '/create',
   },
   {
-    label: 'My Stats',
-    icon: HomeIcon,
-    href: '/stats',
+    label: 'FAQ',
+    icon: QuestionMarkCircleIcon,
+    href: '/404',
   },
-  // {
-  //   label: 'Favorites',
-  //   icon: HeartIcon,
-  //   href: '/favorites',
-  // },
   {
     label: 'Logout',
     icon: LogoutIcon,

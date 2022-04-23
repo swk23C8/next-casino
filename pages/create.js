@@ -28,13 +28,13 @@ const Create = () => {
   return (
     <Layout>
       <div className="max-w-screen-sm mx-auto">
-        <h1 className="text-xl font-medium text-gray-800">Your Stats</h1>
+        <h1 className="text-xl font-medium text-gray-800">Support Ticket</h1>
         <p className="text-gray-500">
-          View / Edit your Account Stats
+          Make sure to read the FAQ first!
         </p>
         <div className="mt-8">
           <ListingForm
-            buttonText="Update Setting"
+            buttonText="Submit Support Ticket"
             redirectPath="/"
             onSubmit={addHome}
           />

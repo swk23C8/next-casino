@@ -108,14 +108,14 @@ const ListingForm = ({
                         label="Description"
                         placeholder="Some Description Here..."
                         disabled={disabled}
-                        rows={5}
+                        rows={3}
                      />
 
                      <Input
                         name="price"
                         type="number"
                         min="0"
-                        label="Some Setting 1"
+                        label="Some field 1"
                         placeholder="100"
                         disabled={disabled}
                      />
@@ -125,7 +125,7 @@ const ListingForm = ({
                            name="guests"
                            type="number"
                            min="0"
-                           label="Some Setting 2"
+                           label="Some field 2"
                            placeholder="2"
                            disabled={disabled}
                         />
@@ -133,7 +133,7 @@ const ListingForm = ({
                            name="beds"
                            type="number"
                            min="0"
-                           label="Some Setting 3"
+                           label="Some field 3"
                            placeholder="1"
                            disabled={disabled}
                         />
@@ -141,7 +141,7 @@ const ListingForm = ({
                            name="baths"
                            type="number"
                            min="0"
-                           label="Some Setting 3"
+                           label="Some field 4"
                            placeholder="1"
                            disabled={disabled}
                         />

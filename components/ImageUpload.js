@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import { ArrowUpIcon } from '@heroicons/react/outline';
 
 const ImageUpload = ({
-  label = 'Profile Picture',
+  label = 'Upload Image/Screenshot',
   initialImage = null,
   objectFit = 'cover',
   accept = '.png, .jpg, .jpeg, .gif',
