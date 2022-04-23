@@ -53,12 +53,12 @@ export default function Stat({ stats = [] }) {
 				Your Account Stats
 			</h1>
 			<p className="text-gray-500">
-				View Account Stats below
+				VIP status: {userStats.vip ? 'VIP' : 'Not VIP'}
 			</p>
 			<div className="mt-8">
-				{/* <Grid homes={homes} /> */}
-				<Table stats={userStats} />
-				{/* {console.log(userStats)} */}
+
+				{/* <Table stats={userStats} /> */}
+
 				{userStats.userType === 'ADMIN' ? (
 					<>
 						<button
@@ -94,7 +94,7 @@ export default function Stat({ stats = [] }) {
 						</button>
 					</>
 				) : (
-					<div>You are not an admin!</div>
+					<div className="flex items-center justify-center">You are not an admin!</div>
 				)}
 				{/* add field to edit id */}
 				<Formik
@@ -115,7 +115,7 @@ export default function Stat({ stats = [] }) {
 				>
 					{({ isSubmitting }) => (
 						<Form>
-							<div className="flex flex-wrap -mx-3 mb-6">
+							<div className="flex flex-wrap -mx-1 mb-6">
 								<div className="w-full px-3">
 									<label
 										className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -128,6 +128,7 @@ export default function Stat({ stats = [] }) {
 										id="id"
 										type="text"
 										disabled
+										placeholder={userStats.id}
 									/>
 
 									<label
@@ -141,6 +142,7 @@ export default function Stat({ stats = [] }) {
 										id="gameTokens"
 										type="text"
 										disabled
+										placeholder={userStats.gameTokens}
 									/>
 
 									<label
@@ -154,6 +156,7 @@ export default function Stat({ stats = [] }) {
 										id="userType"
 										type="text"
 										disabled
+										placeholder={userStats.userType}
 									/>
 
 									<label
@@ -167,6 +170,7 @@ export default function Stat({ stats = [] }) {
 										id="email"
 										type="text"
 										disabled
+										placeholder={userStats.email}
 									/>
 
 									<label
@@ -180,6 +184,7 @@ export default function Stat({ stats = [] }) {
 										id="password"
 										type="text"
 										disabled
+										placeholder="✨NextCasino does not store your password✨"
 									/>
 
 									<label
@@ -193,23 +198,25 @@ export default function Stat({ stats = [] }) {
 										id="createdAt"
 										type="text"
 										disabled
+										placeholder={userStats.createdAt}	
 									/>
 
 									<label
 										className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
 										htmlFor="deletedAt"
 									>
-										Deleted At
+										Banned/Deleted At
 									</label>
 									<input
 										className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
 										id="deletedAt"
 										type="text"
 										disabled
+										placeholder="Not yet banned/deleted"
 									/>
 
-									<div className="flex items-center justify-between">
-										<button
+									<div className="flex items-center justify-center space-x-5">
+										{/* <button
 											className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
 											type="button"
 											onClick={() => {
@@ -217,9 +224,9 @@ export default function Stat({ stats = [] }) {
 											}}
 										>
 											Back
-										</button>
+										</button> */}
 
-										<button
+										{/* <button
 											className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
 											type="button"
 											onClick={() => {
@@ -227,16 +234,39 @@ export default function Stat({ stats = [] }) {
 											}}
 										>
 											Edit
+										</button> */}
+
+										<button
+											className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+											type="button"
+											onClick={() => {
+												// deleteUser(user.id);
+												console.log("haha not implemented yet")
+											}}
+										>
+											Gib me admin now
+										</button>
+
+										<button
+											className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+											type="button"
+											onClick={() => {
+												// deleteUser(user.id);
+												console.log("haha not implemented yet")
+											}}
+										>
+											Boost my Tokens
 										</button>
 
 										<button
 											className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
 											type="button"
 											onClick={() => {
-												deleteUser(user.id);
+												// deleteUser(user.id);
+												console.log("haha not implemented yet")
 											}}
 										>
-											Delete
+											Delete My Account
 										</button>
 									</div>
 								</div>
