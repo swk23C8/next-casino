@@ -22,8 +22,8 @@
 	@apply text-black text-xl font-bold flex items-center content-center justify-center rounded
 }
 
-@layer components {
+/* @layer components {
 	.container {
 		@apply max-w-full;
 	}
-}
+} */

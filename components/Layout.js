@@ -66,7 +66,7 @@ const Layout = ({ children = null }) => {
 
       <div className="min-h-screen flex flex-col">
         <header className="h-16 w-full shadow-md">
-          <div className="h-full container mx-auto">
+          <div className="h-full object-none mx-auto">
             <div className="h-full px-4 flex justify-between items-center space-x-4">
               <Link href="/">
                 <a className="flex items-center space-x-1">
@@ -202,8 +202,8 @@ const Layout = ({ children = null }) => {
           </div>
         </header>
 
-        <main className="flex-grow container mx-auto">
-          <div className="px-5 py-4">
+        <main className="flex-grow container mx-auto max-w-full max-h-screen">
+          <div className="px-2 pt-3">
             {typeof children === 'function' ? children(openModal) : children}
           </div>
         </main>

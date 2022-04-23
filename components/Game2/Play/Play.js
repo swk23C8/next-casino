@@ -53,28 +53,38 @@ const Play = ({ stats = [], game = [] }) => {
 
 	return (
 		<>
-			<p>game is started</p>
+			{/* <p>game is started</p> */}
 			<div className="grid min-h-max it grid-cols-3 grid-rows-2 gap-2 w-auto h-auto">
 				{/* container to show dice */}
 				<div className="dice-container box row-start-1 row-span-1">
-					<p>Banker Dice</p>
-					<Dice refs={[bRef1, bRef2, bRef3, bDie_1, bDie_2, bDie_3]} />
-					<button onClick={() => {
-						bRef1.current.rollDice();
-						bRef2.current.rollDice();
-						bRef3.current.rollDice();
-					}}>
-						Roll Banker Dice
-					</button>
-					<p>Player Dice</p>
-					<Dice refs={[pRef1, pRef2, pRef3, pDie_1, pDie_2, pDie_3]} />
-					<button onClick={() => {
-						pRef1.current.rollDice();
-						pRef2.current.rollDice();
-						pRef3.current.rollDice();
-					}}>
-						Roll Player Dice
-					</button>
+					<div className="grid overflow-hidden grid-cols-2 grid-rows-4 gap-2 w-auto h-auto">
+						<div className="diceContainer row-start-1 row-span-2">
+							<p>Banker Dice</p>
+							<Dice refs={[bRef1, bRef2, bRef3, bDie_1, bDie_2, bDie_3]} />
+						</div>
+						<div className="diceResult row-start-1 row-span-2">
+							<button onClick={() => {
+								bRef1.current.rollDice();
+								bRef2.current.rollDice();
+								bRef3.current.rollDice();
+							}}>
+								Roll Banker Dice
+							</button>
+						</div>
+						<div className="diceContainer row-start-3 row-span-2">
+							<p>Player Dice</p>
+							<Dice refs={[pRef1, pRef2, pRef3, pDie_1, pDie_2, pDie_3]} />
+						</div>
+						<div className="diceResult row-span-2">
+							<button onClick={() => {
+								pRef1.current.rollDice();
+								pRef2.current.rollDice();
+								pRef3.current.rollDice();
+							}}>
+								Roll Player Dice
+							</button>
+						</div>
+					</div>
 				</div>
 
 				{/* container  to show ID, Token amount, Bet amount form with Bet button and Game Result*/}
@@ -110,8 +120,9 @@ const Play = ({ stats = [], game = [] }) => {
 						<p>D: roll dice</p>
 					</div>
 				</div>
+				{/* container to show game rules/outcomes/explanations */}
 				<div className="game-rules box row-start-1 row-span-2 col-start-3 col-end-4">
-					<table className="w-full shadow-md">
+					<table className="w-full min-h-[87vh] shadow-md">
 						<thead>
 							<tr>
 								<th className="bg-blue-700 text-white p-1 w-auto">Name</th>
