@@ -3,6 +3,7 @@ import { useEffect, useState, useReducer, useCallback, Component, useRef, useMem
 import Image from 'next/image'
 import axios from 'axios';
 import { data } from 'autoprefixer';
+import Shrek from 'public/images/latest.png';
 
 
 
@@ -170,7 +171,6 @@ const Play = ({ stats = [], game = [] }) => {
 						</div>
 					</div>
 				</div>
-
 				{/* container  to show ID, Token amount, Bet amount form with Bet button and Game Result*/}
 				<div className="game-container box row-start-1 row-span-1 col-start-2 col-end-3 text-center">
 					<div className="game-info">
@@ -209,14 +209,14 @@ const Play = ({ stats = [], game = [] }) => {
 					<table className="w-full min-h-[50vh] shadow-md">
 						<thead>
 							<tr>
-								<th className="bg-blue-700 text-white p-1 w-auto">Name</th>
-								<th className="bg-blue-700 text-white p-1 w-auto">Example</th>
-								<th className="bg-blue-700 text-white p-1 w-auto">Outcome</th>
-								<th className="bg-blue-700 text-white p-1 w-auto">Comment</th>
+								<th className="bg-red-700 text-white p-1 w-auto">Name</th>
+								<th className="bg-red-700 text-white p-1 w-auto">Example</th>
+								<th className="bg-red-700 text-white p-1 w-auto">Outcome</th>
+								<th className="bg-red-700 text-white p-1 w-auto">Comment</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr className="bg-blue-100 text-black">
+							<tr className="bg-red-100 text-black">
 								<td className="">Triple</td>
 								<td className="">
 									<Image
@@ -244,7 +244,7 @@ const Play = ({ stats = [], game = [] }) => {
 								<td className="">WIN</td>
 								<td className="">All three dice show the same number.<br /> 6-6-6 is the highest roll,<br />5-5-5 is the next highest, etc.<br />Any triple is an instant win.</td>
 							</tr>
-							<tr className="bg-blue-200 text-black">
+							<tr className="bg-red-200 text-black">
 								<td className="">4-5-6</td>
 								<td className="">
 									<Image
@@ -272,7 +272,7 @@ const Play = ({ stats = [], game = [] }) => {
 								<td className="">WIN</td>
 								<td className="">Sequential 4-5-6;<br /> this is an instant win.</td>
 							</tr>
-							<tr className="bg-blue-100 text-black">
+							<tr className="bg-red-100 text-black">
 								<td className="">Points</td>
 								<td className="">
 									<Image
@@ -302,7 +302,7 @@ const Play = ({ stats = [], game = [] }) => {
 									One pair plus any other value;<br /> the odd die is the point value.<br /> Possible point values range from 2 to 5<br />When the point value is 6, it is an instant win; <br />When the point value is 1, it is an instant loss.
 								</td>
 							</tr>
-							<tr className="bg-blue-200 text-black">
+							<tr className="bg-red-200 text-black">
 								<td className="">1-2-3</td>
 								<td className="">
 									<Image
@@ -330,7 +330,7 @@ const Play = ({ stats = [], game = [] }) => {
 								<td className="">LOSE</td>
 								<td className="">Sequential 1-2-3;<br /> this is an instant loss.</td>
 							</tr>
-							<tr className="bg-blue-100 text-black">
+							<tr className="bg-red-100 text-black">
 								<td className="">Indeterminate</td>
 								<td className="">
 									<Image
@@ -362,29 +362,23 @@ const Play = ({ stats = [], game = [] }) => {
 							</tr>
 						</tbody>
 					</table>
+					<Image
+						src={Shrek}
+						alt="Hooman Shrek"
+						// layout='fill'
+						width={625}
+						height={300}
+					/>
 					add feature to get more coins/ads/captcha/something? here
 				</div>
 				{/* container for chat/log */}
 				<div className="box row-start-2 row-span-1 col-start-1 col-end-3">
-					<div className="grid overflow-hidden grid-cols-12 grid-rows-6 gap-1">
-						<div className="box2 row-start-1 row-span-1 col-start-1 col-span-12">1</div>
-						<div className="box2 row-start-2 row-span-3 col-start-1 col-span-1">2</div>
-						<div className="box2 row-start-5 row-span-3 col-start-1 col-span-1">3</div>
-						<div className="box2 row-start-2 row-span-6 col-start-2 col-span-11">4</div>
-						<div className="box2 row-start-8 row-span-1 col-start-1 col-span-11">5</div>
-						<div className="box2 row-start-8 row-span-1 col-start-12 col-span-1">6</div>
-					</div>
-					<div className="grid overflow-hidden grid-cols-12 grid-rows-6 gap-1">
-						<div className="box2 row-start-1 row-span-1 col-start-1 col-span-12">1</div>
-						<div className="box2 row-start-2 row-span-3 col-start-1 col-span-1">2</div>
-						<div className="box2 row-start-5 row-span-3 col-start-1 col-span-1">3</div>
-						<div className="box2 row-start-2 row-span-6 col-start-2 col-span-11">4</div>
-						<div className="box2 row-start-8 row-span-1 col-start-1 col-span-11">5</div>
-						<div className="box2 row-start-8 row-span-1 col-start-12 col-span-1">6</div>
-					</div>
-					<div className="grid overflow-hidden grid-cols-12 grid-rows-3 gap-1">
-						<div className="box2 row-start-2 row-span-3 col-start-1 col-span-1">2</div>
-					</div>
+					<Image
+						src={Shrek}
+						alt="Hooman Shrek"
+						width={1265}
+						height={435}
+					/>
 				</div>
 			</div>
 		</>

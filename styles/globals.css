@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .box {
-	@apply border-opacity-40 border-2 border-black bg-green-300 text-black min-w-full h-full min-h-full rounded;
+	@apply border-opacity-40 border-2 border-black bg-red-100 text-black min-w-full h-full min-h-full rounded;
 }
 
 .box2 {
