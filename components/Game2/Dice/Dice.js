@@ -4,32 +4,38 @@ import Die from "react-dice-roll";
 const Dice = ({ refs = [] }) => {
 
 	return (
-		<>
-			<Die
-				onRoll={(value) => {
-					refs[3](value);
-				}}
-				size={85}
-				// cheatValue={1}
-				ref={refs[0]}
-				disabled={true} />
-			<Die
-				onRoll={(value) => {
-					refs[4](value);
-				}}
-				size={85}
-				// cheatValue={1}
-				ref={refs[1]}
-				disabled={true} />
-			<Die
-				onRoll={(value) => {
-					refs[5](value);
-				}}
-				size={85}
-				// cheatValue={2}
-				ref={refs[2]}
-				disabled={true} />
-		</>
+		<div className="flex justify-center space-x-5 h-full">
+			<div className="flex items-center content-center justify-center">
+				<Die
+					onRoll={(value) => {
+						refs[3](value);
+					}}
+					size={95}
+					// cheatValue={1}
+					ref={refs[0]}
+					disabled={true} />
+			</div>
+			<div className="flex items-center content-center justify-center">
+				<Die
+					onRoll={(value) => {
+						refs[4](value);
+					}}
+					size={95}
+					// cheatValue={1}
+					ref={refs[1]}
+					disabled={true} />
+			</div>
+			<div className="flex items-center content-center justify-center">
+				<Die
+					onRoll={(value) => {
+						refs[5](value);
+					}}
+					size={95}
+					// cheatValue={2}
+					ref={refs[2]}
+					disabled={true} />
+			</div>
+		</div>
 	);
 };
 

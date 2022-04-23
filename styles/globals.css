@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .box {
-	@apply border-opacity-40 border-2 border-black bg-red-100 text-black min-w-full h-full min-h-full rounded;
+	@apply border-opacity-70 border-2 border-red-500 bg-red-100 text-black min-w-full h-full min-h-full rounded;
 }
 
 .box2 {
@@ -11,14 +11,6 @@
 }
 
 .item {
-	@apply text-black text-xl font-bold flex items-center content-center justify-center rounded
-}
-
-.diceContainer {
-	@apply py-2 pl-5
-}
-
-.diceResult{
 	@apply text-black text-xl font-bold flex items-center content-center justify-center rounded
 }
 

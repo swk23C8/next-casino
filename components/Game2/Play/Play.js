@@ -140,35 +140,40 @@ const Play = ({ stats = [], game = [] }) => {
 			<div className="grid min-h-max it grid-cols-3 grid-rows-2 gap-2 w-auto h-auto">
 				{/* container to show dice */}
 				<div className="dice-container box row-start-1 row-span-1">
-					<div className="grid overflow-hidden grid-cols-2 grid-rows-4 gap-2 w-auto h-auto">
-						<div className="diceContainer row-start-1 row-span-2">
-							<p>Banker Dice</p>
+					<div className="grid overflow-hidden grid-cols-4 grid-rows-2 gap-2 w-full h-full my-auto">
+
+						<div className="dice row-start-1 col-start-1 col-span-3">
+							<p className="flex flex-col justify-center items-center font-bold text-4xl"> Banker Dice</p>
 							<Dice refs={[bRef1, bRef2, bRef3, setBDie_1, setBDie_2, setBDie_3]} />
 						</div>
-						<div className="diceResult row-start-1 row-span-2">
-							<div>
-								<button onClick={() => {
+
+						<div className="dice-result row-start-1 col-start-4 col-span-1">
+							<div className="flex flex-col justify-center items-center h-full">
+								{/* <button onClick={() => {
 									rollBankerDice();
 								}}>
 									Roll Banker Dice
-								</button>
-								<p>{"score: " + bScore}</p>
+								</button> */}
+								<p className="font-bold text-3xl">{"score: " + bScore}</p>
 							</div>
 						</div>
-						<div className="diceContainer row-start-3 row-span-2">
-							<p>Player Dice</p>
+
+						<div className="dice row-start-2 col-start-1 col-span-3">
+							<p className="flex flex-col justify-center items-center font-bold text-4xl">Player Dice</p>
 							<Dice refs={[pRef1, pRef2, pRef3, setPDie_1, setPDie_2, setPDie_3]} />
 						</div>
-						<div className="diceResult row-span-2">
-							<div>
-								<button onClick={() => {
+
+						<div className="dice-result row-start-2 col-start-4 col-span-1">
+							<div className="flex flex-col justify-center items-center h-full">
+								{/* <button onClick={() => {
 									rollPlayerDice();
 								}}>
 									Roll Player Dice
-								</button>
-								<p>{"score: " + pScore}</p>
+								</button> */}
+								<p className="font-bold text-3xl">{"score: " + pScore}</p>
 							</div>
 						</div>
+
 					</div>
 				</div>
 				{/* container  to show ID, Token amount, Bet amount form with Bet button and Game Result*/}
