@@ -1,7 +1,7 @@
 // import { prisma } from '@/lib/prisma';
 import axios from 'axios';
 import { useState } from 'react';
-import Play from '@/components/Game2/Play/Play';
+import Play from '@/components/Cee-Lo/Play/Play';
 
 
 

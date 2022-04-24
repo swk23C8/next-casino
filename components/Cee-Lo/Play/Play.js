@@ -1,4 +1,4 @@
-import Dice from '@/components/Game2/Dice/Dice';
+import Dice from '@/components/Cee-Lo/Dice/Dice';
 import { useEffect, useState, useReducer, useCallback, Component, useRef, useMemo } from 'react';
 import Image from 'next/image'
 import axios from 'axios';

@@ -20,6 +20,8 @@ import {
   CogIcon,
 } from '@heroicons/react/outline';
 import { ChevronDownIcon } from '@heroicons/react/solid';
+import DiceIcon from 'public/images/DiceIcon.png';
+import DiceIcon2 from 'public/images/DiceIcon2.png';
 
 const menuItems = [
   {
@@ -84,7 +86,14 @@ const Layout = ({ children = null }) => {
               <div className="flex items-center space-x-10">
                 <Link href="/cee-lo">
                   <a className="flex items-center space-x-1">
-                    <PuzzleIcon className="shrink-0 w-8 h-8 text-rose-500" />
+                    {/* <PuzzleIcon className="shrink-0 w-8 h-8 text-rose-500" /> */}
+                    <Image
+                      className="shrink-0 w-8 h-8 text-rose-500"
+                      src={DiceIcon2}
+                      width={40}
+                      height={40}
+                      alt="DiceIcon2"
+                    />
                     <span className="text-xl font-semibold tracking-wide">
                       Cee-Lo
                     </span>

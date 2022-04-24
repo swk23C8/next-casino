@@ -39,3 +39,7 @@ yarn-error.log*
 /pages/someform.bak
 /pages/homes.js.bak
 /pages/homes
+/component/Cee-Lo/Play/Round.js
+/component/Cee-Lo/Play/RoundNew.js
+/component/Cee-Lo/Play/RoundTest.js
+/component/Cee-Lo/Play/Round.module.scss

@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Layout from '@/components/Layout';
-// import Round from '@/components/Game2/Play/Round';
-import Round from '@/components/Game2/Play/RoundNew';
+// import Round from '@/components/Cee-Lo/Play/Round';
+import Round from '@/components/Cee-Lo/Play/RoundNew';
 
 
 const Game = () => {
