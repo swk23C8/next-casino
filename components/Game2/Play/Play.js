@@ -36,6 +36,7 @@ const Play = ({ stats = [], game = [] }) => {
 	const [pScore, setPScore] = useState(game.pScore)
 	const pScoreRef = useRef(pScore);
 	const [pBet, setPBet] = useState(game.pBet);
+	const [balance, setBalance] = useState(stats.gameTokens);
 	const pRef1 = useRef();
 	const pRef2 = useRef();
 	const pRef3 = useRef();
@@ -60,6 +61,17 @@ const Play = ({ stats = [], game = [] }) => {
 			})
 	}
 
+	// api call to update token
+	const updateToken = (e) => {
+		axios.patch('/api/gameAction/updateToken', { e, })
+			.then(res => {
+				setBalance(res.data.newToken);
+			})
+			.catch(err => {
+				console.log(err)
+			})
+	}
+
 	// function to calculate dice score
 	const score = (dice) => {
 		dice.sort();
@@ -78,13 +90,34 @@ const Play = ({ stats = [], game = [] }) => {
 
 	// function to calculate winner
 	const resultCalc = (bScore, pScore) => {
-		if (bScore === 10) setResult("Banker Wins");
-		if (bScore === -1) setResult("Player Wins");
-		if (pScore === 10) setResult("Player Wins");
-		if (pScore === -1) setResult("Banker Wins");
-		if (bScore === pScore) setResult("Tie");
-		if (bScore > pScore) setResult("Banker Wins");
-		if (bScore < pScore) setResult("Player Wins");
+		if (bScore === 10) {
+			setResult("Banker Wins");
+			updateToken("loss");
+		}
+		else if (bScore === -1) {
+			setResult("Player Wins");
+			updateToken("win");
+		}
+		else if (pScore === 10) {
+			setResult("Player Wins");
+			updateToken("win");
+		}
+		else if (pScore === -1) {
+			setResult("Banker Wins");
+			updateToken("loss");
+		}
+		else if (bScore === pScore) {
+			setResult("PUSH");
+		}
+		else if (bScore > pScore) {
+			setResult("Banker Wins");
+			updateToken("loss");
+		}
+		else if (bScore < pScore) {
+			setResult("Player Wins");
+			updateToken("win");
+		}
+
 		setTimeout(function () {
 			setBDie_1(0);
 			setBDie_2(0);
@@ -104,6 +137,8 @@ const Play = ({ stats = [], game = [] }) => {
 				if (bScoreRef.current !== null && bScoreRef.current !== -2 && bScoreRef.current !== 0) {
 					if (bScoreRef.current === 10 || bScoreRef.current === -1) {
 						resultCalc(bScoreRef.current, pScoreRef.current);
+						clearInterval(bIntervalID.current);
+						return;
 					}
 					clearInterval(bIntervalID.current);
 					rollPlayerDice();
@@ -243,8 +278,8 @@ const Play = ({ stats = [], game = [] }) => {
 				<div className="game-container box row-start-1 row-span-1 col-start-2 col-end-3 text-center">
 					<div className="game-info">
 						<p className="text-xl">Game ID: {game.id}</p>
-						<p className="text-2xl">Account Balance: {stats.gameTokens}</p>
-						<p className="text-2xl">Bet Amount: {pBet}</p>
+						<p className="text-2xl">Account Balance: {balance}</p>
+						{/* <p className="text-2xl">Bet Amount: {pBet}</p> */}
 						<p className="text-2xl">Game Result: {result}</p>
 					</div>
 					<div className="game-form">

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import Card from '@/components/Card';
+import Table from '@/components/Table';
 import { ExclamationIcon } from '@heroicons/react/outline';
 
 const Grid = ({ stats = [] }) => {
@@ -20,6 +21,11 @@ const Grid = ({ stats = [] }) => {
         <Card key={stat.id} {...stat} />
       ))}
     </div>
+    // <>
+    //   {stats.map(stat => (
+    //     <Table key={stat.id} {...stat} />
+    //   ))}
+    // </>
   );
 };
 

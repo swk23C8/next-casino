@@ -10,7 +10,7 @@ const SomeFunctionalComponent = () => {
 
   React.useEffect(() => {
     if (adBlockDetected) {
-      window.alert("Please disable AdBlock! We need it to work!");
+      window.alert("Please disable AdBlock!\nWe don't display any advertisements,\nthanks!");
     }
   }, [adBlockDetected]);
 
