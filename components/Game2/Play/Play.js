@@ -323,21 +323,18 @@ const Play = ({ stats = [], game = [] }) => {
 									<Image
 										src="https://cdn-icons-png.flaticon.com/512/142/142306.png"
 										alt="Die_face_6b"
-										// layout='fill'
 										width={35}
 										height={35}
 									/>
 									<Image
 										src="https://cdn-icons-png.flaticon.com/512/142/142306.png"
 										alt="Die_face_6b"
-										// layout='fill'
 										width={35}
 										height={35}
 									/>
 									<Image
 										src="https://cdn-icons-png.flaticon.com/512/142/142306.png"
 										alt="Die_face_6b"
-										// layout='fill'
 										width={35}
 										height={35}
 									/>
@@ -350,22 +347,19 @@ const Play = ({ stats = [], game = [] }) => {
 								<td className="">
 									<Image
 										src="https://cdn-icons-png.flaticon.com/512/142/142304.png"
-										alt="Die_face_6b"
-										// layout='fill'
+										alt="Die_face_4b"
 										width={35}
 										height={35}
 									/>
 									<Image
 										src="https://cdn-icons-png.flaticon.com/512/142/142305.png"
-										alt="Die_face_6b"
-										// layout='fill'
+										alt="Die_face_5b"
 										width={35}
 										height={35}
 									/>
 									<Image
 										src="https://cdn-icons-png.flaticon.com/512/142/142306.png"
 										alt="Die_face_6b"
-										// layout='fill'
 										width={35}
 										height={35}
 									/>
@@ -377,23 +371,20 @@ const Play = ({ stats = [], game = [] }) => {
 								<td className="">Points</td>
 								<td className="">
 									<Image
-										src="https://cdn-icons-png.flaticon.com/512/142/142304.png"
-										alt="Die_face_6b"
-										// layout='fill'
+										src="https://cdn-icons-png.flaticon.com/512/142/142303.png"
+										alt="Die_face_3b"
 										width={35}
 										height={35}
 									/>
 									<Image
-										src="https://cdn-icons-png.flaticon.com/512/142/142304.png"
-										alt="Die_face_6b"
-										// layout='fill'
+										src="https://cdn-icons-png.flaticon.com/512/142/142303.png"
+										alt="Die_face_3b"
 										width={35}
 										height={35}
 									/>
 									<Image
 										src="https://cdn-icons-png.flaticon.com/512/142/142305.png"
-										alt="Die_face_6b"
-										// layout='fill'
+										alt="Die_face_5b"
 										width={35}
 										height={35}
 									/>
@@ -408,22 +399,19 @@ const Play = ({ stats = [], game = [] }) => {
 								<td className="">
 									<Image
 										src="https://cdn-icons-png.flaticon.com/512/142/142301.png"
-										alt="Die_face_6b"
-										// layout='fill'
+										alt="Die_face_1b"
 										width={35}
 										height={35}
 									/>
 									<Image
 										src="https://cdn-icons-png.flaticon.com/512/142/142302.png"
-										alt="Die_face_6b"
-										// layout='fill'
+										alt="Die_face_2b"
 										width={35}
 										height={35}
 									/>
 									<Image
 										src="https://cdn-icons-png.flaticon.com/512/142/142303.png"
-										alt="Die_face_6b"
-										// layout='fill'
+										alt="Die_face_3b"
 										width={35}
 										height={35}
 									/>
@@ -436,22 +424,19 @@ const Play = ({ stats = [], game = [] }) => {
 								<td className="">
 									<Image
 										src="https://cdn-icons-png.flaticon.com/512/142/142303.png"
-										alt="Die_face_6b"
-										// layout='fill'
+										alt="Die_face_3b"
 										width={35}
 										height={35}
 									/>
 									<Image
 										src="https://cdn-icons-png.flaticon.com/512/142/142305.png"
-										alt="Die_face_6b"
-										// layout='fill'
+										alt="Die_face_5b"
 										width={35}
 										height={35}
 									/>
 									<Image
 										src="https://cdn-icons-png.flaticon.com/512/142/142306.png"
 										alt="Die_face_6b"
-										// layout='fill'
 										width={35}
 										height={35}
 									/>
