@@ -53,7 +53,7 @@ export default function Stat({ stats = [] }) {
 				Your Account Stats
 			</h1>
 			<p className="text-gray-500">
-				VIP status: {userStats.vip ? 'VIP' : 'Not VIP'}
+				💰🤑 VIP status: {userStats.vip ? 'VIP' : 'Not VIP'}
 			</p>
 			<div className="mt-8">
 
@@ -198,7 +198,7 @@ export default function Stat({ stats = [] }) {
 										id="createdAt"
 										type="text"
 										disabled
-										placeholder={userStats.createdAt}	
+										placeholder={userStats.createdAt}
 									/>
 
 									<label
