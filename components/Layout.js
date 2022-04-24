@@ -93,9 +93,9 @@ const Layout = ({ children = null }) => {
 
                 <Link href="/stats">
                   <a className="flex items-center space-x-1">
-                    <HomeIcon className="shrink-0 w-8 h-8 text-rose-500" />
+                    <UserIcon className="shrink-0 w-8 h-8 text-rose-500" />
                     <span className="text-xl font-semibold tracking-wide">
-                      Some_Menu
+                      Stats
                     </span>
                   </a>
                 </Link>

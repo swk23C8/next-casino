@@ -8,31 +8,44 @@ const Card = ({
    createdAt = '',
 }) => (
    // <Link href={`/users/${id}`}>
-      <a className="block w-full">
-         <div className="relative">
-            <div className="bg-gray-200 rounded-lg shadow overflow-hidden aspect-w-16 aspect-h-7">
-            </div>
+   <a className="block w-full">
+      <div className="relative">
+         <div className="bg-gray-200 rounded-lg shadow overflow-hidden aspect-w-16 aspect-h-7">
          </div>
-         <div className="mt-2 w-full text-gray-700 font-semibold leading-tight">
-            {id ?? ''}
-         </div>
-         <ol className="mt-1 inline-flex items-center space-x-1 text-gray-500">
-            <li>
-               <span>{gameTokens ?? 0} Tokens</span>
-               <span aria-hidden="true"> · </span>
-            </li>
-            <li>
-               <span>{createdAt ?? 0} Account creation date</span>
-            </li>
-         </ol>
-         {/* <p className="mt-2">
+      </div>
+      <div className="mt-2 w-full text-gray-700 font-semibold leading-tight">
+         {id ?? ''}
+      </div>
+      <ol className="mt-1 inline-flex items-center space-x-1 text-gray-500">
+         <li>
+            <span>{gameTokens ?? 0} Tokens</span>
+            <span aria-hidden="true"> | </span>
+         </li>
+         <li>
+            <span>
+               {
+                  new Date(createdAt).toLocaleDateString(
+                     'en-US',
+                     {
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric',
+                     },
+                  )
+                  // createdAt.toString() ?? 0
+               }
+               {" "}Creation Date
+            </span>
+         </li>
+      </ol>
+      {/* <p className="mt-2">
          {new Intl.NumberFormat('en-US', {
             style: 'currency',
             currency: 'USD',
          }).format(price ?? 0)}{' '}
          <span className="text-gray-500">/night</span>
       </p> */}
-      </a>
+   </a>
    // </Link>
 );
 
