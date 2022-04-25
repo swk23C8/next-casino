@@ -42,7 +42,7 @@ const Game = ({ stats = [], game = [] }) => {
 	return (
 		<Layout>
 			<Head>
-				<title>Cee-Lo | Game</title>
+				<title>Slots | Game</title>
 				<meta name="description" content="Game page" />
 			</Head>
 			<GamePage stats={stats} game={game} />

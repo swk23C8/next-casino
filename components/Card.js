@@ -10,7 +10,7 @@ const Card = ({
    // <Link href={`/users/${id}`}>
    <a className="block w-full">
       <div className="relative">
-         <div className="bg-gray-200 rounded-lg shadow overflow-hidden aspect-w-16 aspect-h-7">
+         <div className="bg-gray-200 rounded-lg shadow overflow-hidden aspect-w-16 aspect-h-9">
          </div>
       </div>
       <div className="mt-2 w-full text-gray-700 font-semibold leading-tight">

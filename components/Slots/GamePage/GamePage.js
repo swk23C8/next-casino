@@ -41,7 +41,7 @@ const GamePage = ({ stats = [], game = [] }) => {
 				Please feel free to try out the available features and report any bugs!
 			</h1>
 			<h2 className="flex justify-center text-2xl font-bold text-black-800 py-5">
-				Welcome to Cee-Lo!
+				Welcome to Slots!
 			</h2>
 
 			{/* button to initiate gameState by calling api */}
