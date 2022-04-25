@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Container, Text, Stage, Sprite, useTick, useApp, Graphics } from "@inlet/react-pixi";
 import { settings, SCALE_MODES } from "pixi.js";
 
-settings.SCALE_MODE = SCALE_MODES.NEAREST;
+// settings.SCALE_MODE = SCALE_MODES.NEAREST;
 
 const Ring = () => {
 	const [rotation, setRotation] = useState(0);
@@ -115,72 +115,66 @@ const Ring2 = () => {
 						graphics.arc(0, 0, radius, startingAngle, endingAngle);
 						graphics.lineTo(0, 0);
 						graphics.endFill();
-						// console.log(sector)
-						// sectorText(sector);
 					}
 				}}
+			cursor="wait"
+			interactive={true}
 		/>
 	);
 }
 
-const SectorText1 = () => {
-	// for (let sector = 1; sector <= 20; sector++) {
-	// }
-	let text = "1";
+const SectorText = () => {
 	const radius = 200;
 	const numberOfSectors = 20;
 	const radiansPerSector = 2 * Math.PI / numberOfSectors;
-	const rotation = 1 * radiansPerSector;
 	const textAnchorPercentage = (radius - 40 / 2) / radius;
 
+	let sectors = [];
 
-	return (
-		<Text
-			text={text}
-			// anchor={0.5}
-			x={10 + radius * textAnchorPercentage * Math.cos(rotation)}
-			y={10 + radius * textAnchorPercentage * Math.sin(rotation)}
-			isSprite={true}
-			style={{
-				// fontSize: 100,
-				fill: 0x9900FF,
-				// align: "center",
-				// fontFamily: "Arial",
-				// fontWeight: "bold",
-			}}
-		/>
-	)
+	for (let sector = 1; sector <= numberOfSectors; sector++) {
+		let text = sector.toString();
+		const rotation = sector * radiansPerSector;
+
+		sectors.push(
+			<Container
+				pivot={[200, 200]}
+				position={[200, 200]}
+			>
+				<Text
+					rotation={rotation + Math.PI}
+					text={text}
+					anchor={(0.5, 0.5)}
+					x={200 + radius * textAnchorPercentage * Math.cos(rotation)}
+					y={200 + radius * textAnchorPercentage * Math.sin(rotation)}
+					style={{
+						// fontFamily: "Arial",
+						// fontSize: 2,
+						fill: '#000000',
+						// align: "center"
+					}}
+				/>
+			</Container>
+		);
+	}
+	return (sectors)
 }
 
 const PixiApp = () => {
 	return (
-		<Stage width={500} height={500}>
-			<Container position={[250, 250]}>
-				{/* <RotatingBunny /> */}
-				{/* <Ring /> */}
-				<Ring2 />
-
-				{/* <Text
-					text="Hello World"
-					anchor={0.5}
-					x={100}
-					y={50}
-					isSprite={true}
-					style={{
-						fontSize: 50,
-						fill: 0x000000,
-						align: "center",
-						fontFamily: "Arial",
-						fontWeight: "bold",
-					}}
-				/> */}
-			</Container>
+		<Stage
+			width={400}
+			height={400}
+			options={{
+				antialias: true,
+			}}
+		>
 			<Container
-				position={[250, 250]}
-				rotation={0.5}
+				position={[200, 200]}
+				pivot={[0, 0]}
 			>
-				<SectorText1 />
+				<Ring2 />
 			</Container>
+			{SectorText()}
 		</Stage>
 	);
 };
