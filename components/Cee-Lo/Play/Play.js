@@ -189,7 +189,6 @@ const Play = ({ stats = [], game = [] }) => {
 				bRef1.current.rollDice();
 				bRef2.current.rollDice();
 				bRef3.current.rollDice();
-
 			}, 2000);
 		}
 		else {
@@ -209,7 +208,6 @@ const Play = ({ stats = [], game = [] }) => {
 				pRef1.current.rollDice();
 				pRef2.current.rollDice();
 				pRef3.current.rollDice();
-
 			}, 2000);
 		}
 		else {

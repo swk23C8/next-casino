@@ -5,9 +5,12 @@ import { prisma } from '@/lib/prisma';
 
 
 export async function getServerSideProps() {
-   // Get current user's stats
-   const stats = await prisma.user.findMany(
-   );
+   // Get current user's stats in order of number of tokens
+   const stats = await prisma.user.findMany({
+      orderBy: {
+         gameTokens: 'desc',
+      },
+   });
    // Pass the data to the Home page
    return {
       props: {
