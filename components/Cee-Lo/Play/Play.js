@@ -6,9 +6,32 @@ import { data } from 'autoprefixer';
 import Shrek from 'public/images/feltCute.png';
 import Pootin from 'public/images/monke_pootin.png';
 import Egg from 'public/images/egg.png';
+import ChatWidget from '@/components/Cee-Lo/ChatWidget/ChatWidget';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Play = ({ stats = [], game = [] }) => {
+	// const notify = () => toast("hello world");
+	const notifyWin = () => toast.success('🦄 Wow so easy!', {
+		position: "top-left",
+		autoClose: 5000,
+		hideProgressBar: false,
+		closeOnClick: true,
+		pauseOnHover: true,
+		draggable: true,
+		progress: undefined,
+	});
 
+	const notifyLose = () => toast.error('🦄 Wow so easy!', {
+		position: "top-left",
+		autoClose: 5000,
+		hideProgressBar: false,
+		closeOnClick: true,
+		pauseOnHover: true,
+		draggable: true,
+		progress: undefined,
+	});
 	// console.log(game)
 
 	// Banker useStates
@@ -93,18 +116,22 @@ const Play = ({ stats = [], game = [] }) => {
 		if (bScore === 10) {
 			setResult("Banker Wins");
 			updateToken("loss");
+			notifyLose();
 		}
 		else if (bScore === -1) {
 			setResult("Player Wins");
 			updateToken("win");
+			notifyWin();
 		}
 		else if (pScore === 10) {
 			setResult("Player Wins");
 			updateToken("win");
+			notifyWin();
 		}
 		else if (pScore === -1) {
 			setResult("Banker Wins");
 			updateToken("loss");
+			notifyLose();
 		}
 		else if (bScore === pScore) {
 			setResult("PUSH");
@@ -112,10 +139,12 @@ const Play = ({ stats = [], game = [] }) => {
 		else if (bScore > pScore) {
 			setResult("Banker Wins");
 			updateToken("loss");
+			notifyLose();
 		}
 		else if (bScore < pScore) {
 			setResult("Player Wins");
 			updateToken("win");
+			notifyWin();
 		}
 
 		setTimeout(function () {
@@ -459,11 +488,24 @@ const Play = ({ stats = [], game = [] }) => {
 				</div>
 				{/* container for chat/log */}
 				<div className="box row-start-2 row-span-1 col-start-1 col-end-3">
-					<Image
+					{/* <Image
 						src={Shrek}
 						alt="Hooman Shrek"
 						width={1265}
 						height={435}
+					/> */}
+					<button onClick={notifyWin}>Notify!</button>
+					<button onClick={notifyLose}>Notify!</button>
+					<ToastContainer
+						// position="top-right"
+						// autoClose={5000}
+						// hideProgressBar={false}
+						// newestOnTop={false}
+						// closeOnClick
+						// rtl={false}
+						// pauseOnFocusLoss
+						// draggable
+						// pauseOnHover
 					/>
 				</div>
 			</div>
