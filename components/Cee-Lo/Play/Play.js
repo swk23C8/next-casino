@@ -13,7 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Play = ({ stats = [], game = [] }) => {
 	// const notify = () => toast("hello world");
-	const notifyWin = () => toast.success('🦄 Wow so easy!', {
+	const notifyWin = () => toast.success('🦄 Wow so easy! You win!', {
 		position: "top-left",
 		autoClose: 5000,
 		hideProgressBar: false,
@@ -23,7 +23,7 @@ const Play = ({ stats = [], game = [] }) => {
 		progress: undefined,
 	});
 
-	const notifyLose = () => toast.error('🦄 Wow so easy!', {
+	const notifyLose = () => toast.error('🦄 Wow so hard! You lose!', {
 		position: "top-left",
 		autoClose: 5000,
 		hideProgressBar: false,
@@ -32,6 +32,17 @@ const Play = ({ stats = [], game = [] }) => {
 		draggable: true,
 		progress: undefined,
 	});
+
+	const notifyError = () => toast.error('🦄 Wow so error! Invalid!', {
+		position: "top-left",
+		autoClose: 5000,
+		hideProgressBar: false,
+		closeOnClick: true,
+		pauseOnHover: true,
+		draggable: true,
+		progress: undefined,
+	});
+
 	// console.log(game)
 
 	// Banker useStates
@@ -80,7 +91,8 @@ const Play = ({ stats = [], game = [] }) => {
 				rollBankerDice();
 			})
 			.catch(err => {
-				console.log(err)
+				// console.log(err)
+				notifyError();
 			})
 	}
 
@@ -91,7 +103,8 @@ const Play = ({ stats = [], game = [] }) => {
 				setBalance(res.data.newToken);
 			})
 			.catch(err => {
-				console.log(err)
+				// console.log(err)
+				notifyError();
 			})
 	}
 
