@@ -10,6 +10,7 @@ import ChatWidget from '@/components/Cee-Lo/ChatWidget/ChatWidget';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { setIn } from 'formik';
 
 const Play = ({ stats = [], game = [] }) => {
 	// const notify = () => toast("hello world");
@@ -172,43 +173,54 @@ const Play = ({ stats = [], game = [] }) => {
 		}, 2500);
 	}
 
+	const setIntervalImmediately = (func, interval, intervalID) => {
+		func();
+		intervalID.current = setInterval(func, interval);
+		return intervalID.current;
+	}
+
+	const bankerDiceInterval = () => {
+		if (bScoreRef.current !== null && bScoreRef.current !== -2 && bScoreRef.current !== 0) {
+			if (bScoreRef.current === 10 || bScoreRef.current === -1) {
+				resultCalc(bScoreRef.current, pScoreRef.current);
+				clearInterval(bIntervalID.current);
+				return;
+			}
+			clearInterval(bIntervalID.current);
+			rollPlayerDice();
+			return;
+		}
+		bRef1.current.rollDice();
+		bRef2.current.rollDice();
+		bRef3.current.rollDice();
+	}
+
+
 	// function to roll banker dice
 	const rollBankerDice = () => {
 		if (bScoreRef.current === null || bScoreRef.current === -2 || bScoreRef.current === 0) {
-			bIntervalID.current = setInterval(() => {
-				if (bScoreRef.current !== null && bScoreRef.current !== -2 && bScoreRef.current !== 0) {
-					if (bScoreRef.current === 10 || bScoreRef.current === -1) {
-						resultCalc(bScoreRef.current, pScoreRef.current);
-						clearInterval(bIntervalID.current);
-						return;
-					}
-					clearInterval(bIntervalID.current);
-					rollPlayerDice();
-					return;
-				}
-				bRef1.current.rollDice();
-				bRef2.current.rollDice();
-				bRef3.current.rollDice();
-			}, 2000);
+			setIntervalImmediately(bankerDiceInterval, 2000, bIntervalID);
 		}
 		else {
 			console.log("dice not rolling as condition is false")
 		}
 	}
 
+	const playerDiceInterval = () => {
+		if (pScoreRef.current !== null && pScoreRef.current !== -2 && pScoreRef.current !== 0) {
+			resultCalc(bScoreRef.current, pScoreRef.current);
+			clearInterval(pIntervalID.current);
+			return;
+		}
+		pRef1.current.rollDice();
+		pRef2.current.rollDice();
+		pRef3.current.rollDice();
+	}
+
 	// function to roll player dice
 	const rollPlayerDice = () => {
 		if (pScoreRef.current === null || pScoreRef.current === -2 || pScoreRef.current === 0) {
-			pIntervalID.current = setInterval(() => {
-				if (pScoreRef.current !== null && pScoreRef.current !== -2 && pScoreRef.current !== 0) {
-					resultCalc(bScoreRef.current, pScoreRef.current);
-					clearInterval(pIntervalID.current);
-					return;
-				}
-				pRef1.current.rollDice();
-				pRef2.current.rollDice();
-				pRef3.current.rollDice();
-			}, 2000);
+			setIntervalImmediately(playerDiceInterval, 2000, pIntervalID);
 		}
 		else {
 			console.log("dice not rolling as condition is false")
@@ -508,15 +520,15 @@ const Play = ({ stats = [], game = [] }) => {
 					<button onClick={notifyWin}>Notify!</button>
 					<button onClick={notifyLose}>Notify!</button>
 					<ToastContainer
-						// position="top-right"
-						// autoClose={5000}
-						// hideProgressBar={false}
-						// newestOnTop={false}
-						// closeOnClick
-						// rtl={false}
-						// pauseOnFocusLoss
-						// draggable
-						// pauseOnHover
+					// position="top-right"
+					// autoClose={5000}
+					// hideProgressBar={false}
+					// newestOnTop={false}
+					// closeOnClick
+					// rtl={false}
+					// pauseOnFocusLoss
+					// draggable
+					// pauseOnHover
 					/>
 				</div>
 			</div>
