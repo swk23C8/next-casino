@@ -18,6 +18,7 @@ const Play = ({ stats = [], game = [] }) => {
 		<>
 			<p>Hi!</p>
 			<PixiApp />
+			{console.log("rendered")}
 		</>
 	);
 }

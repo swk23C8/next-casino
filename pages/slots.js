@@ -4,6 +4,12 @@ import GamePage from '@/components/Slots/GamePage/GamePage';
 import { getSession } from 'next-auth/react';
 import { prisma } from '@/lib/prisma';
 
+import dynamic from 'next/dynamic'
+const PixiApp = dynamic(
+	() => import('../components/Slots/PixiApp/PixiApp'),
+	{ ssr: false }
+);
+
 export async function getServerSideProps(context) {
 	const session = await getSession(context);
 	const redirect = {
@@ -45,7 +51,8 @@ const Game = ({ stats = [], game = [] }) => {
 				<title>Slots | Game</title>
 				<meta name="description" content="Game page" />
 			</Head>
-			<GamePage stats={stats} game={game} />
+			{/* <GamePage stats={stats} game={game} /> */}
+			<PixiApp />
 		</Layout>
 	);
 };
