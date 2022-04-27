@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Container, Text, Stage, Sprite, useTick, useApp, Graphics } from "@inlet/react-pixi";
 import { settings, SCALE_MODES } from "pixi.js";
 
@@ -92,7 +92,7 @@ const RotatingBunny = () => {
 	);
 };
 
-const Reel = (param) => {
+const ReelContainer = (param) => {
 	const radius = param.radius;
 	const numberOfSectors = param.numberOfSectors;
 
@@ -102,7 +102,8 @@ const Reel = (param) => {
 	const randomColour = () => {
 		return `0x${Math.floor(Math.random() * 16777215).toString(16)}`;
 	}
-	const color = randomColour();
+	// const color = randomColour();
+	const color = "0x526e79";
 
 	const drawReel = React.useCallback((graphics) => {
 		for (let sector = 1; sector <= numberOfSectors; sector++) {
@@ -123,10 +124,11 @@ const Reel = (param) => {
 		const reelText = [];
 		for (let sector = 1; sector <= numberOfSectors; sector++) {
 			const text = sector.toString();
-			const rotation = sector * radiansPerSector
+			const rotation = sector * radiansPerSector + (param.rotation / param.rotateSpeed);
+			console.log("rotation: " + rotation)
 			reelText.push(
 				<Text
-					key={sector}
+					key={param.id + "_reelText_" + sector}
 					text={text}
 					anchor={(0.5, 0.5)}
 					// anchor={(0, 0)}
@@ -151,22 +153,49 @@ const Reel = (param) => {
 			);
 		}
 		return reelText;
-	}, [numberOfSectors, radiansPerSector, radius, textAnchorPercentage]);
+	}, [numberOfSectors, param.id, param.rotateSpeed, param.rotation, radiansPerSector, radius, textAnchorPercentage]);
 
 	return (
 		<>
 			<Graphics
+				id={param.id + "_graphics"}
 				draw={drawReel}
 				cursor="not-allowed"
 				interactive={true}
+				// angle={param.rotation}
+				click={
+					(e) => {
+						console.log("left clicked reel " + param.id);
+						console.log(e.target);
+						// param.setReels(e);
+						// console.log(param.reels)
+						// e.target.rotation = e.target.rotation + Math.PI;
+					}
+				}
 			/>
+
 			{drawReelText()}
+
 		</>
 	);
 }
 
 
-const ReelButton = () => {
+const ReelButton = (reelContainers) => {
+	let angleStep = 60;
+	let rotateSpeed = Math.floor(Math.random() * 100) + 1;
+	// reel.rotation += rotateSpeed;
+	// if (reel.rotation >= 360) {
+	// 	reel.rotation = 0;
+	// }
+
+	// rotate Reel by rotationSpeed and angle
+	const rotateReel = (reel, rotationSpeed, angle) => {
+		reel.rotation += rotationSpeed;
+		if (reel.rotation >= angle) {
+			reel.rotation = 0;
+		}
+	}
 
 	return (
 		<Container
@@ -180,13 +209,45 @@ const ReelButton = () => {
 					ctx.endFill();
 				}}
 				cursor="grab"
-				interactive={true}
+			// interactive={true}
+			// click={
+			// 	(e) => {
+			// 		console.log("left clicked button");
+			// 		console.log(e);
+			// 	}}
 			/>
 		</Container>
 	)
 }
 
 const PixiApp = () => {
+	const [rotation, setRotation] = useState(0);
+	const [rotateSpeed, setRotateSpeed] = useState(Math.floor(Math.random() * 100) + 1);
+	let angleStep = 60;
+	// let rotateSpeed = Math.floor(Math.random() * 100) + 1;
+
+	const spin = () => {
+		// setRotation(rotation => rotation + 2*Math.PI);
+
+		if (rotation >= 2 * Math.PI) {
+			setRotation(0);
+		}
+		else {
+			setRotation(rotation => rotation + angleStep);
+			angleStep = angleStep - angleStep / rotateSpeed
+			if ((angleStep.toFixed(1) <= 0.02)) {
+				console.log("stop rotate");
+
+			}
+			else {
+				requestAnimationFrame(spin);
+			}
+		}
+
+
+	}
+
+
 	return (
 		<Stage
 			width={800}
@@ -194,33 +255,57 @@ const PixiApp = () => {
 			options={{
 				antialias: true,
 				roundPixel: true,
-			}}
-		>
+			}}>
 			<Container
 				position={[400, 400]}
 				pivot={[0, 0]}
 			>
-				<Reel
+				<ReelContainer
+					id={5}
 					radius={400}
 					numberOfSectors={13}
+					rotation={rotation}
+					rotateSpeed={rotateSpeed}
 				/>
-				<Reel
+				<ReelContainer
+					id={4}
 					radius={350}
 					numberOfSectors={13}
+					rotation={rotation}
+					rotateSpeed={rotateSpeed}
 				/>
-				<Reel
+				<ReelContainer
+					id={3}
 					radius={300}
 					numberOfSectors={13}
+					rotation={rotation}
+					rotateSpeed={rotateSpeed}
 				/>
-				<Reel
+				<ReelContainer
+					id={2}
 					radius={250}
 					numberOfSectors={13}
+					rotation={rotation}
+					rotateSpeed={rotateSpeed}
 				/>
-				<Reel
+				<ReelContainer
+					id={1}
 					radius={200}
 					numberOfSectors={13}
+					rotation={rotation}
+					rotateSpeed={rotateSpeed}
 				/>
-				{ReelButton()}
+				{/* {ReelButton()} */}
+				<Container
+					pointerdown={(e) => {
+						console.log("left clicked button container");
+						console.log(e);
+						spin();
+					}}
+					interactive={!onclick}
+				>
+					<ReelButton />
+				</Container>
 			</Container>
 		</Stage>
 	);
