@@ -505,13 +505,13 @@ const Play = ({ stats = [], game = [] }) => {
 							</tr>
 						</tbody>
 					</table>
-					<Image
+					{/* <Image
 						src={Shrek}
 						alt="Hooman Shrek"
 						// layout='fill'
 						width={625}
 						height={300}
-					/>
+					/> */}
 					add feature to get more tokens/ads/captcha/banner/something? here
 				</div>
 				{/* container for chat/log */}
