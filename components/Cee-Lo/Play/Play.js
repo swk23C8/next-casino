@@ -291,7 +291,7 @@ const Play = ({ stats = [], game = [] }) => {
 					<div className="grid overflow-hidden grid-cols-4 grid-rows-2 gap-2 w-full h-full my-auto">
 
 						<div className="dice row-start-1 col-start-1 col-span-3">
-							<p className="flex flex-col justify-center items-center font-bold text-4xl"> Banker Dice</p>
+							<p className="flex flex-col justify-center items-center font-bold text-4xl my-2"> Banker Dice</p>
 							<Dice refs={[bRef1, bRef2, bRef3, setBDie_1, setBDie_2, setBDie_3]} />
 						</div>
 
@@ -310,7 +310,7 @@ const Play = ({ stats = [], game = [] }) => {
 						</div>
 
 						<div className="dice row-start-2 col-start-1 col-span-3">
-							<p className="flex flex-col justify-center items-center font-bold text-4xl">Player Dice</p>
+							<p className="flex flex-col justify-center items-center font-bold text-4xl my-2">Player Dice</p>
 							<Dice refs={[pRef1, pRef2, pRef3, setPDie_1, setPDie_2, setPDie_3]} />
 						</div>
 
@@ -334,18 +334,18 @@ const Play = ({ stats = [], game = [] }) => {
 				<div className="game-container box row-start-1 row-span-1 col-start-2 col-end-3 text-center">
 					<div className="game-info">
 						<p className="text-xl">Game ID: {game.id}</p>
-						<p className="text-2xl">Account Balance: {balance}</p>
+						<p className="text-2xl mt-5">Account Balance: {balance}</p>
 						{/* <p className="text-2xl">Bet Amount: {pBet}</p> */}
-						<p className="text-2xl">Game Result: {result}</p>
+						<p className="text-2xl mt-5">Game Result: {result}</p>
 					</div>
-					<div className="game-form">
-
+					<div className="game-form mt-5 ">
 						<form
+							className="flex flex-col justify-center items-center "
 							id="makeBetForm"
 							onSubmit={makeBet}>
-							<label>
+							<label className="font-extrabold text-2xl">
 								Bet Amount:
-								<input type="number" name="bet" />
+								<input className="ml-5" type="number" name="bet" />
 							</label>
 						</form>
 						<button
@@ -353,12 +353,13 @@ const Play = ({ stats = [], game = [] }) => {
 							className="tracking-widest shadow-lg shadow-cyan-500/50 font-bold text-3xl h-2/4 w-4/5 my-5 bg-rose-600 text-white py-3 px-6 rounded-md focus:outline-none focus:ring-4 focus:ring-rose-600 focus:ring-opacity-50 hover:bg-rose-500 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-rose-600">
 							BET
 						</button>
-
-						<p className="text-xl">HOTKEYS</p>
-						<p className="text-xl">SPACE: bet</p>
-						<p className="text-xl">E: halve bet</p>
-						<p className="text-xl">R: double bet</p>
-						<p className="text-xl">D: roll dice</p>
+						<div className="hotkeys">
+							<p className="text-xl">HOTKEYS</p>
+							<p className="text-xl">SPACE: bet</p>
+							<p className="text-xl">E: halve bet</p>
+							<p className="text-xl">R: double bet</p>
+							<p className="text-xl">D: roll dice</p>
+						</div>
 					</div>
 				</div>
 				{/* container to show game rules/outcomes/explanations */}

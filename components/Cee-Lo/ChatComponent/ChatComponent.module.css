@@ -12,7 +12,8 @@
 	gap: 1em;
 	/* gap: 50px; */
 	padding: 1em;
-	height: calc(42vh - 4px - 5px - 5px - 5px);
+	/* height: calc(41vh - 4px - 5px - 5px - 5px); */
+	height: 39vh;
 	overflow-y: auto;
 }
 

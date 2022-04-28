@@ -4,7 +4,7 @@ import Die from "react-dice-roll";
 const Dice = ({ refs = [] }) => {
 
 	return (
-		<div className="flex justify-center space-x-5 h-full">
+		<div className="flex justify-center space-x-5 my-6">
 			<div className="flex items-center content-center justify-center">
 				<Die
 					onRoll={(value) => {

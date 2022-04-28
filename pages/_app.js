@@ -2,19 +2,29 @@ import '../styles/globals.css';
 import { Toaster } from 'react-hot-toast';
 import { SessionProvider as AuthProvider } from 'next-auth/react';
 import { useDetectAdBlock } from "adblock-detect-react";
+import { AdBlockDetectedWrapper } from "adblock-detect-react";
 import React from "react";
+import { useRouter } from 'next/router'
 
 
 const SomeFunctionalComponent = () => {
   const adBlockDetected = useDetectAdBlock();
-
+  const router = useRouter()
   React.useEffect(() => {
     if (adBlockDetected) {
-      window.alert("Please disable AdBlock!\nWe don't display any advertisements,\nthanks!");
+      // window.alert("Adblocker detected!\nPlease consider reader this notice.\nWe don't display any intrusive advertisements, thanks!");
+      if (router.asPath !== '/blocked') {
+        router.push('/blocked')
+      }
+      // console.log(router)
     }
-  }, [adBlockDetected]);
+  }, [adBlockDetected, router]);
 
-  return <div>{adBlockDetected && "Hello Ad Blocked Page"}</div>;
+  // return (
+  //   // <div className="min-w-full min-h-full">
+  //   //   {adBlockDetected && "Hello Ad Blocked Page"}
+  //   // </div>
+  // );
 };
 
 
