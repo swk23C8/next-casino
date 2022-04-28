@@ -6,7 +6,10 @@ import { data } from 'autoprefixer';
 import Shrek from 'public/images/feltCute.png';
 import Pootin from 'public/images/monke_pootin.png';
 import Egg from 'public/images/egg.png';
-import ChatWidget from '@/components/Cee-Lo/ChatWidget/ChatWidget';
+// import ChatWidget from '@/components/Cee-Lo/AblyChatComponent/AblyChatComponent';
+import dynamic from 'next/dynamic'
+const AblyChatComponent = dynamic(() => import('@/components/Cee-Lo/AblyChatComponent/AblyChatComponent'), { ssr: false });
+
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -281,6 +284,7 @@ const Play = ({ stats = [], game = [] }) => {
 	return (
 		<>
 			{/* <p>game is started</p> */}
+			<ToastContainer />
 			<div className="grid min-h-max it grid-cols-3 grid-rows-2 gap-2 w-auto h-auto">
 				{/* container to show dice */}
 				<div className="dice-container box row-start-1 row-span-1">
@@ -517,19 +521,9 @@ const Play = ({ stats = [], game = [] }) => {
 						width={1265}
 						height={435}
 					/> */}
-					<button onClick={notifyWin}>Notify!</button>
-					<button onClick={notifyLose}>Notify!</button>
-					<ToastContainer
-					// position="top-right"
-					// autoClose={5000}
-					// hideProgressBar={false}
-					// newestOnTop={false}
-					// closeOnClick
-					// rtl={false}
-					// pauseOnFocusLoss
-					// draggable
-					// pauseOnHover
-					/>
+					{/* <button onClick={notifyWin}>Notify!</button>
+					<button onClick={notifyLose}>Notify!</button> */}
+					<AblyChatComponent />
 				</div>
 			</div>
 		</>
