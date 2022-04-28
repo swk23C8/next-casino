@@ -2,6 +2,7 @@
 	display: grid;
 	grid-template-rows: 1fr 50px;
 }
+
 /* 100px */
 
 .chatText {
@@ -52,4 +53,26 @@
 	border-radius: 10px;
 	flex-grow: 0;
 	border-bottom-left-radius: 0;
+}
+
+.message[data-author="me"] {
+	background-image: linear-gradient(to right, rgb(43, 44, 119), rgb(0, 74, 121));
+	background-color: initial;
+	color: rgb(232, 230, 227);
+}
+
+.message[data-author="me"] {
+	background-color: #eef5f8;
+	border-bottom-left-radius: 10px;
+	align-self: flex-end;
+}
+
+.message[data-author="me"] {
+	background: linear-gradient(to right, #363795, #005C97);
+	color: white;
+	-webkit-align-self: flex-end;
+	-ms-flex-item-align: end;
+	align-self: flex-end;
+	border-bottom-right-radius: 0 !important;
+	border-bottom-left-radius: 10px !important;
 }

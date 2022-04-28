@@ -8,7 +8,7 @@ import Pootin from 'public/images/monke_pootin.png';
 import Egg from 'public/images/egg.png';
 // import ChatWidget from '@/components/Cee-Lo/AblyChatComponent/AblyChatComponent';
 import dynamic from 'next/dynamic'
-const AblyChatComponent = dynamic(() => import('@/components/Cee-Lo/AblyChatComponent/AblyChatComponent'), { ssr: false });
+const ChatComponent = dynamic(() => import('@/components/Cee-Lo/ChatComponent/ChatComponent'), { ssr: false });
 
 
 import { ToastContainer, toast } from 'react-toastify';
@@ -523,7 +523,7 @@ const Play = ({ stats = [], game = [] }) => {
 					/> */}
 					{/* <button onClick={notifyWin}>Notify!</button>
 					<button onClick={notifyLose}>Notify!</button> */}
-					<AblyChatComponent />
+					<ChatComponent />
 				</div>
 			</div>
 		</>
