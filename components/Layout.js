@@ -67,6 +67,7 @@ const Layout = ({ children = null }) => {
           content="Play Casino Games for Free | The Modern Casino"
         />
         <link rel="icon" href="/favicon.ico" />
+        <meta name="google-site-verification" content="Q8f9yc4NaHFd_VZQ08Qgrf2gTNFZI0v1VubOBhe99FU" />
       </Head>
 
       <div className="min-h-screen flex flex-col">
