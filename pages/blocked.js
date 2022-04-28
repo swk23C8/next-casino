@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-export default function adFrame() {
+export default function blocked() {
 	return (
 		<>
 			<div className="blocked-inner">
