@@ -284,8 +284,8 @@ const Play = ({ stats = [], game = [] }) => {
 	return (
 		<>
 			{/* <p>game is started</p> */}
-			<ToastContainer />
 			<div className="grid min-h-max it grid-cols-3 grid-rows-2 gap-2 w-auto h-auto">
+				<ToastContainer />
 				{/* container to show dice */}
 				<div className="dice-container box row-start-1 row-span-1">
 					<div className="grid overflow-hidden grid-cols-4 grid-rows-2 gap-2 w-full h-full my-auto">
