@@ -6,6 +6,8 @@ import { useDetectAdBlock } from "adblock-detect-react";
 import React from "react";
 import { useRouter } from 'next/router'
 import Script from "next/script";
+import { ChakraProvider } from '@chakra-ui/react'
+
 
 
 
@@ -37,9 +39,6 @@ const SomeFunctionalComponent = () => {
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
     <>
-
-
-
       <AuthProvider session={session}>
         <Script
           id="Adsense-id"
@@ -49,7 +48,9 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
           onError={(e) => { console.error('Script failed to load', e) }}
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
         />
-        <Component {...pageProps} />
+        <ChakraProvider>
+          <Component {...pageProps} />
+        </ChakraProvider>
         {SomeFunctionalComponent()}
       </AuthProvider>
 

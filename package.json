@@ -9,6 +9,9 @@
     "prebuild": "prisma generate"
   },
   "dependencies": {
+    "@chakra-ui/react": "^1.8.8",
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
     "@headlessui/react": "^1.4.3",
     "@heroicons/react": "^1.0.5",
     "@inlet/react-pixi": "^6.7.0",
@@ -23,6 +26,7 @@
     "base64-arraybuffer": "^1.0.2",
     "classnames": "^2.3.1",
     "formik": "^2.2.9",
+    "framer-motion": "^6.3.3",
     "gsap": "^3.10.4",
     "handlebars": "^4.7.7",
     "nanoid": "^3.3.0",
