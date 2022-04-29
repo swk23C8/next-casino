@@ -180,7 +180,7 @@ export default function FAQ() {
 							<p>
 								<b>COMING SOON:</b> You can change your username by clicking the change username
 								button on the homepage.
-								<br /> Please contact us to change your username for now
+								<br /> Please contact us if you are on the leaderboard and wish to change your username for now.
 							</p>
 						</AccordionPanel>
 					</AccordionItem>
