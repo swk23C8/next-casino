@@ -19,6 +19,7 @@ import {
   QuestionMarkCircleIcon,
   CogIcon,
   DocumentTextIcon,
+  InformationCircleIcon,
 } from '@heroicons/react/outline';
 import { ChevronDownIcon } from '@heroicons/react/solid';
 import DiceIcon from 'public/images/DiceIcon.png';
@@ -117,6 +118,15 @@ const Layout = ({ children = null }) => {
                     <UserIcon className="shrink-0 w-8 h-8 text-rose-500" />
                     <span className="text-xl font-semibold tracking-wide">
                       Stats
+                    </span>
+                  </a>
+                </Link>
+
+                <Link href="/rules">
+                  <a className="flex items-center space-x-1">
+                    <InformationCircleIcon className="shrink-0 w-8 h-8 text-rose-500" />
+                    <span className="text-xl font-semibold tracking-wide">
+                      Rules
                     </span>
                   </a>
                 </Link>

@@ -30,8 +30,8 @@ export default function FAQ() {
 				// maxW="4xl"
 				mx="20%"
 				mt={8}
-				// mx="60px"
-				// w="full"
+			// mx="60px"
+			// w="full"
 
 			>
 				<Accordion
@@ -47,7 +47,10 @@ export default function FAQ() {
 						</AccordionButton>
 						<AccordionPanel>
 							<p>
-								Next-Casino is a decentralized casino platform that enables
+								{/* Next-Casino is a decentralized casino platform that enables
+								players to play games like poker, blackjack, and other
+								traditional games. */}
+								Next-Casino is a Free-to-Play casino platform that enables
 								players to play games like poker, blackjack, and other
 								traditional games.
 							</p>
@@ -61,6 +64,9 @@ export default function FAQ() {
 							<AccordionIcon />
 						</AccordionButton>
 						<AccordionPanel>
+							To play the game, you need to be connected to the internet.
+							You will be able to play the game by clicking on the &quot;Play&quot;
+							button on the home page.
 							<p>
 								You can play games on the website or on the mobile app.
 								<br />
@@ -120,8 +126,7 @@ export default function FAQ() {
 						</AccordionButton>
 						<AccordionPanel>
 							<p>
-								You can deposit your funds to your wallet by clicking the
-								deposit button on the homepage.
+								Games on NextCasino are 100% free to play and always will be.
 							</p>
 						</AccordionPanel>
 					</AccordionItem>
@@ -134,8 +139,7 @@ export default function FAQ() {
 						</AccordionButton>
 						<AccordionPanel>
 							<p>
-								You can withdraw your funds from your wallet by clicking the
-								withdraw button on the homepage.
+								Play Money: &quot;Tokens&quot; are designed for entertainment, as well as to help beginners and intermediate players get familiar with casino game rules, tournaments and cash games. As the name implies, Tokens have no monetary value, and cannot be withdrawn, sold or converted into real money.
 							</p>
 						</AccordionPanel>
 					</AccordionItem>
@@ -148,8 +152,7 @@ export default function FAQ() {
 						</AccordionButton>
 						<AccordionPanel>
 							<p>
-								You can transfer funds to another player by clicking the
-								transfer funds button on the homepage.
+								You are currently unable to transfer funds from your account to another at the moment.
 							</p>
 						</AccordionPanel>
 					</AccordionItem>
@@ -162,50 +165,7 @@ export default function FAQ() {
 						</AccordionButton>
 						<AccordionPanel>
 							<p>
-								You can change your password by clicking the change password
-								button on the homepage.
-							</p>
-						</AccordionPanel>
-					</AccordionItem>
-					<AccordionItem>
-						<AccordionButton>
-							<Box flex='1' textAlign='left'>
-								How do I change my email address?
-							</Box>
-							<AccordionIcon />
-						</AccordionButton>
-						<AccordionPanel>
-							<p>
-								You can change your email address by clicking the change
-								email button on the homepage.
-							</p>
-						</AccordionPanel>
-					</AccordionItem>
-					<AccordionItem>
-						<AccordionButton>
-							<Box flex='1' textAlign='left'>
-								How do I change my phone number?
-							</Box>
-							<AccordionIcon />
-						</AccordionButton>
-						<AccordionPanel>
-							<p>
-								You can change your phone number by clicking the change
-								phone number button on the homepage.
-							</p>
-						</AccordionPanel>
-					</AccordionItem>
-					<AccordionItem>
-						<AccordionButton>
-							<Box flex='1' textAlign='left'>
-								How do I change my avatar?
-							</Box>
-							<AccordionIcon />
-						</AccordionButton>
-						<AccordionPanel>
-							<p>
-								You can change your avatar by clicking the change avatar
-								button on the homepage.
+								NextCasino relies on Google Authentication and ✨Magic Links to handle sign-ups and log-ins. <br />In other words, NextCasino does not store your passwords.
 							</p>
 						</AccordionPanel>
 					</AccordionItem>
@@ -218,25 +178,13 @@ export default function FAQ() {
 						</AccordionButton>
 						<AccordionPanel>
 							<p>
-								You can change your username by clicking the change username
+								<b>COMING SOON:</b> You can change your username by clicking the change username
 								button on the homepage.
+								<br /> Please contact us to change your username for now
 							</p>
 						</AccordionPanel>
 					</AccordionItem>
-					<AccordionItem>
-						<AccordionButton>
-							<Box flex='1' textAlign='left'>
-								How do I change my country?
-							</Box>
-							<AccordionIcon />
-						</AccordionButton>
-						<AccordionPanel>
-							<p>
-								You can change your country by clicking the change country
-								button on the homepage.
-							</p>
-						</AccordionPanel>
-					</AccordionItem>
+
 					<AccordionItem>
 						<AccordionButton>
 							<Box flex='1' textAlign='left'>
@@ -246,22 +194,76 @@ export default function FAQ() {
 						</AccordionButton>
 						<AccordionPanel>
 							<p>
-								You can change your language by clicking the change language
-								button on the homepage.
+								NextCasino is only available in English at the moment.<br />
+								If you would like to help us translate to your language please contact us!
 							</p>
 						</AccordionPanel>
 					</AccordionItem>
 					<AccordionItem>
 						<AccordionButton>
 							<Box flex='1' textAlign='left'>
-								How do I change my timezone?
+								How do I change my email address?
 							</Box>
 							<AccordionIcon />
 						</AccordionButton>
 						<AccordionPanel>
 							<p>
-								You can change your timezone by clicking the change timezone
-								button on the homepage.
+								You are unable to change your email address at the moment.
+							</p>
+						</AccordionPanel>
+					</AccordionItem>
+					<AccordionItem>
+						<AccordionButton>
+							<Box flex='1' textAlign='left'>
+								How do I change my avatar?
+							</Box>
+							<AccordionIcon />
+						</AccordionButton>
+						<AccordionPanel>
+							<p>
+								You are unable to change your avatar at the moment.
+							</p>
+						</AccordionPanel>
+					</AccordionItem>
+					<AccordionItem>
+						<AccordionButton>
+							<Box flex='1' textAlign='left'>
+								How do I change my role to ADMIN / VIP / MODERATOR?
+							</Box>
+							<AccordionIcon />
+						</AccordionButton>
+						<AccordionPanel>
+							<p>
+								You will automatically gain elevated roles depending on activity.
+							</p>
+						</AccordionPanel>
+					</AccordionItem>
+					<AccordionItem>
+						<AccordionButton>
+							<Box flex='1' textAlign='left'>
+								Can you give me more Tokens?
+							</Box>
+							<AccordionIcon />
+						</AccordionButton>
+						<AccordionPanel>
+							<p>
+								You can click on the rewards button to &apos;earn&apos; more tokens or through subscriptions.
+							</p>
+						</AccordionPanel>
+					</AccordionItem>
+
+
+
+					<AccordionItem>
+						<AccordionButton>
+							<Box flex='1' textAlign='left'>
+								Who can play?
+							</Box>
+							<AccordionIcon />
+						</AccordionButton>
+						<AccordionPanel>
+							<p>
+								Any person of any age can play this game.
 							</p>
 						</AccordionPanel>
 					</AccordionItem>
