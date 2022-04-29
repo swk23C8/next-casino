@@ -9,6 +9,8 @@ import {
 	Center,
 } from '@chakra-ui/react'
 
+import Image from 'next/image'
+
 
 export default function FAQ() {
 	return (
@@ -68,10 +70,12 @@ export default function FAQ() {
 									target="_blank"
 									rel="noopener noreferrer"
 								>
-									<img
+									<Image
 										src="/images/next-casino-website.png"
 										alt="Next-Casino website"
-										className="mx-auto"
+										// className="mx-auto"
+										width="100px"
+										height="100px"
 									/>
 								</a>
 								<br />
@@ -81,10 +85,12 @@ export default function FAQ() {
 									target="_blank"
 									rel="noopener noreferrer"
 								>
-									<img
+									<Image
 										src="/images/next-casino-app-store.png"
 										alt="Next-Casino app store"
-										className="mx-auto"
+										// className="mx-auto"
+										width="100px"
+										height="100px"
 									/>
 								</a>
 								<br />
@@ -94,10 +100,12 @@ export default function FAQ() {
 									target="_blank"
 									rel="noopener noreferrer"
 								>
-									<img
+									<Image
 										src="/images/next-casino-google-play.png"
 										alt="Next-Casino google play"
-										className="mx-auto"
+										// className="mx-auto"
+										width="100px"
+										height="100px"
 									/>
 								</a>
 							</p>

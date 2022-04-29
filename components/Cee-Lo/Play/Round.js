@@ -23,45 +23,45 @@ import 'react-toastify/dist/ReactToastify.css';
 // INDETERMINATE
 // x-y-z: Any combination that does not result in cases above is an intermediate outcome and requires a re-roll
 
-const submitContact1 = async (event) => {
-	event.preventDefault();
-	const name = event.target.name.value;
-	const res = await fetch(`https://api.agify.io/?name=${name}`);
-	const result = await res.json();
-	alert(`Hi ${name} your age is most likely: ${result.age}`);
-};
+// const submitContact1 = async (event) => {
+// 	event.preventDefault();
+// 	const name = event.target.name.value;
+// 	const res = await fetch(`https://api.agify.io/?name=${name}`);
+// 	const result = await res.json();
+// 	alert(`Hi ${name} your age is most likely: ${result.age}`);
+// };
 
-const submitContact2 = async (event) => {
-	event.preventDefault();
-	const name = event.target.name.value;
-	const res = await fetch('/api/apiLearn', {
-		body: JSON.stringify({
-			name: name,
-		}),
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		method: 'POST',
-	});
-	const result = await res.json();
-	alert(`Is this your full name: ${result.name}`);
-};
+// const submitContact2 = async (event) => {
+// 	event.preventDefault();
+// 	const name = event.target.name.value;
+// 	const res = await fetch('/api/apiLearn', {
+// 		body: JSON.stringify({
+// 			name: name,
+// 		}),
+// 		headers: {
+// 			'Content-Type': 'application/json',
+// 		},
+// 		method: 'POST',
+// 	});
+// 	const result = await res.json();
+// 	alert(`Is this your full name: ${result.name}`);
+// };
 
-const submitBetTest = async (event) => {
-	event.preventDefault();
-	const bet = event.target.bet.value;
-	const res = await fetch('/api/makeBet', {
-		body: JSON.stringify({
-			bet: bet,
-		}),
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		method: 'POST',
-	});
-	const result = await res.json();
-	alert(`You bet: ${result.bet}`);
-};
+// const submitBetTest = async (event) => {
+// 	event.preventDefault();
+// 	const bet = event.target.bet.value;
+// 	const res = await fetch('/api/makeBet', {
+// 		body: JSON.stringify({
+// 			bet: bet,
+// 		}),
+// 		headers: {
+// 			'Content-Type': 'application/json',
+// 		},
+// 		method: 'POST',
+// 	});
+// 	const result = await res.json();
+// 	alert(`You bet: ${result.bet}`);
+// };
 
 
 const Round = () => {

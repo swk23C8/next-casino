@@ -10,10 +10,8 @@ import Egg from 'public/images/egg.png';
 import dynamic from 'next/dynamic'
 const ChatComponent = dynamic(() => import('@/components/Cee-Lo/ChatComponent/ChatComponent'), { ssr: false });
 
-
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { setIn } from 'formik';
 
 const Play = ({ stats = [], game = [] }) => {
 	// const notify = () => toast("hello world");
@@ -302,10 +300,10 @@ const Play = ({ stats = [], game = [] }) => {
 								}}>
 									Roll Banker Dice
 								</button> */}
-								<p className="font-bold text-3xl">
+								<div className="font-bold text-3xl">
 									{/* {bScore === 0 ? "Roll` Em!" : "score: " + bScore} */}
 									{rollString(bScore)}
-								</p>
+								</div>
 							</div>
 						</div>
 
@@ -321,10 +319,10 @@ const Play = ({ stats = [], game = [] }) => {
 								}}>
 									Roll Player Dice
 								</button> */}
-								<p className="font-bold text-3xl">
+								<div className="font-bold text-3xl">
 									{/* {pScore === 0 ? "Roll` Em!" : "score: " + pScore} */}
 									{rollString(pScore)}
-								</p>
+								</div>
 							</div>
 						</div>
 
@@ -349,12 +347,13 @@ const Play = ({ stats = [], game = [] }) => {
 							</label>
 						</form>
 						<button
+							disabled={stats.userType === "GUEST" ? true : false}
 							form="makeBetForm"
 							className="tracking-widest shadow-lg shadow-cyan-500/50 font-bold text-3xl h-2/4 w-4/5 my-5 bg-rose-600 text-white py-3 px-6 rounded-md focus:outline-none focus:ring-4 focus:ring-rose-600 focus:ring-opacity-50 hover:bg-rose-500 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-rose-600">
 							BET
 						</button>
 						<div className="hotkeys">
-							<p className="text-xl">HOTKEYS</p>
+							<p className="text-xl font-bold">HOTKEYS</p>
 							<p className="text-xl">SPACE: bet</p>
 							<p className="text-xl">E: halve bet</p>
 							<p className="text-xl">R: double bet</p>
@@ -524,7 +523,7 @@ const Play = ({ stats = [], game = [] }) => {
 					/> */}
 					{/* <button onClick={notifyWin}>Notify!</button>
 					<button onClick={notifyLose}>Notify!</button> */}
-					<ChatComponent />
+					<ChatComponent userType={stats.userType} />
 				</div>
 			</div>
 		</>

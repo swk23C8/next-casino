@@ -37,7 +37,7 @@ const menuItems = [
   {
     label: 'FAQ',
     icon: QuestionMarkCircleIcon,
-    href: '/404',
+    href: '/faq',
   },
   {
     label: 'Logout',

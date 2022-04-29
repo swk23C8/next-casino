@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useChannel } from "./ChatReactEffect";
 import styles from './ChatComponent.module.css';
 
-const AblyChatComponent = () => {
-
+const AblyChatComponent = (userType = []) => {
 	let inputBox = null;
 	let messageEnd = null;
 
@@ -54,12 +53,24 @@ const AblyChatComponent = () => {
 				<textarea
 					ref={(element) => { inputBox = element; }}
 					value={messageText}
-					placeholder="Type a message..."
+					// if userType is GUEST, change placeholder to "Please enter Signin to chat"
+					placeholder={userType.userType === "GUEST" ? "Please enter sign in to chat" : "Enter your message"}
+					// placeholder={"Type a message..."}
 					onChange={e => setMessageText(e.target.value)}
 					onKeyPress={handleKeyPress}
 					className={styles.textarea}
+					disabled={userType.userType === "GUEST"}
 				></textarea>
-				<button type="submit" className={styles.button} disabled={messageTextIsEmpty}>Send</button>
+				<button
+					// disabled if messageTextIsEmpty is true or if stats.userType is GUEST
+					disabled={
+						messageTextIsEmpty || userType.userType === "GUEST"
+					}
+					type="submit"
+					className={styles.button}
+				>
+					Send
+				</button>
 			</form>
 		</div>
 	)

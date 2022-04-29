@@ -4,18 +4,14 @@ import { useState } from 'react';
 import Play from '@/components/Cee-Lo/Play/Play';
 
 
-
-
 const GamePage = ({ stats = [], game = [] }) => {
 	const [isGameStarted, setIsGameStarted] = useState(false);
 	const [userStats, setUserStats] = useState(stats);
 	const [gameState, setGameState] = useState(game);
 
-
 	const startGame = () => {
 		setIsGameStarted(true);
 	};
-
 
 	let data = {
 		bDie_1: 0,
@@ -30,7 +26,6 @@ const GamePage = ({ stats = [], game = [] }) => {
 		result: "",
 		userId: stats.id,
 	};
-
 
 	return !isGameStarted ? (
 		<>
@@ -80,14 +75,20 @@ const GamePage = ({ stats = [], game = [] }) => {
 				<button
 					className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
 					onClick={() => {
-						axios
-							.put(`/api/gameState/${userStats.id}`, {
-								data
-							})
-							.then(res => {
-								setGameState(res.data);
-							});
-						startGame();
+						if (userStats.id === 'GUEST') {
+							// setGameState(data);
+							startGame();
+						}
+						else {
+							axios
+								.put(`/api/gameState/${userStats.id}`, {
+									data
+								})
+								.then(res => {
+									setGameState(res.data);
+								});
+							startGame();
+						}
 					}}
 				>
 					Start Game
