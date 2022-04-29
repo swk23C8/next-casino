@@ -18,6 +18,7 @@ import {
   SupportIcon,
   QuestionMarkCircleIcon,
   CogIcon,
+  DocumentTextIcon,
 } from '@heroicons/react/outline';
 import { ChevronDownIcon } from '@heroicons/react/solid';
 import DiceIcon from 'public/images/DiceIcon.png';
@@ -38,6 +39,16 @@ const menuItems = [
     label: 'FAQ',
     icon: QuestionMarkCircleIcon,
     href: '/faq',
+  },
+  // {
+  //   label: 'About',
+  //   icon: SparklesIcon,
+  //   href: '/about',
+  // },
+  {
+    label: 'TOS',
+    icon: DocumentTextIcon,
+    href: '/privacy',
   },
   {
     label: 'Logout',

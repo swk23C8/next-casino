@@ -4,7 +4,7 @@ import Layout from '@/components/Layout';
 export default function privacy() {
 	return (
 		<Layout>
-			<h1 className="text-2xl font-medium text-gray-800">Privacy Policy of NextCasino</h1>
+			<h1 className="text-2xl font-medium text-gray-800">Privacy Policy</h1>
 
 			<p className="">NextCasino operates this website, which provides the SERVICE.</p>
 
