@@ -10,6 +10,8 @@ ayo ello
 - [ ] More code splitting to optimize performance
 - [ ] Organise modules/pages into their relative folders to reduce clutter
 - [ ] Finish slots game
+- [ ] Finish rules page
+- [ ] Add more content such as history, information on each games
 
 ## DONE
 - [X] grid design for the game
@@ -22,6 +24,8 @@ ayo ello
 - [X] Better stats page
 - [X] Implement adblock detection and redirect to blocked page
 - [X] Design slots game, start using pixi.js
+- [X] Added FAQ page
+- [X] Added Privacy Policy page to comply with GDPR and other privacy laws
 
 inside scripts
     // "vercel-build": "prisma generate && prisma migrate deploy && next build"
