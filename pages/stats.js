@@ -17,19 +17,34 @@ export async function getServerSideProps(context) {
 
 	// Check if the user is authenticated
 	if (!session) {
-		return redirect;
+		return {
+			props: {
+				stats: {
+					createdAt: 'N/A',
+					email: 'GUEST@DOMAIN.COM',
+					emailVerified: null,
+					gameTokens: 0,
+					id: "GUEST",
+					image: '',
+					name: "GUEST",
+					userType: "GUEST",
+				}
+			}
+		}
 	}
+	else {
 
-	// Retrieve the authenticated user
-	const stats = await prisma.user.findUnique({
-		where: { email: session.user.email },
-	});
-	// Pass the data to the Stats page
-	return {
-		props: {
-			stats: JSON.parse(JSON.stringify(stats)),
-		},
-	};
+		// Retrieve the authenticated user
+		const stats = await prisma.user.findUnique({
+			where: { email: session.user.email },
+		});
+		// Pass the data to the Stats page
+		return {
+			props: {
+				stats: JSON.parse(JSON.stringify(stats)),
+			},
+		};
+	}
 }
 
 export default function Stat({ stats = [] }) {
