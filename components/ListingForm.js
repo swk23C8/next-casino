@@ -97,8 +97,8 @@ const ListingForm = ({
                      <Input
                         name="title"
                         type="text"
-                        label="User ID"
-                        placeholder="Current User ID: JohnDoe123"
+                        label="Title"
+                        placeholder="Enter Title Here..."
                         disabled={disabled}
                      />
 

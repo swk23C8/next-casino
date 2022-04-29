@@ -15,7 +15,7 @@ import Image from 'next/image'
 export default function FAQ() {
 	return (
 		<Layout>
-			<h1 className="text-xl font-medium text-gray-800 text-center">
+			<h1 className="text-xl font-medium text-gray-800 text-center mt-4">
 				Frequently Asked Questions
 			</h1>
 			<p className="text-gray-500 text-center">
