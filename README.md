@@ -8,6 +8,7 @@ ayo ello
 
 - [ ] Implement design into components
 - [ ] More code splitting to optimize performance
+- [ ] Organise modules/pages into their relative folders to reduce clutter
 - [ ] Finish slots game
 
 ## DONE
