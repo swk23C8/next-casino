@@ -24,8 +24,8 @@ export async function getServerSideProps(context) {
       return {
          props: {
             stats: {
-               createdAt: '',
-               email: '',
+               createdAt: 'N/A',
+               email: 'GUEST@DOMAIN.COM',
                emailVerified: null,
                gameTokens: 0,
                id: "GUEST",
