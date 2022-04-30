@@ -35,6 +35,16 @@ const Play = ({ stats = [], game = [] }) => {
 		progress: undefined,
 	});
 
+	const notifyPush = () => toast.error('🦄 Wow nice try! You tie!', {
+		position: "top-left",
+		autoClose: 5000,
+		hideProgressBar: false,
+		closeOnClick: true,
+		pauseOnHover: true,
+		draggable: true,
+		progress: undefined,
+	});
+
 	const notifyError = () => toast.error('🦄 Wow so error! Invalid!', {
 		position: "top-left",
 		autoClose: 5000,
@@ -150,6 +160,7 @@ const Play = ({ stats = [], game = [] }) => {
 		}
 		else if (bScore === pScore) {
 			setResult("PUSH");
+			notifyPush();	
 		}
 		else if (bScore > pScore) {
 			setResult("Banker Wins");

@@ -109,7 +109,7 @@ export default function Stat({ stats = [] }) {
 						</button>
 					</>
 				) : (
-					<div className="flex items-center justify-center">You are not an admin!</div>
+					<div className="flex items-center justify-center">Admin panel is not available for this account</div>
 				)}
 				{/* add field to edit id */}
 				<Formik
