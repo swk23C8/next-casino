@@ -31,12 +31,12 @@ import PokerIcon2 from 'public/images/PokerIcon2.png'
 export default function Rules() {
 	return (
 		<Layout>
-			<h1 className="text-xl font-medium text-gray-800 text-center mt-4">
+			{/* <h1 className="text-xl font-medium text-gray-800 text-center mt-4">
 				Game Rules
 			</h1>
 			<p className="text-gray-500 text-center">
 				Here are the rules for Chuck-a-Luck.
-			</p>
+			</p> */}
 			<div className="flex justify-center space-x-5">
 				<Link href="/rules/cee-lo">
 					<a className="flex items-center space-x-1 border border-transparent rounded-md">
@@ -117,30 +117,22 @@ export default function Rules() {
 					</a>
 				</Link>
 			</div>
-			<p className="flex items-center justify-center my-10">insert rules for Chuck-a-Luck here</p>
-			<div>
-				<ol>
+			<h1 className="text-3xl font-semibold text-gray-800 text-center mt-4">
+				Chuck-a-Luck Rules
+			</h1>
+			{/* <p className="flex items-center justify-center my-10">insert rules for Chuck-a-Luck here</p> */}
+			<div className="flex items-center justify-center my-10">
+				<ol className="space-y-4 > *">
 					<li>
 						<strong>
 							<span className="text-xl font-semibold tracking-wide">
-								Chuck-a-Luck Rule 1
+								What is Chuck-a-Luck?
 							</span>
 						</strong>
-						<p>
+						<p className="mt-1">
 							<span className="text-xl tracking-wide">
-								Chuck-a-Luck Rule 1 description
-							</span>
-						</p>
-					</li>
-					<li>
-						<strong>
-							<span className="text-xl font-semibold tracking-wide">
-								Chuck-a-Luck Rule 2
-							</span>
-						</strong>
-						<p>
-							<span className="text-xl tracking-wide">
-								Chuck-a-Luck Rule 2 description
+								Cee-Lo is a betting game played with three six-sided dice. It&apos;s name originates from the Chinese: Sì-Wŭ-Liù (四五六).<br />
+								Meaning &quot;four-five-six&quot;. There are many variations of the game so please be sure to check the rules for each game.
 							</span>
 						</p>
 					</li>

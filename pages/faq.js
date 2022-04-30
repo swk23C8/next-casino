@@ -41,7 +41,7 @@ export default function FAQ() {
 					<AccordionItem>
 						<AccordionButton>
 							<Box flex='1' textAlign='left'>
-								What is Next-Casino?
+								What is NextCasino?
 							</Box>
 							<AccordionIcon />
 						</AccordionButton>
@@ -50,7 +50,7 @@ export default function FAQ() {
 								{/* Next-Casino is a decentralized casino platform that enables
 								players to play games like poker, blackjack, and other
 								traditional games. */}
-								Next-Casino is a Free-to-Play casino platform that enables
+								NextCasino is a Free-to-Play casino platform that enables
 								players to play games like poker, blackjack, and other
 								traditional games.
 							</p>

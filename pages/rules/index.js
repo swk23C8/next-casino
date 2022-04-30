@@ -30,12 +30,12 @@ import PokerIcon2 from 'public/images/PokerIcon2.png'
 export default function Rules() {
 	return (
 		<Layout>
-			<h1 className="text-xl font-medium text-gray-800 text-center mt-4">
+			{/* <h1 className="text-3xl font-semibold text-gray-800 text-center mt-4">
 				NextCasino Rules
-			</h1>
-			<p className="text-gray-500 text-center">
+			</h1> */}
+			{/* <p className="text-gray-500 text-center">
 				Here are the rules for the games on NextCasino.
-			</p>
+			</p> */}
 			<div className="flex justify-center space-x-5">
 				{/* <Link href="/cee-lo-rules"> */}
 				<Link href="/rules/cee-lo">
@@ -117,9 +117,12 @@ export default function Rules() {
 					</a>
 				</Link>
 			</div>
-			<p className="flex items-center justify-center my-10">insert rules for NextCasino here</p>
-			<div>
-				<ol>
+			<h1 className="text-3xl font-semibold text-gray-800 text-center mt-4">
+				NextCasino Rules
+			</h1>
+			{/* <p className="flex items-center justify-center my-10">insert rules for NextCasino here</p> */}
+			<div className="flex items-center justify-center my-10">
+				<ol className="space-y-4 > *">
 					<li>
 						<strong>
 							<span className="text-xl font-semibold tracking-wide">
@@ -128,7 +131,7 @@ export default function Rules() {
 						</strong>
 						<p>
 							<span className="text-xl tracking-wide">
-								This includes trade and job offers as well as referral and affiliate links.
+								This includes trade and job offers as well as referral and affiliate links.<br />
 								Advertising in the spam channel is tolerated as long as you don&apos;t automate posting your ads.
 							</span>
 						</p>
@@ -153,7 +156,8 @@ export default function Rules() {
 						</strong>
 						<p>
 							<span className="text-xl tracking-wide">
-								NextCasino is not a trading site and won&apos;t get involved in disputes between players under any circumstances. We highly recommend not trading here.
+								NextCasino is not a trading site and won&apos;t get involved in disputes between players under any circumstances.<br />
+								We highly recommend not trading here.
 							</span>
 						</p>
 					</li>

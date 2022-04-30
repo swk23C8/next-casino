@@ -30,12 +30,12 @@ import PokerIcon2 from 'public/images/PokerIcon2.png'
 export default function Rules() {
 	return (
 		<Layout>
-			<h1 className="text-xl font-medium text-gray-800 text-center mt-4">
+			{/* <h1 className="text-xl font-medium text-gray-800 text-center mt-4">
 				Game Rules
 			</h1>
 			<p className="text-gray-500 text-center">
 				Here are the rules for Cee-Lo.
-			</p>
+			</p> */}
 			<div className="flex justify-center space-x-5">
 				{/* <Link href="/cee-lo-rules"> */}
 				<Link href="/rules/cee-lo">
@@ -117,16 +117,19 @@ export default function Rules() {
 					</a>
 				</Link>
 			</div>
-			<p className="flex items-center justify-center my-10">insert rules for Cee-Lo here</p>
-			<div>
-				<ol>
+			<h1 className="text-3xl font-semibold text-gray-800 text-center mt-4">
+				Cee-Lo Rules
+			</h1>
+			{/* <p className="flex items-center justify-center my-10">insert rules for Cee-Lo here</p> */}
+			<div className="flex items-center justify-center my-10">
+				<ol className="space-y-4 > *">
 					<li>
 						<strong>
 							<span className="text-xl font-semibold tracking-wide">
 								What is Cee-Lo?
 							</span>
 						</strong>
-						<p>
+						<p className="mt-1">
 							<span className="text-xl tracking-wide">
 								Cee-Lo is a betting game played with three six-sided dice. It&apos;s name originates from the Chinese: Sì-Wŭ-Liù (四五六).<br />
 								Meaning &quot;four-five-six&quot;. There are many variations of the game so please be sure to check the rules for each game.
@@ -139,7 +142,7 @@ export default function Rules() {
 								What are the outcome of the roll combinations?
 							</span>
 						</strong>
-						<p>
+						<p className="mt-1">
 							<span className="text-xl tracking-wide">
 								Cee-Lo is a game where the outcome of each round is either an instant win/loss or push.
 							</span>
@@ -151,7 +154,7 @@ export default function Rules() {
 								What is considered an instant WIN?
 							</span>
 						</strong>
-						<p>
+						<p className="mt-1">
 							<span className="text-xl tracking-wide">
 								Rolling triples of any dice value is considered an instant win. Rolling triples of six&apos;s is the highest roll, then triples of five&apos;s and so on.
 							</span>
@@ -163,7 +166,7 @@ export default function Rules() {
 								What roll combination is considered an instant WIN?
 							</span>
 						</strong>
-						<p>
+						<p className="mt-1">
 							<span className="text-xl tracking-wide">
 								Rolling triples of any dice value is considered an instant win. Rolling triples of six&apos;s is the highest roll, then triples of five&apos;s and so on.<br />
 								Also, rolling a pair of any value with a six is considered an instant win.<br />
@@ -177,7 +180,7 @@ export default function Rules() {
 								What roll combination is considered an instant LOSS?
 							</span>
 						</strong>
-						<p>
+						<p className="mt-1">
 							<span className="text-xl tracking-wide">
 								Rolling a sequential 1-2-3 is considered an instant loss.<br />
 								Also, rolling a pair of any value with a one is considered an instant loss.
@@ -190,7 +193,7 @@ export default function Rules() {
 								What roll combination is considered POINTS?
 							</span>
 						</strong>
-						<p>
+						<p className="mt-1">
 							<span className="text-xl tracking-wide">
 								Rolling a a pair of any value with the odd die rolling between two and five is considered points. This is because the odd die being one or six are special cases<br />
 								For example, roll combination of 2-2-5 is worth 5 points. <br />
@@ -204,7 +207,7 @@ export default function Rules() {
 								What roll combination requires a RE-ROLL?
 							</span>
 						</strong>
-						<p>
+						<p className="mt-1">
 							<span className="text-xl tracking-wide">
 								Any roll combination that does not result in either win, loss or points is considered indeterminate and requires a re-roll.
 							</span>
