@@ -32,7 +32,7 @@ export default function Rules() {
 	return (
 		<Layout>
 			<h1 className="text-xl font-medium text-gray-800 text-center mt-4">
-				Rules
+				Game Rules
 			</h1>
 			<p className="text-gray-500 text-center">
 				Here are the rules for Poker.
@@ -118,6 +118,34 @@ export default function Rules() {
 				</Link>
 			</div>
 			<p className="flex items-center justify-center my-10">insert rules for Poker here</p>
+			<div>
+				<ol>
+					<li>
+						<strong>
+							<span className="text-xl font-semibold tracking-wide">
+								Poker Rule 1
+							</span>
+						</strong>
+						<p>
+							<span className="text-xl tracking-wide">
+								Poker Rule 1 description
+							</span>
+						</p>
+					</li>
+					<li>
+						<strong>
+							<span className="text-xl font-semibold tracking-wide">
+								Poker Rule 2
+							</span>
+						</strong>
+						<p>
+							<span className="text-xl tracking-wide">
+								Poker Rule 2 description
+							</span>
+						</p>
+					</li>
+				</ol>
+			</div>
 		</Layout>
 	)
 }

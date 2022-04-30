@@ -31,7 +31,7 @@ export default function Rules() {
 	return (
 		<Layout>
 			<h1 className="text-xl font-medium text-gray-800 text-center mt-4">
-				Rules
+				NextCasino Rules
 			</h1>
 			<p className="text-gray-500 text-center">
 				Here are the rules for the games on NextCasino.
@@ -118,6 +118,47 @@ export default function Rules() {
 				</Link>
 			</div>
 			<p className="flex items-center justify-center my-10">insert rules for NextCasino here</p>
+			<div>
+				<ol>
+					<li>
+						<strong>
+							<span className="text-xl font-semibold tracking-wide">
+								Don&apos;t advertise.
+							</span>
+						</strong>
+						<p>
+							<span className="text-xl tracking-wide">
+								This includes trade and job offers as well as referral and affiliate links.
+								Advertising in the spam channel is tolerated as long as you don&apos;t automate posting your ads.
+							</span>
+						</p>
+					</li>
+					<li>
+						<strong>
+							<span className="text-xl font-semibold tracking-wide">
+								Don&apos;t spam.
+							</span>
+						</strong>
+						<p>
+							<span className="text-xl tracking-wide">
+								Spamming is not allowed.
+							</span>
+						</p>
+					</li>
+					<li>
+						<strong>
+							<span className="text-xl font-semibold tracking-wide">
+								Beware of scammers!
+							</span>
+						</strong>
+						<p>
+							<span className="text-xl tracking-wide">
+								NextCasino is not a trading site and won&apos;t get involved in disputes between players under any circumstances. We highly recommend not trading here.
+							</span>
+						</p>
+					</li>
+				</ol>
+			</div>
 		</Layout>
 	)
 }
