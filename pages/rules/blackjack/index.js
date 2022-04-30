@@ -23,7 +23,10 @@ import ChuckaluckIcon3 from 'public/images/ChuckaluckIcon3.png';
 import CrapsIcon from 'public/images/CrapsIcon.png';
 import CrapsIcon2 from 'public/images/CrapsIcon2.png';
 import CrapsIcon3 from 'public/images/CrapsIcon3.png';
-
+import BlackJackIcon2 from 'public/images/BlackjackIcon2.png'
+import AcesIcon2 from 'public/images/AcesIcon2.png'
+import PokerIcon from 'public/images/PokerIcon.png'
+import PokerIcon2 from 'public/images/PokerIcon2.png'
 
 export default function Rules() {
 	return (
@@ -32,11 +35,11 @@ export default function Rules() {
 				Rules
 			</h1>
 			<p className="text-gray-500 text-center">
-				Here are the rules for the games on NextCasino.
+				Here are the rules for BlackJack.
 			</p>
 			<div className="flex justify-center space-x-5">
-				<Link href="/cee-lo-rules">
-					<a className="flex items-center space-x-1">
+				<Link href="/rules/cee-lo">
+					<a className="flex items-center space-x-1 border border-transparent rounded-md">
 						{/* <PuzzleIcon className="shrink-0 w-8 h-8 text-rose-500" /> */}
 						<Image
 							className="shrink-0 w-8 h-8 text-rose-500"
@@ -45,14 +48,14 @@ export default function Rules() {
 							height={40}
 							alt="DiceIcon2"
 						/>
-						<span className="text-xl font-semibold tracking-wide">
+						<span className="text-xl font-semibold tracking-wide pr-1">
 							Cee-Lo Rules
 						</span>
 					</a>
 				</Link>
 
-				<Link href="/craps-rules">
-					<a className="flex items-center space-x-1">
+				<Link href="/rules/craps">
+					<a className="flex items-center space-x-1 border border-transparent rounded-md">
 						{/* <PuzzleIcon className="shrink-0 w-8 h-8 text-rose-500" /> */}
 						<Image
 							className="shrink-0 w-8 h-8 text-rose-500"
@@ -67,8 +70,8 @@ export default function Rules() {
 					</a>
 				</Link>
 
-				<Link href="/chuck-a-luck-rules">
-					<a className="flex items-center space-x-1">
+				<Link href="/rules/chuck-a-luck">
+					<a className="flex items-center space-x-1 border border-transparent rounded-md">
 						{/* <PuzzleIcon className="shrink-0 w-8 h-8 text-rose-500" /> */}
 						<Image
 							className="shrink-0 w-8 h-8 text-rose-500"
@@ -78,13 +81,13 @@ export default function Rules() {
 							alt="ChuckaluckIcon3"
 						/>
 						<span className="text-xl font-semibold tracking-wide">
-							Chuck-a-luck Rules
+							Chuck-a-Luck Rules
 						</span>
 					</a>
 				</Link>
 
-				<Link href="/blackjack-rules">
-					<a className="flex items-center space-x-1">
+				<Link href="/rules/blackjack">
+					<a className="flex items-center space-x-1 border border-red-700 rounded-md">
 						{/* <PuzzleIcon className="shrink-0 w-8 h-8 text-rose-500" /> */}
 						<Image
 							className="shrink-0 w-8 h-8 text-rose-500"
@@ -98,7 +101,23 @@ export default function Rules() {
 						</span>
 					</a>
 				</Link>
+				<Link href="/rules/poker">
+					<a className="flex items-center space-x-1 border border-transparent rounded-md">
+						{/* <PuzzleIcon className="shrink-0 w-8 h-8 text-rose-500" /> */}
+						<Image
+							className="shrink-0 w-8 h-8 text-rose-500"
+							src={PokerIcon2}
+							width={40}
+							height={40}
+							alt="PokerIcon2"
+						/>
+						<span className="text-xl font-semibold tracking-wide">
+							Poker Rules
+						</span>
+					</a>
+				</Link>
 			</div>
+			<p className="flex items-center justify-center my-10">insert rules for BlackJack here</p>
 		</Layout>
 	)
 }

@@ -139,6 +139,15 @@ const Layout = ({ children = null }) => {
                     </span>
                   </a>
                 </Link>
+
+                <Link href="/about">
+                <a className="flex items-center space-x-1">
+                  <SparklesIcon className="shrink-0 w-8 h-8 text-rose-500" />
+                  <span className="text-xl font-semibold tracking-wide">
+                    About
+                  </span>
+                </a>
+              </Link>
               </div>
               {/* display buttons to other pages*/}
 
