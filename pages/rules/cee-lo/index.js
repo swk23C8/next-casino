@@ -144,7 +144,7 @@ export default function Rules() {
 						</strong>
 						<p className="mt-1">
 							<span className="text-xl tracking-wide">
-								Cee-Lo is a game where the outcome of each round is either an instant win/loss or push.
+								Cee-Lo is a game where the outcome of each round is either an instant WIN/LOSS or PUSH.
 							</span>
 						</p>
 					</li>
@@ -156,9 +156,9 @@ export default function Rules() {
 						</strong>
 						<p className="mt-1">
 							<span className="text-xl tracking-wide">
-								Rolling triples of any dice value is considered an instant win. Rolling triples of six&apos;s is the highest roll, then triples of five&apos;s and so on.<br />
-								Also, rolling a pair of any value with a six is considered an instant win.<br />
-								Lastly, rolling a sequential 4-5-6 is considered an instant win.
+								Rolling triples of any dice value is considered an instant WIN. Rolling triples of six&apos;s is the highest roll, then triples of five&apos;s and so on.<br />
+								Also, rolling a pair of any value with a six is considered an instant WIN.<br />
+								Lastly, rolling a sequential 4-5-6 is considered an instant WIN.
 							</span>
 						</p>
 					</li>
@@ -170,8 +170,8 @@ export default function Rules() {
 						</strong>
 						<p className="mt-1">
 							<span className="text-xl tracking-wide">
-								Rolling a sequential 1-2-3 is considered an instant loss.<br />
-								Also, rolling a pair of any value with a one is considered an instant loss.
+								Rolling a sequential 1-2-3 is considered an instant LOSS.<br />
+								Also, rolling a pair of any value with a one is considered an instant LOSS.
 							</span>
 						</p>
 					</li>
@@ -185,7 +185,8 @@ export default function Rules() {
 							<span className="text-xl tracking-wide">
 								Rolling a a pair of any value with the odd die rolling between two and five is considered points. This is because the odd die being one or six are special cases<br />
 								For example, roll combination of 2-2-5 is worth 5 points. <br />
-								However, 2-2-6 is considered an instant win. Conversely, 2-2-1 is considered an instant loss.
+								However, 2-2-6 is considered an instant WIN. Conversely, 2-2-1 is considered an instant LOSS. <br />
+								When the point value of the Banker and the Player is equal it is considered a PUSH
 							</span>
 						</p>
 					</li>
@@ -197,7 +198,7 @@ export default function Rules() {
 						</strong>
 						<p className="mt-1">
 							<span className="text-xl tracking-wide">
-								Any roll combination that does not result in either win, loss or points is considered indeterminate and requires a re-roll.
+								Any roll combination that does not result in either WIN, LOSS or POINTS is considered indeterminate and requires a RE-ROLL.
 							</span>
 						</p>
 					</li>

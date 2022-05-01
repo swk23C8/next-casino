@@ -2,11 +2,12 @@ import Dice from '@/components/Cee-Lo/Dice/Dice';
 import { useEffect, useState, useReducer, useCallback, Component, useRef, useMemo } from 'react';
 import Image from 'next/image'
 import axios from 'axios';
-import { data } from 'autoprefixer';
+// import { data } from 'autoprefixer';
 import Shrek from 'public/images/feltCute.png';
 import Pootin from 'public/images/monke_pootin.png';
 import Egg from 'public/images/egg.png';
-// import ChatWidget from '@/components/Cee-Lo/AblyChatComponent/AblyChatComponent';
+import PanelComponent from '@/components/Cee-Lo/PanelComponent/PanelComponent';
+// import StatComponent from '@/components/Cee-Lo/StatComponent/StatComponent';
 import dynamic from 'next/dynamic'
 const ChatComponent = dynamic(() => import('@/components/Cee-Lo/ChatComponent/ChatComponent'), { ssr: false });
 
@@ -55,12 +56,8 @@ const Play = ({ stats = [], game = [] }) => {
 		progress: undefined,
 	});
 
-	// console.log(game)
 
 	// Banker useStates
-	// const bDie_1 = useRef(game.bDie_1);
-	// const bDie_2 = useRef(game.bDie_2);
-	// const bDie_3 = useRef(game.bDie_3);
 	const [bDie_1, setBDie_1] = useState(game.bDie_1);
 	const [bDie_2, setBDie_2] = useState(game.bDie_2);
 	const [bDie_3, setBDie_3] = useState(game.bDie_3);
@@ -73,9 +70,6 @@ const Play = ({ stats = [], game = [] }) => {
 
 
 	// Player useStates
-	// const pDie_1 = useRef(game.pDie_1);
-	// const pDie_2 = useRef(game.pDie_2);
-	// const pDie_3 = useRef(game.pDie_3);
 	const [pDie_1, setPDie_1] = useState(game.pDie_1);
 	const [pDie_2, setPDie_2] = useState(game.pDie_2);
 	const [pDie_3, setPDie_3] = useState(game.pDie_3);
@@ -160,7 +154,7 @@ const Play = ({ stats = [], game = [] }) => {
 		}
 		else if (bScore === pScore) {
 			setResult("PUSH");
-			notifyPush();	
+			notifyPush();
 		}
 		else if (bScore > pScore) {
 			setResult("Banker Wins");
@@ -285,9 +279,6 @@ const Play = ({ stats = [], game = [] }) => {
 	useEffect(() => {
 		setBScore(score([bDie_1, bDie_2, bDie_3]));
 		setPScore(score([pDie_1, pDie_2, pDie_3]))
-		// console.log("")
-		// console.log("current banker score: " + bScore)
-		// console.log("current player score: " + pScore)
 	}, [bDie_1, bDie_2, bDie_3, bScore, pDie_1, pDie_2, pDie_3, pScore])
 
 	return (
@@ -374,166 +365,11 @@ const Play = ({ stats = [], game = [] }) => {
 				</div>
 				{/* container to show game rules/outcomes/explanations */}
 				<div className="game-rules box row-start-1 row-span-2 col-start-3 col-end-4">
-					<table className="w-full min-h-[50vh] shadow-md">
-						<thead>
-							<tr>
-								<th className="bg-red-700 text-white p-1 w-auto">Name</th>
-								<th className="bg-red-700 text-white p-1 w-auto">Example</th>
-								<th className="bg-red-700 text-white p-1 w-auto">Outcome</th>
-								<th className="bg-red-700 text-white p-1 w-auto">Comment</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr className="bg-red-100 text-black">
-								<td className="">Triple</td>
-								<td className="">
-									<Image
-										src="https://cdn-icons-png.flaticon.com/512/142/142306.png"
-										alt="Die_face_6b"
-										width={35}
-										height={35}
-									/>
-									<Image
-										src="https://cdn-icons-png.flaticon.com/512/142/142306.png"
-										alt="Die_face_6b"
-										width={35}
-										height={35}
-									/>
-									<Image
-										src="https://cdn-icons-png.flaticon.com/512/142/142306.png"
-										alt="Die_face_6b"
-										width={35}
-										height={35}
-									/>
-								</td>
-								<td className="">WIN</td>
-								<td className="">All three dice show the same number.<br /> 6-6-6 is the highest roll,<br />5-5-5 is the next highest, etc.<br />Any triple is an instant win.</td>
-							</tr>
-							<tr className="bg-red-200 text-black">
-								<td className="">4-5-6</td>
-								<td className="">
-									<Image
-										src="https://cdn-icons-png.flaticon.com/512/142/142304.png"
-										alt="Die_face_4b"
-										width={35}
-										height={35}
-									/>
-									<Image
-										src="https://cdn-icons-png.flaticon.com/512/142/142305.png"
-										alt="Die_face_5b"
-										width={35}
-										height={35}
-									/>
-									<Image
-										src="https://cdn-icons-png.flaticon.com/512/142/142306.png"
-										alt="Die_face_6b"
-										width={35}
-										height={35}
-									/>
-								</td>
-								<td className="">WIN</td>
-								<td className="">Sequential 4-5-6;<br /> this is an instant win.</td>
-							</tr>
-							<tr className="bg-red-100 text-black">
-								<td className="">Points</td>
-								<td className="">
-									<Image
-										src="https://cdn-icons-png.flaticon.com/512/142/142303.png"
-										alt="Die_face_3b"
-										width={35}
-										height={35}
-									/>
-									<Image
-										src="https://cdn-icons-png.flaticon.com/512/142/142303.png"
-										alt="Die_face_3b"
-										width={35}
-										height={35}
-									/>
-									<Image
-										src="https://cdn-icons-png.flaticon.com/512/142/142305.png"
-										alt="Die_face_5b"
-										width={35}
-										height={35}
-									/>
-								</td>
-								<td className="">n points</td>
-								<td className="">
-									One pair plus any other value;<br /> the odd die is the point value.<br /> Possible point values range from 2 to 5<br />When the point value is 6, it is an instant win; <br />When the point value is 1, it is an instant loss.
-								</td>
-							</tr>
-							<tr className="bg-red-200 text-black">
-								<td className="">1-2-3</td>
-								<td className="">
-									<Image
-										src="https://cdn-icons-png.flaticon.com/512/142/142301.png"
-										alt="Die_face_1b"
-										width={35}
-										height={35}
-									/>
-									<Image
-										src="https://cdn-icons-png.flaticon.com/512/142/142302.png"
-										alt="Die_face_2b"
-										width={35}
-										height={35}
-									/>
-									<Image
-										src="https://cdn-icons-png.flaticon.com/512/142/142303.png"
-										alt="Die_face_3b"
-										width={35}
-										height={35}
-									/>
-								</td>
-								<td className="">LOSE</td>
-								<td className="">Sequential 1-2-3;<br /> this is an instant loss.</td>
-							</tr>
-							<tr className="bg-red-100 text-black">
-								<td className="">Indeterminate</td>
-								<td className="">
-									<Image
-										src="https://cdn-icons-png.flaticon.com/512/142/142303.png"
-										alt="Die_face_3b"
-										width={35}
-										height={35}
-									/>
-									<Image
-										src="https://cdn-icons-png.flaticon.com/512/142/142305.png"
-										alt="Die_face_5b"
-										width={35}
-										height={35}
-									/>
-									<Image
-										src="https://cdn-icons-png.flaticon.com/512/142/142306.png"
-										alt="Die_face_6b"
-										width={35}
-										height={35}
-									/>
-								</td>
-								<td className="">Re-Roll</td>
-								<td className="">
-									Any combination that does not result in a <br />triple, sequential, or points is an <br />indeterminate outcome and requires a re-roll.
-								</td>
-							</tr>
-						</tbody>
-					</table>
-					{/* <Image
-						src={Shrek}
-						alt="Hooman Shrek"
-						// layout='fill'
-						width={625}
-						height={300}
-					/> */}
+					<PanelComponent />
 					add feature to get more tokens/ads/captcha/banner/something? here
 				</div>
 				{/* container for chat/log */}
 				<div className="box row-start-2 row-span-1 col-start-1 col-end-3">
-					{/* <Image
-						src={Shrek}
-						alt="Hooman Shrek"
-						width={1265}
-						height={435}
-					/> */}
-					{/* <button onClick={notifyWin}>Notify!</button>
-					<button onClick={notifyLose}>Notify!</button> */}
 					<ChatComponent userType={stats.userType} />
 				</div>
 			</div>
