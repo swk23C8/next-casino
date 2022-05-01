@@ -1,4 +1,9 @@
 import Image from 'next/image'
+import DieSix from 'public/images/DieSix.png'
+import DieFour from 'public/images/DieFour.png'
+import DieThree from 'public/images/DieThree.png'
+import DieFive from 'public/images/DieFive.png'
+import DieOne from 'public/images/DieOne.png'
 
 const PanelComponent = () => {
 	return (
@@ -16,19 +21,19 @@ const PanelComponent = () => {
 					<td className="">Triple</td>
 					<td className="">
 						<Image
-							src="https://cdn-icons-png.flaticon.com/512/142/142306.png"
+							src={DieSix}
 							alt="Die_face_6b"
 							width={35}
 							height={35}
 						/>
 						<Image
-							src="https://cdn-icons-png.flaticon.com/512/142/142306.png"
+							src={DieSix}
 							alt="Die_face_6b"
 							width={35}
 							height={35}
 						/>
 						<Image
-							src="https://cdn-icons-png.flaticon.com/512/142/142306.png"
+							src={DieSix}
 							alt="Die_face_6b"
 							width={35}
 							height={35}
@@ -41,19 +46,19 @@ const PanelComponent = () => {
 					<td className="">4-5-6</td>
 					<td className="">
 						<Image
-							src="https://cdn-icons-png.flaticon.com/512/142/142304.png"
+							src={DieFour}
 							alt="Die_face_4b"
 							width={35}
 							height={35}
 						/>
 						<Image
-							src="https://cdn-icons-png.flaticon.com/512/142/142305.png"
+							src={DieFive}
 							alt="Die_face_5b"
 							width={35}
 							height={35}
 						/>
 						<Image
-							src="https://cdn-icons-png.flaticon.com/512/142/142306.png"
+							src={DieSix}
 							alt="Die_face_6b"
 							width={35}
 							height={35}
@@ -66,19 +71,19 @@ const PanelComponent = () => {
 					<td className="">Points</td>
 					<td className="">
 						<Image
-							src="https://cdn-icons-png.flaticon.com/512/142/142303.png"
+							src={DieThree}
 							alt="Die_face_3b"
 							width={35}
 							height={35}
 						/>
 						<Image
-							src="https://cdn-icons-png.flaticon.com/512/142/142303.png"
+							src={DieThree}
 							alt="Die_face_3b"
 							width={35}
 							height={35}
 						/>
 						<Image
-							src="https://cdn-icons-png.flaticon.com/512/142/142305.png"
+							src={DieFive}
 							alt="Die_face_5b"
 							width={35}
 							height={35}
@@ -93,19 +98,19 @@ const PanelComponent = () => {
 					<td className="">1-2-3</td>
 					<td className="">
 						<Image
-							src="https://cdn-icons-png.flaticon.com/512/142/142301.png"
+							src={DieOne}
 							alt="Die_face_1b"
 							width={35}
 							height={35}
 						/>
 						<Image
-							src="https://cdn-icons-png.flaticon.com/512/142/142302.png"
+							src={DieThree}
 							alt="Die_face_2b"
 							width={35}
 							height={35}
 						/>
 						<Image
-							src="https://cdn-icons-png.flaticon.com/512/142/142303.png"
+							src={DieThree}
 							alt="Die_face_3b"
 							width={35}
 							height={35}
@@ -118,19 +123,19 @@ const PanelComponent = () => {
 					<td className="">Indeterminate</td>
 					<td className="">
 						<Image
-							src="https://cdn-icons-png.flaticon.com/512/142/142303.png"
+							src={DieThree}
 							alt="Die_face_3b"
 							width={35}
 							height={35}
 						/>
 						<Image
-							src="https://cdn-icons-png.flaticon.com/512/142/142305.png"
+							src={DieFive}
 							alt="Die_face_5b"
 							width={35}
 							height={35}
 						/>
 						<Image
-							src="https://cdn-icons-png.flaticon.com/512/142/142306.png"
+							src={DieSix}
 							alt="Die_face_6b"
 							width={35}
 							height={35}
