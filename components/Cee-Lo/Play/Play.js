@@ -205,7 +205,7 @@ const Play = ({ stats = [], game = [] }) => {
 	// function to roll banker dice
 	const rollBankerDice = () => {
 		if (bScoreRef.current === null || bScoreRef.current === -2 || bScoreRef.current === 0) {
-			setIntervalImmediately(bankerDiceInterval, 2000, bIntervalID);
+			setIntervalImmediately(bankerDiceInterval, 2050, bIntervalID);
 		}
 		else {
 			console.log("dice not rolling as condition is false")
@@ -226,7 +226,7 @@ const Play = ({ stats = [], game = [] }) => {
 	// function to roll player dice
 	const rollPlayerDice = () => {
 		if (pScoreRef.current === null || pScoreRef.current === -2 || pScoreRef.current === 0) {
-			setIntervalImmediately(playerDiceInterval, 2000, pIntervalID);
+			setIntervalImmediately(playerDiceInterval, 2050, pIntervalID);
 		}
 		else {
 			console.log("dice not rolling as condition is false")
@@ -254,7 +254,7 @@ const Play = ({ stats = [], game = [] }) => {
 		else if (score === 0) {
 			return (
 				<>
-					<p>🎲 Roll Em!</p>
+					<p>🎲 Roll &apos;Em!</p>
 					{/* <Image src={Egg} alt="Egg Man" /> */}
 				</>
 			)
@@ -336,7 +336,7 @@ const Play = ({ stats = [], game = [] }) => {
 						<p className="text-xl">Game ID: {game.id}</p>
 						<p className="text-2xl mt-5">Account Balance: {balance}</p>
 						{/* <p className="text-2xl">Bet Amount: {pBet}</p> */}
-						<p className="text-2xl mt-5">Game Result: {result}</p>
+						<p className="text-2xl mt-5">Game Result: <b>{result}</b></p>
 					</div>
 					<div className="game-form mt-5 ">
 						<form
