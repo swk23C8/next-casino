@@ -1,11 +1,11 @@
 import Dice from '@/components/Cee-Lo/Dice/Dice';
-import { useEffect, useState, useReducer, useCallback, Component, useRef, useMemo } from 'react';
-import Image from 'next/image'
+import { useEffect, useState, useRef } from 'react';
+// import Image from 'next/image'
 import axios from 'axios';
 // import { data } from 'autoprefixer';
-import Shrek from 'public/images/feltCute.png';
-import Pootin from 'public/images/monke_pootin.png';
-import Egg from 'public/images/egg.png';
+// import Shrek from 'public/images/feltCute.png';
+// import Pootin from 'public/images/monke_pootin.png';
+// import Egg from 'public/images/egg.png';
 import PanelComponent from '@/components/Cee-Lo/PanelComponent/PanelComponent';
 // import StatComponent from '@/components/Cee-Lo/StatComponent/StatComponent';
 import dynamic from 'next/dynamic'
@@ -239,7 +239,7 @@ const Play = ({ stats = [], game = [] }) => {
 			return (
 				<>
 					<p>yay I win</p>
-					<Image src={Shrek} alt="Shrek" />
+					{/* <Image src={Shrek} alt="Shrek" /> */}
 				</>
 			)
 		}
@@ -247,7 +247,7 @@ const Play = ({ stats = [], game = [] }) => {
 			return (
 				<>
 					<p>Pootin loos</p>
-					<Image src={Pootin} alt="Monke Pootin" />
+					{/* <Image src={Pootin} alt="Monke Pootin" /> */}
 				</>
 			)
 		}
@@ -255,7 +255,7 @@ const Play = ({ stats = [], game = [] }) => {
 			return (
 				<>
 					<p>Roll Em!</p>
-					<Image src={Egg} alt="Egg Man" />
+					{/* <Image src={Egg} alt="Egg Man" /> */}
 				</>
 			)
 		}
