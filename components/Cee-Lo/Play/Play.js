@@ -238,7 +238,7 @@ const Play = ({ stats = [], game = [] }) => {
 		if (score === 10) {
 			return (
 				<>
-					<p>Instant Win</p>
+					<p>📈 Instant Win</p>
 					{/* <Image src={Shrek} alt="Shrek" /> */}
 				</>
 			)
@@ -246,7 +246,7 @@ const Play = ({ stats = [], game = [] }) => {
 		else if (score === -1) {
 			return (
 				<>
-					<p>Instant Loss</p>
+					<p>📉Instant Loss</p>
 					{/* <Image src={Pootin} alt="Monke Pootin" /> */}
 				</>
 			)
@@ -254,7 +254,7 @@ const Play = ({ stats = [], game = [] }) => {
 		else if (score === 0) {
 			return (
 				<>
-					<p>Roll Em!</p>
+					<p>🎲 Roll Em!</p>
 					{/* <Image src={Egg} alt="Egg Man" /> */}
 				</>
 			)
