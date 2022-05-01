@@ -151,18 +151,6 @@ export default function Rules() {
 					<li>
 						<strong>
 							<span className="text-xl font-semibold tracking-wide">
-								What is considered an instant WIN?
-							</span>
-						</strong>
-						<p className="mt-1">
-							<span className="text-xl tracking-wide">
-								Rolling triples of any dice value is considered an instant win. Rolling triples of six&apos;s is the highest roll, then triples of five&apos;s and so on.
-							</span>
-						</p>
-					</li>
-					<li>
-						<strong>
-							<span className="text-xl font-semibold tracking-wide">
 								What roll combination is considered an instant WIN?
 							</span>
 						</strong>
