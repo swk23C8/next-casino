@@ -238,7 +238,7 @@ const Play = ({ stats = [], game = [] }) => {
 		if (score === 10) {
 			return (
 				<>
-					<p>yay I win</p>
+					<p>Instant Win</p>
 					{/* <Image src={Shrek} alt="Shrek" /> */}
 				</>
 			)
@@ -246,7 +246,7 @@ const Play = ({ stats = [], game = [] }) => {
 		else if (score === -1) {
 			return (
 				<>
-					<p>Pootin loos</p>
+					<p>Instant Loss</p>
 					{/* <Image src={Pootin} alt="Monke Pootin" /> */}
 				</>
 			)
@@ -261,7 +261,7 @@ const Play = ({ stats = [], game = [] }) => {
 		}
 		else {
 			return (
-				<p>{"score: " + score}</p>
+				<p>{"Point: " + score}</p>
 			)
 		}
 	}
@@ -288,14 +288,14 @@ const Play = ({ stats = [], game = [] }) => {
 				<ToastContainer />
 				{/* container to show dice */}
 				<div className="dice-container box row-start-1 row-span-1">
-					<div className="grid overflow-hidden grid-cols-4 grid-rows-2 gap-2 w-full h-full my-auto">
+					<div className="grid overflow-hidden grid-cols-5 grid-rows-2 gap-2 w-full h-full my-auto">
 
 						<div className="dice row-start-1 col-start-1 col-span-3">
 							<p className="flex flex-col justify-center items-center font-bold text-4xl my-2"> Banker Dice</p>
 							<Dice refs={[bRef1, bRef2, bRef3, setBDie_1, setBDie_2, setBDie_3]} />
 						</div>
 
-						<div className="dice-result row-start-1 col-start-4 col-span-1">
+						<div className="dice-result row-start-1 col-start-4 col-span-2">
 							<div className="flex flex-col justify-center items-center h-full">
 								{/* <button onClick={() => {
 									rollBankerDice();
@@ -314,7 +314,7 @@ const Play = ({ stats = [], game = [] }) => {
 							<Dice refs={[pRef1, pRef2, pRef3, setPDie_1, setPDie_2, setPDie_3]} />
 						</div>
 
-						<div className="dice-result row-start-2 col-start-4 col-span-1">
+						<div className="dice-result row-start-2 col-start-4 col-span-2">
 							<div className="flex flex-col justify-center items-center h-full">
 								{/* <button onClick={() => {
 									rollPlayerDice();
