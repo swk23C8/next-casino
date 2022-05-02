@@ -52,11 +52,11 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
 
       <AuthProvider session={session}>
 
-        <Script id="Adsense-id" data-ad-client="ca-pub-4743953812411324"
+        {/* <Script id="Adsense-id" data-ad-client="ca-pub-4743953812411324"
           async strategy="afterInteractive"
           onError={(e) => { console.error('Script failed to load', e) }}
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-        />
+        /> */}
         <ChakraProvider>
           <Component {...pageProps} />
         </ChakraProvider>
