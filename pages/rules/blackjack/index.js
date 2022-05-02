@@ -131,80 +131,11 @@ export default function Rules() {
 						</strong>
 						<p className="mt-1">
 							<span className="text-xl tracking-wide">
-								BlackJack is a betting game played with three six-sided dice. It&apos;s name originates from the Chinese: Sì-Wŭ-Liù (四五六).<br />
-								Meaning &quot;four-five-six&quot;. There are many variations of the game so please be sure to check the rules for each game.
-							</span>
-						</p>
-					</li>
-					<li>
-						<strong>
-							<span className="text-xl font-semibold tracking-wide">
-								BlackJack?
-							</span>
-						</strong>
-						<p className="mt-1">
-							<span className="text-xl tracking-wide">
-								BlackJack.
-							</span>
-						</p>
-					</li>
-					<li>
-						<strong>
-							<span className="text-xl font-semibold tracking-wide">
-								BlackJack?
-							</span>
-						</strong>
-						<p className="mt-1">
-							<span className="text-xl tracking-wide">
-								BlackJack.
-							</span>
-						</p>
-					</li>
-					<li>
-						<strong>
-							<span className="text-xl font-semibold tracking-wide">
-								BlackJack?
-							</span>
-						</strong>
-						<p className="mt-1">
-							<span className="text-xl tracking-wide">
-								BlackJack.
-							</span>
-						</p>
-					</li>
-					<li>
-						<strong>
-							<span className="text-xl font-semibold tracking-wide">
-								BlackJack?
-							</span>
-						</strong>
-						<p className="mt-1">
-							<span className="text-xl tracking-wide">
-								BlackJack.
-							</span>
-						</p>
-					</li>
-					<li>
-						<strong>
-							<span className="text-xl font-semibold tracking-wide">
-								BlackJack?
-							</span>
-						</strong>
-						<p className="mt-1">
-							<span className="text-xl tracking-wide">
-								BlackJack.
-							</span>
-						</p>
-					</li>
-					<li>
-						<strong>
-							<span className="text-xl font-semibold tracking-wide">
-								BlackJack?
-							</span>
-						</strong>
-						<p className="mt-1">
-							<span className="text-xl tracking-wide">
-								BlackJack.
+								https://www.wikiwand.com/en/Blackjack <br />
+								Blackjack (formerly Black Jack and Vingt-Un) is a casino banking game. <br />
+								The most widely played casino banking game in the world, it uses decks of 52 cards and descends from a global family of casino banking games known as Twenty-One.<br />
+								This family of card games also includes the British game of Pontoon and the European game, Vingt-et-Un. Blackjack players do not compete against each other.<br />
+								The game is a comparing card game where each player competes against the dealer.<br />
 							</span>
 						</p>
 					</li>

@@ -130,85 +130,11 @@ export default function Rules() {
 						</strong>
 						<p className="mt-1">
 							<span className="text-xl tracking-wide">
-								Cee-Lo is a betting game played with three six-sided dice. It&apos;s name originates from the Chinese: Sì-Wŭ-Liù (四五六).<br />
-								Meaning &quot;four-five-six&quot;. There are many variations of the game so please be sure to check the rules for each game.
-							</span>
-						</p>
-					</li>
-					<li>
-						<strong>
-							<span className="text-xl font-semibold tracking-wide">
-								What are the outcome of the roll combinations?
-							</span>
-						</strong>
-						<p className="mt-1">
-							<span className="text-xl tracking-wide">
-								Cee-Lo is a game where the outcome of each round is either an instant win/loss or push.
-							</span>
-						</p>
-					</li>
-					<li>
-						<strong>
-							<span className="text-xl font-semibold tracking-wide">
-								What is considered an instant WIN?
-							</span>
-						</strong>
-						<p className="mt-1">
-							<span className="text-xl tracking-wide">
-								Rolling triples of any dice value is considered an instant win. Rolling triples of six&apos;s is the highest roll, then triples of five&apos;s and so on.
-							</span>
-						</p>
-					</li>
-					<li>
-						<strong>
-							<span className="text-xl font-semibold tracking-wide">
-								What roll combination is considered an instant WIN?
-							</span>
-						</strong>
-						<p className="mt-1">
-							<span className="text-xl tracking-wide">
-								Rolling triples of any dice value is considered an instant win. Rolling triples of six&apos;s is the highest roll, then triples of five&apos;s and so on.<br />
-								Also, rolling a pair of any value with a six is considered an instant win.<br />
-								Lastly, rolling a sequential 4-5-6 is considered an instant win.
-							</span>
-						</p>
-					</li>
-					<li>
-						<strong>
-							<span className="text-xl font-semibold tracking-wide">
-								What roll combination is considered an instant LOSS?
-							</span>
-						</strong>
-						<p className="mt-1">
-							<span className="text-xl tracking-wide">
-								Rolling a sequential 1-2-3 is considered an instant loss.<br />
-								Also, rolling a pair of any value with a one is considered an instant loss.
-							</span>
-						</p>
-					</li>
-					<li>
-						<strong>
-							<span className="text-xl font-semibold tracking-wide">
-								What roll combination is considered POINTS?
-							</span>
-						</strong>
-						<p className="mt-1">
-							<span className="text-xl tracking-wide">
-								Rolling a a pair of any value with the odd die rolling between two and five is considered points. This is because the odd die being one or six are special cases<br />
-								For example, roll combination of 2-2-5 is worth 5 points. <br />
-								However, 2-2-6 is considered an instant win. Conversely, 2-2-1 is considered an instant loss.
-							</span>
-						</p>
-					</li>
-					<li>
-						<strong>
-							<span className="text-xl font-semibold tracking-wide">
-								What roll combination requires a RE-ROLL?
-							</span>
-						</strong>
-						<p className="mt-1">
-							<span className="text-xl tracking-wide">
-								Any roll combination that does not result in either win, loss or points is considered indeterminate and requires a re-roll.
+								https://www.wikiwand.com/en/Craps <br />
+								Craps is a dice game in which players bet on the outcomes of a pair of dice.<br />
+								Players can wager money against each other (playing &quot;street craps&quot;) or against a bank (&quot;casino craps&quot;).<br />
+								Because it requires little equipment, &quot;street craps&quot; can be played in informal settings.<br />
+								While shooting craps, players may use slang terminology to place bets and actions.<br />
 							</span>
 						</p>
 					</li>

@@ -131,8 +131,11 @@ export default function Rules() {
 						</strong>
 						<p className="mt-1">
 							<span className="text-xl tracking-wide">
-								Cee-Lo is a betting game played with three six-sided dice. It&apos;s name originates from the Chinese: Sì-Wŭ-Liù (四五六).<br />
-								Meaning &quot;four-five-six&quot;. There are many variations of the game so please be sure to check the rules for each game.
+								https://www.wikiwand.com/en/Chuck-a-luck <br />
+								Chuck-a-luck, also known as birdcage, is a game of chance played with three dice. <br />
+								It is derived from grand hazard and both can be considered a variant of sic bo, which is a popular casino game,<br />
+								although chuck-a-luck is more of a carnival game than a true casino game.<br />
+								The game is sometimes used as a fundraiser for charity.<br />
 							</span>
 						</p>
 					</li>

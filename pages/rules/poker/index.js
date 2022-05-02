@@ -130,85 +130,16 @@ export default function Rules() {
 						</strong>
 						<p className="mt-1">
 							<span className="text-xl tracking-wide">
-								Cee-Lo is a betting game played with three six-sided dice. It&apos;s name originates from the Chinese: Sì-Wŭ-Liù (四五六).<br />
-								Meaning &quot;four-five-six&quot;. There are many variations of the game so please be sure to check the rules for each game.
-							</span>
-						</p>
-					</li>
-					<li>
-						<strong>
-							<span className="text-xl font-semibold tracking-wide">
-								What are the outcome of the roll combinations?
-							</span>
-						</strong>
-						<p className="mt-1">
-							<span className="text-xl tracking-wide">
-								Cee-Lo is a game where the outcome of each round is either an instant win/loss or push.
-							</span>
-						</p>
-					</li>
-					<li>
-						<strong>
-							<span className="text-xl font-semibold tracking-wide">
-								What is considered an instant WIN?
-							</span>
-						</strong>
-						<p className="mt-1">
-							<span className="text-xl tracking-wide">
-								Rolling triples of any dice value is considered an instant win. Rolling triples of six&apos;s is the highest roll, then triples of five&apos;s and so on.
-							</span>
-						</p>
-					</li>
-					<li>
-						<strong>
-							<span className="text-xl font-semibold tracking-wide">
-								What roll combination is considered an instant WIN?
-							</span>
-						</strong>
-						<p className="mt-1">
-							<span className="text-xl tracking-wide">
-								Rolling triples of any dice value is considered an instant win. Rolling triples of six&apos;s is the highest roll, then triples of five&apos;s and so on.<br />
-								Also, rolling a pair of any value with a six is considered an instant win.<br />
-								Lastly, rolling a sequential 4-5-6 is considered an instant win.
-							</span>
-						</p>
-					</li>
-					<li>
-						<strong>
-							<span className="text-xl font-semibold tracking-wide">
-								What roll combination is considered an instant LOSS?
-							</span>
-						</strong>
-						<p className="mt-1">
-							<span className="text-xl tracking-wide">
-								Rolling a sequential 1-2-3 is considered an instant loss.<br />
-								Also, rolling a pair of any value with a one is considered an instant loss.
-							</span>
-						</p>
-					</li>
-					<li>
-						<strong>
-							<span className="text-xl font-semibold tracking-wide">
-								What roll combination is considered POINTS?
-							</span>
-						</strong>
-						<p className="mt-1">
-							<span className="text-xl tracking-wide">
-								Rolling a a pair of any value with the odd die rolling between two and five is considered points. This is because the odd die being one or six are special cases<br />
-								For example, roll combination of 2-2-5 is worth 5 points. <br />
-								However, 2-2-6 is considered an instant win. Conversely, 2-2-1 is considered an instant loss.
-							</span>
-						</p>
-					</li>
-					<li>
-						<strong>
-							<span className="text-xl font-semibold tracking-wide">
-								What roll combination requires a RE-ROLL?
-							</span>
-						</strong>
-						<p className="mt-1">
-							<span className="text-xl tracking-wide">
-								Any roll combination that does not result in either win, loss or points is considered indeterminate and requires a re-roll.
+								https://www.wikiwand.com/en/Texas_hold_%27em#/Rules <br />
+								Texas hold &apos;em is one of the most popular variants of the card game of poker.<br />
+								Two cards, known as hole cards, are dealt face down to each player, and then five community cards are dealt face up in three stages. <br />
+								The stages consist of a series of three cards (&quot;the flop&quot;), later an additional single card (&quot;the turn&quot; or &quot;fourth street&quot;),<br />
+								and a final card (&quot;the river&quot; or &quot;fifth street&quot;). <br />
+								Each player seeks the best five card poker hand from any combination of the seven cards; the five community cards and their two hole cards. <br />
+								Players have betting options to check, call, raise, or fold. <br />
+								Rounds of betting take place before the flop is dealt and after each subsequent deal. <br />
+								The player who has the best hand and has not folded by the end of all betting rounds wins all of the money bet for the hand, known as the pot. <br />
+								In certain situations, a &quot;split-pot&quot; or &quot;tie&quot; can occur when two players have hands of equivalent value. This is also called a &quot;chop-pot&quot;.
 							</span>
 						</p>
 					</li>
