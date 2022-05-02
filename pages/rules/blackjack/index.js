@@ -39,7 +39,7 @@ export default function Rules() {
 			</p> */}
 			<div className="flex justify-center space-x-5">
 				<Link href="/rules/cee-lo">
-					<a className="flex items-center space-x-1 border border-transparent rounded-md">
+					<a className="flex items-center space-x-1 border border-transparent rounded-md hover:bg-rose-100 transition">
 						{/* <PuzzleIcon className="shrink-0 w-8 h-8 text-rose-500" /> */}
 						<Image
 							className="shrink-0 w-8 h-8 text-rose-500"
@@ -55,7 +55,7 @@ export default function Rules() {
 				</Link>
 
 				<Link href="/rules/craps">
-					<a className="flex items-center space-x-1 border border-transparent rounded-md">
+					<a className="flex items-center space-x-1 border border-transparent rounded-md hover:bg-rose-100 transition">
 						{/* <PuzzleIcon className="shrink-0 w-8 h-8 text-rose-500" /> */}
 						<Image
 							className="shrink-0 w-8 h-8 text-rose-500"
@@ -71,7 +71,7 @@ export default function Rules() {
 				</Link>
 
 				<Link href="/rules/chuck-a-luck">
-					<a className="flex items-center space-x-1 border border-transparent rounded-md">
+					<a className="flex items-center space-x-1 border border-transparent rounded-md hover:bg-rose-100 transition">
 						{/* <PuzzleIcon className="shrink-0 w-8 h-8 text-rose-500" /> */}
 						<Image
 							className="shrink-0 w-8 h-8 text-rose-500"
@@ -87,7 +87,7 @@ export default function Rules() {
 				</Link>
 
 				<Link href="/rules/blackjack">
-					<a className="flex items-center space-x-1 border border-red-700 rounded-md">
+					<a className="flex items-center space-x-1 border border-red-700 rounded-md hover:bg-rose-100 transition">
 						{/* <PuzzleIcon className="shrink-0 w-8 h-8 text-rose-500" /> */}
 						<Image
 							className="shrink-0 w-8 h-8 text-rose-500"
@@ -102,7 +102,7 @@ export default function Rules() {
 					</a>
 				</Link>
 				<Link href="/rules/poker">
-					<a className="flex items-center space-x-1 border border-transparent rounded-md">
+					<a className="flex items-center space-x-1 border border-transparent rounded-md hover:bg-rose-100 transition">
 						{/* <PuzzleIcon className="shrink-0 w-8 h-8 text-rose-500" /> */}
 						<Image
 							className="shrink-0 w-8 h-8 text-rose-500"

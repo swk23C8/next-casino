@@ -1,28 +1,16 @@
 import PropTypes from 'prop-types';
+import React, { useEffect, useState, useRef } from 'react';
 
+import dynamic from 'next/dynamic';
 
 const Play = ({ stats = [], game = [] }) => {
 
-	{/* map through stats and output result with a <p> tag */ }
-	const statEl = () => {
-		stats.map((stat => (
-			<p key={stat.id}>{stat.result}</p>
-		)));
-	}
-
 	return (
 		<>
-		<p>hello this is the poker page</p>
-			{/* {statEl} */}
-			{/* <p>{stats}</p> */}
-			{/* <p>{game}</p> */}
+			<p>hello this is the poker page</p>
 		</>
-	)
-}
+	);
+};
 
-// Play.PropTypes = {
-// 	stat: PropTypes.array,
-// 	game: PropTypes.array,
-// }
 
 export default Play;

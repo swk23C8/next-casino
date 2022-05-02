@@ -98,7 +98,7 @@ const Layout = ({ children = null }) => {
               {/* display buttons to other pages*/}
               <div className="flex items-center space-x-10">
                 <Link href="/cee-lo">
-                  <a className="flex items-center space-x-1">
+                  <a className="flex items-center space-x-1 rounded-md hover:bg-rose-100 transition">
                     {/* <PuzzleIcon className="shrink-0 w-8 h-8 text-rose-500" /> */}
                     <Image
                       className="shrink-0 w-8 h-8 text-rose-500"
@@ -114,7 +114,7 @@ const Layout = ({ children = null }) => {
                 </Link>
 
                 <Link href="/stats">
-                  <a className="flex items-center space-x-1">
+                  <a className="flex items-center space-x-1 rounded-md hover:bg-rose-100 transition">
                     <UserIcon className="shrink-0 w-8 h-8 text-rose-500" />
                     <span className="text-xl font-semibold tracking-wide">
                       Stats
@@ -123,7 +123,7 @@ const Layout = ({ children = null }) => {
                 </Link>
 
                 <Link href="/rules">
-                  <a className="flex items-center space-x-1">
+                  <a className="flex items-center space-x-1 rounded-md hover:bg-rose-100 transition">
                     <InformationCircleIcon className="shrink-0 w-8 h-8 text-rose-500" />
                     <span className="text-xl font-semibold tracking-wide">
                       Rules
@@ -132,7 +132,7 @@ const Layout = ({ children = null }) => {
                 </Link>
 
                 <Link href="/faq">
-                  <a className="flex items-center space-x-1">
+                  <a className="flex items-center space-x-1 rounded-md hover:bg-rose-100 transition">
                     <QuestionMarkCircleIcon className="shrink-0 w-8 h-8 text-rose-500" />
                     <span className="text-xl font-semibold tracking-wide">
                       FAQ
@@ -141,7 +141,7 @@ const Layout = ({ children = null }) => {
                 </Link>
 
                 <Link href="/about">
-                <a className="flex items-center space-x-1">
+                <a className="flex items-center space-x-1 rounded-md hover:bg-rose-100 transition">
                   <SparklesIcon className="shrink-0 w-8 h-8 text-rose-500" />
                   <span className="text-xl font-semibold tracking-wide">
                     About
