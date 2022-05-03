@@ -2,7 +2,7 @@ import Layout from '@/components/Layout';
 import Grid from '@/components/Grid';
 import { prisma } from '@/lib/prisma';
 import { useState, useEffect } from 'react';
-
+import * as api from '../pages/api/testBackend';
 
 
 export async function getServerSideProps() {
@@ -24,7 +24,7 @@ export default function Home({ stats = [] }) {
 
    // get output from localhost:5000/api
    // get output from localhost:5000/activity
-   const [activity, setActivity] = useState('');
+   const [test, setTest] = useState('');
    // useEffect(() => {
    //    fetch('https://www.boredapi.com/api/activity')
    //       .then(res => res.json())
@@ -33,14 +33,14 @@ export default function Home({ stats = [] }) {
    //          console.log(err);
    //       })
    // }, []);
-   useEffect(() => {
-      fetch('https://swk23c8.herokuapp.com/api')
-         .then(res => res.json())
-         .then(json => setActivity(json.message))
-         .catch(function (err) {
-            console.log(err);
-         })
-   }, []);
+   // useEffect(() => {
+   //    fetch('https://swk23c8.herokuapp.com/api')
+   //       .then(res => res.json())
+   //       .then(json => setActivity(json.message))
+   //       .catch(function (err) {
+   //          console.log(err);
+   //       })
+   // }, []);
    // useEffect(() => {
    //    fetch('http://localhost:5000/api')
    //       .then(res => res.json())
@@ -50,6 +50,16 @@ export default function Home({ stats = [] }) {
    //       })
    // }, []);
 
+   const getHello = async () => {
+      const response = await fetch('https://swk23c8.herokuapp.com/api');
+      const json = await response.json();
+      setTest(json.message);
+   };
+
+   useEffect(() => {
+      getHello();
+   }, []);
+
    return (
       <Layout>
          <h1 className="text-xl font-medium text-gray-800">
@@ -58,7 +68,7 @@ export default function Home({ stats = [] }) {
          <p className="text-gray-500">
             Explore some of the best players in the world
          </p>
-         <p>{activity}</p>
+         <p>{test}</p>
          <div className="mt-8">
             {/* <Grid homes={homes} /> */}
             <Grid stats={stats} />
