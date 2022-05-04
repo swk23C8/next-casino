@@ -15,7 +15,7 @@ const pc_config = {
 	],
 };
 // const SOCKET_SERVER_URL = "http://localhost:5000";
-const SOCKET_SERVER_URL = "https://swk23c8.herokuapp.com/";
+const SOCKET_SERVER_URL = "https://swk23c8.herokuapp.com";
 
 const Test = () => {
 	const socketRef = useRef();
