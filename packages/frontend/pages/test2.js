@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import io from 'socket.io-client';
 import Video from '@/components/Video';
+import GamePage from '@/components/Poker/GamePage/GamePage';
 // import { WebRTCUser } from './types';
 
 const pc_config = {
@@ -194,22 +195,25 @@ const App = () => {
 	}, [createPeerConnection, getLocalStream]);
 
 	return (
-		<div>
-			<video
-				style={{
-					width: 240,
-					height: 240,
-					margin: 5,
-					backgroundColor: 'black',
-				}}
-				muted
-				ref={localVideoRef}
-				autoPlay
-			/>
-			{users.map((user, index) => (
-				<Video key={index} email={user.email} stream={user.stream} />
-			))}
-		</div>
+		<>
+			<GamePage/>
+			<div>
+				<video
+					style={{
+						width: 240,
+						height: 240,
+						margin: 5,
+						backgroundColor: 'black',
+					}}
+					muted
+					ref={localVideoRef}
+					autoPlay
+				/>
+				{users.map((user, index) => (
+					<Video key={index} email={user.email} stream={user.stream} />
+				))}
+			</div>
+		</>
 	);
 };
 

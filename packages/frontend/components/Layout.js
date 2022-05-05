@@ -22,8 +22,9 @@ import {
   InformationCircleIcon,
 } from '@heroicons/react/outline';
 import { ChevronDownIcon } from '@heroicons/react/solid';
-import DiceIcon from 'public/images/DiceIcon.png';
 import DiceIcon2 from 'public/images/DiceIcon2.png';
+import PokerIcon2 from 'public/images/PokerIcon2.png'
+
 
 const menuItems = [
   {
@@ -113,6 +114,22 @@ const Layout = ({ children = null }) => {
                   </a>
                 </Link>
 
+                <Link href="/poker">
+                  <a className="flex items-center space-x-1 rounded-md hover:bg-rose-100 transition">
+                    {/* <PuzzleIcon className="shrink-0 w-8 h-8 text-rose-500" /> */}
+                    <Image
+                      className="shrink-0 w-8 h-8 text-rose-500"
+                      src={PokerIcon2}
+                      width={40}
+                      height={40}
+                      alt="PokerIcon2"
+                    />
+                    <span className="text-xl font-semibold tracking-wide">
+                      Poker
+                    </span>
+                  </a>
+                </Link>
+
                 <Link href="/stats">
                   <a className="flex items-center space-x-1 rounded-md hover:bg-rose-100 transition">
                     <UserIcon className="shrink-0 w-8 h-8 text-rose-500" />
@@ -141,13 +158,13 @@ const Layout = ({ children = null }) => {
                 </Link>
 
                 <Link href="/about">
-                <a className="flex items-center space-x-1 rounded-md hover:bg-rose-100 transition">
-                  <SparklesIcon className="shrink-0 w-8 h-8 text-rose-500" />
-                  <span className="text-xl font-semibold tracking-wide">
-                    About
-                  </span>
-                </a>
-              </Link>
+                  <a className="flex items-center space-x-1 rounded-md hover:bg-rose-100 transition">
+                    <SparklesIcon className="shrink-0 w-8 h-8 text-rose-500" />
+                    <span className="text-xl font-semibold tracking-wide">
+                      About
+                    </span>
+                  </a>
+                </Link>
               </div>
               {/* display buttons to other pages*/}
 

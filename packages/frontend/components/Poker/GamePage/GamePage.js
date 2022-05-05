@@ -30,14 +30,17 @@ const GamePage = ({ stats = [], game = [] }) => {
 	return !isGameStarted ? (
 		<>
 
-			<h1 className="flex justify-center text-xl font-medium text-black-800">
+			<h1 className="flex justify-center text-xl font-medium text-black">
 				This game is in early alpha stages.
 			</h1>
-			<h1 className="flex justify-center text-xl font-medium text-black-800">
+			<h1 className="flex justify-center text-xl font-medium text-black">
 				Please feel free to try out the available features and report any bugs!
 			</h1>
-			<h2 className="flex justify-center text-2xl font-bold text-black-800 py-5">
+			<h2 className="flex justify-center text-2xl font-bold text-black py-5">
 				Welcome to Poker!
+			</h2>
+			<h2 className="text-center text-2xl font-bold text-black">
+				⚠️This is a multiplayer game that requires more than 1 person! ⚠️
 			</h2>
 
 			{/* button to initiate gameState by calling api */}

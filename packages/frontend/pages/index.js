@@ -62,17 +62,56 @@ export default function Home({ stats = [] }) {
 
    return (
       <Layout>
+         {/* landing page */}
+         <h1 className="
+               text-center
+               text-2xl
+               text-gray-800
+               font-bold
+               mb-4"
+         >
+            Welcome to the home page
+         </h1>
+         <h2 className="
+               text-center
+               text-xl
+               text-gray-800
+               font-bold
+               mb-4"
+         >
+            Please register to play for free or browse as a guest!
+         </h2>
+         {/* <h2 className="
+               text-center
+               text-xl
+               text-gray-800
+               font-bold
+               mb-4"
+         >
+            {stats.map(user => (
+               <div key={user.id}>
+                  <p>
+                     {user.email}
+                  </p>
+                  <p>
+                     {user.gameTokens}
+                  </p>
+               </div>
+            ))}
+         </h2> */}
+
+
          <h1 className="text-xl font-medium text-gray-800">
             Top Players
          </h1>
          <p className="text-gray-500">
             Explore some of the best players in the world
          </p>
-         <p>{test}</p>
+         {/* <p>{test}</p> */}
          <div className="mt-8">
             {/* <Grid homes={homes} /> */}
             <Grid stats={stats} />
          </div>
-      </Layout>
+      </Layout >
    );
 }
