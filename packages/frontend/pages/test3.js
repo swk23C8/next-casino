@@ -4,6 +4,7 @@ import io from "socket.io-client";
 const Game = React.lazy(() => import("@/components/Test/Play/Play"));
 import { Box, Button, Center, Flex, Spacer } from "@chakra-ui/react";
 // import styles from "../../styles/Lobby.module.css";
+import Layout from '@/components/Layout';
 
 const SOCKET_SERVER_URL = 'https://swk23c8.herokuapp.com';
 // const SOCKET_SERVER_URL = 'http://localhost:5000';
@@ -71,7 +72,7 @@ export default function Online() {
 
 
 	return (
-		<div>
+		<Layout>
 			<Flex
 				// className={styles.menu}
 				flexDir={{ base: 'column', md: 'row' }}
@@ -171,6 +172,6 @@ export default function Online() {
 					</h1>
 				</>
 			)}
-		</div>
+		</Layout>
 	);
 }

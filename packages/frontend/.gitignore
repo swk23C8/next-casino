@@ -42,3 +42,6 @@ yarn-error.log*
 /components/Cee-Lo/Play/RoundNew.js
 /components/Cee-Lo/Play/RoundTest.js
 /components/Cee-Lo/Play/Round.module.scss
+
+/pages/test.js
+/pages/test2.js
