@@ -97,9 +97,9 @@ const Layout = ({ children = null }) => {
               </Link>
 
               {/* display buttons to other pages*/}
-              <div className="flex items-center space-x-10">
+              <div className="flex items-center space-x-2">
                 <Link href="/cee-lo">
-                  <a className="flex items-center space-x-1 rounded-md hover:bg-rose-100 transition">
+                  <a className="flex items-center space-x-1 rounded-md hover:bg-rose-100 transition px-3">
                     {/* <PuzzleIcon className="shrink-0 w-8 h-8 text-rose-500" /> */}
                     <Image
                       className="shrink-0 w-8 h-8 text-rose-500"
@@ -115,7 +115,7 @@ const Layout = ({ children = null }) => {
                 </Link>
 
                 <Link href="/poker">
-                  <a className="flex items-center space-x-1 rounded-md hover:bg-rose-100 transition">
+                  <a className="flex items-center space-x-1 rounded-md hover:bg-rose-100 transition px-3">
                     {/* <PuzzleIcon className="shrink-0 w-8 h-8 text-rose-500" /> */}
                     <Image
                       className="shrink-0 w-8 h-8 text-rose-500"
@@ -131,18 +131,18 @@ const Layout = ({ children = null }) => {
                 </Link>
                 
                 <Link href="/tictactoe">
-                  <a className="flex items-center space-x-1 rounded-md hover:bg-rose-100 transition">
+                  <a className="flex items-center space-x-1 rounded-md hover:bg-rose-100 transition px-3">
                     {/* <PuzzleIcon className="shrink-0 w-8 h-8 text-rose-500" /> */}
                     <PuzzleIcon className="shrink-0 w-8 h-8 text-rose-500" />
 
                     <span className="text-xl font-semibold tracking-wide">
-                      Tic-Tac-Toe
+                      Tic Tac Toe
                     </span>
                   </a>
                 </Link>
                 
                 <Link href="/stats">
-                  <a className="flex items-center space-x-1 rounded-md hover:bg-rose-100 transition">
+                  <a className="flex items-center space-x-1 rounded-md hover:bg-rose-100 transition px-3">
                     <UserIcon className="shrink-0 w-8 h-8 text-rose-500" />
                     <span className="text-xl font-semibold tracking-wide">
                       Stats
@@ -151,7 +151,7 @@ const Layout = ({ children = null }) => {
                 </Link>
 
                 <Link href="/rules">
-                  <a className="flex items-center space-x-1 rounded-md hover:bg-rose-100 transition">
+                  <a className="flex items-center space-x-1 rounded-md hover:bg-rose-100 transition px-3">
                     <InformationCircleIcon className="shrink-0 w-8 h-8 text-rose-500" />
                     <span className="text-xl font-semibold tracking-wide">
                       Rules
@@ -160,7 +160,7 @@ const Layout = ({ children = null }) => {
                 </Link>
 
                 <Link href="/faq">
-                  <a className="flex items-center space-x-1 rounded-md hover:bg-rose-100 transition">
+                  <a className="flex items-center space-x-1 rounded-md hover:bg-rose-100 transition px-3">
                     <QuestionMarkCircleIcon className="shrink-0 w-8 h-8 text-rose-500" />
                     <span className="text-xl font-semibold tracking-wide">
                       FAQ
@@ -169,7 +169,7 @@ const Layout = ({ children = null }) => {
                 </Link>
 
                 <Link href="/about">
-                  <a className="flex items-center space-x-1 rounded-md hover:bg-rose-100 transition">
+                  <a className="flex items-center space-x-1 rounded-md hover:bg-rose-100 transition px-3">
                     <SparklesIcon className="shrink-0 w-8 h-8 text-rose-500" />
                     <span className="text-xl font-semibold tracking-wide">
                       About
