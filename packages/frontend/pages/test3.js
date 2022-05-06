@@ -5,8 +5,8 @@ const Game = React.lazy(() => import("@/components/Test/Play/Play"));
 import { Box, Button, Center, Flex, Spacer } from "@chakra-ui/react";
 // import styles from "../../styles/Lobby.module.css";
 
-// const SOCKET_SERVER_URL = 'https://swk23c8.herokuapp.com';
-const SOCKET_SERVER_URL = 'http://localhost:5000';
+const SOCKET_SERVER_URL = 'https://swk23c8.herokuapp.com';
+// const SOCKET_SERVER_URL = 'http://localhost:5000';
 
 export default function Online() {
 	const router = useRouter();
