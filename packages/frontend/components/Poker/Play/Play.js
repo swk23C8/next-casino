@@ -198,7 +198,7 @@ const Play = ({ stats = [], game = [] }) => {
 
 	return (
 		<>
-			<p>hello this is the poker page</p>
+			<p>1-N P2P connection (currently broken due to the changes to the server for now)</p>
 			<div>
 				<video
 					style={{

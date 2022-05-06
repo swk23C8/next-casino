@@ -50,9 +50,9 @@ export default function FAQ() {
 								{/* Next-Casino is a decentralized casino platform that enables
 								players to play games like poker, blackjack, and other
 								traditional games. */}
-								NextCasino is a Free-to-Play casino platform that enables
+								NextCasino is a Free-To-Play game platform that enables
 								players to play games like poker, blackjack, and other
-								traditional games.
+								traditional games for free.
 							</p>
 						</AccordionPanel>
 					</AccordionItem>
@@ -68,7 +68,7 @@ export default function FAQ() {
 							You will be able to play the game by clicking on the &quot;Play&quot;
 							button on the home page.
 							<p>
-								You can play games on the website or on the mobile app.
+								You can play games on the website or on the mobile app. (not yet available)
 								<br />
 								<br />
 								<a
@@ -247,7 +247,7 @@ export default function FAQ() {
 						</AccordionButton>
 						<AccordionPanel>
 							<p>
-								You can click on the rewards button to &apos;earn&apos; more tokens or through subscriptions.
+								(contact us to get more tokens for now) You can click on the rewards button to &apos;earn&apos; more tokens or through subscriptions.
 							</p>
 						</AccordionPanel>
 					</AccordionItem>
