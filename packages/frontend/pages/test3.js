@@ -16,7 +16,9 @@ export default function Online() {
 	const [activeUsers, setActiveUsers] = useState(0)
 
 	useEffect(() => {
-		setSocket(io.connect(SOCKET_SERVER_URL));
+		setSocket(io.connect(SOCKET_SERVER_URL, {
+			cors: { origin: '*' }
+		}));
 		console.log("Connecting to server...");
 
 		return () => {
