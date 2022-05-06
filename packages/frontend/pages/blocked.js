@@ -5,7 +5,8 @@ export default function blocked() {
 		<>
 			<div className="blocked-inner">
 				<b>Adblocker detected!<br /></b>
-				We don&apos;t display any intrusive advertisements.<br />
+				{/* We don&apos;t display any intrusive advertisements.<br /> */}
+				We do not display ANY advertisements.<br />
 				We also need the analytics to improve and optimise user experience!<br />
 				Please disable it and <i><u>click the logo below</u></i> to continue.
 				<br />
