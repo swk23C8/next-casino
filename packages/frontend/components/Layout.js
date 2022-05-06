@@ -130,7 +130,7 @@ const Layout = ({ children = null }) => {
                   </a>
                 </Link>
                 
-                <Link href="/test3">
+                <Link href="/tictactoe">
                   <a className="flex items-center space-x-1 rounded-md hover:bg-rose-100 transition">
                     {/* <PuzzleIcon className="shrink-0 w-8 h-8 text-rose-500" /> */}
                     <PuzzleIcon className="shrink-0 w-8 h-8 text-rose-500" />
