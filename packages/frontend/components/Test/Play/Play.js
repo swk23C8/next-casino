@@ -20,8 +20,8 @@ import {
 } from '@heroicons/react/outline';
 import { Box, Flex, Heading, Text, Center } from "@chakra-ui/layout";
 import { useEffect, useRef, useState } from "react";
-import { checkWinCon } from '@/components/Test/logic/WinCon'
-import { playerTwo } from '@/components/Test/logic/PlayerTwo';
+import { checkWinCon } from '@/components/Test/Logic/WinCon'
+import { playerTwo } from '@/components/Test/Logic/PlayerTwo';
 
 export default function Game({ gameMode, socket = null, inLobby = null }) {
 	const router = useRouter();
