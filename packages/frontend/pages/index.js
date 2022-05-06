@@ -50,15 +50,15 @@ export default function Home({ stats = [] }) {
    //       })
    // }, []);
 
-   const getHello = async () => {
-      const response = await fetch('https://swk23c8.herokuapp.com/api');
-      const json = await response.json();
-      setTest(json.message);
-   };
+   // const getHello = async () => {
+   //    const response = await fetch('https://swk23c8.herokuapp.com/api');
+   //    const json = await response.json();
+   //    setTest(json.message);
+   // };
 
-   useEffect(() => {
-      getHello();
-   }, []);
+   // useEffect(() => {
+   //    getHello();
+   // }, []);
 
    return (
       <Layout>

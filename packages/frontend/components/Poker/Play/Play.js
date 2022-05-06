@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import io from 'socket.io-client';
-import Video from '@/components/Video';
+import Video from '@/components/Test/Video/Video';
 
 
 const pc_config = {
@@ -16,7 +16,8 @@ const pc_config = {
 		},
 	],
 };
-const SOCKET_SERVER_URL = 'https://swk23c8.herokuapp.com';
+// const SOCKET_SERVER_URL = 'https://swk23c8.herokuapp.com';
+const SOCKET_SERVER_URL = 'http://localhost:5000';
 
 
 const Play = ({ stats = [], game = [] }) => {

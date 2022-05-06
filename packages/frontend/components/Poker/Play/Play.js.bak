@@ -1,8 +1,8 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import io from 'socket.io-client';
-import Video from '@/components/Test/Video/Video';
-import GamePage from '@/components/Poker/GamePage/GamePage';
-// import { WebRTCUser } from './types';
+import Video from '@/components/Video';
+
 
 const pc_config = {
 	iceServers: [
@@ -16,9 +16,11 @@ const pc_config = {
 		},
 	],
 };
-const SOCKET_SERVER_URL = 'https://swk23c8.herokuapp.com';
+// const SOCKET_SERVER_URL = 'https://swk23c8.herokuapp.com';
+const SOCKET_SERVER_URL = 'http://localhost:5000';
 
-const App = () => {
+
+const Play = ({ stats = [], game = [] }) => {
 	const socketRef = useRef();
 	const pcsRef = useRef({});
 	const localVideoRef = useRef(null);
@@ -39,7 +41,7 @@ const App = () => {
 			if (!socketRef.current) return;
 			socketRef.current.emit('join_room', {
 				room: '1234',
-				email: 'sample@naver.com',
+				email: 'Email@domain.com',
 			});
 		} catch (e) {
 			console.log(`getUserMedia error: ${e}`);
@@ -114,7 +116,7 @@ const App = () => {
 					socketRef.current.emit('offer', {
 						sdp: localSdp,
 						offerSendID: socketRef.current.id,
-						offerSendEmail: 'offerSendSample@sample.com',
+						offerSendEmail: 'offerSendEmail@Domain.com',
 						offerReceiveID: user.id,
 					});
 				} catch (e) {
@@ -196,7 +198,7 @@ const App = () => {
 
 	return (
 		<>
-			<GamePage/>
+			<p>hello this is the poker page</p>
 			<div>
 				<video
 					style={{
@@ -217,4 +219,5 @@ const App = () => {
 	);
 };
 
-export default App;
+
+export default Play;
