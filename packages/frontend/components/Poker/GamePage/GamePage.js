@@ -70,7 +70,8 @@ const GamePage = ({ stats = [], game = [] }) => {
 
 		</>
 	) : (
-		<Play stats={stats} game={game} />
+		// <Play stats={stats} game={game} />
+		<>hello</>
 	)
 }
 
