@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import io from 'socket.io-client';
-import Video from '@/components/Test/Video/Video';
+// import Video from '@/components/Test/Video/Video';
 
 
 const pc_config = {

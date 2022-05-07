@@ -23,8 +23,8 @@ export default async function handler(req, res) {
 
 	// Check if the bet amount is less than zero
 	if (body.e !== "loss" && body.e !== "win") {
-		console.log("the fuck are you doing")
-		return res.status(400).json({ message: 'suck my dick' });
+		console.log("Please enter a valid game action.");
+		return res.status(400).json({ message: 'Please enter a valid game action.' });
 	}
 
 	// Update bet amount

@@ -1,7 +1,7 @@
 // import { prisma } from '@/lib/prisma';
 import axios from 'axios';
 import { useState } from 'react';
-import Play from '@/components/Test/Play/Play';
+import Lobby from '@/components/Test/Lobby/Lobby';
 
 
 const GamePage = ({ stats = [], game = [] }) => {
@@ -37,10 +37,10 @@ const GamePage = ({ stats = [], game = [] }) => {
 				Please feel free to try out the available features and report any bugs!
 			</h1>
 			<h2 className="flex justify-center text-2xl font-bold text-black py-5">
-				Welcome to Poker!
+				Welcome to Tic Tac Toe!
 			</h2>
 			<h2 className="text-center text-2xl font-bold text-black">
-				⚠️This is a multiplayer game that requires more than 1 person! ⚠️
+				⚠️This is a multiplayer game that requires 2 people per game! ⚠️
 			</h2>
 
 			{/* button to initiate gameState by calling api */}
@@ -70,7 +70,7 @@ const GamePage = ({ stats = [], game = [] }) => {
 
 		</>
 	) : (
-		<Play stats={stats} game={game} />
+		<Lobby stats={stats} game={game} />
 	)
 }
 

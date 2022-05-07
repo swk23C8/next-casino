@@ -23,7 +23,7 @@ import { useEffect, useRef, useState } from "react";
 import { checkWinCon } from '@/components/Test/Logic/WinCon'
 import { playerTwo } from '@/components/Test/Logic/PlayerTwo';
 
-export default function Game({ gameMode, socket = null, inLobby = null }) {
+export default function Game({ socket = null, inLobby = null }) {
 	const router = useRouter();
 	const matchStart = { one: "", two: "", three: "", four: "", five: "", six: "", seven: "", eight: "", nine: "" }
 
@@ -120,6 +120,7 @@ export default function Game({ gameMode, socket = null, inLobby = null }) {
 	function checkMove(nextMove, player = whosTurn, myGrid = grid) {
 		const isWinner = checkWinCon(myGrid, setGrid, nextMove, player)
 		if (isWinner) {
+			console.log(isWinner)
 			winner.current = isWinner
 			setGameInfo(`${winner.current} has won!`)
 			onOpen()
@@ -133,12 +134,12 @@ export default function Game({ gameMode, socket = null, inLobby = null }) {
 		setGameOver(false)
 		setGrid(matchStart)
 		setWhosTurn('X')
-		if (gameMode === 'offline') {
-			setIsOnePlayer(true)
-			setMyMove('X')
-		} else {
-			setIsOnePlayer(false)
-		}
+		// if (gameMode === 'offline') {
+		// 	setIsOnePlayer(true)
+		// 	setMyMove('X')
+		// } else {
+		// 	setIsOnePlayer(false)
+		// }
 	}
 
 	const bg = useColorModeValue('blue.300', 'orange.200')
@@ -200,12 +201,12 @@ export default function Game({ gameMode, socket = null, inLobby = null }) {
 							</Button>
 						) :
 							(<>
-								{/* <Button 
-					  rightIcon={<VscDebugRestart />} 
-					  onClick={()=> socket.emit('rematch')}
-					>
-					  Rematch?
-					</Button> */}
+								<Button
+									rightIcon={<RefreshIcon />}
+									onClick={() => socket.emit('rematch')}
+								>
+									Rematch?
+								</Button>
 							</>
 							)}
 					</GridItem>
@@ -219,9 +220,6 @@ export default function Game({ gameMode, socket = null, inLobby = null }) {
 
 				{/* START - GAME BOARD AREA */}
 				<Flex flexWrap="wrap" alignItems="center" justifyContent="center" maxW="1000px">
-
-
-
 					{Object.keys(grid).map(square => {
 						return (<>
 							<Box as="button" p="1" borderWidth='5px' borderColor="grey" boxSize="12em" backgroundColor="" flexBasis="30%"
@@ -240,13 +238,16 @@ export default function Game({ gameMode, socket = null, inLobby = null }) {
 			</>) :
 				(<>
 					{/* INFO SECTION SHOWING WHEN WAITING FOR OPPONENT TO JOIN A ROOM AFTER CREATION AND ON JOIN */}
-					<Heading textAlign={'center'} wordBreak='break-word'>{gameInfo}</Heading>
-
+					<Heading textAlign={'center'} wordBreak='break-word'>
+						{gameInfo}
+						{/* <br />{"lol"} */}
+					</Heading>
 					<Button border='2px' onClick={() => { inLobby(true) }} m='2'>
 						Back to Lobby
 					</Button>
 				</>
-				)}
+				)
+			}
 			<>
 
 				<Modal isOpen={isOpen} onClose={onClose} isCentered>
@@ -256,6 +257,7 @@ export default function Game({ gameMode, socket = null, inLobby = null }) {
 						<ModalCloseButton />
 						<ModalBody>
 							<Center>{gameInfo}</Center>
+							<>hello224</>
 						</ModalBody>
 
 						<ModalFooter>
@@ -266,9 +268,6 @@ export default function Game({ gameMode, socket = null, inLobby = null }) {
 					</ModalContent>
 				</Modal>
 			</>
-
-
 		</>
-
 	);
 }
