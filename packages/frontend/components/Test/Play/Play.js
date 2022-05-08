@@ -105,17 +105,30 @@ export default function Game({ socket = null, inLobby = null, roomPlayers = null
 
 	// api call to update token
 	const updateToken = (e) => {
-		axios.patch('/api/gameAction/updateToken', { e, })
-			.then(res => {
-				// setBalance(res.data.newToken);
+		if (me.current.username === "GUEST") {
+			toast('🦄 Wow so GUEST! Free Game!', {
+				position: "top-left",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
+		}
+		else {
+			axios.patch('/api/gameAction/updateToken', { e, })
+				.then(res => {
+					// setBalance(res.data.newToken);
 
-				// emit to server to update balance
-				socket.emit('updateBalance', res.data.newToken);
-			})
-			.catch(err => {
-				// console.log(err)
-				notifyError();
-			})
+					// emit to server to update balance
+					socket.emit('updateBalance', res.data.newToken);
+				})
+				.catch(err => {
+					// console.log(err)
+					notifyError();
+				})
+		}
 	}
 
 	// only run if roomPlayers is not null
