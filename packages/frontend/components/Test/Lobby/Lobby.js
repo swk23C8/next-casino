@@ -6,18 +6,20 @@ import { Box, Button, Center, Flex, Spacer } from "@chakra-ui/react";
 // import styles from "../../styles/Lobby.module.css";
 import axios from 'axios';
 
-const SOCKET_SERVER_URL = 'https://swk23c8.herokuapp.com';
-// const SOCKET_SERVER_URL = 'http://localhost:5000';
+// const SOCKET_SERVER_URL = 'https://swk23c8.herokuapp.com';
+const SOCKET_SERVER_URL = 'http://localhost:5000';
 
 export default function Lobby({ stats = [], game = [] }) {
 	const router = useRouter();
 	const [socket, setSocket] = useState(null);
 	const [rooms, setRooms] = useState(null);
+	const [roomsBets, setRoomsBets] = useState(null);
 	const [inLobby, setInLobby] = useState(true);
 	const [activeUsers, setActiveUsers] = useState(0)
 	const [myRoom, setMyRoom] = useState(null)
 
 	const [pBet, setPBet] = useState(game.pBet);
+	const [roomBet, setRoomBet] = useState(game.pBet)
 
 	// api call to make bet
 	const makeBet = (e) => {
@@ -76,7 +78,14 @@ export default function Lobby({ stats = [], game = [] }) {
 		});
 
 		socket.on("rooms", (args) => {
-			if (inLobby) setRooms(args);
+			console.log(args);
+			console.log("room name: " + args[0]);
+			console.log("room bet: " + args[1]);
+			if (inLobby) {
+				setRooms(args[0]);
+				setRoomsBets(args[1]);
+			}
+			// if (inLobby) setRooms(args);
 		});
 
 		socket.on('users', args => {
@@ -96,10 +105,11 @@ export default function Lobby({ stats = [], game = [] }) {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [socket]);
 
-	function joinRoom(room) {
+	function joinRoom(room, roomsBets) {
 		console.log("Joining room:");
 		console.log(room);
-		// socket.emit("join", { roomName: room.roomName, roomBet: room.roomBet });
+		setMyRoom(room);
+		setRoomBet(roomsBets)
 		socket.emit("join", room);
 		setInLobby(false);
 	}
@@ -134,11 +144,12 @@ export default function Lobby({ stats = [], game = [] }) {
 					{"your socket id: " + socket.id}< br />
 					{"your account id: " + stats.id}< br />
 					{"your account balance: " + stats.gameTokens}< br />
-					{/* {"your room name: " + myRoom}< br /> */}
-					{"your current bet: " + pBet}< br />
+					{/* {"your current bet: " + pBet}< br /> */}
 					{inLobby ? (
 						<>
-							{"your room name: " + "not in a room"}< br />
+							< br />
+							{"Current room name: " + "not in a room"}< br />
+							{"Your game bet: " + pBet}< br />
 							<form
 								className=""
 								id="makeBetForm"
@@ -158,8 +169,8 @@ export default function Lobby({ stats = [], game = [] }) {
 					) : (
 						<>
 							< br />
-							{"your room name: " + myRoom}< br />
-							{"your room bet: " + pBet}< br />
+							{"Current room name: " + myRoom}< br />
+							{"Current room bet: " + roomBet}< br />
 						</>
 					)}
 
@@ -197,26 +208,27 @@ export default function Lobby({ stats = [], game = [] }) {
 
 							{inLobby ? (
 								<Flex flexWrap="wrap" margin="2rem" justifyContent={{ base: 'space-evenly', md: 'center' }}>
-									{/* {console.log(rooms)} */}
-									{rooms.map((room) => {
-										return (
-											<>
-												<Box
-													as="button"
-													border="2px"
-													borderRadius="md"
-													m={4}
-													boxSize="10rem"
-													onClick={() => joinRoom(room)}
-												>
-													{console.log(room)}
-													{/* {"NAME: " + room.roomName}<br />
-													{"BET: " + room.roomBet}<br /> */}
-													{"NAME: " + room}<br />
-												</Box>
-											</>
-										);
-									})}
+									{console.log(rooms)}
+									{
+										rooms.map((room, index) => {
+											return (
+												<>
+													<Box
+														as="button"
+														border="2px"
+														borderRadius="md"
+														m={4}
+														boxSize="10rem"
+														onClick={() => joinRoom(room, roomsBets[index])}
+													>
+														{console.log(room)}
+														{"NAME: " + room}<br />
+														{"BET: " + roomsBets[index]}<br />
+													</Box>
+												</>
+											);
+										})
+									}
 								</Flex>
 							) : (
 								<div

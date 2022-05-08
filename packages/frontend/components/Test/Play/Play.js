@@ -242,7 +242,13 @@ export default function Game({ socket = null, inLobby = null }) {
 						{gameInfo}
 						{/* <br />{"lol"} */}
 					</Heading>
-					<Button border='2px' onClick={() => { inLobby(true) }} m='2'>
+					<Button border='2px'
+						onClick={() => {
+							inLobby(true);
+							socket.emit("leave");
+						}}
+						m='2'
+					>
 						Back to Lobby
 					</Button>
 				</>
