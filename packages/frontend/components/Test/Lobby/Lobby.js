@@ -54,17 +54,30 @@ export default function Lobby({ stats = [], game = [] }) {
 	}
 
 	const updateBet = (e) => {
-		axios.patch('/api/gameAction/makeBet', {
-			bet: e * 1,
-		})
-			.then(res => {
-				setPBet(res.data.bet);
-				console.log("bet value :" + res.data.bet);
+		if (stats.id === "GUEST") {
+			toast('🦄 Wow so GUEST! Free Game!', {
+				position: "top-left",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
+		}
+		else {
+			axios.patch('/api/gameAction/makeBet', {
+				bet: e * 1,
 			})
-			.catch(err => {
-				// console.log(err)
-				notifyError();
-			})
+				.then(res => {
+					setPBet(res.data.bet);
+					console.log("bet value :" + res.data.bet);
+				})
+				.catch(err => {
+					// console.log(err)
+					notifyError();
+				})
+		}
 	}
 
 	function reset() {
