@@ -21,21 +21,8 @@ import {
 import { Box, Flex, Heading, Text, Center } from "@chakra-ui/layout";
 import { useEffect, useRef, useState } from "react";
 import { checkWinCon } from '@/components/Test/Logic/WinCon'
-// import { playerTwo } from '@/components/Test/Logic/PlayerTwo';
 
 export default function Game({ socket = null, inLobby = null, roomPlayers = null }) {
-
-	// console.log(roomPlayers)
-	// console.log(socket)
-
-	// const opponent = {
-	// 	username: null,
-	// 	socketID: null
-	// }
-
-
-
-
 
 	const router = useRouter();
 	const matchStart = { one: "", two: "", three: "", four: "", five: "", six: "", seven: "", eight: "", nine: "" }
@@ -47,6 +34,7 @@ export default function Game({ socket = null, inLobby = null, roomPlayers = null
 	const [gameInfo, setGameInfo] = useState('Waiting for another player to connect....')
 	const [myMove, setMyMove] = useState('')
 	const opponent = useRef(null)
+	const me = useRef(null)
 
 	const [players, setPlayers] = useState(
 		{
@@ -77,45 +65,23 @@ export default function Game({ socket = null, inLobby = null, roomPlayers = null
 	let temp
 
 	if (roomPlayers) {
-		console.log("roomPlayers is not null")
-		console.log(roomPlayers)
 		if (roomPlayers.length === 2) {
-			console.log("2 players in game")
-			console.log(roomPlayers)
-
 			temp = (roomPlayers.filter(object => {
 				return object.socketID !== socket.id;
 			}))
-			console.log(temp[0].username)
-			console.log(temp[0].socketID)
 			opponent.current = {
 				username: temp[0].username,
 				socketID: temp[0].socketID
 			}
-			console.log(opponent.current)
-			console.log("playing against: " + opponent.current.username)
+			temp = (roomPlayers.filter(object => {
+				return object.socketID === socket.id;
+			}))
+			me.current = {
+				username: temp[0].username,
+				socketID: temp[0].socketID
+			}
 		}
 	}
-
-	// useEffect(() => {
-	// 	if (roomPlayers) {
-	// 		console.log("roomPlayers is not null")
-	// 		console.log(roomPlayers)
-	// 		if (roomPlayers.length === 2) {
-	// 			console.log("2 players in game")
-	// 			console.log(roomPlayers)
-
-	// 			let temp = (roomPlayers.filter(object => {
-	// 				return object.socketID !== socket.id;
-	// 			}))
-	// 			console.log(temp)
-	// 			setOpponent(temp)
-	// 			console.log(opponent)
-	// 			console.log("playing against: " + opponent[0].username)
-	// 		}
-	// 	}
-	// }, [opponent])
-
 
 	useEffect(() => {
 		startGame()
@@ -155,7 +121,7 @@ export default function Game({ socket = null, inLobby = null, roomPlayers = null
 		socket.on('move', (args) => {
 			socket.off('move') //required to ensure multiple listeners are not added on every re-render
 			console.log(`Received move ${args.move} for player ${args.player}`)
-			checkMove(args.move, args.player, grid)
+			checkMove(args.move, args.player, grid, args.me.username)
 		})
 
 		//used to monitor how many instances of the 'move' listener are currently mounted
@@ -189,14 +155,14 @@ export default function Game({ socket = null, inLobby = null, roomPlayers = null
 
 		else {
 			// send to sever the valid move and who made it, sending player as well to help prevent stale states
-			socket.emit('move', { move: square, player: whosTurn }, () => {
+			socket.emit('move', { move: square, player: whosTurn, me: me.current }, () => {
 				console.log(`Sent server move ${square} for player ${whosTurn}`)
 			})
 		}
 	}
 
-	function checkMove(nextMove, player = whosTurn, myGrid = grid) {
-		const isWinner = checkWinCon(myGrid, setGrid, nextMove, player)
+	function checkMove(nextMove, player = whosTurn, myGrid = grid, me) {
+		const isWinner = checkWinCon(myGrid, setGrid, nextMove, player, me)
 		if (isWinner) {
 			console.log(isWinner)
 			winner.current = isWinner

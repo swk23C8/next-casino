@@ -1,8 +1,8 @@
 //accepts the current state of the game board as GRID, the state function of SETGRID
 //the last player move as PLAYERMOVE, who made the last move as WHOSTURN and boolean to track single player game
 //this functions will check to see if the last played move caused a win con or not
-export const checkWinCon = (grid, setGrid, playerMove, whosTurn) => {
-
+export const checkWinCon = (grid, setGrid, playerMove, whosTurn, me) => {
+	console.log(me)
 	const tempGrid = { ...grid, [playerMove]: whosTurn }
 
 	function winner(tempGrid) {
@@ -24,7 +24,8 @@ export const checkWinCon = (grid, setGrid, playerMove, whosTurn) => {
 
 	//if the last move matched a win con, update the boardstate GRID, and return the player who won
 	if (winner(tempGrid)) {
-		return whosTurn
+		return me
+		// return whosTurn
 	}
 
 	//checks to see if there are any more open spaces on the board, if not than end the game a draw
