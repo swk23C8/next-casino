@@ -20,9 +20,13 @@ import {
 } from '@heroicons/react/outline';
 import { Box, Flex, Heading, Text, Center } from "@chakra-ui/layout";
 import { useEffect, useRef, useState } from "react";
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { checkWinCon } from '@/components/Test/Logic/WinCon'
 
-export default function Game({ socket = null, inLobby = null, roomPlayers = null }) {
+
+export default function Game({ socket = null, inLobby = null, roomPlayers = null, bet = null, globalBalance = null }) {
 
 	const router = useRouter();
 	const matchStart = { one: "", two: "", three: "", four: "", five: "", six: "", seven: "", eight: "", nine: "" }
@@ -35,7 +39,7 @@ export default function Game({ socket = null, inLobby = null, roomPlayers = null
 	const [myMove, setMyMove] = useState('')
 	const opponent = useRef(null)
 	const me = useRef(null)
-
+	const winner = useRef();
 	const [players, setPlayers] = useState(
 		{
 			one: {
@@ -59,11 +63,63 @@ export default function Game({ socket = null, inLobby = null, roomPlayers = null
 		}
 	)
 
-	const winner = useRef();
+	const notifyWin = () => toast.success('🦄 Wow so easy! You win!', {
+		position: "top-left",
+		autoClose: 5000,
+		hideProgressBar: false,
+		closeOnClick: true,
+		pauseOnHover: true,
+		draggable: true,
+		progress: undefined,
+	});
+
+	const notifyLose = () => toast.error('🦄 Wow so hard! You lose!', {
+		position: "top-left",
+		autoClose: 5000,
+		hideProgressBar: false,
+		closeOnClick: true,
+		pauseOnHover: true,
+		draggable: true,
+		progress: undefined,
+	});
+
+	const notifyPush = () => toast('🦄 Wow nice try! You tie!', {
+		position: "top-left",
+		autoClose: 5000,
+		hideProgressBar: false,
+		closeOnClick: true,
+		pauseOnHover: true,
+		draggable: true,
+		progress: undefined,
+	});
+
+	const notifyError = () => toast.error('🦄 Wow so error! Invalid!', {
+		position: "top-left",
+		autoClose: 5000,
+		hideProgressBar: false,
+		closeOnClick: true,
+		pauseOnHover: true,
+		draggable: true,
+		progress: undefined,
+	});
+
+	// api call to update token
+	const updateToken = (e) => {
+		axios.patch('/api/gameAction/updateToken', { e, })
+			.then(res => {
+				// setBalance(res.data.newToken);
+
+				// emit to server to update balance
+				socket.emit('updateBalance', res.data.newToken);
+			})
+			.catch(err => {
+				// console.log(err)
+				notifyError();
+			})
+	}
 
 	// only run if roomPlayers is not null
-	let temp
-
+	let temp = null;
 	if (roomPlayers) {
 		if (roomPlayers.length === 2) {
 			temp = (roomPlayers.filter(object => {
@@ -161,13 +217,51 @@ export default function Game({ socket = null, inLobby = null, roomPlayers = null
 		}
 	}
 
-	function checkMove(nextMove, player = whosTurn, myGrid = grid, me) {
-		const isWinner = checkWinCon(myGrid, setGrid, nextMove, player, me)
+	function checkMove(nextMove, player = whosTurn, myGrid = grid, playerName) {
+		const isWinner = checkWinCon(myGrid, setGrid, nextMove, player, playerName)
 		if (isWinner) {
-			console.log(isWinner)
 			winner.current = isWinner
-			setGameInfo(`${winner.current} has won!`)
+			// setGameInfo(`${winner.current} has won!`)
 			onOpen()
+			if (winner.current === me.current.username) {
+				console.log("token won: " + bet)
+				updateToken("win");
+				notifyWin();
+				setGameInfo(`${winner.current} has won!`)
+				// setGameInfo(`You won!`)
+				// setPlayers(prevState => ({
+				// 	...prevState,
+				// 	[me.current.username]: {
+				// 		...prevState[me.current.username],
+				// 		winner: true,
+				// 		turn: false,
+				// 		loser: false,
+				// 		draw: false,
+				// 	}
+				// }))
+			}
+			else if (winner.current === "tie") {
+				console.log("Game tied, no token change")
+				notifyPush();
+			}
+			else {
+				console.log("token lost: " + bet)
+				updateToken("loss");
+				notifyLose();
+				setGameInfo(`${winner.current} has won!`)
+				// setGameInfo(`You lost!`)
+				// setPlayers(prevState => ({
+				// 	...prevState,
+				// 	[me.current.username]: {
+				// 		...prevState[me.current.username],
+				// 		winner: false,
+				// 		turn: false,
+				// 		loser: true,
+				// 		draw: false,
+				// 	}
+				// }))
+			}
+
 			setGameOver(true)
 			return;
 		}
@@ -185,9 +279,8 @@ export default function Game({ socket = null, inLobby = null, roomPlayers = null
 
 	return (
 		<>
-
+			<ToastContainer />
 			{myMove ? (<>
-
 				{/* START - MAIN INFO GRID ABOVE THE GAME BOARD */}
 				<Grid templateRows={{ base: 'repeat (4, 1fr)', lg: 'repeat(2, 1fr)' }} templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }} gap={4} mt='2' alignItems='center'>
 					{/* Top Left box */}
@@ -214,7 +307,10 @@ export default function Game({ socket = null, inLobby = null, roomPlayers = null
 					{/* Borrom Middle Box (2 wide) */}
 					<GridItem gridArea={{ base: '2/1/ span 1 / span 2', lg: '2/2/ span 1 / span 2' }} w='100%' textAlign='center'>
 						<Heading p='2' size='lg'>
-							{gameOver ? (`${winner.current} won!`) : (`It is ${whosTurn}'s turn!`)}
+							{
+								gameOver ? " " : (`It is ${whosTurn}'s turn!`)
+								// gameOver ? (`${winner.current} won!`) : (`It is ${whosTurn}'s turn!`)
+							}
 						</Heading>
 					</GridItem>
 
@@ -258,7 +354,7 @@ export default function Game({ socket = null, inLobby = null, roomPlayers = null
 					{/* INFO SECTION SHOWING WHEN WAITING FOR OPPONENT TO JOIN A ROOM AFTER CREATION AND ON JOIN */}
 					<Heading textAlign={'center'} wordBreak='break-word'>
 						{gameInfo}
-						{/* <br />{"lol"} */}
+						{/* <br />{"lasdfasdfol"} */}
 					</Heading>
 					<Button border='2px'
 						onClick={() => {
@@ -274,7 +370,7 @@ export default function Game({ socket = null, inLobby = null, roomPlayers = null
 			}
 			<>
 
-				<Modal isOpen={isOpen} onClose={onClose} isCentered>
+				{/* <Modal isOpen={isOpen} onClose={onClose} isCentered>
 					<ModalOverlay />
 					<ModalContent>
 						<ModalHeader>Tic Tac Toe</ModalHeader>
@@ -289,7 +385,7 @@ export default function Game({ socket = null, inLobby = null, roomPlayers = null
 							</Button>
 						</ModalFooter>
 					</ModalContent>
-				</Modal>
+				</Modal> */}
 			</>
 		</>
 	);

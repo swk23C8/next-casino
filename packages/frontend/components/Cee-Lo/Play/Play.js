@@ -36,7 +36,7 @@ const Play = ({ stats = [], game = [] }) => {
 		progress: undefined,
 	});
 
-	const notifyPush = () => toast.error('🦄 Wow nice try! You tie!', {
+	const notifyPush = () => toast('🦄 Wow nice try! You tie!', {
 		position: "top-left",
 		autoClose: 5000,
 		hideProgressBar: false,

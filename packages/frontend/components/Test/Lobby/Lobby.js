@@ -5,9 +5,10 @@ const Game = React.lazy(() => import("@/components/Test/Play/Play"));
 import { Box, Button, Center, Flex, Spacer } from "@chakra-ui/react";
 // import styles from "../../styles/Lobby.module.css";
 import axios from 'axios';
-
-const SOCKET_SERVER_URL = 'https://swk23c8.herokuapp.com';
-// const SOCKET_SERVER_URL = 'http://localhost:5000';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+// const SOCKET_SERVER_URL = 'https://swk23c8.herokuapp.com';
+const SOCKET_SERVER_URL = 'http://localhost:5000';
 
 export default function Lobby({ stats = [], game = [] }) {
 	const router = useRouter();
@@ -17,17 +18,44 @@ export default function Lobby({ stats = [], game = [] }) {
 	const [inLobby, setInLobby] = useState(true);
 	const [activeUsers, setActiveUsers] = useState(0)
 	const [myRoom, setMyRoom] = useState(null)
-
 	const [pBet, setPBet] = useState(game.pBet);
+
+	const [balance, setBalance] = useState(stats.gameTokens);
+
 	const [roomBet, setRoomBet] = useState(game.pBet)
 	const [roomPlayers, setRoomPlayers] = useState(null)
 	const [roomPlayerUsername, setRoomPlayersUsername] = useState(null)
+
+	const notifyError = () => toast.error('🦄 Wow so error! Invalid!', {
+		position: "top-left",
+		autoClose: 5000,
+		hideProgressBar: false,
+		closeOnClick: true,
+		pauseOnHover: true,
+		draggable: true,
+		progress: undefined,
+	});
+
 
 	// api call to make bet
 	const makeBet = (e) => {
 		e.preventDefault();
 		axios.patch('/api/gameAction/makeBet', {
 			bet: e.target.bet.value * 1,
+		})
+			.then(res => {
+				setPBet(res.data.bet);
+				console.log("bet value :" + res.data.bet);
+			})
+			.catch(err => {
+				// console.log(err)
+				notifyError();
+			})
+	}
+
+	const updateBet = (e) => {
+		axios.patch('/api/gameAction/makeBet', {
+			bet: e * 1,
 		})
 			.then(res => {
 				setPBet(res.data.bet);
@@ -118,6 +146,10 @@ export default function Lobby({ stats = [], game = [] }) {
 			console.log("reset called");
 			reset()
 		});
+		socket.on("receiveBalance", (args) => {
+			console.log("receiveBalance called");
+			setBalance(args)
+		});
 		return () => socket.disconnect()
 	}, [socket]);
 
@@ -136,6 +168,7 @@ export default function Lobby({ stats = [], game = [] }) {
 
 	return (
 		<>
+			<ToastContainer />
 			<Flex
 				// className={styles.menu}
 				flexDir={{ base: 'column', md: 'row' }}
@@ -163,7 +196,7 @@ export default function Lobby({ stats = [], game = [] }) {
 				<>
 					{"your socket id: " + socket.id}< br />
 					{"your account id: " + stats.id}< br />
-					{"your account balance: " + stats.gameTokens}< br />
+					{"your account balance: " + balance}< br />
 					{/* {"your current bet: " + pBet}< br /> */}
 					{inLobby ? (
 						<>
@@ -190,13 +223,7 @@ export default function Lobby({ stats = [], game = [] }) {
 						<>
 							< br />
 							{"Current room name: " + myRoom}< br />
-							{"Current room bet: " + roomBet}< br />
-
-							{/* iterate through roomPlayers */}
-							{/* {roomPlayers.map((player, index) => {
-								console.log(player);
-							})} */}
-							{/* {console.log(roomPlayers)} */}
+							{"Current room bet: " + pBet}< br />
 							{"Current room players: " + roomPlayerUsername}< br />
 						</>
 					)}
@@ -247,7 +274,12 @@ export default function Lobby({ stats = [], game = [] }) {
 														m={4}
 														// boxSize="10rem"
 														width="35%"
-														onClick={() => joinRoom(room, roomsBets[index])}
+														onClick={
+															() => {
+																joinRoom(room, roomsBets[index])
+																updateBet(roomsBets[index])
+															}
+														}
 													>
 														<p>
 															{"NAME: " + room}<br />
@@ -266,7 +298,7 @@ export default function Lobby({ stats = [], game = [] }) {
 								// className={styles.main}
 								>
 									<Suspense fallback={<h1>Loading room...</h1>}>
-										{!inLobby && <Game socket={socket} inLobby={setInLobby} roomPlayers={roomPlayers} />}
+										{!inLobby && <Game socket={socket} inLobby={setInLobby} roomPlayers={roomPlayers} bet={roomBet} />}
 									</Suspense>
 								</div>
 							)}
