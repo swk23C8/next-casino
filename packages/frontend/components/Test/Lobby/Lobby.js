@@ -20,6 +20,7 @@ export default function Lobby({ stats = [], game = [] }) {
 
 	const [pBet, setPBet] = useState(game.pBet);
 	const [roomBet, setRoomBet] = useState(game.pBet)
+	const [roomPlayers, setRoomPlayers] = useState(null)
 
 	// api call to make bet
 	const makeBet = (e) => {
@@ -37,23 +38,25 @@ export default function Lobby({ stats = [], game = [] }) {
 			})
 	}
 
+	function reset() {
+		setMyRoom(null)
+		setRoomBet(game.pBet)
+		setRoomPlayers(null)
+		setInLobby(true)
+		// setRooms(null)
+		// setRoomsBets(null)
+		// socket.emit("reset")
+	}
+
 	useEffect(() => {
 		setSocket(io.connect(SOCKET_SERVER_URL, {
 			cors: { origin: '*' },
-			// query: {
-			// 	userId: stats.id
-			// }
 		}));
 		console.log("Connecting to server...");
-
-		// const socketTest = io({
-		// 	query: { x: 42 }
-		// });
 
 		return () => {
 			if (socket) socket.disconnect();
 		};
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	useEffect(() => {
@@ -78,14 +81,14 @@ export default function Lobby({ stats = [], game = [] }) {
 		});
 
 		socket.on("rooms", (args) => {
-			console.log(args);
-			console.log("room name: " + args[0]);
-			console.log("room bet: " + args[1]);
+
 			if (inLobby) {
 				setRooms(args[0]);
 				setRoomsBets(args[1]);
 			}
-			// if (inLobby) setRooms(args);
+			// console.log("socket rooms called");
+			// console.log("room name: " + args[0]);
+			// console.log("room bet: " + args[1]);
 		});
 
 		socket.on('users', args => {
@@ -96,24 +99,34 @@ export default function Lobby({ stats = [], game = [] }) {
 			console.log(args);
 		});
 		socket.on("myRoom", (args) => {
-			console.log(args)
-			// setMyRoom(args.roomName)
+			console.log("myRoom: " + args)
 			setMyRoom(args)
 		});
-
+		socket.on("currentRoom", (args) => {
+			console.log(args);
+			console.log(args.bet);
+			console.log(args.player);
+			setRoomPlayers(args.player)
+		});
+		socket.on("reset", (args) => {
+			console.log("reset called");
+			reset()
+		});
 		return () => socket.disconnect()
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [socket]);
 
+
 	function joinRoom(room, roomsBets) {
-		console.log("Joining room:");
-		console.log(room);
+		// if stats.gameTokens is less than roomBet then alert user to buy game tokens
+		if (stats.gameTokens < roomsBets) {
+			alert("You do not have enough game tokens to join this room. Please buy game tokens.")
+			return;
+		}
 		setMyRoom(room);
 		setRoomBet(roomsBets)
-		socket.emit("join", room);
+		socket.emit("join", [room, stats.id]);
 		setInLobby(false);
 	}
-
 
 	return (
 		<>
@@ -136,6 +149,7 @@ export default function Lobby({ stats = [], game = [] }) {
 						Debug
 					</Button>
 					<Button onClick={() => socket.connect()}>Connect</Button>
+					<Button onClick={() => reset()}>Reset</Button>
 				</Box>
 			</Flex>
 
@@ -171,6 +185,7 @@ export default function Lobby({ stats = [], game = [] }) {
 							< br />
 							{"Current room name: " + myRoom}< br />
 							{"Current room bet: " + roomBet}< br />
+							{"Current room players: " + roomPlayers}< br />
 						</>
 					)}
 
@@ -180,13 +195,12 @@ export default function Lobby({ stats = [], game = [] }) {
 							<Flex flexWrap="warp" padding="10px" justifyContent="center">
 								{inLobby && (
 									<>
-										<>hello</>
 										<Button
 											// className={styles.button}
 											border="2px"
 											onClick={() => {
 												setInLobby(false);
-												socket.emit("create", pBet);
+												socket.emit("create", [pBet, stats.id]);
 											}}
 										>
 											Create Room
@@ -208,22 +222,27 @@ export default function Lobby({ stats = [], game = [] }) {
 
 							{inLobby ? (
 								<Flex flexWrap="wrap" margin="2rem" justifyContent={{ base: 'space-evenly', md: 'center' }}>
-									{console.log(rooms)}
+									{/* {console.log(rooms)} */}
 									{
 										rooms.map((room, index) => {
 											return (
 												<>
 													<Box
+														key={"rooms_" + index}
 														as="button"
 														border="2px"
 														borderRadius="md"
 														m={4}
-														boxSize="10rem"
+														// boxSize="10rem"
+														width="35%"
 														onClick={() => joinRoom(room, roomsBets[index])}
 													>
-														{console.log(room)}
-														{"NAME: " + room}<br />
-														{"BET: " + roomsBets[index]}<br />
+														<p>
+															{"NAME: " + room}<br />
+														</p>
+														<p>
+															{"BET: " + roomsBets[index]}<br />
+														</p>
 													</Box>
 												</>
 											);
@@ -235,7 +254,7 @@ export default function Lobby({ stats = [], game = [] }) {
 								// className={styles.main}
 								>
 									<Suspense fallback={<h1>Loading room...</h1>}>
-										{!inLobby && <Game socket={socket} inLobby={setInLobby} />}
+										{!inLobby && <Game socket={socket} inLobby={setInLobby} roomPlayers={roomPlayers}/>}
 									</Suspense>
 								</div>
 							)}

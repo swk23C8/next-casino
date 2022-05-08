@@ -21,7 +21,7 @@ import {
 import { Box, Flex, Heading, Text, Center } from "@chakra-ui/layout";
 import { useEffect, useRef, useState } from "react";
 import { checkWinCon } from '@/components/Test/Logic/WinCon'
-import { playerTwo } from '@/components/Test/Logic/PlayerTwo';
+// import { playerTwo } from '@/components/Test/Logic/PlayerTwo';
 
 export default function Game({ socket = null, inLobby = null }) {
 	const router = useRouter();
@@ -81,12 +81,6 @@ export default function Game({ socket = null, inLobby = null }) {
 
 	}, [socket, grid]);
 
-	useEffect(() => {
-		if (isOnePlayer && whosTurn === 'O') {
-			let pcMove = setTimeout(() => checkMove(playerTwo(grid)), 1500)
-		}
-	}, [whosTurn])
-
 
 	function handleClick(square) {
 		//if game is already over, prevent any further board changes
@@ -134,12 +128,6 @@ export default function Game({ socket = null, inLobby = null }) {
 		setGameOver(false)
 		setGrid(matchStart)
 		setWhosTurn('X')
-		// if (gameMode === 'offline') {
-		// 	setIsOnePlayer(true)
-		// 	setMyMove('X')
-		// } else {
-		// 	setIsOnePlayer(false)
-		// }
 	}
 
 	const bg = useColorModeValue('blue.300', 'orange.200')
@@ -220,14 +208,15 @@ export default function Game({ socket = null, inLobby = null }) {
 
 				{/* START - GAME BOARD AREA */}
 				<Flex flexWrap="wrap" alignItems="center" justifyContent="center" maxW="1000px">
-					{Object.keys(grid).map(square => {
-						return (<>
-							<Box as="button" p="1" borderWidth='5px' borderColor="grey" boxSize="12em" backgroundColor="" flexBasis="30%"
-								onClick={() => handleClick(`${square}`)} key={square}
-							>
-								<Text fontSize="5em">{grid[square]}</Text>
-							</Box>
-						</>
+					{Object.keys(grid).map((square, index) => {
+						return (
+							<>
+								<Box as="button" p="1" borderWidth='5px' borderColor="grey" boxSize="12em" backgroundColor="" flexBasis="30%"
+									onClick={() => handleClick(`${square}`)} key={"grid_" + index}
+								>
+									<Text fontSize="5em">{grid[square]}</Text>
+								</Box>
+							</>
 						)
 					})}
 
@@ -263,7 +252,6 @@ export default function Game({ socket = null, inLobby = null }) {
 						<ModalCloseButton />
 						<ModalBody>
 							<Center>{gameInfo}</Center>
-							<>hello224</>
 						</ModalBody>
 
 						<ModalFooter>
