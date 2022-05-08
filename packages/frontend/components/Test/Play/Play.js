@@ -23,19 +23,99 @@ import { useEffect, useRef, useState } from "react";
 import { checkWinCon } from '@/components/Test/Logic/WinCon'
 // import { playerTwo } from '@/components/Test/Logic/PlayerTwo';
 
-export default function Game({ socket = null, inLobby = null }) {
+export default function Game({ socket = null, inLobby = null, roomPlayers = null }) {
+
+	// console.log(roomPlayers)
+	// console.log(socket)
+
+	// const opponent = {
+	// 	username: null,
+	// 	socketID: null
+	// }
+
+
+
+
+
 	const router = useRouter();
 	const matchStart = { one: "", two: "", three: "", four: "", five: "", six: "", seven: "", eight: "", nine: "" }
 
 	const { isOpen, onOpen, onClose } = useDisclosure()
 	const [grid, setGrid] = useState(matchStart)
 	const [whosTurn, setWhosTurn] = useState('')
-	const [isOnePlayer, setIsOnePlayer] = useState(false)
 	const [gameOver, setGameOver] = useState(false)
 	const [gameInfo, setGameInfo] = useState('Waiting for another player to connect....')
 	const [myMove, setMyMove] = useState('')
+	const opponent = useRef(null)
+
+	const [players, setPlayers] = useState(
+		{
+			one: {
+				name: '',
+				symbol: '',
+				score: 0,
+				turn: false,
+				winner: false,
+				loser: false,
+				draw: false,
+			},
+			two: {
+				name: '',
+				symbol: '',
+				score: 0,
+				turn: false,
+				winner: false,
+				loser: false,
+				draw: false,
+			}
+		}
+	)
 
 	const winner = useRef();
+
+	// only run if roomPlayers is not null
+	let temp
+
+	if (roomPlayers) {
+		console.log("roomPlayers is not null")
+		console.log(roomPlayers)
+		if (roomPlayers.length === 2) {
+			console.log("2 players in game")
+			console.log(roomPlayers)
+
+			temp = (roomPlayers.filter(object => {
+				return object.socketID !== socket.id;
+			}))
+			console.log(temp[0].username)
+			console.log(temp[0].socketID)
+			opponent.current = {
+				username: temp[0].username,
+				socketID: temp[0].socketID
+			}
+			console.log(opponent.current)
+			console.log("playing against: " + opponent.current.username)
+		}
+	}
+
+	// useEffect(() => {
+	// 	if (roomPlayers) {
+	// 		console.log("roomPlayers is not null")
+	// 		console.log(roomPlayers)
+	// 		if (roomPlayers.length === 2) {
+	// 			console.log("2 players in game")
+	// 			console.log(roomPlayers)
+
+	// 			let temp = (roomPlayers.filter(object => {
+	// 				return object.socketID !== socket.id;
+	// 			}))
+	// 			console.log(temp)
+	// 			setOpponent(temp)
+	// 			console.log(opponent)
+	// 			console.log("playing against: " + opponent[0].username)
+	// 		}
+	// 	}
+	// }, [opponent])
+
 
 	useEffect(() => {
 		startGame()
@@ -45,6 +125,10 @@ export default function Game({ socket = null, inLobby = null }) {
 		socket.once('ready', (args) => {
 			setGameInfo(`Both players in room. Game will start shortly.....`)
 		})
+
+		socket.on("message", (args) => {
+			console.log(args);
+		});
 
 		socket.on('myMove', args => {
 			setGameInfo(`You will be playing as "${args}"`)
@@ -62,6 +146,8 @@ export default function Game({ socket = null, inLobby = null }) {
 
 	useEffect(() => {
 		if (!socket) return;
+
+
 
 		// when a player makes a move in an online game, the move is sent to the server then sent back to each
 		//client at the same time, checkMove is run to see if that move would create a win and changes whos turn
@@ -101,9 +187,7 @@ export default function Game({ socket = null, inLobby = null }) {
 			return;
 		}
 
-		if (isOnePlayer) {
-			checkMove(square) // if its a one player game, call checkmove to validate winCon and change player turn
-		} else {
+		else {
 			// send to sever the valid move and who made it, sending player as well to help prevent stale states
 			socket.emit('move', { move: square, player: whosTurn }, () => {
 				console.log(`Sent server move ${square} for player ${whosTurn}`)
@@ -132,6 +216,7 @@ export default function Game({ socket = null, inLobby = null }) {
 
 	const bg = useColorModeValue('blue.300', 'orange.200')
 
+
 	return (
 		<>
 
@@ -141,25 +226,14 @@ export default function Game({ socket = null, inLobby = null }) {
 				<Grid templateRows={{ base: 'repeat (4, 1fr)', lg: 'repeat(2, 1fr)' }} templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }} gap={4} mt='2' alignItems='center'>
 					{/* Top Left box */}
 					<GridItem gridArea={{ base: '3/1/ span 1 / span 1', lg: '1/1/ span 1 / span 1' }} w='100%' textAlign='center'>
-						{isOnePlayer ? (
-							<Button
-								onClick={() => {
-									router.push('/')
-								}}
-							>
-								Main Menu
-							</Button>
-						) :
-							(
-								<Button
-									onClick={() => {
-										inLobby(true);
-										socket.emit("leave");
-									}}
-								>
-									Leave Game
-								</Button>
-							)}
+						<Button
+							onClick={() => {
+								inLobby(true);
+								socket.emit("leave");
+							}}
+						>
+							Leave Game
+						</Button>
 
 					</GridItem>
 
@@ -168,7 +242,7 @@ export default function Game({ socket = null, inLobby = null }) {
 
 					{/* Top Middle Box (2 wide) */}
 					<GridItem gridArea={{ base: '1/1/ span 1 / span 2', lg: '1/2/ span 1 / span 2' }} w='100%'>
-						<Heading bg={bg} p='2' borderRadius='10px' textAlign='center' size='lg'>You are playing as {myMove}</Heading>
+						<Heading bg={bg} p='2' borderRadius='10px' textAlign='center' size='lg'>You are playing as {myMove} against {opponent.current.username}</Heading>
 					</GridItem>
 
 					{/* Borrom Middle Box (2 wide) */}
@@ -180,23 +254,12 @@ export default function Game({ socket = null, inLobby = null }) {
 
 					{/* Top Right box */}
 					<GridItem gridArea={{ base: '3/2/ span 1 / span 1', lg: '1/4/ span 1 / span 1' }} w='100%' textAlign='center'>
-						{isOnePlayer ? (
-							<Button
-								rightIcon={<RefreshIcon />}
-								onClick={() => startGame()}
-							>
-								{gameOver ? ('Replay') : ('Restart')}
-							</Button>
-						) :
-							(<>
-								<Button
-									rightIcon={<RefreshIcon />}
-									onClick={() => socket.emit('rematch')}
-								>
-									Rematch?
-								</Button>
-							</>
-							)}
+						<Button
+							rightIcon={<RefreshIcon />}
+							onClick={() => socket.emit('rematch')}
+						>
+							Rematch?
+						</Button>
 					</GridItem>
 
 					{/* Bottom Right Box */}
@@ -248,7 +311,7 @@ export default function Game({ socket = null, inLobby = null }) {
 				<Modal isOpen={isOpen} onClose={onClose} isCentered>
 					<ModalOverlay />
 					<ModalContent>
-						<ModalHeader>Tic-Tac-Toe</ModalHeader>
+						<ModalHeader>Tic Tac Toe</ModalHeader>
 						<ModalCloseButton />
 						<ModalBody>
 							<Center>{gameInfo}</Center>

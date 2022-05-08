@@ -6,8 +6,8 @@ import { Box, Button, Center, Flex, Spacer } from "@chakra-ui/react";
 // import styles from "../../styles/Lobby.module.css";
 import axios from 'axios';
 
-const SOCKET_SERVER_URL = 'https://swk23c8.herokuapp.com';
-// const SOCKET_SERVER_URL = 'http://localhost:5000';
+// const SOCKET_SERVER_URL = 'https://swk23c8.herokuapp.com';
+const SOCKET_SERVER_URL = 'http://localhost:5000';
 
 export default function Lobby({ stats = [], game = [] }) {
 	const router = useRouter();
@@ -21,6 +21,7 @@ export default function Lobby({ stats = [], game = [] }) {
 	const [pBet, setPBet] = useState(game.pBet);
 	const [roomBet, setRoomBet] = useState(game.pBet)
 	const [roomPlayers, setRoomPlayers] = useState(null)
+	const [roomPlayerUsername, setRoomPlayersUsername] = useState(null)
 
 	// api call to make bet
 	const makeBet = (e) => {
@@ -81,7 +82,6 @@ export default function Lobby({ stats = [], game = [] }) {
 		});
 
 		socket.on("rooms", (args) => {
-
 			if (inLobby) {
 				setRooms(args[0]);
 				setRoomsBets(args[1]);
@@ -103,10 +103,16 @@ export default function Lobby({ stats = [], game = [] }) {
 			setMyRoom(args)
 		});
 		socket.on("currentRoom", (args) => {
+			console.log("currentRoom: " + args)
 			console.log(args);
 			console.log(args.bet);
 			console.log(args.player);
 			setRoomPlayers(args.player)
+			let playerusernames = args.player.map(player => player.username);
+			setRoomPlayersUsername(playerusernames)
+			console.log(playerusernames)
+			console.log(roomPlayerUsername)
+			// setInLobby(false);
 		});
 		socket.on("reset", (args) => {
 			console.log("reset called");
@@ -141,7 +147,7 @@ export default function Lobby({ stats = [], game = [] }) {
 				<Box>Server Status:{socket ? " Connected" : " Not Connected"}</Box>
 				<Box>
 					Connected users: {socket ? (activeUsers) : ('Not Connected')}
-					<Button
+					{/* <Button
 						onClick={() => {
 							socket.emit("report");
 						}}
@@ -149,7 +155,7 @@ export default function Lobby({ stats = [], game = [] }) {
 						Debug
 					</Button>
 					<Button onClick={() => socket.connect()}>Connect</Button>
-					<Button onClick={() => reset()}>Reset</Button>
+					<Button onClick={() => reset()}>Reset</Button> */}
 				</Box>
 			</Flex>
 
@@ -185,7 +191,13 @@ export default function Lobby({ stats = [], game = [] }) {
 							< br />
 							{"Current room name: " + myRoom}< br />
 							{"Current room bet: " + roomBet}< br />
-							{"Current room players: " + roomPlayers}< br />
+
+							{/* iterate through roomPlayers */}
+							{/* {roomPlayers.map((player, index) => {
+								console.log(player);
+							})} */}
+							{/* {console.log(roomPlayers)} */}
+							{"Current room players: " + roomPlayerUsername}< br />
 						</>
 					)}
 
@@ -199,8 +211,8 @@ export default function Lobby({ stats = [], game = [] }) {
 											// className={styles.button}
 											border="2px"
 											onClick={() => {
-												setInLobby(false);
 												socket.emit("create", [pBet, stats.id]);
+												setInLobby(false);
 											}}
 										>
 											Create Room
@@ -254,7 +266,7 @@ export default function Lobby({ stats = [], game = [] }) {
 								// className={styles.main}
 								>
 									<Suspense fallback={<h1>Loading room...</h1>}>
-										{!inLobby && <Game socket={socket} inLobby={setInLobby} roomPlayers={roomPlayers}/>}
+										{!inLobby && <Game socket={socket} inLobby={setInLobby} roomPlayers={roomPlayers} />}
 									</Suspense>
 								</div>
 							)}
