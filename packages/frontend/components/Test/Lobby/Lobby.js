@@ -7,8 +7,8 @@ import { Box, Button, Center, Flex, Spacer } from "@chakra-ui/react";
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// const SOCKET_SERVER_URL = 'https://swk23c8.herokuapp.com';
-const SOCKET_SERVER_URL = 'http://localhost:5000';
+const SOCKET_SERVER_URL = 'https://swk23c8.herokuapp.com';
+// const SOCKET_SERVER_URL = 'http://localhost:5000';
 
 export default function Lobby({ stats = [], game = [] }) {
 	const router = useRouter();
