@@ -45,7 +45,6 @@ export default function Lobby({ stats = [], game = [] }) {
 		})
 			.then(res => {
 				setPBet(res.data.bet);
-				console.log("bet value :" + res.data.bet);
 			})
 			.catch(err => {
 				// console.log(err)
@@ -71,7 +70,6 @@ export default function Lobby({ stats = [], game = [] }) {
 			})
 				.then(res => {
 					setPBet(res.data.bet);
-					console.log("bet value :" + res.data.bet);
 				})
 				.catch(err => {
 					// console.log(err)
@@ -127,9 +125,7 @@ export default function Lobby({ stats = [], game = [] }) {
 				setRooms(args[0]);
 				setRoomsBets(args[1]);
 			}
-			// console.log("socket rooms called");
-			// console.log("room name: " + args[0]);
-			// console.log("room bet: " + args[1]);
+
 		});
 
 		socket.on('users', args => {
@@ -140,19 +136,18 @@ export default function Lobby({ stats = [], game = [] }) {
 			console.log(args);
 		});
 		socket.on("myRoom", (args) => {
-			console.log("myRoom: " + args)
 			setMyRoom(args)
 		});
 		socket.on("currentRoom", (args) => {
-			console.log("currentRoom: " + args)
-			console.log(args);
-			console.log(args.bet);
-			console.log(args.player);
+			// console.log("currentRoom: " + args)
+			// console.log(args);
+			// console.log(args.bet);
+			// console.log(args.player);
 			setRoomPlayers(args.player)
 			let playerusernames = args.player.map(player => player.username);
 			setRoomPlayersUsername(playerusernames)
-			console.log(playerusernames)
-			console.log(roomPlayerUsername)
+			// console.log(playerusernames)
+			// console.log(roomPlayerUsername)
 			// setInLobby(false);
 		});
 		socket.on("reset", (args) => {
@@ -160,7 +155,6 @@ export default function Lobby({ stats = [], game = [] }) {
 			reset()
 		});
 		socket.on("receiveBalance", (args) => {
-			console.log("receiveBalance called");
 			setBalance(args)
 		});
 		return () => socket.disconnect()
@@ -274,7 +268,6 @@ export default function Lobby({ stats = [], game = [] }) {
 
 							{inLobby ? (
 								<Flex flexWrap="wrap" margin="2rem" justifyContent={{ base: 'space-evenly', md: 'center' }}>
-									{/* {console.log(rooms)} */}
 									{
 										rooms.map((room, index) => {
 											return (
