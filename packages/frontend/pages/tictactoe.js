@@ -21,6 +21,7 @@ export async function getServerSideProps(context) {
 	// Check if the user is authenticated
 	// If not, assign guest profile
 	if (!session) {
+		const randomGuest = "GUEST_"+Math.floor(Math.random() * 100) + 1;
 		return {
 			props: {
 				stats: {
@@ -28,9 +29,9 @@ export async function getServerSideProps(context) {
 					email: 'GUEST@DOMAIN.COM',
 					emailVerified: null,
 					gameTokens: 0,
-					id: "GUEST",
+					id: randomGuest,
 					image: '',
-					name: "GUEST",
+					name: randomGuest,
 					userType: "GUEST",
 				},
 				game: {
@@ -39,7 +40,7 @@ export async function getServerSideProps(context) {
 					bDie_3: 0,
 					bScore: 0,
 					createdAt: "",
-					id: "GUEST",
+					id: randomGuest+"_game",
 					pBet: 0,
 					pDie_1: 0,
 					pDie_2: 0,
@@ -47,7 +48,7 @@ export async function getServerSideProps(context) {
 					pScore: 0,
 					result: "",
 					updatedAt: "",
-					userId: "GUEST",
+					userId: randomGuest,
 				}
 			}
 		}
