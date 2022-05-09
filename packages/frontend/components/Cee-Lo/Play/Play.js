@@ -292,8 +292,8 @@ const Play = ({ stats = [], game = [] }) => {
 
 	return (
 		<>
-			{/* <p>game is started</p> */}
-			<div className="grid min-h-max it grid-cols-3 grid-rows-2 gap-2 w-auto h-auto">
+			{/* <div className="grid min-h-max it grid-cols-3 grid-rows-2 gap-2 w-auto h-auto"> */}
+			<div className="grid it grid-cols-3 gap-2 w-auto">
 				<ToastContainer />
 				{/* container to show dice */}
 				<div className="dice-container box row-start-1 row-span-1">
@@ -349,11 +349,11 @@ const Play = ({ stats = [], game = [] }) => {
 				<div className="game-container box row-start-1 row-span-1 col-start-2 col-end-3 text-center">
 					<div className="game-info">
 						<p className="text-xl">Game ID: {game.id}</p>
-						<p className="text-2xl mt-5">Account Balance: {balance}</p>
+						<p className="text-2xl mt-3">Account Balance: {balance}</p>
 						{/* <p className="text-2xl">Bet Amount: {pBet}</p> */}
-						<p className="text-2xl mt-5">Game Result: <b>{result}</b></p>
+						<p className="text-2xl mt-3">Game Result: <b>{result}</b></p>
 					</div>
-					<div className="game-form mt-5 ">
+					<div className="game-form mt-3 ">
 						<form
 							className="flex flex-col justify-center items-center "
 							id="makeBetForm"
@@ -366,7 +366,7 @@ const Play = ({ stats = [], game = [] }) => {
 						<button
 							disabled={stats.userType === "GUEST" ? true : false}
 							form="makeBetForm"
-							className="tracking-widest shadow-lg shadow-cyan-500/50 font-bold text-3xl h-2/4 w-4/5 my-5 bg-rose-600 text-white py-3 px-6 rounded-md focus:outline-none focus:ring-4 focus:ring-rose-600 focus:ring-opacity-50 hover:bg-rose-500 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-rose-600">
+							className="tracking-widest shadow-lg shadow-cyan-500/50 font-bold text-3xl h-2/4 w-4/5 my-4 bg-rose-600 text-white py-3 px-6 rounded-md focus:outline-none focus:ring-4 focus:ring-rose-600 focus:ring-opacity-50 hover:bg-rose-500 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-rose-600">
 							BET
 						</button>
 						<div className="hotkeys">

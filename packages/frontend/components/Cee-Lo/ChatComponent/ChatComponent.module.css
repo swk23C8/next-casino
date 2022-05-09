@@ -1,6 +1,6 @@
 .chatHolder {
 	display: grid;
-	grid-template-rows: 1fr 50px;
+	grid-template-rows: 1fr 5vh;
 }
 
 /* 100px */
@@ -13,13 +13,17 @@
 	/* gap: 50px; */
 	padding: 1em;
 	/* height: calc(41vh - 4px - 5px - 5px - 5px); */
-	height: 39vh;
+	/* height: calc(100vh - 547px); */
+	/* height: calc(100vh - 34rem); */
+	height: calc(100vh - 35em + 13px);
+	/* height: 35vh; */
+	/* max-height: 55vh; */
 	overflow-y: auto;
 }
 
 .form {
 	display: grid;
-	grid-template-columns: 1fr 80px;
+	grid-template-columns: 1fr 10vh;
 	border-top: 1px solid #eee;
 }
 
