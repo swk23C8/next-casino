@@ -301,7 +301,8 @@ export default function Lobby({ stats = [], game = [] }) {
 								</Flex>
 							) : (
 								<div
-								// className={styles.main}
+									// className={styles.main}
+									className="flex flex-col items-center justify-center"
 								>
 									<Suspense fallback={<h1>Loading room...</h1>}>
 										{!inLobby && <Game socket={socket} inLobby={setInLobby} roomPlayers={roomPlayers} bet={roomBet} />}
@@ -311,7 +312,8 @@ export default function Lobby({ stats = [], game = [] }) {
 						</>
 					) : (
 						<h1
-						// className={styles.main}
+							// className={styles.main}
+							className="flex flex-col items-center justify-center"
 						>
 							Loading Rooms...</h1>
 					)}
@@ -319,7 +321,8 @@ export default function Lobby({ stats = [], game = [] }) {
 			) : (
 				<>
 					<h1
-					// className={styles.main}
+						// className={styles.main}
+						className="flex flex-col items-center justify-center"
 					>
 						No server connection!
 					</h1>
