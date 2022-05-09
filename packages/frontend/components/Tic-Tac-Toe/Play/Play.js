@@ -23,7 +23,7 @@ import { useEffect, useRef, useState } from "react";
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { checkWinCon } from '@/components/Test/Logic/WinCon'
+import { checkWinCon } from '@/components/Tic-Tac-Toe/Logic/WinCon'
 
 
 export default function Game({ socket = null, inLobby = null, roomPlayers = null, bet = null, globalBalance = null }) {

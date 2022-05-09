@@ -1,7 +1,7 @@
 // import { prisma } from '@/lib/prisma';
 import axios from 'axios';
 import { useState } from 'react';
-import Lobby from '@/components/Test/Lobby/Lobby';
+import Lobby from '@/components/Tic-Tac-Toe/Lobby/Lobby';
 
 
 const GamePage = ({ stats = [], game = [] }) => {
