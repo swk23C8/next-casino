@@ -1,4 +1,6 @@
-import Dice from '@/components/Cee-Lo/Dice/Dice';
+// import Dice from '@/components/Cee-Lo/Dice/Dice';
+const Dice = dynamic(() =>
+	import('@/components/Cee-Lo/Dice/Dice'), { ssr: false });
 import { useEffect, useState, useRef } from 'react';
 // import Image from 'next/image'
 import axios from 'axios';
@@ -85,6 +87,8 @@ const Play = ({ stats = [], game = [] }) => {
 	// game useStates
 	const [result, setResult] = useState(game.result);
 
+	// element sizes
+	const diceContainerRef = useRef(null);
 
 	// api call to make bet
 	const makeBet = (e) => {
@@ -281,6 +285,11 @@ const Play = ({ stats = [], game = [] }) => {
 		setPScore(score([pDie_1, pDie_2, pDie_3]))
 	}, [bDie_1, bDie_2, bDie_3, bScore, pDie_1, pDie_2, pDie_3, pScore])
 
+
+	useEffect(() => {
+		console.log("width", diceContainerRef.current.offsetWidth);
+	}, []);
+
 	return (
 		<>
 			{/* <p>game is started</p> */}
@@ -290,9 +299,12 @@ const Play = ({ stats = [], game = [] }) => {
 				<div className="dice-container box row-start-1 row-span-1">
 					<div className="grid overflow-hidden grid-cols-5 grid-rows-2 gap-2 w-full h-full my-auto">
 
-						<div className="dice row-start-1 col-start-1 col-span-3">
+						<div className="dice row-start-1 col-start-1 col-span-3" ref={diceContainerRef}>
 							<p className="flex flex-col justify-center items-center font-bold text-4xl my-2"> Banker Dice</p>
-							<Dice refs={[bRef1, bRef2, bRef3, setBDie_1, setBDie_2, setBDie_3]} />
+							<Dice
+								refs={[bRef1, bRef2, bRef3, setBDie_1, setBDie_2, setBDie_3]}
+								diceContainerRef={diceContainerRef}
+							/>
 						</div>
 
 						<div className="dice-result row-start-1 col-start-4 col-span-2">
@@ -311,7 +323,10 @@ const Play = ({ stats = [], game = [] }) => {
 
 						<div className="dice row-start-2 col-start-1 col-span-3">
 							<p className="flex flex-col justify-center items-center font-bold text-4xl my-2">Player Dice</p>
-							<Dice refs={[pRef1, pRef2, pRef3, setPDie_1, setPDie_2, setPDie_3]} />
+							<Dice
+								refs={[pRef1, pRef2, pRef3, setPDie_1, setPDie_2, setPDie_3]}
+								diceContainerRef={diceContainerRef}
+							/>
 						</div>
 
 						<div className="dice-result row-start-2 col-start-4 col-span-2">

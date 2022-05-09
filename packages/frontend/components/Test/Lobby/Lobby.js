@@ -222,7 +222,7 @@ export default function Lobby({ stats = [], game = [] }) {
 							<button
 								disabled={stats.userType === "GUEST" ? true : false}
 								form="makeBetForm"
-								className="tracking-widest shadow-lg shadow-cyan-500/50 font-bold text-3xl w-1/5 my-5 bg-rose-600 text-white py-3 px-6 rounded-md focus:outline-none focus:ring-4 focus:ring-rose-600 focus:ring-opacity-50 hover:bg-rose-500 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-rose-600">
+								className="tracking-widest shadow-lg shadow-cyan-500/50 font-bold text-3xl w-1/5 my-3 bg-rose-600 text-white py-3 px-6 rounded-md focus:outline-none focus:ring-4 focus:ring-rose-600 focus:ring-opacity-50 hover:bg-rose-500 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-rose-600">
 								BET
 							</button>
 						</>

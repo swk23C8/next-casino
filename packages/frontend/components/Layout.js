@@ -83,7 +83,7 @@ const Layout = ({ children = null }) => {
         <meta name="google-site-verification" content="Q8f9yc4NaHFd_VZQ08Qgrf2gTNFZI0v1VubOBhe99FU" />
       </Head>
 
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-screen min-w-fit flex flex-col">
         <header className="h-16 w-full shadow-md">
           <div className="h-full object-none mx-auto">
             <div className="h-full px-4 flex justify-between items-center space-x-4">
@@ -100,9 +100,8 @@ const Layout = ({ children = null }) => {
               <div className="flex items-center space-x-2">
                 <Link href="/cee-lo">
                   <a className="flex items-center space-x-1 rounded-md hover:bg-rose-100 transition px-3">
-                    {/* <PuzzleIcon className="shrink-0 w-8 h-8 text-rose-500" /> */}
                     <Image
-                      className="shrink-0 w-8 h-8 text-rose-500"
+                      // className="shrink-0 w-8 h-8 text-rose-500"
                       src={DiceIcon2}
                       width={40}
                       height={40}
@@ -129,7 +128,7 @@ const Layout = ({ children = null }) => {
                     </span>
                   </a>
                 </Link>
-                
+
                 <Link href="/tictactoe">
                   <a className="flex items-center space-x-1 rounded-md hover:bg-rose-100 transition px-3">
                     {/* <PuzzleIcon className="shrink-0 w-8 h-8 text-rose-500" /> */}
@@ -140,7 +139,7 @@ const Layout = ({ children = null }) => {
                     </span>
                   </a>
                 </Link>
-                
+
                 <Link href="/stats">
                   <a className="flex items-center space-x-1 rounded-md hover:bg-rose-100 transition px-3">
                     <UserIcon className="shrink-0 w-8 h-8 text-rose-500" />
