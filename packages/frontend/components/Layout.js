@@ -20,6 +20,7 @@ import {
    CogIcon,
    DocumentTextIcon,
    InformationCircleIcon,
+   BeakerIcon,
 } from '@heroicons/react/outline';
 import { ChevronDownIcon } from '@heroicons/react/solid';
 import DiceIcon2 from 'public/images/DiceIcon2.png';
@@ -137,6 +138,17 @@ const Layout = ({ children = null }) => {
                               />
                               <span className="text-xl font-semibold tracking-wide">
                                  Poker
+                              </span>
+                           </a>
+                        </Link>
+
+                        <Link href="/ultimate-tictactoe">
+                           <a className="flex items-center space-x-1 rounded-md hover:bg-rose-100 transition px-3">
+                              {/* <PuzzleIcon className="shrink-0 w-8 h-8 text-rose-500" /> */}
+                              <BeakerIcon className="shrink-0 w-8 h-8 text-rose-500" />
+
+                              <span className="text-xl font-semibold tracking-wide">
+                                 PlayGround
                               </span>
                            </a>
                         </Link>

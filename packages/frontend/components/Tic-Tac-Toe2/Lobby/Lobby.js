@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import io from "socket.io-client";
-const Game = React.lazy(() => import("@/components/Tic-Tac-Toe/Play/Play"));
+const Game = React.lazy(() => import("@/components/Tic-Tac-Toe2/Play/Play"));
 import { Box, Button, Center, Flex, Spacer } from "@chakra-ui/react";
 // import styles from "../../styles/Lobby.module.css";
 import axios from 'axios';

@@ -35,7 +35,7 @@ export default function Layout() {
 			<MenuList
 				onMouseEnter={onOpen}
 				onMouseLeave={onClose}
-				onClick={onClose}
+				// onClick={onClose}
 				minWidth={20}
 			>
 				<MenuItem

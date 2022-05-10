@@ -1,15 +1,15 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import io from "socket.io-client";
-const Game = React.lazy(() => import("@/components/Tic-Tac-Toe/Play/Play"));
+const Game = React.lazy(() => import("@/components/Ultimate-Tic-Tac-Toe/Play/Play"));
 import { Box, Button, Center, Flex, Spacer } from "@chakra-ui/react";
 // import styles from "../../styles/Lobby.module.css";
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const SOCKET_SERVER_URL = 'https://swk23c8.herokuapp.com';
-// const SOCKET_SERVER_URL = 'http://localhost:5000';
+// const SOCKET_SERVER_URL = 'https://swk23c8.herokuapp.com';
+const SOCKET_SERVER_URL = 'http://localhost:5000';
 
 export default function Lobby({ stats = [], game = [] }) {
 	const router = useRouter();
@@ -29,7 +29,7 @@ export default function Lobby({ stats = [], game = [] }) {
 
 	const notifyError = () => toast.error('🦄 Wow so error! Invalid!', {
 		position: "top-left",
-		autoClose: 5000,
+		autoClose: 3000,
 		hideProgressBar: false,
 		closeOnClick: true,
 		pauseOnHover: true,
@@ -84,9 +84,6 @@ export default function Lobby({ stats = [], game = [] }) {
 		setRoomBet(game.pBet)
 		setRoomPlayers(null)
 		setInLobby(true)
-		// setRooms(null)
-		// setRoomsBets(null)
-		// socket.emit("reset")
 	}
 
 	useEffect(() => {
@@ -140,16 +137,9 @@ export default function Lobby({ stats = [], game = [] }) {
 			setMyRoom(args)
 		});
 		socket.on("currentRoom", (args) => {
-			// console.log("currentRoom: " + args)
-			// console.log(args);
-			// console.log(args.bet);
-			// console.log(args.player);
 			setRoomPlayers(args.player)
 			let playerusernames = args.player.map(player => player.username);
 			setRoomPlayersUsername(playerusernames)
-			// console.log(playerusernames)
-			// console.log(roomPlayerUsername)
-			// setInLobby(false);
 		});
 		socket.on("reset", (args) => {
 			console.log("reset called");
@@ -188,15 +178,6 @@ export default function Lobby({ stats = [], game = [] }) {
 				<Box>Server Status:{socket ? " Connected" : " Not Connected"}</Box>
 				<Box>
 					Connected users: {socket ? (activeUsers) : ('Not Connected')}
-					{/* <Button
-						onClick={() => {
-							socket.emit("report");
-						}}
-					>
-						Debug
-					</Button>
-					<Button onClick={() => socket.connect()}>Connect</Button>
-					<Button onClick={() => reset()}>Reset</Button> */}
 				</Box>
 			</Flex>
 
