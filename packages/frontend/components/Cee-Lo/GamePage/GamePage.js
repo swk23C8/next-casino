@@ -61,13 +61,16 @@ const GamePage = ({ stats = [], game = [] }) => {
 			} */}
 
 			<h1 className="flex justify-center text-xl font-medium text-black-800">
-				This game is in early alpha stages.
+				⚠️This game is in closed beta stages.⚠️
 			</h1>
 			<h1 className="flex justify-center text-xl font-medium text-black-800">
 				Please feel free to try out the available features and report any bugs!
 			</h1>
 			<h2 className="flex justify-center text-2xl font-bold text-black-800 py-5">
 				Welcome to Cee-Lo!
+			</h2>
+			<h2 className="text-center text-2xl font-bold text-black">
+				⚠️This is a single game that requires an account!⚠️
 			</h2>
 
 			{/* button to initiate gameState by calling api */}

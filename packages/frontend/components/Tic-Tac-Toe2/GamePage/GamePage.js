@@ -31,7 +31,7 @@ const GamePage = ({ stats = [], game = [] }) => {
 		<>
 
 			<h1 className="flex justify-center text-xl font-medium text-black">
-				This game is in early alpha stages.
+				This game is in open beta stages.
 			</h1>
 			<h1 className="flex justify-center text-xl font-medium text-black">
 				Please feel free to try out the available features and report any bugs!
