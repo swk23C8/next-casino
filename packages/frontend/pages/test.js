@@ -28,12 +28,14 @@ export default function Layout() {
 				fontWeight="normal"
 				onMouseEnter={onOpen}
 				onMouseLeave={onClose}
+				onClick={onClose}
 			>
 				More {isOpen ? <ChevronUpIcon /> : <ChevronDownIcon />}
 			</MenuButton>
 			<MenuList
 				onMouseEnter={onOpen}
 				onMouseLeave={onClose}
+				// onClick={onClose}
 				minWidth={20}
 			>
 				<MenuItem
