@@ -71,7 +71,7 @@ const GamePage = ({ stats = [], game = [] }) => {
 		</>
 	) : (
 		// <Play stats={stats} game={game} />
-		<>hello</>
+		<>Game is Not available for this account 😰</>
 	)
 }
 
