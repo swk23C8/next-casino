@@ -266,10 +266,13 @@ export default function Lobby({ stats = [], game = [] }) {
 									</>
 								)}
 							</Flex>
-
-							{inLobby ? (
+							{/* if user is in lobby*/}
+							{(inLobby && roomsBets) ? (
 								<Flex flexWrap="wrap" margin="2rem" justifyContent={{ base: 'space-evenly', md: 'center' }}>
 									{
+										// if rooms is not null
+										// rooms && rooms.map
+										// rooms.map
 										rooms.map((room, index) => {
 											return (
 												<>

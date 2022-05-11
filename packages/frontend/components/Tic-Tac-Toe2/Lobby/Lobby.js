@@ -267,7 +267,7 @@ export default function Lobby({ stats = [], game = [] }) {
 								)}
 							</Flex>
 
-							{inLobby ? (
+							{(inLobby && roomsBets) ? (
 								<Flex flexWrap="wrap" margin="2rem" justifyContent={{ base: 'space-evenly', md: 'center' }}>
 									{
 										rooms.map((room, index) => {
