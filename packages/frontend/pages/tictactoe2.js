@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Layout from '@/components/Layout';
-import GamePage from '@/components/Tic-Tac-Toe2/GamePage/GamePage';
+import GamePage from '@/components/Tic-Tac-Toe/GamePage/GamePage';
 import { getSession } from 'next-auth/react';
 import { prisma } from '@/lib/prisma';
 
