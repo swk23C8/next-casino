@@ -1,16 +1,18 @@
-import Block from '@/components/Playground/Block';
+import Block from '@/components/Playground/BoardScreen/Block';
 
-export default function Board({ blocks, setBlock, XTurn, setXTurn, handleClick, lastMove, setLastMove, setTurn, turn, socket, isWin }) {
+export default function Board({ blocks, handleClick, setClickedBlock, setClickedSquare }) {
 
 	function renderBlock(i) {
 		return (
 			<Block blockNum={i} blocks={blocks} handleClick={handleClick}
+				setClickedBlock={setClickedBlock} setClickedSquare={setClickedSquare}
 			/>
 		)
 	}
 
 	return (
-		<div className="board flex justify-center p-28 pt-8 pb-8">
+		// pt-8 pb-8"
+		<div className="board flex justify-center">
 			<div className="block-row">
 				{renderBlock(0)}
 				{renderBlock(3)}

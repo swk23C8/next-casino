@@ -1,3 +1,64 @@
+// const objectGrid = {
+// 	1: { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" },
+// 	2: { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" },
+// 	3: { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" },
+// 	4: { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" },
+// 	5: { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" },
+// 	6: { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" },
+// 	7: { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" },
+// 	8: { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" },
+// 	9: { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" },
+// }
+// console.log(objectGrid)
+
+// const UltimateGrid = [
+// 	[
+// 		"1_1", "1_2", "1_3",
+// 		"1_4", "1_5", "1_6",
+// 		"1_7", "1_8", "1_9",
+// 	],
+// 	[
+// 		"2_1", "2_2", "2_3",
+// 		"2_4", "2_5", "2_6",
+// 		"2_7", "2_8", "2_9",
+// 	],
+// 	[
+// 		"3_1", "3_2", "3_3",
+// 		"3_4", "3_5", "3_6",
+// 		"3_7", "3_8", "3_9",
+// 	],
+// 	[
+// 		"4_1", "4_2", "4_3",
+// 		"4_4", "4_5", "4_6",
+// 		"4_7", "4_8", "4_9",
+// 	],
+// 	[
+// 		"5_1", "5_2", "5_3",
+// 		"5_4", "5_5", "5_6",
+// 		"5_7", "5_8", "5_9",
+// 	],
+// 	[
+// 		"6_1", "6_2", "6_3",
+// 		"6_4", "6_5", "6_6",
+// 		"6_7", "6_8", "6_9",
+// 	],
+// 	[
+// 		"7_1", "7_2", "7_3",
+// 		"7_4", "7_5", "7_6",
+// 		"7_7", "7_8", "7_9",
+// 	],
+// 	[
+// 		"8_1", "8_2", "8_3",
+// 		"8_4", "8_5", "8_6",
+// 		"8_7", "8_8", "8_9",
+// 	],
+// 	[
+// 		"9_1", "9_2", "9_3",
+// 		"9_4", "9_5", "9_6",
+// 		"9_7", "9_8", "9_9",
+// 	],
+// ]
+
 import {
 	Modal,
 	ModalOverlay,
@@ -23,16 +84,17 @@ import { useEffect, useRef, useState } from "react";
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { checkWinCon } from '@/components/Tic-Tac-Toe2/Logic/WinCon'
+import { checkWinCon } from '@/components/Playground/Logic/WinCon';
+import Board from "@/components/Playground/BoardScreen/Board";
 
-
-export default function Game({ socket = null, inLobby = null, roomPlayers = null, bet = null }) {
-
-	const router = useRouter();
-	const matchStart = { one: "", two: "", three: "", four: "", five: "", six: "", seven: "", eight: "", nine: "" }
-
+const Game = ({ socket = null, inLobby = null, roomPlayers = null, bet = null }) => {
+	const matchStart = Array(9).fill().map((_, index) =>
+		Array(9).fill(index + 1)
+	)
 	const { isOpen, onOpen, onClose } = useDisclosure()
 	const [grid, setGrid] = useState(matchStart)
+	const [clickedBlock, setClickedBlock] = useState("NULL")
+	const [clickedSquare, setClickedSquare] = useState("NULL")
 	const [whosTurn, setWhosTurn] = useState('')
 	const [gameOver, setGameOver] = useState(false)
 	const [gameInfo, setGameInfo] = useState('Waiting for another player to connect....')
@@ -40,28 +102,6 @@ export default function Game({ socket = null, inLobby = null, roomPlayers = null
 	const opponent = useRef(null)
 	const me = useRef(null)
 	const winner = useRef();
-	const [players, setPlayers] = useState(
-		{
-			one: {
-				name: '',
-				symbol: '',
-				score: 0,
-				turn: false,
-				winner: false,
-				loser: false,
-				draw: false,
-			},
-			two: {
-				name: '',
-				symbol: '',
-				score: 0,
-				turn: false,
-				winner: false,
-				loser: false,
-				draw: false,
-			}
-		}
-	)
 
 	const notifyWin = () => toast.success('🦄 Wow so easy! You win!', {
 		position: "top-left",
@@ -119,8 +159,6 @@ export default function Game({ socket = null, inLobby = null, roomPlayers = null
 		else {
 			axios.patch('/api/gameAction/updateToken', { e, })
 				.then(res => {
-					// setBalance(res.data.newToken);
-
 					// emit to server to update balance
 					socket.emit('updateBalance', res.data.newToken);
 				})
@@ -131,7 +169,6 @@ export default function Game({ socket = null, inLobby = null, roomPlayers = null
 		}
 	}
 
-	// only run if roomPlayers is not null
 	let temp = null;
 	if (roomPlayers) {
 		if (roomPlayers.length === 2) {
@@ -154,29 +191,23 @@ export default function Game({ socket = null, inLobby = null, roomPlayers = null
 
 	useEffect(() => {
 		startGame()
-
 		if (!socket) return;
-
 		socket.once('ready', (args) => {
 			setGameInfo(`Both players in room. Game will start shortly.....`)
 		})
-
 		socket.on("message", (args) => {
 			console.log(args);
 		});
-
 		socket.on('myMove', args => {
 			setGameInfo(`You will be playing as "${args}"`)
 			onOpen()
 			setMyMove(args)
 			startGame()
 		})
-
 		socket.once('eBrake', (args) => {
 			inLobby(true)
 			// alert('The other player disconnected. Returning to Lobby....')
 		})
-
 	}, [])
 
 	useEffect(() => {
@@ -197,82 +228,9 @@ export default function Game({ socket = null, inLobby = null, roomPlayers = null
 	}, [socket, grid]);
 
 	function handleClick(square) {
-		//if game is already over, prevent any further board changes
-		if (gameOver) {
-			return;
-		}
-
-		// if its not your turn, prevent changes to the game board
-		if (myMove !== whosTurn) {
-			alert('It is not your turn yet!')
-			return;
-		}
-
-		// if a square is clicked that has already has a move, prevent over-writes
-		if (grid[square]) {
-			grid[square] === whosTurn ? alert("You already went there!") :
-				alert(grid[square] + " already went there!")
-			return;
-		}
-
-		else {
-			// send to sever the valid move and who made it, sending player as well to help prevent stale states
-			socket.emit('move', { move: square, player: whosTurn, me: me.current }, () => {
-				console.log(`Sent server move ${square} for player ${whosTurn}`)
-			})
-		}
+		console.log({ square } + " clicked")
 	}
 
-	function checkMove(nextMove, player = whosTurn, myGrid = grid, playerName) {
-		const isWinner = checkWinCon(myGrid, setGrid, nextMove, player, playerName)
-		if (isWinner) {
-			winner.current = isWinner
-			// setGameInfo(`${winner.current} has won!`)
-			onOpen()
-			if (winner.current === me.current.username) {
-				console.log("token won: " + bet)
-				updateToken("win");
-				notifyWin();
-				setGameInfo(`${winner.current} has won!`)
-				// setGameInfo(`You won!`)
-				// setPlayers(prevState => ({
-				// 	...prevState,
-				// 	[me.current.username]: {
-				// 		...prevState[me.current.username],
-				// 		winner: true,
-				// 		turn: false,
-				// 		loser: false,
-				// 		draw: false,
-				// 	}
-				// }))
-			}
-			else if (winner.current === "tie") {
-				console.log("Game tied, no token change")
-				notifyPush();
-			}
-			else {
-				console.log("token lost: " + bet)
-				updateToken("loss");
-				notifyLose();
-				setGameInfo(`${winner.current} has won!`)
-				// setGameInfo(`You lost!`)
-				// setPlayers(prevState => ({
-				// 	...prevState,
-				// 	[me.current.username]: {
-				// 		...prevState[me.current.username],
-				// 		winner: false,
-				// 		turn: false,
-				// 		loser: true,
-				// 		draw: false,
-				// 	}
-				// }))
-			}
-
-			setGameOver(true)
-			return;
-		}
-		player === 'X' ? setWhosTurn('O') : setWhosTurn('X')
-	}
 
 	function startGame() {
 		setGameOver(false)
@@ -282,7 +240,7 @@ export default function Game({ socket = null, inLobby = null, roomPlayers = null
 
 	const bg = useColorModeValue('blue.300', 'orange.200')
 
-
+	// inside 1 Board > 9 Blocks in each Board > 9 Squares in each Block
 	return (
 		<>
 			<ToastContainer />
@@ -342,35 +300,26 @@ export default function Game({ socket = null, inLobby = null, roomPlayers = null
 					// width="45vw"
 					mb={4}
 				>
-					{Object.keys(grid).map((square, index) => {
-						return (
-							<>
-								<Box as="button" p="1" borderWidth='5px' borderColor="grey"
-									width='15vh'
-									height='25vh'
-									// boxSize="20vh"
-									flexBasis="30%"
-									backgroundColor=""
-									onClick={() => handleClick(`${square}`)} key={"grid_" + index}
-								>
-									<Text fontSize="400%">
-										{grid[square]}
-									</Text>
-								</Box>
-							</>
-						)
-					})}
+					<div>
+						<p>clicked on block: {clickedBlock}</p>
+						<p>clicked on square: {clickedSquare}</p>
+					</div>
+					<Board
+						blocks={grid}
+						setClickedBlock={setClickedBlock}
+						setClickedSquare={setClickedSquare}
+						handleClick={handleClick}
+					/>
 
 				</Flex>
 
-				{/* START - GAME BOARD AREA */}
+				{/* END - GAME BOARD AREA */}
 
 			</>) :
 				(<>
 					{/* INFO SECTION SHOWING WHEN WAITING FOR OPPONENT TO JOIN A ROOM AFTER CREATION AND ON JOIN */}
 					<Heading textAlign={'center'} wordBreak='break-word'>
 						{gameInfo}
-						{/* <br />{"lasdfasdfol"} */}
 					</Heading>
 					<Button border='2px'
 						onClick={() => {
@@ -384,25 +333,8 @@ export default function Game({ socket = null, inLobby = null, roomPlayers = null
 				</>
 				)
 			}
-			<>
-
-				{/* <Modal isOpen={isOpen} onClose={onClose} isCentered>
-					<ModalOverlay />
-					<ModalContent>
-						<ModalHeader>Tic Tac Toe</ModalHeader>
-						<ModalCloseButton />
-						<ModalBody>
-							<Center>{gameInfo}</Center>
-						</ModalBody>
-
-						<ModalFooter>
-							<Button colorScheme='blue' mr={3} onClick={onClose}>
-								Close
-							</Button>
-						</ModalFooter>
-					</ModalContent>
-				</Modal> */}
-			</>
 		</>
 	);
 }
+
+export default Game;

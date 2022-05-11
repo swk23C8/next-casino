@@ -80,7 +80,7 @@ const Game = ({ stats = [], game = [] }) => {
 		<Layout>
 			<Head>
 				<title>Ultimate Tic Tac Toe | Game</title>
-				<meta name="description" content="Game page" />
+				<meta name="Ultimate Tic Tac Toe" content="Game page" />
 			</Head>
 			<GamePage stats={stats} game={game} />
 		</Layout>

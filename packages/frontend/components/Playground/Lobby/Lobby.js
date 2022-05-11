@@ -1,15 +1,15 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import io from "socket.io-client";
-const Game = React.lazy(() => import("@/components/Tic-Tac-Toe2/Play/Play"));
+const Game = React.lazy(() => import("@/components/Playground/Game/Game"));
 import { Box, Button, Center, Flex, Spacer } from "@chakra-ui/react";
 // import styles from "../../styles/Lobby.module.css";
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const SOCKET_SERVER_URL = 'https://swk23c8.herokuapp.com';
-// const SOCKET_SERVER_URL = 'http://localhost:5000';
+// const SOCKET_SERVER_URL = 'https://swk23c8.herokuapp.com';
+const SOCKET_SERVER_URL = 'http://localhost:5000';
 
 export default function Lobby({ stats = [], game = [] }) {
 	const router = useRouter();
@@ -140,16 +140,9 @@ export default function Lobby({ stats = [], game = [] }) {
 			setMyRoom(args)
 		});
 		socket.on("currentRoom", (args) => {
-			// console.log("currentRoom: " + args)
-			// console.log(args);
-			// console.log(args.bet);
-			// console.log(args.player);
 			setRoomPlayers(args.player)
 			let playerusernames = args.player.map(player => player.username);
 			setRoomPlayersUsername(playerusernames)
-			// console.log(playerusernames)
-			// console.log(roomPlayerUsername)
-			// setInLobby(false);
 		});
 		socket.on("reset", (args) => {
 			console.log("reset called");

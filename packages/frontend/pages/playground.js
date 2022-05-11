@@ -1,6 +1,4 @@
-import Layout from "@/components/Layout";
-import { useState } from "react";
-import Board from "@/components/Playground/Board";
+
 
 // const objectGrid = {
 // 	1: { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" },
@@ -63,123 +61,90 @@ import Board from "@/components/Playground/Board";
 // 	],
 // ]
 
-// let grid1 = UltimateGrid[0]
-// let grid2 = UltimateGrid[1]
-// let grid3 = UltimateGrid[2]
-// let grid4 = UltimateGrid[3]
-// let grid5 = UltimateGrid[4]
-// let grid6 = UltimateGrid[5]
-// let grid7 = UltimateGrid[6]
-// let grid8 = UltimateGrid[7]
-// let grid9 = UltimateGrid[8]
+
+import { useState } from "react";
+import Head from 'next/head';
+import Layout from '@/components/Layout';
+import GamePage from '@/components/Playground/GamePage/GamePage';
+import { getSession } from 'next-auth/react';
+import { prisma } from '@/lib/prisma';
 
 
+export async function getServerSideProps(context) {
+	const session = await getSession(context);
+	const redirect = {
+		redirect: {
+			destination: '/',
+			permanent: false,
+		},
+	};
 
-// console.log(grid1)
+	// Check if the user is authenticated
+	// If not, assign guest profile
+	if (!session) {
+		const randomGuest = "GUEST_" + Math.floor(Math.random() * 100) + 1;
+		return {
+			props: {
+				stats: {
+					createdAt: 'N/A',
+					email: 'GUEST@DOMAIN.COM',
+					emailVerified: null,
+					gameTokens: 0,
+					id: randomGuest,
+					image: '',
+					name: randomGuest,
+					userType: "GUEST",
+				},
+				game: {
+					bDie_1: 0,
+					bDie_2: 0,
+					bDie_3: 0,
+					bScore: 0,
+					createdAt: "",
+					id: randomGuest + "_game",
+					pBet: 0,
+					pDie_1: 0,
+					pDie_2: 0,
+					pDie_3: 0,
+					pScore: 0,
+					result: "",
+					updatedAt: "",
+					userId: randomGuest,
+				}
+			}
+		}
+	}
+	else {
+		// Retrieve the authenticated user
+		const stats = await prisma.user.findUnique({
+			where: { email: session.user.email },
+		});
 
+		// Retrive the user's game state
+		const game = await prisma.gameState.findUnique({
+			where: { userId: stats.id },
+		});
 
-export default function Playground() {
-	const [blocks, setBlock] = useState(Array(9).fill().map(() => Array(9).fill("lol")))
-	const [grid, setGrid] = useState(blocks)
-	const [grid1, setGrid1] = useState(grid[0])
-	const [grid2, setGrid2] = useState(grid[1])
-	const [grid3, setGrid3] = useState(grid[2])
-	const [grid4, setGrid4] = useState(grid[3])
-	const [grid5, setGrid5] = useState(grid[4])
-	const [grid6, setGrid6] = useState(grid[5])
-	const [grid7, setGrid7] = useState(grid[6])
-	const [grid8, setGrid8] = useState(grid[7])
-	const [grid9, setGrid9] = useState(grid[8])
+		// Pass the data to the Stats page
+		return {
+			props: {
+				stats: JSON.parse(JSON.stringify(stats)),
+				game: JSON.parse(JSON.stringify(game)),
+			},
+		};
+	}
+}
 
-	console.log()
-
-
-
-
+const Playground = ({ stats = [], game = [] }) => {
 	return (
 		<Layout>
-			{/* Map through UltimateGrid and print 3x3 grids */}
-			{/* {UltimateGrid.map((grid, index) => {
-				return (
-					<div key={index}>
-						{grid.map((grid, index) => {
-							return (
-								<div key={index}>
-									{grid}
-								</div>
-							)
-						})}
-					</div>
-				)
-			})} */}
-
-			{/* <div className="board">
-				<div className="board_row">
-					<div className="board_cell">
-						{grid1[0]}
-					</div>
-					<div className="board_cell">
-						{grid1[1]}
-					</div>
-					<div className="board_cell">
-						{grid1[2]}
-					</div>
-					<div className="board_cell">
-						{grid1[3]}
-					</div>
-					<div className="board_cell">
-						{grid1[4]}
-					</div>
-					<div className="board_cell">
-						{grid1[5]}
-					</div>
-					<div className="board_cell">
-						{grid1[6]}
-					</div>
-					<div className="board_cell">
-						{grid1[7]}
-					</div>
-					<div className="board_cell">
-						{grid1[8]}
-					</div>
-				</div>
-				<div className="board_row">
-					<div className="board_cell">
-						{grid2[0]}
-					</div>
-					<div className="board_cell">
-						{grid2[1]}
-					</div>
-					<div className="board_cell">
-						{grid2[2]}
-					</div>
-					<div className="board_cell">
-						{grid2[3]}
-					</div>
-					<div className="board_cell">
-						{grid2[4]}
-					</div>
-					<div className="board_cell">
-						{grid2[5]}
-					</div>
-					<div className="board_cell">
-						{grid2[6]}
-					</div>
-					<div className="board_cell">
-						{grid2[7]}
-					</div>
-					<div className="board_cell">
-						{grid2[8]}
-					</div>
-				</div>
-			</div> */}
-
-			{/* justify-content: center;
-			display: flex;
-			padding: 100px;
-			padding-top: 30px;
-			padding-bottom: 30px; */}
-			<Board blocks={blocks} />
-		</Layout>
+			<Head>
+				<title>Playground | Game</title>
+				<meta name="Playground" content="Game page" />
+			</Head>
+			<GamePage stats={stats} game={game} />
+		</Layout >
 	);
 }
+
+export default Playground;
