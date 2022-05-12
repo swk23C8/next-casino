@@ -1,10 +1,10 @@
 import Block from '@/components/Playground/BoardScreen/Block';
 
-export default function Board({ blocks, handleClick, setClickedBlock, setClickedSquare }) {
+export default function Board({ blocks, handleClick, setClickedBlock, setClickedSquare, socket }) {
 
 	function renderBlock(i) {
 		return (
-			<Block blockNum={i} blocks={blocks} handleClick={handleClick}
+			<Block blockNum={i} blocks={blocks} handleClick={handleClick} socket={socket}
 				setClickedBlock={setClickedBlock} setClickedSquare={setClickedSquare}
 			/>
 		)

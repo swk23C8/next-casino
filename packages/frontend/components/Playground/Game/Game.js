@@ -88,8 +88,11 @@ import { checkWinCon } from '@/components/Playground/Logic/WinCon';
 import Board from "@/components/Playground/BoardScreen/Board";
 
 const Game = ({ socket = null, inLobby = null, roomPlayers = null, bet = null }) => {
+	// const matchStart = Array(9).fill().map((_, index) =>
+	// 	Array(9).fill(index + 1)
+	// )
 	const matchStart = Array(9).fill().map((_, index) =>
-		Array(9).fill(index + 1)
+		Array(10).fill("")
 	)
 	const { isOpen, onOpen, onClose } = useDisclosure()
 	const [grid, setGrid] = useState(matchStart)
@@ -212,25 +215,84 @@ const Game = ({ socket = null, inLobby = null, roomPlayers = null, bet = null })
 
 	useEffect(() => {
 		if (!socket) return;
-		// when a player makes a move in an online game, the move is sent to the server then sent back to each
-		//client at the same time, checkMove is run to see if that move would create a win and changes whos turn
-		//it is on each client. The server has no logic of turn order or move state.
-		socket.on('move', (args) => {
-			socket.off('move') //required to ensure multiple listeners are not added on every re-render
-			console.log(`Received move ${args.move} for player ${args.player}`)
-			checkMove(args.move, args.player, grid, args.me.username)
+		socket.on('test', (args) => {
+			socket.off('test') //required to ensure multiple listeners are not added on every re-render
+			console.log(args)
+			// console.log(`Received move ${args.move} for player ${args.player}`)
+			checkMove(args.block, args.square, args.player, grid, args.me.username)
 		})
 		//used to monitor how many instances of the 'move' listener are currently mounted
 		// console.log(socket._callbacks.$move)
 		return () => {
-			if (socket) socket.off('move')
+			if (socket) socket.off('test')
 		}
 	}, [socket, grid]);
 
-	function handleClick(square) {
-		console.log({ square } + " clicked")
+	function handleClick(socket, block, square) {
+		// console.log(socket.id + ' clicked on ' + '\nblock: ' + block + '\nsquare: ' + square)
+		// console.log("my symbol is: " + myMove)
+		// console.log("it is " + whosTurn + "'s turn")
+
+		//if game is already over, prevent any further board changes
+		if (gameOver) {
+			return;
+		}
+
+		// if its not your turn, prevent changes to the game board
+		if (myMove !== whosTurn) {
+			alert('It is not your turn yet!')
+			return;
+		}
+
+		// if a square is clicked that has already has a move, prevent over-writes
+		if (grid[block][square]) {
+			grid[block][square] === whosTurn ? alert("You already went there!") :
+				alert(grid[block][square] + " already went there!")
+			return;
+		}
+
+		// if the block is already won, prevent changes to the that block
+		if (grid[block][9] !== '') {
+			grid[block][9] === whosTurn ? alert('You won this block!') :
+				alert(grid[block][9] + ' already won the block!')
+			return;
+		}
+
+		else {
+			// send to sever the valid move and who made it, sending player as well to help prevent stale states
+			socket.emit('test', { block: block, square: square, player: whosTurn, me: me.current }, () => {
+				console.log(`Sent server move ${square} for player ${whosTurn}`)
+			})
+		}
 	}
 
+	function checkMove(block, square, player = whosTurn, myGrid = grid, playerName) {
+		const isWinner = checkWinCon(myGrid, setGrid, block, square, player, playerName)
+		if (isWinner) {
+			winner.current = isWinner
+			// setGameInfo(`${winner.current} has won!`)
+			onOpen()
+			if (winner.current === me.current.username) {
+				console.log("token won: " + bet)
+				updateToken("win");
+				notifyWin();
+				setGameInfo(`${winner.current} has won!`)
+			}
+			else if (winner.current === "tie") {
+				console.log("Game tied, no token change")
+				notifyPush();
+			}
+			else {
+				console.log("token lost: " + bet)
+				updateToken("loss");
+				notifyLose();
+				setGameInfo(`${winner.current} has won!`)
+			}
+			setGameOver(true)
+			return;
+		}
+		player === 'X' ? setWhosTurn('O') : setWhosTurn('X')
+	}
 
 	function startGame() {
 		setGameOver(false)
@@ -309,6 +371,7 @@ const Game = ({ socket = null, inLobby = null, roomPlayers = null, bet = null })
 						setClickedBlock={setClickedBlock}
 						setClickedSquare={setClickedSquare}
 						handleClick={handleClick}
+						socket={socket}
 					/>
 
 				</Flex>

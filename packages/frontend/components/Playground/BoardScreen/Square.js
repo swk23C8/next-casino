@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 
-export default function Square({ squareNum, blockNum, blocks, setClickedSquare }) {
+export default function Square({ squareNum, blockNum, blocks, setClickedSquare, socket, handleClick }) {
 
 
 	return (
@@ -12,6 +12,8 @@ export default function Square({ squareNum, blockNum, blocks, setClickedSquare }
 					() => {
 						// console.log("Squarenum:  " + squareNum)
 						setClickedSquare(squareNum + 1)
+						// console.log(socket.id)
+						handleClick(socket, blockNum, squareNum)
 					}
 				}
 			>

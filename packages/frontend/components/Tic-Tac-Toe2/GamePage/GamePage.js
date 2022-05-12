@@ -37,7 +37,7 @@ const GamePage = ({ stats = [], game = [] }) => {
 				Please feel free to try out the available features and report any bugs!
 			</h1>
 			<h2 className="flex justify-center text-2xl font-bold text-black py-5">
-				Welcome to ULTIMATE Tic Tac Toe!
+				Welcome to Tic Tac Toe2!
 			</h2>
 			<h2 className="text-center text-2xl font-bold text-black">
 				⚠️This is a multiplayer game that requires 2 people per game! ⚠️

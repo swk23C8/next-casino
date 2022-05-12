@@ -214,7 +214,7 @@ export default function Game({ socket = null, inLobby = null, roomPlayers = null
 				alert(grid[square] + " already went there!")
 			return;
 		}
-
+		
 		else {
 			// send to sever the valid move and who made it, sending player as well to help prevent stale states
 			socket.emit('move', { move: square, player: whosTurn, me: me.current }, () => {
