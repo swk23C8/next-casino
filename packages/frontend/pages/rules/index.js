@@ -31,10 +31,10 @@ export default function Rules() {
 	return (
 		<Layout>
 			{/* <h1 className="text-3xl font-semibold text-gray-800 text-center mt-4">
-				NextCasino Rules
+				GratisGames Rules
 			</h1> */}
 			{/* <p className="text-gray-500 text-center">
-				Here are the rules for the games on NextCasino.
+				Here are the rules for the games on GratisGames.
 			</p> */}
 			<div className="flex justify-center space-x-5">
 				{/* <Link href="/cee-lo-rules"> */}
@@ -118,9 +118,9 @@ export default function Rules() {
 				</Link>
 			</div>
 			<h1 className="text-3xl font-semibold text-gray-800 text-center mt-4">
-				NextCasino Rules
+				GratisGames Rules
 			</h1>
-			{/* <p className="flex items-center justify-center my-10">insert rules for NextCasino here</p> */}
+			{/* <p className="flex items-center justify-center my-10">insert rules for GratisGames here</p> */}
 			<div className="flex items-center justify-center my-10">
 				<ol className="space-y-4 > *">
 					<li>
@@ -156,7 +156,7 @@ export default function Rules() {
 						</strong>
 						<p>
 							<span className="text-xl tracking-wide">
-								NextCasino is not a trading site and won&apos;t get involved in disputes between players under any circumstances.<br />
+								GratisGames is not a trading site and won&apos;t get involved in disputes between players under any circumstances.<br />
 								We highly recommend not trading here.
 							</span>
 						</p>

@@ -105,7 +105,7 @@ export default function Game({ socket = null, inLobby = null, roomPlayers = null
 
 	// api call to update token
 	const updateToken = (e) => {
-		if (me.current.username === "GUEST") {
+		if ((me.current.username).startsWith('GUEST')) {
 			toast('🦄 Wow so GUEST! Free Game!', {
 				position: "top-left",
 				autoClose: 5000,

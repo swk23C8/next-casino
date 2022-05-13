@@ -106,6 +106,7 @@ const Game = ({ socket = null, inLobby = null, roomPlayers = null, bet = null })
 	const me = useRef(null)
 	const winner = useRef();
 	const [lastMove, setLastMove] = useState(-1)
+	const [turnsLeft, setTurnsLeft] = useState(81)
 
 	const notifyWin = () => toast.success('🦄 Wow so easy! You win!', {
 		position: "top-left",
@@ -149,7 +150,7 @@ const Game = ({ socket = null, inLobby = null, roomPlayers = null, bet = null })
 
 	// api call to update token
 	const updateToken = (e) => {
-		if (me.current.username === "GUEST") {
+		if ((me.current.username).startsWith('GUEST')) {
 			toast('🦄 Wow so GUEST! Free Game!', {
 				position: "top-left",
 				autoClose: 5000,
@@ -252,7 +253,7 @@ const Game = ({ socket = null, inLobby = null, roomPlayers = null, bet = null })
 	}, [socket, lastMove]);
 
 
-	function handleClick(socket, block, square, lastMove) {
+	function handleClick(socket, block, square) {
 
 		//if game is already over, prevent any further board changes
 		if (gameOver) {
@@ -285,6 +286,7 @@ const Game = ({ socket = null, inLobby = null, roomPlayers = null, bet = null })
 			socket.emit('test', { block: block, square: square, player: whosTurn, me: me.current }, () => {
 				console.log(`Sent server move ${square} for player ${whosTurn}`)
 			})
+			setTurnsLeft(turnsLeft - 1)
 		}
 	}
 
@@ -356,7 +358,7 @@ const Game = ({ socket = null, inLobby = null, roomPlayers = null, bet = null })
 					<GridItem gridArea={{ base: '2/1/ span 1 / span 2', lg: '2/2/ span 1 / span 2' }} w='100%' textAlign='center'>
 						<Heading p='2' size='lg'>
 							{
-								gameOver ? " " : (`It is ${whosTurn}'s turn!`)
+								gameOver ? "GAMEOVER" : (`It is ${whosTurn}'s turn!`)
 								// gameOver ? (`${winner.current} won!`) : (`It is ${whosTurn}'s turn!`)
 							}
 						</Heading>
@@ -398,6 +400,7 @@ const Game = ({ socket = null, inLobby = null, roomPlayers = null, bet = null })
 						setLastMove={setLastMove}
 						myMove={myMove}
 						whosTurn={whosTurn}
+						gameOver={gameOver}
 					/>
 
 				</Flex>
@@ -422,6 +425,25 @@ const Game = ({ socket = null, inLobby = null, roomPlayers = null, bet = null })
 				</>
 				)
 			}
+			<>
+
+				<Modal isOpen={isOpen} onClose={onClose} isCentered>
+					<ModalOverlay />
+					<ModalContent>
+						<ModalHeader>Tic Tac Toe</ModalHeader>
+						<ModalCloseButton />
+						<ModalBody>
+							<Center>{gameInfo}</Center>
+						</ModalBody>
+
+						<ModalFooter>
+							<Button colorScheme='blue' mr={3} onClick={onClose}>
+								Close
+							</Button>
+						</ModalFooter>
+					</ModalContent>
+				</Modal>
+			</>
 		</>
 	);
 }

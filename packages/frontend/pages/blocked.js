@@ -15,7 +15,7 @@ export default function blocked() {
 				<Link href="/">
 					<a className="">
 						<span className="text-xl font-semibold tracking-wide">
-							Next<span className="text-rose-600">Casino</span>
+							Gratis<span className="text-rose-600">Games</span>
 						</span>
 					</a>
 				</Link>

@@ -87,7 +87,7 @@ const Layout = ({ children = null }) => {
    return (
       <>
          <Head>
-            <title>Next-Casino | The Modern Casino</title>
+            <title>GratisGames | The Modern Casino</title>
             <meta
                name="title"
                content="Play Casino Games for Free | The Modern Casino"
@@ -104,7 +104,7 @@ const Layout = ({ children = null }) => {
                         <a className="flex items-center space-x-1">
                            <SparklesIcon className="shrink-0 w-8 h-8 text-rose-500" />
                            <span className="text-xl font-semibold tracking-wide">
-                              Next<span className="text-rose-600">Casino</span>
+                              Gratis<span className="text-rose-600">Games</span>
                            </span>
                         </a>
                      </Link>

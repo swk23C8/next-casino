@@ -1,7 +1,7 @@
 import Square from '@/components/Playground/BoardScreen/Square';
 import { useState, memo } from 'react';
 
-const Block = ({ blockNum, blocks, setClickedBlock, setClickedSquare, socket, handleClick, lastMove, setLastMove, myMove, whosTurn }) => {
+const Block = ({ blockNum, blocks, setClickedBlock, setClickedSquare, socket, handleClick, lastMove, setLastMove, myMove, whosTurn, gameOver }) => {
 
 	function renderSquare(i) {
 		return (
@@ -10,6 +10,7 @@ const Block = ({ blockNum, blocks, setClickedBlock, setClickedSquare, socket, ha
 				clickedBlock={setClickedBlock}
 				lastMove={lastMove} setLastMove={setLastMove}
 				myMove={myMove} whosTurn={whosTurn}
+				gameOver={gameOver}
 			/>
 		)
 	}

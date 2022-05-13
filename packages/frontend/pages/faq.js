@@ -41,16 +41,13 @@ export default function FAQ() {
 					<AccordionItem>
 						<AccordionButton>
 							<Box flex='1' textAlign='left'>
-								What is NextCasino?
+								What is GratisGames?
 							</Box>
 							<AccordionIcon />
 						</AccordionButton>
 						<AccordionPanel>
 							<p>
-								{/* Next-Casino is a decentralized casino platform that enables
-								players to play games like poker, blackjack, and other
-								traditional games. */}
-								NextCasino is a Free-To-Play game platform that enables
+								GratisGames is a Free-To-Play game platform that enables
 								players to play games like poker, blackjack, and other
 								traditional games for free.
 							</p>
@@ -72,13 +69,14 @@ export default function FAQ() {
 								<br />
 								<br />
 								<a
-									href="https://nextcasino.vercel.app/"
+									href="https://gratisgames.vercel.app/"
 									target="_blank"
 									rel="noopener noreferrer"
 								>
+									
 									<Image
-										src="/images/next-casino-website.png"
-										alt="Next-Casino website"
+										src="/images/GratisGames-website.png"
+										alt="GratisGames website"
 										// className="mx-auto"
 										width="100px"
 										height="100px"
@@ -87,13 +85,13 @@ export default function FAQ() {
 								<br />
 								<br />
 								<a
-									href="https://apps.apple.com/us/app/next-casino/id1459272919"
+									href="https://apps.apple.com/us/app/GratisGames/id1459272919"
 									target="_blank"
 									rel="noopener noreferrer"
 								>
 									<Image
-										src="/images/next-casino-app-store.png"
-										alt="Next-Casino app store"
+										src="/images/GratisGames-app-store.png"
+										alt="GratisGames app store"
 										// className="mx-auto"
 										width="100px"
 										height="100px"
@@ -102,13 +100,13 @@ export default function FAQ() {
 								<br />
 								<br />
 								<a
-									href="https://play.google.com/store/apps/details?id=com.nextcasino.android"
+									href="https://play.google.com/store/apps/details?id=com.GratisGames.android"
 									target="_blank"
 									rel="noopener noreferrer"
 								>
 									<Image
-										src="/images/next-casino-google-play.png"
-										alt="Next-Casino google play"
+										src="/images/GratisGames-google-play.png"
+										alt="GratisGames google play"
 										// className="mx-auto"
 										width="100px"
 										height="100px"
@@ -126,7 +124,7 @@ export default function FAQ() {
 						</AccordionButton>
 						<AccordionPanel>
 							<p>
-								Games on NextCasino are 100% free to play and always will be.
+								Games on GratisGames are 100% free to play and always will be.
 							</p>
 						</AccordionPanel>
 					</AccordionItem>
@@ -165,7 +163,7 @@ export default function FAQ() {
 						</AccordionButton>
 						<AccordionPanel>
 							<p>
-								NextCasino relies on Google Authentication and ✨Magic Links to handle sign-ups and log-ins. <br />In other words, NextCasino does not store your passwords.
+								GratisGames relies on Google Authentication and ✨Magic Links to handle sign-ups and log-ins. <br />In other words, GratisGames does not store your passwords.
 							</p>
 						</AccordionPanel>
 					</AccordionItem>
@@ -194,7 +192,7 @@ export default function FAQ() {
 						</AccordionButton>
 						<AccordionPanel>
 							<p>
-								NextCasino is only available in English at the moment.<br />
+								GratisGames is only available in English at the moment.<br />
 								If you would like to help us translate to your language please contact us!
 							</p>
 						</AccordionPanel>

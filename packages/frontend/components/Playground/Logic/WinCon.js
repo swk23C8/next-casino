@@ -24,12 +24,15 @@ export const checkWinCon = (grid, setGrid, block, square, whosTurn, playerName, 
 	// function to check if a block is won
 	// condition: iterate through each square in a block to check if
 	// 3 squares in a row according to lines array is the same whosTurn
-	function checkBlockWin() {
+	function checkBlockWin(tempGrid) {
 		for (let i = 0; i < lines.length; i++) {
 			const [a, b, c] = lines[i]
 			if (tempGrid[block][a] && tempGrid[block][a] === tempGrid[block][b] && tempGrid[block][a] === tempGrid[block][c]) {
 				tempGrid[block][9] = tempGrid[block][a]
-				return console.log("block " + block + " won by " + tempGrid[block][9])
+				return (
+					// console.log("block " + block + " won by " + tempGrid[block][9])
+					tempGrid[block][9]
+				)
 			}
 		}
 		return false
@@ -38,18 +41,41 @@ export const checkWinCon = (grid, setGrid, block, square, whosTurn, playerName, 
 	// function to check if the board is won
 	// condition: iterate through each block in a board to check if
 	// 3 blocks in a row according to lines array is the same whosTurn
-	function checkBoardWin() {
+	function checkBoardWin(tempGrid) {
 		for (let j = 0; j < lines.length; j++) {
 			const [a, b, c] = lines[j]
 			if (tempGrid[a][9] && tempGrid[a][9] === tempGrid[b][9] && tempGrid[a][9] === tempGrid[c][9]) {
-				return console.log("board won by " + tempGrid[a][9])
+				return (
+					// console.log("board won by " + tempGrid[a][9])
+					tempGrid[a][9]
+				)
 			}
 		}
+		return false
 	}
 
-	checkBlockWin()
-	checkBoardWin()
 	setGrid({ ...tempGrid })
+
+
+
+	checkBlockWin(tempGrid)
+
+	if (checkBoardWin(tempGrid)) {
+		return playerName
+	}
+
+	//checks to see if there are any more open spaces on the board, if not than end the game a draw
+	// const movesLeft = Object.values(tempGrid).filter(moves => moves === '').length
+
+	const flatGrid = Object.values(tempGrid).flat()
+	const movesLeft = flatGrid.filter(moves => moves === '').length
+
+
+	// console.log(movesLeft);
+
+	if (movesLeft === 0) {
+		return "tie"
+	}
 
 
 	//return null to not trigger win condition

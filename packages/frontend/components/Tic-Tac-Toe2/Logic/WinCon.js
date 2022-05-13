@@ -33,6 +33,7 @@ export const checkWinCon = (grid, setGrid, playerMove, whosTurn, playerName) => 
 		return "tie"
 	}
 
+	console.log(tempGrid)
 	//return null to not trigger win condition
 	return ""
 

@@ -199,7 +199,7 @@ export default function Stat({ stats = [] }) {
 										id="password"
 										type="text"
 										disabled
-										placeholder="✨NextCasino does not store your password✨"
+										placeholder="✨GratisGames does not store your password✨"
 									/>
 
 									<label

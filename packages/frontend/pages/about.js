@@ -1,6 +1,5 @@
 import Layout from "@/components/Layout";
 
-// About page for NextCasino
 export default function About() {
 	return (
 		<Layout>
