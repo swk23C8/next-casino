@@ -1,12 +1,15 @@
 import Square from '@/components/Playground/BoardScreen/Square';
-import { useState } from 'react';
+import { useState, memo } from 'react';
 
-export default function Block({ blockNum, blocks, setClickedBlock, setClickedSquare, socket, handleClick }) {
+const Block = ({ blockNum, blocks, setClickedBlock, setClickedSquare, socket, handleClick, lastMove, setLastMove, myMove, whosTurn }) => {
 
 	function renderSquare(i) {
 		return (
 			<Square squareNum={i} blockNum={blockNum} blocks={blocks}
 				setClickedSquare={setClickedSquare} socket={socket} handleClick={handleClick}
+				clickedBlock={setClickedBlock}
+				lastMove={lastMove} setLastMove={setLastMove}
+				myMove={myMove} whosTurn={whosTurn}
 			/>
 		)
 	}
@@ -18,9 +21,9 @@ export default function Block({ blockNum, blocks, setClickedBlock, setClickedSqu
 				onClick={
 					() => {
 						// console.log('BlockNum:  ' + blockNum)
-						setClickedBlock(blockNum+1)
+						setClickedBlock(blockNum)
 						// console.log(socket)
-						
+
 					}
 				}
 			>
@@ -43,3 +46,5 @@ export default function Block({ blockNum, blocks, setClickedBlock, setClickedSqu
 		</>
 	)
 }
+
+export default memo(Block);

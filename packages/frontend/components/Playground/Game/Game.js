@@ -105,6 +105,7 @@ const Game = ({ socket = null, inLobby = null, roomPlayers = null, bet = null })
 	const opponent = useRef(null)
 	const me = useRef(null)
 	const winner = useRef();
+	const [lastMove, setLastMove] = useState(-1)
 
 	const notifyWin = () => toast.success('🦄 Wow so easy! You win!', {
 		position: "top-left",
@@ -217,21 +218,41 @@ const Game = ({ socket = null, inLobby = null, roomPlayers = null, bet = null })
 		if (!socket) return;
 		socket.on('test', (args) => {
 			socket.off('test') //required to ensure multiple listeners are not added on every re-render
-			console.log(args)
 			// console.log(`Received move ${args.move} for player ${args.player}`)
 			checkMove(args.block, args.square, args.player, grid, args.me.username)
 		})
+
+		// // receive opponent's lastMove for valid blocks
+		socket.on('lastMove', (args) => {
+			socket.off('lastMove')
+			setLastMove(args.lastMove)
+		})
+
+		// socket.emit("lastMove", { lastMove })
+
 		//used to monitor how many instances of the 'move' listener are currently mounted
 		// console.log(socket._callbacks.$move)
 		return () => {
 			if (socket) socket.off('test')
+			if (socket) socket.off('lastMove')
 		}
-	}, [socket, grid]);
+	}, [socket, grid, lastMove]);
 
-	function handleClick(socket, block, square) {
-		// console.log(socket.id + ' clicked on ' + '\nblock: ' + block + '\nsquare: ' + square)
-		// console.log("my symbol is: " + myMove)
-		// console.log("it is " + whosTurn + "'s turn")
+
+	useEffect(() => {
+		if (!socket) return;
+
+		if (myMove === whosTurn) {
+			socket.emit("lastMove", { lastMove })
+		}
+
+		return () => {
+			if (socket) socket.off('lastMove')
+		}
+	}, [socket, lastMove]);
+
+
+	function handleClick(socket, block, square, lastMove) {
 
 		//if game is already over, prevent any further board changes
 		if (gameOver) {
@@ -259,6 +280,7 @@ const Game = ({ socket = null, inLobby = null, roomPlayers = null, bet = null })
 		}
 
 		else {
+			// setLastMove(square)
 			// send to sever the valid move and who made it, sending player as well to help prevent stale states
 			socket.emit('test', { block: block, square: square, player: whosTurn, me: me.current }, () => {
 				console.log(`Sent server move ${square} for player ${whosTurn}`)
@@ -266,8 +288,8 @@ const Game = ({ socket = null, inLobby = null, roomPlayers = null, bet = null })
 		}
 	}
 
-	function checkMove(block, square, player = whosTurn, myGrid = grid, playerName) {
-		const isWinner = checkWinCon(myGrid, setGrid, block, square, player, playerName)
+	function checkMove(block, square, player = whosTurn, myGrid = grid, playerName, myLastMove = lastMove) {
+		const isWinner = checkWinCon(myGrid, setGrid, block, square, player, playerName, myLastMove)
 		if (isWinner) {
 			winner.current = isWinner
 			// setGameInfo(`${winner.current} has won!`)
@@ -362,16 +384,20 @@ const Game = ({ socket = null, inLobby = null, roomPlayers = null, bet = null })
 					// width="45vw"
 					mb={4}
 				>
-					<div>
+					{/* <div>
 						<p>clicked on block: {clickedBlock}</p>
 						<p>clicked on square: {clickedSquare}</p>
-					</div>
+					</div> */}
 					<Board
 						blocks={grid}
 						setClickedBlock={setClickedBlock}
 						setClickedSquare={setClickedSquare}
 						handleClick={handleClick}
 						socket={socket}
+						lastMove={lastMove}
+						setLastMove={setLastMove}
+						myMove={myMove}
+						whosTurn={whosTurn}
 					/>
 
 				</Flex>

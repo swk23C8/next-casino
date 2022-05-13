@@ -1,7 +1,7 @@
 //accepts the current state of the game board as GRID, the state function of SETGRID
 //the last player move as PLAYERMOVE, who made the last move as WHOSTURN and boolean to track single player game
 //this functions will check to see if the last played move caused a win con or not
-export const checkWinCon = (grid, setGrid, block, square, whosTurn, playerName) => {
+export const checkWinCon = (grid, setGrid, block, square, whosTurn, playerName, myLastMove, setLastMove) => {
 
 	const lines = [
 		[0, 1, 2],
@@ -14,19 +14,13 @@ export const checkWinCon = (grid, setGrid, block, square, whosTurn, playerName) 
 		[2, 4, 6]
 	]
 
-	// console.log("block: " + block)
-	// console.log("square: " + square)
-	// console.log("whosTurn: " + whosTurn)
-	// console.log("playerName: " + playerName)
 
 	const tempGrid = { ...grid }
 	tempGrid[block][square] = whosTurn
 
-	// // log first block
-	// for (let i = 0; i < 9; i++) {
-	// 	console.log(tempGrid[0][i])
-	// }
 
+
+	// console.log(tempGrid)
 	// function to check if a block is won
 	// condition: iterate through each square in a block to check if
 	// 3 squares in a row according to lines array is the same whosTurn

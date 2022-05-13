@@ -1,11 +1,14 @@
 import Block from '@/components/Playground/BoardScreen/Block';
+import { useState, memo } from 'react';
 
-export default function Board({ blocks, handleClick, setClickedBlock, setClickedSquare, socket }) {
+const Board = ({ blocks, handleClick, setClickedBlock, setClickedSquare, socket, lastMove, setLastMove, myMove, whosTurn }) => {
 
 	function renderBlock(i) {
 		return (
 			<Block blockNum={i} blocks={blocks} handleClick={handleClick} socket={socket}
 				setClickedBlock={setClickedBlock} setClickedSquare={setClickedSquare}
+				lastMove={lastMove} setLastMove={setLastMove}
+				myMove={myMove} whosTurn={whosTurn}
 			/>
 		)
 	}
@@ -31,3 +34,5 @@ export default function Board({ blocks, handleClick, setClickedBlock, setClicked
 		</div>
 	)
 }
+
+export default memo(Board);
