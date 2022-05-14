@@ -117,7 +117,9 @@ export default function WithSubnavigation() {
 					justify={'flex-end'}
 					direction={'row'}
 					spacing={6}>
+
 					<Button
+						display={{ base: 'none', md: 'inline-flex' }}
 						as={'a'}
 						fontSize={'s'}
 						fontWeight={400}
@@ -126,8 +128,10 @@ export default function WithSubnavigation() {
 						Account Stats
 					</Button>
 					<Button
-						display={{ base: 'none', md: 'inline-flex' }}
-						fontSize={'s'}
+						// display={{ base: 'none', md: 'inline-flex' }}
+						// display={{ base: 1, md: 'inline-flex' }}
+						// display={{ base: 1, md: 0 }}
+						fontSize={'sm'}
 						fontWeight={600}
 						color={'white'}
 						bg={'pink.400'}
