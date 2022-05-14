@@ -519,7 +519,7 @@ const NAV_ITEMS = [
 		,
 		children: [
 			{
-				label: '???',
+				label: '🎖️VIP only for now',
 				subLabel: "???",
 				href: '#',
 			},
