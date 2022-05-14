@@ -29,7 +29,10 @@ const GamePage = ({ stats = [], game = [] }) => {
 		<>
 
 			<h1 className="text-center text-xl font-medium text-black">
-				⚠️This game is in open beta stages.⚠️<br /><br />Please feel free to try out the available features and report any bugs!
+				⚠️This game is in open beta stages.⚠️
+			</h1>
+			<h1 className="text-center text-xl font-medium text-black">
+			Please feel free to try out the available features and report any bugs!
 			</h1>
 
 			<h2 className="flex justify-center text-2xl font-bold text-black py-5">

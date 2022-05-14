@@ -30,10 +30,10 @@ const GamePage = ({ stats = [], game = [] }) => {
 	return !isGameStarted ? (
 		<>
 
-			<h1 className="flex justify-center text-xl font-medium text-black">
-				This game is in open beta stages.
+			<h1 className="text-center text-xl font-medium text-black">
+				⚠️This game is in open beta stages.⚠️
 			</h1>
-			<h1 className="flex justify-center text-xl font-medium text-black">
+			<h1 className="text-center text-xl font-medium text-black">
 				Please feel free to try out the available features and report any bugs!
 			</h1>
 			<h2 className="flex justify-center text-2xl font-bold text-black py-5">
