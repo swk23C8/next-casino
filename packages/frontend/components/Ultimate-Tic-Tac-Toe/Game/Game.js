@@ -351,7 +351,7 @@ const Game = ({ socket = null, inLobby = null, roomPlayers = null, bet = null })
 
 					{/* Top Middle Box (2 wide) */}
 					<GridItem gridArea={{ base: '1/1/ span 1 / span 2', lg: '1/2/ span 1 / span 2' }} w='100%'>
-						<Heading bg={bg} p='2' borderRadius='10px' textAlign='center' size='lg'>You are playing as {myMove} against {opponent.current.username}</Heading>
+						<Heading bg={bg} p='2' borderRadius='10px' textAlign='center' size='md'>You are playing as {myMove} against {opponent.current.username}</Heading>
 					</GridItem>
 
 					{/* Borrom Middle Box (2 wide) */}
