@@ -1,5 +1,6 @@
 import Head from 'next/head';
-import Layout from '@/components/Layout';
+// import Layout from '@/components/Layout';
+import Layout3 from '@/components/Layout3';
 import GamePage from '@/components/Cee-Lo/GamePage/GamePage';
 import { getSession } from 'next-auth/react';
 import { prisma } from '@/lib/prisma';
@@ -76,13 +77,18 @@ export async function getServerSideProps(context) {
 const Game = ({ stats = [], game = [] }) => {
 
    return (
-      <Layout>
+      <>
+         {/* <Layout> */}
+         <Layout3 />
          <Head>
             <title>Cee-Lo | Game</title>
             <meta name="description" content="Game page" />
          </Head>
-         <GamePage stats={stats} game={game} />
-      </Layout>
+         <div className="mx-[0.5vw]">
+            <GamePage stats={stats} game={game} />
+         </div>
+         {/* </Layout> */}
+      </>
    );
 };
 

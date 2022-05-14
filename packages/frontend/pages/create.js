@@ -1,6 +1,7 @@
 import { getSession } from 'next-auth/react';
 import axios from 'axios';
-import Layout from '@/components/Layout';
+// import Layout from '@/components/Layout';
+import Layout3 from '@/components/Layout3';
 import ListingForm from '@/components/ListingForm';
 
 export async function getServerSideProps(context) {
@@ -26,7 +27,8 @@ const Create = () => {
   const addHome = data => axios.post('/api/homes', data);
 
   return (
-    <Layout>
+    <>
+      <Layout3 />
       <div className="max-w-screen-sm mx-auto">
         <h1 className="text-xl font-medium text-gray-800">Support Ticket</h1>
         <p className="text-gray-500">
@@ -40,7 +42,7 @@ const Create = () => {
           />
         </div>
       </div>
-    </Layout>
+    </>
   );
 };
 

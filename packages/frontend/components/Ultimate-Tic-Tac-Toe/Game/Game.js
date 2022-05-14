@@ -332,7 +332,7 @@ const Game = ({ socket = null, inLobby = null, roomPlayers = null, bet = null })
 			<ToastContainer />
 			{myMove ? (<>
 				{/* START - MAIN INFO GRID ABOVE THE GAME BOARD */}
-				<Grid templateRows={{ base: 'repeat (4, 1fr)', lg: 'repeat(2, 1fr)' }} templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }} gap={4} mt='2' alignItems='center'>
+				<Grid templateRows={{ base: 'repeat (4, 1fr)', lg: 'repeat(2, 1fr)' }} templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }} gap={1} mt='2' alignItems='center'>
 					{/* Top Left box */}
 					<GridItem gridArea={{ base: '3/1/ span 1 / span 1', lg: '1/1/ span 1 / span 1' }} w='100%' textAlign='center'>
 						<Button
@@ -356,7 +356,7 @@ const Game = ({ socket = null, inLobby = null, roomPlayers = null, bet = null })
 
 					{/* Borrom Middle Box (2 wide) */}
 					<GridItem gridArea={{ base: '2/1/ span 1 / span 2', lg: '2/2/ span 1 / span 2' }} w='100%' textAlign='center'>
-						<Heading p='2' size='lg'>
+						<Heading size='lg'>
 							{
 								gameOver ? "GAMEOVER" : (`It is ${whosTurn}'s turn!`)
 								// gameOver ? (`${winner.current} won!`) : (`It is ${whosTurn}'s turn!`)

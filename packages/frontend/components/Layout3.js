@@ -54,100 +54,229 @@ import DiceIcon2 from 'public/images/DiceIcon2.png';
 import PokerIcon2 from 'public/images/PokerIcon2.png'
 import CardIcon2 from 'public/images/CardIcon2.png';
 
+const accountMenuItems = [
+	{
+		label: 'Settings',
+		icon: CogIcon,
+		href: '/stats',
+	},
+	{
+		label: 'Support Ticket',
+		icon: SupportIcon,
+		href: '/create',
+	},
+	{
+		label: 'FAQ',
+		icon: QuestionMarkCircleIcon,
+		href: '/faq',
+	},
+	// {
+	//   label: 'About',
+	//   icon: SparklesIcon,
+	//   href: '/about',
+	// },
+	{
+		label: 'TOS',
+		icon: DocumentTextIcon,
+		href: '/privacy',
+	},
+	{
+		label: 'Logout',
+		icon: LogoutIcon,
+		onClick: signOut,
+	},
+];
 
-export default function WithSubnavigation() {
+
+const WithSubnavigation = ({ children = null }) => {
 	const { isOpen, onToggle } = useDisclosure();
 
+	const router = useRouter();
+	const { data: session, status } = useSession();
+	const user = session?.user;
+	const isLoadingUser = status === 'loading';
+	const [showModal, setShowModal] = useState(false);
+	const openModal = () => setShowModal(true);
+	const closeModal = () => setShowModal(false);
+
 	return (
-		<Box>
-			<Flex
-				bg={useColorModeValue('white', 'gray.800')}
-				color={useColorModeValue('gray.600', 'white')}
-				minH={'60px'}
-				py={{ base: 2 }}
-				px={{ base: 4 }}
-				borderBottom={1}
-				borderStyle={'solid'}
-				borderColor={useColorModeValue('gray.200', 'gray.900')}
-				align={'center'}
-				shadow={'md'}
-			>
+		<>
+			<Head>
+				<title>GratisGames | The Modern Casino</title>
+				<meta
+					name="title"
+					content="Play Casino Games for Free | The Modern Casino"
+				/>
+				<link rel="icon" href="/favicon.ico" />
+				<meta name="google-site-verification" content="Q8f9yc4NaHFd_VZQ08Qgrf2gTNFZI0v1VubOBhe99FU" />
+			</Head>
+			<Box>
 				<Flex
-					flex={{ base: 1, md: 'auto' }}
-					ml={{ base: -2 }}
-					display={{ base: 'flex', md: 'none' }}>
-					<IconButton
-						onClick={onToggle}
-						icon={
-							isOpen ? <XIcon w={3} h={3} /> : <MenuIcon w={5} h={5} />
-						}
-						variant={'ghost'}
-						aria-label={'Toggle Navigation'}
-					/>
-				</Flex>
-				<Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
-					{/* <Text
-						textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
-						fontFamily={'heading'}
-						color={useColorModeValue('gray.800', 'white')}>
-						Logo
-					</Text> */}
-					<Link href="/">
-						<a className="flex items-center space-x-1">
-							<SparklesIcon className="shrink-0 w-8 h-8 text-rose-500" />
-							<span className="text-xl font-semibold tracking-wide">
-								Gratis<span className="text-rose-600">Games</span>
-							</span>
-						</a>
-					</Link>
-
+					bg={useColorModeValue('white', 'gray.800')}
+					color={useColorModeValue('gray.600', 'white')}
+					minH={'60px'}
+					py={{ base: 2 }}
+					px={{ base: 4 }}
+					borderBottom={1}
+					borderStyle={'solid'}
+					borderColor={useColorModeValue('gray.200', 'gray.900')}
+					align={'center'}
+					shadow={'md'}
+				>
 					<Flex
-						display={{ base: 'none', md: 'flex' }}
-						// mr={10}
-						// align={'center'}
-						justify={'center'}
-						w={'full'}
-					>
-						<DesktopNav />
+						flex={{ base: 1, md: 'auto' }}
+						ml={{ base: -2 }}
+						display={{ base: 'flex', md: 'none' }}>
+						<IconButton
+							onClick={onToggle}
+							icon={
+								isOpen ? <XIcon w={3} h={3} /> : <MenuIcon w={5} h={5} />
+							}
+							variant={'ghost'}
+							aria-label={'Toggle Navigation'}
+						/>
 					</Flex>
+					<Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
+						<Link href="/">
+							<a className="flex items-center space-x-1">
+								<SparklesIcon className="shrink-0 w-8 h-8 text-rose-500" />
+								<span className="text-xl font-semibold tracking-wide">
+									Gratis<span className="text-rose-600">Games</span>
+								</span>
+							</a>
+						</Link>
+
+						<Flex
+							display={{ base: 'none', md: 'flex' }}
+							// mr={10}
+							// align={'center'}
+							justify={'center'}
+							w={'full'}
+						>
+							<DesktopNav />
+						</Flex>
+					</Flex>
+
+					<Stack
+						flex={{ base: 1, md: 0 }}
+						justify={'flex-end'}
+						direction={'row'}
+						spacing={6}>
+
+						<div className="flex items-center space-x-4 w-max">
+							<button
+								onClick={() => {
+									session?.user ? router.push('/stats') : openModal();
+								}}
+								className="hidden sm:block hover:bg-gray-200 transition rounded-md px-4 py-2 font-semibold text-gray-800 hover:text-gray-600"
+							>
+								Account Stats
+							</button>
+							{isLoadingUser ? (
+								<div className="h-8 w-[75px] bg-gray-200 animate-pulse rounded-md" />
+							) : user ? (
+								<Menu as="div" className="relative z-50">
+									<Menu.Button className="flex items-center space-x-px group">
+										<div className="shrink-0 flex items-center justify-center rounded-full overflow-hidden relative bg-gray-200 w-9 h-9">
+											{user?.image ? (
+												<Image
+													src={user?.image}
+													alt={user?.name || 'Avatar'}
+													layout="fill"
+												/>
+											) : (
+												<UserIcon className="text-gray-400 w-6 h-6" />
+											)}
+										</div>
+										<ChevronDownIcon className="w-5 h-5 shrink-0 text-gray-500 group-hover:text-current" />
+									</Menu.Button>
+									<Transition
+										as={Fragment}
+										enter="transition ease-out duration-100"
+										enterFrom="opacity-0 scale-95"
+										enterTo="opacity-100 scale-100"
+										leave="transition ease-in duration-75"
+										leaveFrom="opacity-100 scale-100"
+										leaveTo="opacity-0 scale-95"
+									>
+										<Menu.Items className="absolute right-0 w-72 overflow-hidden mt-1 divide-y divide-gray-100 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+											<div className="flex items-center space-x-2 py-4 px-4 mb-2">
+												<div className="shrink-0 flex items-center justify-center rounded-full overflow-hidden relative bg-gray-200 w-9 h-9">
+													{user?.image ? (
+														<Image
+															src={user?.image}
+															alt={user?.name || 'Avatar'}
+															layout="fill"
+														/>
+													) : (
+														<UserIcon className="text-gray-400 w-6 h-6" />
+													)}
+												</div>
+												<div className="flex flex-col truncate">
+													<span>{user?.name}</span>
+													<span className="text-sm text-gray-500">
+														{user?.email}
+													</span>
+												</div>
+											</div>
+											<div className="py-2">
+												{accountMenuItems.map(
+													({ label, href, onClick, icon: Icon }) => (
+														<div
+															key={label}
+															className="px-2 last:border-t last:pt-2 last:mt-2"
+														>
+															<Menu.Item>
+																{href ? (
+																	<Link href={href}>
+																		<a className="flex items-center space-x-2 py-2 px-4 rounded-md hover:bg-gray-100">
+																			<Icon className="w-5 h-5 shrink-0 text-gray-500" />
+																			<span>{label}</span>
+																		</a>
+																	</Link>
+																) : (
+																	<button
+																		className="w-full flex items-center space-x-2 py-2 px-4 rounded-md hover:bg-gray-100"
+																		onClick={onClick}
+																	>
+																		<Icon className="w-5 h-5 shrink-0 text-gray-500" />
+																		<span>{label}</span>
+																	</button>
+																)}
+															</Menu.Item>
+														</div>
+													)
+												)}
+											</div>
+										</Menu.Items>
+									</Transition>
+								</Menu>
+							) : (
+								<button
+									type="button"
+									onClick={openModal}
+									className="ml-4 px-4 py-1 rounded-md bg-rose-600 hover:bg-rose-500 focus:outline-none focus:ring-4 focus:ring-rose-500 focus:ring-opacity-50 text-white transition"
+								>
+									Log in
+								</button>
+							)}
+						</div>
+
+					</Stack>
 				</Flex>
 
-				<Stack
-					flex={{ base: 1, md: 0 }}
-					justify={'flex-end'}
-					direction={'row'}
-					spacing={6}>
+				<Collapse in={isOpen} animateOpacity>
+					<MobileNav />
+				</Collapse>
+				<main className="flex-grow container mx-auto max-w-full max-h-screen">
+					<div className="mx-1 mt-2">
+						{typeof children === 'function' ? children(openModal) : children}
+					</div>
+				</main>
 
-					<Button
-						display={{ base: 'none', md: 'inline-flex' }}
-						as={'a'}
-						fontSize={'s'}
-						fontWeight={400}
-						variant={'link'}
-						href={'#'}>
-						Account Stats
-					</Button>
-					<Button
-						// display={{ base: 'none', md: 'inline-flex' }}
-						// display={{ base: 1, md: 'inline-flex' }}
-						// display={{ base: 1, md: 0 }}
-						fontSize={'sm'}
-						fontWeight={600}
-						color={'white'}
-						bg={'pink.400'}
-						href={'#'}
-						_hover={{
-							bg: 'pink.300',
-						}}>
-						Sign Up
-					</Button>
-				</Stack>
-			</Flex>
-
-			<Collapse in={isOpen} animateOpacity>
-				<MobileNav />
-			</Collapse>
-		</Box>
+				<AuthModal show={showModal} onClose={closeModal} />
+			</Box>
+		</>
 	);
 }
 
@@ -295,13 +424,6 @@ const MobileNavItem = ({ label, children, href }) => {
 	);
 };
 
-// interface NavItem {
-// 	label: string;
-// 	subLabel?: string;
-// 	children?: Array<NavItem>;
-// 	href?: string;
-// }
-
 const NAV_ITEMS = [
 	{
 		label:
@@ -323,7 +445,7 @@ const NAV_ITEMS = [
 			{
 				label: 'Cee-Lo',
 				subLabel: 'Single-Player Casino Style Cee-Lo Game',
-				href: '#',
+				href: '/cee_lo',
 			},
 			{
 				label: 'Craps',
@@ -351,7 +473,7 @@ const NAV_ITEMS = [
 			{
 				label: 'Poker',
 				subLabel: "Multiplayer Poker with Texas hold 'em Rules",
-				href: '#',
+				href: '/poker',
 			},
 			{
 				label: 'Blackjack',
@@ -374,12 +496,12 @@ const NAV_ITEMS = [
 			{
 				label: 'Ultimate Tic Tac Toe',
 				subLabel: "Tic Tac Toe variant with an interesting twist!",
-				href: '#',
+				href: '/ultimate_tictactoe',
 			},
 			{
 				label: 'Tic Tac Toe',
 				subLabel: 'Also known as; noughts and crosses or Xs and Os',
-				href: '#',
+				href: '/tictactoe2',
 			},
 		],
 	},
@@ -415,22 +537,22 @@ const NAV_ITEMS = [
 			{
 				label: 'Stats',
 				subLabel: "Check your Account Stats",
-				href: '#',
+				href: '/stats',
 			},
 			{
 				label: 'Rules',
 				subLabel: 'Detailed Rules for all Games & GratisGames',
-				href: '#',
+				href: '/rules',
 			},
 			{
 				label: 'FAQ',
 				subLabel: 'Find answers to Frequently Asked Questions',
-				href: '#',
+				href: '/faq',
 			},
 			{
 				label: 'About Us',
 				subLabel: 'About GratisGames',
-				href: '#',
+				href: '/about',
 			},
 		],
 	},
@@ -443,3 +565,9 @@ const NAV_ITEMS = [
 	// 	href: '#',
 	// },
 ];
+
+WithSubnavigation.propTypes = {
+	children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+};
+
+export default WithSubnavigation;

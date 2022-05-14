@@ -3,7 +3,9 @@ import { useState, useEffect, memo } from 'react';
 
 const Square = ({ squareNum, blockNum, blocks, setClickedSquare, socket, handleClick, lastMove, setLastMove, myMove, whosTurn, gameOver }) => {
 	// let className = "square bg-white border-2 border-solid border-gray-300 float-left text-2xl font-bold w-[9vh] h-[9vh] mr-1 mt-1 text-center hover:bg-gray-400";
-	let className = "square bg-white border-2 border-solid border-gray-300 float-left text-2xl font-bold w-[8vh] h-[8vh] m-1 text-center hover:bg-gray-400";
+	// let className = "square bg-white border-2 border-solid border-gray-300 float-left text-2xl font-bold w-[8vh] h-[8vh] m-1 text-center hover:bg-gray-400";
+	let className = "square bg-white border-2 border-solid border-gray-300 float-left text-2xl font-bold w-[4.5vh] h-[4.5vh] m-[1px] text-center hover:bg-gray-400";
+
 
 	// // if (!isWin) {
 	// if (lastMove >= 0 && blocks[lastMove][9] && !blocks[blockNum][squareNum]) {
@@ -26,7 +28,7 @@ const Square = ({ squareNum, blockNum, blocks, setClickedSquare, socket, handleC
 		if (blocks[blockNum][9] === myMove) {
 			className += " bg-blue-400"
 		}
-		else if (blocks[blockNum][9] !== (myMove&&'')) {
+		else if (blocks[blockNum][9] !== (myMove && '')) {
 			className += " bg-red-400"
 		}
 		// else if (blocks[blockNum][9] !== (myMove&&'X') && blocks[blockNum][9] !== (myMove&&'O')) {

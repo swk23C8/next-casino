@@ -1,5 +1,6 @@
 import Head from 'next/head';
-import Layout from '@/components/Layout';
+// import Layout from '@/components/Layout';
+import Layout3 from '@/components/Layout3';
 import GamePage from '@/components/Tic-Tac-Toe2/GamePage/GamePage';
 import { getSession } from 'next-auth/react';
 import { prisma } from '@/lib/prisma';
@@ -21,7 +22,7 @@ export async function getServerSideProps(context) {
 	// Check if the user is authenticated
 	// If not, assign guest profile
 	if (!session) {
-		const randomGuest = "GUEST_"+Math.floor(Math.random() * 100) + 1;
+		const randomGuest = "GUEST_" + Math.floor(Math.random() * 100) + 1;
 		return {
 			props: {
 				stats: {
@@ -40,7 +41,7 @@ export async function getServerSideProps(context) {
 					bDie_3: 0,
 					bScore: 0,
 					createdAt: "",
-					id: randomGuest+"_game",
+					id: randomGuest + "_game",
 					pBet: 0,
 					pDie_1: 0,
 					pDie_2: 0,
@@ -77,13 +78,16 @@ export async function getServerSideProps(context) {
 const Game = ({ stats = [], game = [] }) => {
 
 	return (
-		<Layout>
+		<>
+			<Layout3 />
 			<Head>
 				<title>Ultimate Tic Tac Toe | Game</title>
 				<meta name="Ultimate Tic Tac Toe" content="Game page" />
 			</Head>
-			<GamePage stats={stats} game={game} />
-		</Layout>
+			<div className="mx-[1vw]">
+				<GamePage stats={stats} game={game} />
+			</div>
+		</>
 	);
 };
 
