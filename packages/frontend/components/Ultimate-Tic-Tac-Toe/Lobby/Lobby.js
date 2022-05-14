@@ -196,9 +196,9 @@ export default function Lobby({ stats = [], game = [] }) {
 			{socket ? (
 				<>
 					<div>
-						{"your socket id: " + socket.id}< br />
-						{"your account id: " + stats.id}< br />
-						{"your account balance: " + balance}< br />
+						<p>{"your socket id: " + socket.id}</p>
+						<p>{"your account id@balance: " + stats.id + "@" + balance}</p>
+						{/* <p>{"your account balance: " + balance}</p> */}
 					</div>
 					{inLobby ? (
 						<>
