@@ -203,7 +203,7 @@ export default function Lobby({ stats = [], game = [] }) {
 					{inLobby ? (
 						<>
 							{/* < br /> */}
-							{"Current room name: " + "not in a room"}< br />
+							{"Room name: " + "not in a room"}< br />
 							{"Your game bet: " + pBet}< br />
 							<form
 								className=""
@@ -230,9 +230,9 @@ export default function Lobby({ stats = [], game = [] }) {
 					) : (
 						<div>
 							{/* < br /> */}
-							<p>{"Current room name: " + myRoom}</p>
-							<p>{"Current room bet: " + pBet}</p>
-							<p>{"Current room players: " + roomPlayerUsername}</p>
+							<p>{"Room name: " + myRoom}</p>
+							<p>{"Room bet: " + pBet}</p>
+							<p>{"Room players: " + roomPlayerUsername}</p>
 						</div>
 					)}
 
