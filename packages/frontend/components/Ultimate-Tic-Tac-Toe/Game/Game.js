@@ -1,3 +1,64 @@
+// const objectGrid = {
+// 	1: { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" },
+// 	2: { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" },
+// 	3: { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" },
+// 	4: { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" },
+// 	5: { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" },
+// 	6: { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" },
+// 	7: { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" },
+// 	8: { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" },
+// 	9: { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" },
+// }
+// console.log(objectGrid)
+
+// const UltimateGrid = [
+// 	[
+// 		"1_1", "1_2", "1_3",
+// 		"1_4", "1_5", "1_6",
+// 		"1_7", "1_8", "1_9",
+// 	],
+// 	[
+// 		"2_1", "2_2", "2_3",
+// 		"2_4", "2_5", "2_6",
+// 		"2_7", "2_8", "2_9",
+// 	],
+// 	[
+// 		"3_1", "3_2", "3_3",
+// 		"3_4", "3_5", "3_6",
+// 		"3_7", "3_8", "3_9",
+// 	],
+// 	[
+// 		"4_1", "4_2", "4_3",
+// 		"4_4", "4_5", "4_6",
+// 		"4_7", "4_8", "4_9",
+// 	],
+// 	[
+// 		"5_1", "5_2", "5_3",
+// 		"5_4", "5_5", "5_6",
+// 		"5_7", "5_8", "5_9",
+// 	],
+// 	[
+// 		"6_1", "6_2", "6_3",
+// 		"6_4", "6_5", "6_6",
+// 		"6_7", "6_8", "6_9",
+// 	],
+// 	[
+// 		"7_1", "7_2", "7_3",
+// 		"7_4", "7_5", "7_6",
+// 		"7_7", "7_8", "7_9",
+// 	],
+// 	[
+// 		"8_1", "8_2", "8_3",
+// 		"8_4", "8_5", "8_6",
+// 		"8_7", "8_8", "8_9",
+// 	],
+// 	[
+// 		"9_1", "9_2", "9_3",
+// 		"9_4", "9_5", "9_6",
+// 		"9_7", "9_8", "9_9",
+// 	],
+// ]
+
 import {
 	Modal,
 	ModalOverlay,
@@ -23,30 +84,20 @@ import { useEffect, useRef, useState } from "react";
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { checkWinCon } from '@/components/Ultimate-Tic-Tac-Toe/Logic/WinCon'
+import { checkWinCon } from '@/components/Ultimate-Tic-Tac-Toe/Logic/WinCon';
+import Board from "@/components/Ultimate-Tic-Tac-Toe/BoardScreen/Board";
 
-
-export default function Game({ socket = null, inLobby = null, roomPlayers = null, bet = null }) {
-
-	const router = useRouter();
-	const matchStart1 = { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" }
-
-	// make grid for ultimate tic-tac-toe game
-
-	const matchStart = {
-		1: { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" },
-		2: { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" },
-		3: { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" },
-		4: { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" },
-		5: { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" },
-		6: { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" },
-		7: { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" },
-		8: { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" },
-		9: { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" },
-	}
-
+const Game = ({ socket = null, inLobby = null, roomPlayers = null, bet = null }) => {
+	// const matchStart = Array(9).fill().map((_, index) =>
+	// 	Array(9).fill(index + 1)
+	// )
+	const matchStart = Array(9).fill().map((_, index) =>
+		Array(10).fill("")
+	)
 	const { isOpen, onOpen, onClose } = useDisclosure()
 	const [grid, setGrid] = useState(matchStart)
+	const [clickedBlock, setClickedBlock] = useState("NULL")
+	const [clickedSquare, setClickedSquare] = useState("NULL")
 	const [whosTurn, setWhosTurn] = useState('')
 	const [gameOver, setGameOver] = useState(false)
 	const [gameInfo, setGameInfo] = useState('Waiting for another player to connect....')
@@ -54,6 +105,8 @@ export default function Game({ socket = null, inLobby = null, roomPlayers = null
 	const opponent = useRef(null)
 	const me = useRef(null)
 	const winner = useRef();
+	const [lastMove, setLastMove] = useState(-1)
+	const [turnsLeft, setTurnsLeft] = useState(81)
 
 	const notifyWin = () => toast.success('🦄 Wow so easy! You win!', {
 		position: "top-left",
@@ -97,7 +150,7 @@ export default function Game({ socket = null, inLobby = null, roomPlayers = null
 
 	// api call to update token
 	const updateToken = (e) => {
-		if (me.current.username === "GUEST") {
+		if ((me.current.username).startsWith('GUEST')) {
 			toast('🦄 Wow so GUEST! Free Game!', {
 				position: "top-left",
 				autoClose: 5000,
@@ -111,8 +164,6 @@ export default function Game({ socket = null, inLobby = null, roomPlayers = null
 		else {
 			axios.patch('/api/gameAction/updateToken', { e, })
 				.then(res => {
-					// setBalance(res.data.newToken);
-
 					// emit to server to update balance
 					socket.emit('updateBalance', res.data.newToken);
 				})
@@ -123,7 +174,6 @@ export default function Game({ socket = null, inLobby = null, roomPlayers = null
 		}
 	}
 
-	// only run if roomPlayers is not null
 	let temp = null;
 	if (roomPlayers) {
 		if (roomPlayers.length === 2) {
@@ -146,56 +196,65 @@ export default function Game({ socket = null, inLobby = null, roomPlayers = null
 
 	useEffect(() => {
 		startGame()
-
 		if (!socket) return;
-
 		socket.once('ready', (args) => {
 			setGameInfo(`Both players in room. Game will start shortly.....`)
 		})
-
 		socket.on("message", (args) => {
 			console.log(args);
 		});
-
 		socket.on('myMove', args => {
 			setGameInfo(`You will be playing as "${args}"`)
 			onOpen()
 			setMyMove(args)
 			startGame()
 		})
-
 		socket.once('eBrake', (args) => {
 			inLobby(true)
 			// alert('The other player disconnected. Returning to Lobby....')
 		})
-
 	}, [])
 
 	useEffect(() => {
 		if (!socket) return;
-
-
-
-		// when a player makes a move in an online game, the move is sent to the server then sent back to each
-		//client at the same time, checkMove is run to see if that move would create a win and changes whos turn
-		//it is on each client. The server has no logic of turn order or move state.
-		socket.on('move', (args) => {
-			socket.off('move') //required to ensure multiple listeners are not added on every re-render
-			console.log(`Received move ${args.move} for player ${args.player}`)
-			checkMove(args.move, args.player, grid, args.me.username)
+		socket.on('test', (args) => {
+			socket.off('test') //required to ensure multiple listeners are not added on every re-render
+			// console.log(`Received move ${args.move} for player ${args.player}`)
+			checkMove(args.block, args.square, args.player, grid, args.me.username)
 		})
+
+		// // receive opponent's lastMove for valid blocks
+		socket.on('lastMove', (args) => {
+			socket.off('lastMove')
+			setLastMove(args.lastMove)
+		})
+
+		// socket.emit("lastMove", { lastMove })
 
 		//used to monitor how many instances of the 'move' listener are currently mounted
 		// console.log(socket._callbacks.$move)
-
 		return () => {
-			if (socket) socket.off('move')
+			if (socket) socket.off('test')
+			if (socket) socket.off('lastMove')
+		}
+	}, [socket, grid, lastMove]);
+
+
+	useEffect(() => {
+		if (!socket) return;
+
+		if (myMove === whosTurn) {
+			socket.emit("lastMove", { lastMove })
 		}
 
-	}, [socket, grid]);
+		return () => {
+			if (socket) socket.off('lastMove')
+		}
+	}, [socket, lastMove]);
 
 
-	function handleClick(square) {
+	function handleClick(socket, block, square) {
+
 		//if game is already over, prevent any further board changes
 		if (gameOver) {
 			return;
@@ -208,22 +267,31 @@ export default function Game({ socket = null, inLobby = null, roomPlayers = null
 		}
 
 		// if a square is clicked that has already has a move, prevent over-writes
-		if (grid[square]) {
-			grid[square] === whosTurn ? alert("You already went there!") :
-				alert(grid[square] + " already went there!")
+		if (grid[block][square]) {
+			grid[block][square] === whosTurn ? alert("You already went there!") :
+				alert(grid[block][square] + " already went there!")
+			return;
+		}
+
+		// if the block is already won, prevent changes to the that block
+		if (grid[block][9] !== '') {
+			grid[block][9] === whosTurn ? alert('You won this block!') :
+				alert(grid[block][9] + ' already won the block!')
 			return;
 		}
 
 		else {
+			// setLastMove(square)
 			// send to sever the valid move and who made it, sending player as well to help prevent stale states
-			socket.emit('move', { move: square, player: whosTurn, me: me.current }, () => {
+			socket.emit('test', { block: block, square: square, player: whosTurn, me: me.current }, () => {
 				console.log(`Sent server move ${square} for player ${whosTurn}`)
 			})
+			setTurnsLeft(turnsLeft - 1)
 		}
 	}
 
-	function checkMove(nextMove, player = whosTurn, myGrid = grid, playerName) {
-		const isWinner = checkWinCon(myGrid, setGrid, nextMove, player, playerName)
+	function checkMove(block, square, player = whosTurn, myGrid = grid, playerName, myLastMove = lastMove) {
+		const isWinner = checkWinCon(myGrid, setGrid, block, square, player, playerName, myLastMove)
 		if (isWinner) {
 			winner.current = isWinner
 			// setGameInfo(`${winner.current} has won!`)
@@ -244,7 +312,6 @@ export default function Game({ socket = null, inLobby = null, roomPlayers = null
 				notifyLose();
 				setGameInfo(`${winner.current} has won!`)
 			}
-
 			setGameOver(true)
 			return;
 		}
@@ -259,7 +326,7 @@ export default function Game({ socket = null, inLobby = null, roomPlayers = null
 
 	const bg = useColorModeValue('blue.300', 'orange.200')
 
-
+	// inside 1 Board > 9 Blocks in each Board > 9 Squares in each Block
 	return (
 		<>
 			<ToastContainer />
@@ -291,7 +358,7 @@ export default function Game({ socket = null, inLobby = null, roomPlayers = null
 					<GridItem gridArea={{ base: '2/1/ span 1 / span 2', lg: '2/2/ span 1 / span 2' }} w='100%' textAlign='center'>
 						<Heading p='2' size='lg'>
 							{
-								gameOver ? " " : (`It is ${whosTurn}'s turn!`)
+								gameOver ? "GAMEOVER" : (`It is ${whosTurn}'s turn!`)
 								// gameOver ? (`${winner.current} won!`) : (`It is ${whosTurn}'s turn!`)
 							}
 						</Heading>
@@ -316,36 +383,35 @@ export default function Game({ socket = null, inLobby = null, roomPlayers = null
 
 				{/* START - GAME BOARD AREA */}
 				<Flex flexWrap="wrap" alignItems="center" justifyContent="center"
-					width="20vw"
+					// width="45vw"
+					mb={4}
 				>
-					{Object.keys(grid).map((square, index) => {
-						return (
-							<>
-								<Box as="button" p="1" borderWidth='5px' borderColor="grey"
-									// width='10%' height='100px'
-									boxSize="6vw"
-									flexBasis="30%"
-									backgroundColor=""
-									onClick={() => handleClick(`${square}`)} key={"grid_" + index}
-								>
-									<Text fontSize="400%">
-										{grid[square]}
-									</Text>
-								</Box>
-							</>
-						)
-					})}
+					{/* <div>
+						<p>clicked on block: {clickedBlock}</p>
+						<p>clicked on square: {clickedSquare}</p>
+					</div> */}
+					<Board
+						blocks={grid}
+						setClickedBlock={setClickedBlock}
+						setClickedSquare={setClickedSquare}
+						handleClick={handleClick}
+						socket={socket}
+						lastMove={lastMove}
+						setLastMove={setLastMove}
+						myMove={myMove}
+						whosTurn={whosTurn}
+						gameOver={gameOver}
+					/>
 
 				</Flex>
 
-				{/* START - GAME BOARD AREA */}
+				{/* END - GAME BOARD AREA */}
 
 			</>) :
 				(<>
 					{/* INFO SECTION SHOWING WHEN WAITING FOR OPPONENT TO JOIN A ROOM AFTER CREATION AND ON JOIN */}
 					<Heading textAlign={'center'} wordBreak='break-word'>
 						{gameInfo}
-						{/* <br />{"lasdfasdfol"} */}
 					</Heading>
 					<Button border='2px'
 						onClick={() => {
@@ -360,10 +426,9 @@ export default function Game({ socket = null, inLobby = null, roomPlayers = null
 				)
 			}
 			<>
-
-				{/* <Modal isOpen={isOpen} onClose={onClose} isCentered>
-					<ModalOverlay />
-					<ModalContent>
+				<Modal isOpen={isOpen} onClose={onClose} isCentered>
+					<ModalOverlay width='100%' height='100%' />
+					<ModalContent top="-5%">
 						<ModalHeader>Tic Tac Toe</ModalHeader>
 						<ModalCloseButton />
 						<ModalBody>
@@ -376,8 +441,10 @@ export default function Game({ socket = null, inLobby = null, roomPlayers = null
 							</Button>
 						</ModalFooter>
 					</ModalContent>
-				</Modal> */}
+				</Modal>
 			</>
 		</>
 	);
 }
+
+export default Game;

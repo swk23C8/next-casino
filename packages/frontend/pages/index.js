@@ -1,4 +1,6 @@
 import Layout from '@/components/Layout';
+import Layout2 from '@/components/Layout2';
+import Layout3 from '@/components/Layout3';
 import Grid from '@/components/Grid';
 import { prisma } from '@/lib/prisma';
 import { useState, useEffect } from 'react';
@@ -22,46 +24,10 @@ export async function getServerSideProps() {
 
 export default function Home({ stats = [] }) {
 
-   // get output from localhost:5000/api
-   // get output from localhost:5000/activity
-   const [test, setTest] = useState('');
-   // useEffect(() => {
-   //    fetch('https://www.boredapi.com/api/activity')
-   //       .then(res => res.json())
-   //       .then(json => setActivity(json.activity))
-   //       .catch(function (err) {
-   //          console.log(err);
-   //       })
-   // }, []);
-   // useEffect(() => {
-   //    fetch('https://swk23c8.herokuapp.com/api')
-   //       .then(res => res.json())
-   //       .then(json => setActivity(json.message))
-   //       .catch(function (err) {
-   //          console.log(err);
-   //       })
-   // }, []);
-   // useEffect(() => {
-   //    fetch('http://localhost:5000/api')
-   //       .then(res => res.json())
-   //       .then(json => setActivity(json.message))
-   //       .catch(function (err) {
-   //          console.log(err);
-   //       })
-   // }, []);
-
-   // const getHello = async () => {
-   //    const response = await fetch('https://swk23c8.herokuapp.com/api');
-   //    const json = await response.json();
-   //    setTest(json.message);
-   // };
-
-   // useEffect(() => {
-   //    getHello();
-   // }, []);
-
    return (
-      <Layout>
+      // <Layout>
+      <>
+         <Layout3 />
          {/* landing page */}
          <h1 className="
                text-center
@@ -112,6 +78,7 @@ export default function Home({ stats = [] }) {
             {/* <Grid homes={homes} /> */}
             <Grid stats={stats} />
          </div>
-      </Layout >
+         {/* </Layout> */}
+      </>
    );
 }

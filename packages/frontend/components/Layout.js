@@ -153,6 +153,17 @@ const Layout = ({ children = null }) => {
                            </a>
                         </Link>
 
+                        <Link href="/ultimate_tictactoe">
+                           <a className="flex items-center space-x-1 rounded-md hover:bg-rose-100 transition px-3">
+                              {/* <PuzzleIcon className="shrink-0 w-8 h-8 text-rose-500" /> */}
+                              <PuzzleIcon className="shrink-0 w-8 h-8 text-rose-500" />
+
+                              <span className="text-xl font-semibold tracking-wide">
+                                 Ultimate Tic-Tac-Toe
+                              </span>
+                           </a>
+                        </Link>
+
                         <Link href="/tictactoe">
                            <a className="flex items-center space-x-1 rounded-md hover:bg-rose-100 transition px-3">
                               {/* <PuzzleIcon className="shrink-0 w-8 h-8 text-rose-500" /> */}

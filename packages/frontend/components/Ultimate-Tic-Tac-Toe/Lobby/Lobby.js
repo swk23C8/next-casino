@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import io from "socket.io-client";
-const Game = React.lazy(() => import("@/components/Ultimate-Tic-Tac-Toe/Play/Play"));
+const Game = React.lazy(() => import("@/components/Ultimate-Tic-Tac-Toe/Game/Game"));
 import { Box, Button, Center, Flex, Spacer } from "@chakra-ui/react";
 // import styles from "../../styles/Lobby.module.css";
 import axios from 'axios';
@@ -29,7 +29,7 @@ export default function Lobby({ stats = [], game = [] }) {
 
 	const notifyError = () => toast.error('🦄 Wow so error! Invalid!', {
 		position: "top-left",
-		autoClose: 3000,
+		autoClose: 5000,
 		hideProgressBar: false,
 		closeOnClick: true,
 		pauseOnHover: true,
@@ -84,6 +84,9 @@ export default function Lobby({ stats = [], game = [] }) {
 		setRoomBet(game.pBet)
 		setRoomPlayers(null)
 		setInLobby(true)
+		// setRooms(null)
+		// setRoomsBets(null)
+		// socket.emit("reset")
 	}
 
 	useEffect(() => {
@@ -178,15 +181,25 @@ export default function Lobby({ stats = [], game = [] }) {
 				<Box>Server Status:{socket ? " Connected" : " Not Connected"}</Box>
 				<Box>
 					Connected users: {socket ? (activeUsers) : ('Not Connected')}
+					{/* <Button
+						onClick={() => {
+							socket.emit("report");
+						}}
+					>
+						Debug
+					</Button>
+					<Button onClick={() => socket.connect()}>Connect</Button>
+					<Button onClick={() => reset()}>Reset</Button> */}
 				</Box>
 			</Flex>
 
 			{socket ? (
 				<>
-					{"your socket id: " + socket.id}< br />
-					{"your account id: " + stats.id}< br />
-					{"your account balance: " + balance}< br />
-					{/* {"your current bet: " + pBet}< br /> */}
+					<div>
+						{"your socket id: " + socket.id}< br />
+						{"your account id: " + stats.id}< br />
+						{"your account balance: " + balance}< br />
+					</div>
 					{inLobby ? (
 						<>
 							< br />
@@ -209,18 +222,22 @@ export default function Lobby({ stats = [], game = [] }) {
 							</button>
 						</>
 					) : (
-						<>
+						<div>
 							< br />
-							{"Current room name: " + myRoom}< br />
-							{"Current room bet: " + pBet}< br />
-							{"Current room players: " + roomPlayerUsername}< br />
-						</>
+							<p>{"Current room name: " + myRoom}</p>
+							<p>{"Current room bet: " + pBet}</p>
+							<p>{"Current room players: " + roomPlayerUsername}</p>
+						</div>
 					)}
 
 
 					{rooms ? (
 						<>
-							<Flex flexWrap="warp" padding="10px" justifyContent="center">
+							<Flex
+								flexWrap="warp"
+								// padding="10px"
+								justifyContent="center"
+							>
 								{inLobby && (
 									<>
 										<Button
@@ -248,7 +265,7 @@ export default function Lobby({ stats = [], game = [] }) {
 								)}
 							</Flex>
 
-							{inLobby ? (
+							{(inLobby && roomsBets) ? (
 								<Flex flexWrap="wrap" margin="2rem" justifyContent={{ base: 'space-evenly', md: 'center' }}>
 									{
 										rooms.map((room, index) => {

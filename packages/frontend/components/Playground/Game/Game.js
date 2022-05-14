@@ -426,10 +426,9 @@ const Game = ({ socket = null, inLobby = null, roomPlayers = null, bet = null })
 				)
 			}
 			<>
-
 				<Modal isOpen={isOpen} onClose={onClose} isCentered>
-					<ModalOverlay />
-					<ModalContent>
+					<ModalOverlay width='100%' height='100%' />
+					<ModalContent top="-5%">
 						<ModalHeader>Tic Tac Toe</ModalHeader>
 						<ModalCloseButton />
 						<ModalBody>
