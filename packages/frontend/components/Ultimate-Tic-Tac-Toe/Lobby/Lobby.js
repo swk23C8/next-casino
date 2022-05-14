@@ -176,7 +176,7 @@ export default function Lobby({ stats = [], game = [] }) {
 				justifyContent={{ base: "center", md: "space-between" }}
 				alignItems='center'
 				flexWrap="warp"
-				padding={{ base: '0.5rem', md: "1.5rem" }}
+			// padding={{ base: '0.5rem', md: "1.5rem" }}
 			>
 				<Box>Server Status:{socket ? " Connected" : " Not Connected"}</Box>
 				<Box>
@@ -202,7 +202,7 @@ export default function Lobby({ stats = [], game = [] }) {
 					</div>
 					{inLobby ? (
 						<>
-							< br />
+							{/* < br /> */}
 							{"Current room name: " + "not in a room"}< br />
 							{"Your game bet: " + pBet}< br />
 							<form
@@ -211,15 +211,21 @@ export default function Lobby({ stats = [], game = [] }) {
 								onSubmit={makeBet}>
 								<label className="">
 									Bet Amount:
-									<input className="ml-5" type="number" name="bet" />
+									<input className="m-1 h-9" type="number" name="bet" />
 								</label>
+								<button
+									disabled={stats.userType === "GUEST" ? true : false}
+									form="makeBetForm"
+									className="tracking-widest shadow-lg shadow-cyan-500/50 font-bold self-center text-[100%] w-[1/5] my-3 bg-rose-600 text-white py-2 px-6 rounded-md focus:outline-none focus:ring-4 focus:ring-rose-600 focus:ring-opacity-50 hover:bg-rose-500 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-rose-600">
+									BET
+								</button>
 							</form>
-							<button
+							{/* <button
 								disabled={stats.userType === "GUEST" ? true : false}
 								form="makeBetForm"
-								className="tracking-widest shadow-lg shadow-cyan-500/50 font-bold text-3xl w-1/5 my-3 bg-rose-600 text-white py-3 px-6 rounded-md focus:outline-none focus:ring-4 focus:ring-rose-600 focus:ring-opacity-50 hover:bg-rose-500 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-rose-600">
+								className="tracking-widest shadow-lg shadow-cyan-500/50 font-bold self-center text-[100%] w-[1/5] my-3 bg-rose-600 text-white py-3 px-6 rounded-md focus:outline-none focus:ring-4 focus:ring-rose-600 focus:ring-opacity-50 hover:bg-rose-500 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-rose-600">
 								BET
-							</button>
+							</button> */}
 						</>
 					) : (
 						<div>
