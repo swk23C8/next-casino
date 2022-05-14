@@ -211,7 +211,7 @@ export default function Lobby({ stats = [], game = [] }) {
 								onSubmit={makeBet}>
 								<label className="">
 									Bet Amount:
-									<input className="m-1 h-9" type="number" name="bet" />
+									<input className="m-2 h-9 w-[18vh]" type="number" name="bet" />
 								</label>
 								<button
 									disabled={stats.userType === "GUEST" ? true : false}
@@ -229,7 +229,7 @@ export default function Lobby({ stats = [], game = [] }) {
 						</>
 					) : (
 						<div>
-							< br />
+							{/* < br /> */}
 							<p>{"Current room name: " + myRoom}</p>
 							<p>{"Current room bet: " + pBet}</p>
 							<p>{"Current room players: " + roomPlayerUsername}</p>
