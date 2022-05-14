@@ -380,6 +380,7 @@ const MobileNavItem = ({ label, children, href }) => {
 	return (
 		<Stack spacing={4} onClick={children && onToggle}>
 			<Flex
+				// width={'100%'}
 				py={2}
 				as={Link}
 				href={href ?? '#'}
@@ -387,7 +388,8 @@ const MobileNavItem = ({ label, children, href }) => {
 				align={'center'}
 				_hover={{
 					textDecoration: 'none',
-				}}>
+				}}
+			>
 				<Text
 					fontWeight={600}
 					color={useColorModeValue('gray.600', 'gray.200')}>
@@ -414,7 +416,7 @@ const MobileNavItem = ({ label, children, href }) => {
 					align={'start'}>
 					{children &&
 						children.map((child) => (
-							<Link key={child.label} py={2} href={child.href}>
+							<Link key={child.label} py={2} href={child.href} width={'100%'}>
 								{child.label}
 							</Link>
 						))}
