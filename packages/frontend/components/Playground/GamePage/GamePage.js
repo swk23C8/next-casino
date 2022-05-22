@@ -38,7 +38,7 @@ const GamePage = ({ stats = [], game = [] }) => {
 				Welcome to the Playground!
 			</h2>
 			<h2 className="text-center text-2xl font-bold text-black">
-				⚠️Feel free to abuse this page with requests, db..etc! ⚠️
+				⚠️Currently Testing Card Games (Poker & Blackjack) ⚠️
 			</h2>
 
 			{/* button to initiate gameState by calling api */}

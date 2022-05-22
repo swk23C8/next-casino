@@ -269,7 +269,8 @@ const WithSubnavigation = ({ children = null }) => {
 					<MobileNav />
 				</Collapse>
 				<main className="flex-grow container mx-auto max-w-full max-h-screen">
-					<div className="mx-1 mt-2">
+					{/* <div className="mx-1 mt-2"> */}
+					<div className="">
 						{typeof children === 'function' ? children(openModal) : children}
 					</div>
 				</main>
@@ -434,12 +435,15 @@ const NAV_ITEMS = [
 				<Image
 					// className="shrink-0 w-8 h-8 text-rose-500"
 					src={DiceIcon2}
+					// width={'50vw'}
+					// height={'50vw'}
 					width={35}
 					height={35}
 					alt="DiceIcon2"
 				/>
 				<span className="text-xl font-semibold tracking-wide">
-					Dice Games
+					{/* Dice Games */}
+					Dice
 				</span>
 			</div>
 		,
@@ -462,12 +466,15 @@ const NAV_ITEMS = [
 				<Image
 					// className="shrink-0 w-8 h-8 text-rose-500"
 					src={CardIcon2}
+					// width={'50vw'}
+					// height={'50vw'}
 					width={35}
 					height={35}
 					alt="CardIcon2"
 				/>
 				<span className="text-xl font-semibold tracking-wide">
-					Card Games
+					{/* Card Games */}
+					Cards
 				</span>
 			</div>
 		,
@@ -490,7 +497,9 @@ const NAV_ITEMS = [
 				<PuzzleIcon className="shrink-0 w-8 h-8 text-rose-500" />
 
 				<span className="text-xl font-semibold tracking-wide">
-					Paper & Pencil Games
+					{/* Paper & Pencil Games */}
+					{/* Pen & Paper Games */}
+					Board Games
 				</span>
 			</div>
 		,
@@ -513,7 +522,7 @@ const NAV_ITEMS = [
 				<BeakerIcon className="shrink-0 w-8 h-8 text-rose-500" />
 
 				<span className="text-xl font-semibold tracking-wide">
-					PlayGround
+					Playground
 				</span>
 			</div>
 		,
@@ -522,6 +531,11 @@ const NAV_ITEMS = [
 				label: '🎖️VIP only for now',
 				subLabel: "???",
 				href: '#',
+			},
+			{
+				label: 'Testing Grounds',
+				subLabel: "🐢",
+				href: '/playground',
 			},
 		],
 	},

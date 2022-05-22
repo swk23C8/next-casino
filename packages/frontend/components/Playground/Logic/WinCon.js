@@ -19,18 +19,12 @@ export const checkWinCon = (grid, setGrid, block, square, whosTurn, playerName, 
 	tempGrid[block][square] = whosTurn
 
 
-
-	// console.log(tempGrid)
-	// function to check if a block is won
-	// condition: iterate through each square in a block to check if
-	// 3 squares in a row according to lines array is the same whosTurn
 	function checkBlockWin(tempGrid) {
 		for (let i = 0; i < lines.length; i++) {
 			const [a, b, c] = lines[i]
 			if (tempGrid[block][a] && tempGrid[block][a] === tempGrid[block][b] && tempGrid[block][a] === tempGrid[block][c]) {
 				tempGrid[block][9] = tempGrid[block][a]
 				return (
-					// console.log("block " + block + " won by " + tempGrid[block][9])
 					tempGrid[block][9]
 				)
 			}

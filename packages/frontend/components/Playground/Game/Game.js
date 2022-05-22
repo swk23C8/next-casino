@@ -1,64 +1,3 @@
-// const objectGrid = {
-// 	1: { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" },
-// 	2: { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" },
-// 	3: { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" },
-// 	4: { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" },
-// 	5: { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" },
-// 	6: { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" },
-// 	7: { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" },
-// 	8: { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" },
-// 	9: { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: "" },
-// }
-// console.log(objectGrid)
-
-// const UltimateGrid = [
-// 	[
-// 		"1_1", "1_2", "1_3",
-// 		"1_4", "1_5", "1_6",
-// 		"1_7", "1_8", "1_9",
-// 	],
-// 	[
-// 		"2_1", "2_2", "2_3",
-// 		"2_4", "2_5", "2_6",
-// 		"2_7", "2_8", "2_9",
-// 	],
-// 	[
-// 		"3_1", "3_2", "3_3",
-// 		"3_4", "3_5", "3_6",
-// 		"3_7", "3_8", "3_9",
-// 	],
-// 	[
-// 		"4_1", "4_2", "4_3",
-// 		"4_4", "4_5", "4_6",
-// 		"4_7", "4_8", "4_9",
-// 	],
-// 	[
-// 		"5_1", "5_2", "5_3",
-// 		"5_4", "5_5", "5_6",
-// 		"5_7", "5_8", "5_9",
-// 	],
-// 	[
-// 		"6_1", "6_2", "6_3",
-// 		"6_4", "6_5", "6_6",
-// 		"6_7", "6_8", "6_9",
-// 	],
-// 	[
-// 		"7_1", "7_2", "7_3",
-// 		"7_4", "7_5", "7_6",
-// 		"7_7", "7_8", "7_9",
-// 	],
-// 	[
-// 		"8_1", "8_2", "8_3",
-// 		"8_4", "8_5", "8_6",
-// 		"8_7", "8_8", "8_9",
-// 	],
-// 	[
-// 		"9_1", "9_2", "9_3",
-// 		"9_4", "9_5", "9_6",
-// 		"9_7", "9_8", "9_9",
-// 	],
-// ]
-
 import {
 	Modal,
 	ModalOverlay,
@@ -73,6 +12,14 @@ import {
 	Grid,
 	GridItem
 } from '@chakra-ui/react'
+import {
+	Slider,
+	SliderTrack,
+	SliderFilledTrack,
+	SliderThumb,
+	SliderMark,
+	Tooltip,
+} from '@chakra-ui/react'
 import { useRouter } from "next/router";
 import {
 	RefreshIcon,
@@ -85,12 +32,10 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { checkWinCon } from '@/components/Playground/Logic/WinCon';
+import { handleHands } from '@/components/Playground/Logic/Hands';
 import Board from "@/components/Playground/BoardScreen/Board";
 
-const Game = ({ socket = null, inLobby = null, roomPlayers = null, bet = null }) => {
-	// const matchStart = Array(9).fill().map((_, index) =>
-	// 	Array(9).fill(index + 1)
-	// )
+const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null, room = null, setInGame = null }) => {
 	const matchStart = Array(9).fill().map((_, index) =>
 		Array(10).fill("")
 	)
@@ -106,7 +51,19 @@ const Game = ({ socket = null, inLobby = null, roomPlayers = null, bet = null })
 	const me = useRef(null)
 	const winner = useRef();
 	const [lastMove, setLastMove] = useState(-1)
-	const [turnsLeft, setTurnsLeft] = useState(81)
+	const [myHand, setMyHand] = useState()
+	const [dealtCards, setDealtCards] = useState(false)
+
+	const [currentDeckTest, setCurrentDeckTest] = useState()
+	const [hands, setHands] = useState(['1B', '1B'])
+	const [communityCardsTest, setCommunityCardsTest] = useState(['1B', '1B', '1B', '1B', '1B'])
+	const [revealHands, setRevealHands] = useState(false)
+
+
+	const [sliderValue, setSliderValue] = useState(5)
+	const [showTooltip, setShowTooltip] = useState(false)
+	const [currentPot, setCurrentPot] = useState(bet)
+	const [currentStake, setCurrentStake] = useState()
 
 	const notifyWin = () => toast.success('🦄 Wow so easy! You win!', {
 		position: "top-left",
@@ -195,93 +152,143 @@ const Game = ({ socket = null, inLobby = null, roomPlayers = null, bet = null })
 	}
 
 	useEffect(() => {
-		startGame()
+		// startGame()
 		if (!socket) return;
 		socket.once('ready', (args) => {
 			setGameInfo(`Both players in room. Game will start shortly.....`)
 		})
-		socket.on("message", (args) => {
-			console.log(args);
-		});
 		socket.on('myMove', args => {
 			setGameInfo(`You will be playing as "${args}"`)
 			onOpen()
 			setMyMove(args)
+			// if args is Big Blind set currentStake to bet and if args is Small Blind set currentStake to bet / 2
+			if (args === 'Big Blind') {
+				setCurrentStake(bet)
+			}
+			else if (args === 'Small Blind') {
+				setCurrentStake(bet / 2)
+			}
 			startGame()
 		})
+
 		socket.once('eBrake', (args) => {
-			inLobby(true)
+			setInLobby(true)
+			setInGame(false)
 			// alert('The other player disconnected. Returning to Lobby....')
+		})
+
+		socket.on('resetDeck', (args) => {
+			console.log("resetDeck")
+			console.log(args)
+			setCurrentDeckTest(args)
 		})
 	}, [])
 
 	useEffect(() => {
 		if (!socket) return;
-		socket.on('test', (args) => {
-			socket.off('test') //required to ensure multiple listeners are not added on every re-render
-			// console.log(`Received move ${args.move} for player ${args.player}`)
-			checkMove(args.block, args.square, args.player, grid, args.me.username)
+
+		// receive my hand
+		socket.on('hands', (args) => {
+			console.log("lol")
+			setHands(args)
+			socket.off('hands')
 		})
+		socket.on('currentDeck', (args) => {
+			console.log("received currentDeck")
+			setCurrentDeckTest(args)
+			console.log(currentDeckTest)
 
-		// // receive opponent's lastMove for valid blocks
-		socket.on('lastMove', (args) => {
-			socket.off('lastMove')
-			setLastMove(args.lastMove)
+			socket.off('currentDeck')
 		})
+		socket.on('communityCards', (args) => {
+			console.log("received communityCards")
+			setCommunityCardsTest(args)
+			console.log(communityCardsTest)
+			socket.off('communityCards')
+		})
+		socket.on('solveHands', (args) => {
+			console.log("received solveHands")
 
-		// socket.emit("lastMove", { lastMove })
+			let winner = roomPlayers.filter(object => {
+				return object.socketID === args[1];
+			})
+			// console.log(winner[0].username)
+			// setGameInfo(`${args[1] === 'win' ? '🦄 Wow so easy! You win!': '🦄 Wow so hard! You lose!'}`)
+			// setGameInfo(`"${args[1]}" won the game`)
+			setGameInfo(`${winner[0].username} won the game`)
+			onOpen()
 
-		//used to monitor how many instances of the 'move' listener are currently mounted
-		// console.log(socket._callbacks.$move)
+			console.log(args)
+			setRevealHands(true)
+			socket.off('solveHands')
+		})
 		return () => {
-			if (socket) socket.off('test')
-			if (socket) socket.off('lastMove')
+			if (socket) socket.off('hands')
+			if (socket) socket.off('currentDeck')
+			if (socket) socket.off('communityCards')
+			if (socket) socket.off('solveHands')
 		}
-	}, [socket, grid, lastMove]);
+	}, [socket, myHand, communityCardsTest, currentDeckTest]);
+
+	// useEffect(() => {
+	// 	if (!socket) return;
+	// 	console.log("All Hands: ")
+	// 	console.log(hands)
+	// 	console.log("My Socket: ")
+	// 	console.log(socket.id)
+
+	// 	// loop through hand in hands and find my hand
+	// 	for (let i = 0; i < hands.length; i++) {
+	// 		if (hands[i][0] === socket.id) {
+	// 			setMyHand(hands[i][1])
+	// 			console.log("My Hand: ")
+	// 			console.log(myHand)
+	// 		}
+	// 	}
+	// }, [hands]);
 
 
-	useEffect(() => {
-		if (!socket) return;
+	// useEffect(() => {
+	// 	if (!socket) return;
+	// 	socket.on('communityCards', (args) => {
+	// 		console.log("communityCards")
+	// 		console.log(args)
+	// 		setCommunityCardsTest(args)
+	// 		socket.off('communityCards')
+	// 	})
+	// 	return () => {
+	// 		if (socket) socket.off('lastMove')
+	// 	}
+	// }, [socket, communityCardsTest]);
 
-		if (myMove === whosTurn) {
-			socket.emit("lastMove", { lastMove })
-		}
-
-		return () => {
-			if (socket) socket.off('lastMove')
-		}
-	}, [socket, lastMove]);
-
+	function getHands(args, socket) {
+		const allHands = handleHands(args, socket)
+		// console.log(allHands)
+	}
 
 	function handleClick(socket, block, square) {
-
 		//if game is already over, prevent any further board changes
 		if (gameOver) {
 			return;
 		}
-
 		// if its not your turn, prevent changes to the game board
 		if (myMove !== whosTurn) {
 			alert('It is not your turn yet!')
 			return;
 		}
-
 		// if a square is clicked that has already has a move, prevent over-writes
 		if (grid[block][square]) {
 			grid[block][square] === whosTurn ? alert("You already went there!") :
 				alert(grid[block][square] + " already went there!")
 			return;
 		}
-
 		// if the block is already won, prevent changes to the that block
 		if (grid[block][9] !== '') {
 			grid[block][9] === whosTurn ? alert('You won this block!') :
 				alert(grid[block][9] + ' already won the block!')
 			return;
 		}
-
 		else {
-			// setLastMove(square)
 			// send to sever the valid move and who made it, sending player as well to help prevent stale states
 			socket.emit('test', { block: block, square: square, player: whosTurn, me: me.current }, () => {
 				console.log(`Sent server move ${square} for player ${whosTurn}`)
@@ -290,38 +297,13 @@ const Game = ({ socket = null, inLobby = null, roomPlayers = null, bet = null })
 		}
 	}
 
-	function checkMove(block, square, player = whosTurn, myGrid = grid, playerName, myLastMove = lastMove) {
-		const isWinner = checkWinCon(myGrid, setGrid, block, square, player, playerName, myLastMove)
-		if (isWinner) {
-			winner.current = isWinner
-			// setGameInfo(`${winner.current} has won!`)
-			onOpen()
-			if (winner.current === me.current.username) {
-				console.log("token won: " + bet)
-				updateToken("win");
-				notifyWin();
-				setGameInfo(`${winner.current} has won!`)
-			}
-			else if (winner.current === "tie") {
-				console.log("Game tied, no token change")
-				notifyPush();
-			}
-			else {
-				console.log("token lost: " + bet)
-				updateToken("loss");
-				notifyLose();
-				setGameInfo(`${winner.current} has won!`)
-			}
-			setGameOver(true)
-			return;
-		}
-		player === 'X' ? setWhosTurn('O') : setWhosTurn('X')
-	}
-
 	function startGame() {
 		setGameOver(false)
 		setGrid(matchStart)
-		setWhosTurn('X')
+		setWhosTurn('Small Blind')
+
+		setCurrentDeckTest(room.deck)
+		setInGame(true)
 	}
 
 	const bg = useColorModeValue('blue.300', 'orange.200')
@@ -330,92 +312,250 @@ const Game = ({ socket = null, inLobby = null, roomPlayers = null, bet = null })
 	return (
 		<>
 			<ToastContainer />
-			{myMove ? (<>
-				{/* START - MAIN INFO GRID ABOVE THE GAME BOARD */}
-				<Grid templateRows={{ base: 'repeat (4, 1fr)', lg: 'repeat(2, 1fr)' }} templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }} gap={4} mt='2' alignItems='center'>
-					{/* Top Left box */}
-					<GridItem gridArea={{ base: '3/1/ span 1 / span 1', lg: '1/1/ span 1 / span 1' }} w='100%' textAlign='center'>
-						<Button
-							onClick={() => {
-								inLobby(true);
-								socket.emit("leave");
-							}}
-						>
-							Leave Game
-						</Button>
+			{myMove ? (
+				<>
+					{/* START - MAIN INFO GRID ABOVE THE GAME BOARD */}
+					<Grid templateRows={{ base: 'repeat (4, 1fr)', lg: 'repeat(2, 1fr)' }}
+						templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }}
+						gap={1.5}
+						mt='0.5'
+						alignItems='center'
+					>
+						{/* Top Left box */}
+						<GridItem gridArea={{ base: '4/1/ span 1 / span 1', lg: '1/1/ span 1 / span 1' }} w='100%' textAlign='center'>
+							<Button
+								onClick={() => {
+									setInLobby(true);
+									setInGame(false);
+									socket.emit("leave");
+								}}
+							>
+								Leave Game
+							</Button>
 
-					</GridItem>
+						</GridItem>
 
-					{/* Bottom Left box */}
-					<GridItem></GridItem>
+						{/* Bottom Left box */}
+						<GridItem></GridItem>
 
-					{/* Top Middle Box (2 wide) */}
-					<GridItem gridArea={{ base: '1/1/ span 1 / span 2', lg: '1/2/ span 1 / span 2' }} w='100%'>
-						<Heading bg={bg} p='2' borderRadius='10px' textAlign='center' size='lg'>You are playing as {myMove} against {opponent.current.username}</Heading>
-					</GridItem>
+						{/* Top Middle Box (2 wide) */}
+						<GridItem gridArea={{ base: '1/1/ span 1 / span 2', lg: '1/2/ span 1 / span 2' }} w='100%'>
+							<Heading bg={bg} p='2' borderRadius='10px' textAlign='center' size='lg'>
+								{/* 🤜🆚🤛 */}
+								You 🆚 {opponent.current.username}
+							</Heading>
+							<Heading p='0.5' size='md' textAlign='center'>
+								{/* if whosTurn is equals myMove */}
+								{whosTurn === myMove ? (
+									<>
+										<Text fontSize='sm' color='green.500'>
+											It's your turn!
+										</Text>
+									</>
+								) : (
 
-					{/* Borrom Middle Box (2 wide) */}
-					<GridItem gridArea={{ base: '2/1/ span 1 / span 2', lg: '2/2/ span 1 / span 2' }} w='100%' textAlign='center'>
-						<Heading p='2' size='lg'>
-							{
-								gameOver ? "GAMEOVER" : (`It is ${whosTurn}'s turn!`)
-								// gameOver ? (`${winner.current} won!`) : (`It is ${whosTurn}'s turn!`)
-							}
-						</Heading>
-					</GridItem>
+									<>
+										<Text fontSize='sm' color='red.500'>
+											It's not your turn yet!
+										</Text>
+									</>
+								)}
+								<span>Press 'Deal Cards' to get your Hand!</span>
+							</Heading>
+						</GridItem>
 
-					{/* Top Right box */}
-					<GridItem gridArea={{ base: '3/2/ span 1 / span 1', lg: '1/4/ span 1 / span 1' }} w='100%' textAlign='center'>
-						<Button
-							rightIcon={<RefreshIcon />}
-							onClick={() => socket.emit('rematch')}
-						>
-							Rematch?
-						</Button>
-					</GridItem>
+						{/* Borrom Middle Box (2 wide) */}
+						<GridItem gridArea={{ base: '2/1/ span 1 / span 2', lg: '2/2/ span 1 / span 2' }} w='100%' textAlign='center'>
 
-					{/* Bottom Right Box */}
-					<GridItem></GridItem>
+							<Button
+								onClick={() => {
+									socket.emit("deal", [currentDeckTest]);
+									console.log("sent current deck")
+									console.log(currentDeckTest)
+								}}
+								width='25%'
+								m={1}
+								bg={'orange.200'}
+							>
+								Deal Cards
+							</Button>
+							<Button
+								onClick={() => {
+									socket.emit("communityCards", [currentDeckTest, communityCardsTest]);
+									console.log("sent current deck")
+									console.log(currentDeckTest)
+									console.log("sent communityCards")
+									console.log(communityCardsTest)
+								}}
+								width='35%'
+								m={1}
+								bg={'orange.200'}
+							>
+								Community Card
+							</Button>
+							<Button
+								onClick={() => {
+									socket.emit("testPoker", [currentDeckTest, communityCardsTest, hands]);
+								}}
+								width='25%'
+								m={1}
+								bg={'orange.200'}
+							>
+								Showdown
+							</Button>
+							<Button
+								onClick={() => {
+									socket.emit("resetDeck", socket.id);
+								}}
+								width='30%'
+								m={1}
+								bg={'orange.200'}
+							>
+								Reset Deck
+							</Button>
+						</GridItem>
 
-				</Grid>
-				{/* END - MAIN INFO GRID ABOVE THE GAME BOARD */}
+						{/* Borrom Middle Box (2 wide) */}
+						<GridItem gridArea={{ base: '3/1/ span 1 / span 2', lg: '3/2/ span 1 / span 2' }} w='100%' textAlign='center'>
+
+							<Button
+								onClick={() => {
+									console.log("call")
+								}}
+								width='25%'
+								m={1}
+								bg={'orange.300'}
+							>
+								Call
+							</Button>
+							<Button
+								onClick={() => {
+									console.log("raise")
+								}}
+								width='25%'
+								m={1}
+								bg={'orange.300'}
+							>
+								Raise
+							</Button>
+							<Button
+								onClick={() => {
+									console.log("fold")
+								}}
+								width='25%'
+								m={1}
+								bg={'orange.300'}
+							>
+								Fold
+							</Button>
+							<div className="flex">
+								<>
+									<Slider
+										id='slider'
+										defaultValue={5}
+										min={0}
+										max={100}
+										colorScheme='teal'
+										onChange={(v) => setSliderValue(v)}
+										onMouseEnter={() => setShowTooltip(true)}
+										onMouseLeave={() => setShowTooltip(false)}
+										mb={2}
+										ml={2}
+									>
+										<SliderMark value={25} mt='5' ml='-2.5' fontSize='sm'>
+											25%
+										</SliderMark>
+										<SliderMark value={50} mt='5' ml='-2.5' fontSize='sm'>
+											50%
+										</SliderMark>
+										<SliderMark value={75} mt='5' ml='-2.5' fontSize='sm'>
+											75%
+										</SliderMark>
+										<SliderTrack>
+											<SliderFilledTrack />
+										</SliderTrack>
+										<Tooltip
+											hasArrow
+											bg='teal.500'
+											color='white'
+											placement='top'
+											isOpen={showTooltip}
+											label={`${sliderValue}%`}
+										>
+											<SliderThumb bg='rgb(17 94 89)' />
+										</Tooltip>
+									</Slider>
+								</>
+								<Button
+									onClick={() => {
+										console.log("Confirm Raise")
+									}}
+									width='30%'
+									m={2}
+									bg={'orange.400'}
+								>
+									Confirm
+								</Button>
+							</div>
+						</GridItem>
+
+						{/* Top Right box */}
+						<GridItem gridArea={{ base: '4/2/ span 1 / span 1', lg: '1/4/ span 1 / span 1' }} w='100%' textAlign='center'>
+							<Button
+								rightIcon={<RefreshIcon />}
+								onClick={() => socket.emit('rematch')}
+							>
+								Rematch?
+							</Button>
+						</GridItem>
+
+						{/* Bottom Right Box */}
+						<GridItem>
+
+						</GridItem>
+
+					</Grid>
+					{/* END - MAIN INFO GRID ABOVE THE GAME BOARD */}
 
 
-				{/* START - GAME BOARD AREA */}
-				<Flex flexWrap="wrap" alignItems="center" justifyContent="center"
+					{/* START - GAME BOARD AREA */}
+					<Flex flexWrap="wrap" alignItems="center" justifyContent="center"
 					// width="45vw"
-					mb={4}
-				>
-					{/* <div>
-						<p>clicked on block: {clickedBlock}</p>
-						<p>clicked on square: {clickedSquare}</p>
-					</div> */}
-					<Board
-						blocks={grid}
-						setClickedBlock={setClickedBlock}
-						setClickedSquare={setClickedSquare}
-						handleClick={handleClick}
-						socket={socket}
-						lastMove={lastMove}
-						setLastMove={setLastMove}
-						myMove={myMove}
-						whosTurn={whosTurn}
-						gameOver={gameOver}
-					/>
+					// mb={4}
+					>
 
-				</Flex>
+						<Board
+							blocks={grid}
+							hands={hands}
+							myHand={myHand}
+							handleClick={handleClick}
+							socket={socket}
+							lastMove={lastMove}
+							setLastMove={setLastMove}
+							myMove={myMove}
+							whosTurn={whosTurn}
+							gameOver={gameOver}
+							communityCardsTest={communityCardsTest}
+							currentDeckTest={currentDeckTest}
+							revealHands={revealHands}
+							currentPot={currentPot}
+							currentStake={currentStake}
+						/>
 
-				{/* END - GAME BOARD AREA */}
+					</Flex>
 
-			</>) :
-				(<>
+					{/* END - GAME BOARD AREA */}
+
+				</>) : (
+				<>
 					{/* INFO SECTION SHOWING WHEN WAITING FOR OPPONENT TO JOIN A ROOM AFTER CREATION AND ON JOIN */}
 					<Heading textAlign={'center'} wordBreak='break-word'>
 						{gameInfo}
 					</Heading>
 					<Button border='2px'
 						onClick={() => {
-							inLobby(true);
+							setInLobby(true);
+							setInGame(false);
 							socket.emit("leave");
 						}}
 						m='2'
@@ -423,13 +563,12 @@ const Game = ({ socket = null, inLobby = null, roomPlayers = null, bet = null })
 						Back to Lobby
 					</Button>
 				</>
-				)
-			}
+			)}
 			<>
 				<Modal isOpen={isOpen} onClose={onClose} isCentered>
 					<ModalOverlay width='100%' height='100%' />
 					<ModalContent top="-5%">
-						<ModalHeader>Tic Tac Toe</ModalHeader>
+						<ModalHeader>Heads up Texas Hold'em</ModalHeader>
 						<ModalCloseButton />
 						<ModalBody>
 							<Center>{gameInfo}</Center>

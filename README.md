@@ -13,6 +13,8 @@ ayo ello
 - [ ] Finish rules page
 - [ ] Add more content such as history, information on each games
 
+- [ ] Fix back-to-lobby, leave, disconnect sockets for poker
+
 ## DONE
 - [X] grid design for the game
 - [X] fix card component to display list of players correctly

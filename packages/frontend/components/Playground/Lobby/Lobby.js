@@ -17,15 +17,19 @@ export default function Lobby({ stats = [], game = [] }) {
 	const [rooms, setRooms] = useState(null);
 	const [roomsBets, setRoomsBets] = useState(null);
 	const [inLobby, setInLobby] = useState(true);
+	const [inGame, setInGame] = useState(false);
 	const [activeUsers, setActiveUsers] = useState(0)
 	const [myRoom, setMyRoom] = useState(null)
 	const [pBet, setPBet] = useState(game.pBet);
 
 	const [balance, setBalance] = useState(stats.gameTokens);
 
+	const [roomName, setRoomName] = useState(null);
 	const [roomBet, setRoomBet] = useState(game.pBet)
 	const [roomPlayers, setRoomPlayers] = useState(null)
 	const [roomPlayerUsername, setRoomPlayersUsername] = useState(null)
+
+	const [deck, setDeck] = useState(null)
 
 	const notifyError = () => toast.error('🦄 Wow so error! Invalid!', {
 		position: "top-left",
@@ -84,9 +88,6 @@ export default function Lobby({ stats = [], game = [] }) {
 		setRoomBet(game.pBet)
 		setRoomPlayers(null)
 		setInLobby(true)
-		// setRooms(null)
-		// setRoomsBets(null)
-		// socket.emit("reset")
 	}
 
 	useEffect(() => {
@@ -121,12 +122,11 @@ export default function Lobby({ stats = [], game = [] }) {
 			//   router.push('/')
 		});
 
-		socket.on("rooms", (args) => {
+		socket.on("pokerRooms", (args) => {
 			if (inLobby) {
 				setRooms(args[0]);
 				setRoomsBets(args[1]);
 			}
-
 		});
 
 		socket.on('users', args => {
@@ -136,11 +136,11 @@ export default function Lobby({ stats = [], game = [] }) {
 		socket.on("message", (args) => {
 			console.log(args);
 		});
-		socket.on("myRoom", (args) => {
-			setMyRoom(args)
-		});
-		socket.on("currentRoom", (args) => {
+
+		socket.on("currentPokerRoom", (args) => {
 			setRoomPlayers(args.player)
+			setMyRoom(args)
+			setRoomName(args.roomName)
 			let playerusernames = args.player.map(player => player.username);
 			setRoomPlayersUsername(playerusernames)
 		});
@@ -161,27 +161,26 @@ export default function Lobby({ stats = [], game = [] }) {
 			alert("You do not have enough game tokens to join this room. Please buy game tokens.")
 			return;
 		}
-		setMyRoom(room);
 		setRoomBet(roomsBets)
-		socket.emit("join", [room, stats.id]);
+		socket.emit("joinPoker", [room, stats.id]);
 		setInLobby(false);
+		setInGame(true);
 	}
 
 	return (
 		<>
 			<ToastContainer />
-			<Flex
+			{/* <Flex
 				// className={styles.menu}
 				flexDir={{ base: 'column', md: 'row' }}
 				justifyContent={{ base: "center", md: "space-between" }}
 				alignItems='center'
 				flexWrap="warp"
-				padding={{ base: '0.5rem', md: "1.5rem" }}
-			>
+				padding={{ base: '0.5rem', md: "1.5rem" }}>
 				<Box>Server Status:{socket ? " Connected" : " Not Connected"}</Box>
 				<Box>
 					Connected users: {socket ? (activeUsers) : ('Not Connected')}
-					{/* <Button
+					<Button
 						onClick={() => {
 							socket.emit("report");
 						}}
@@ -189,45 +188,62 @@ export default function Lobby({ stats = [], game = [] }) {
 						Debug
 					</Button>
 					<Button onClick={() => socket.connect()}>Connect</Button>
-					<Button onClick={() => reset()}>Reset</Button> */}
+					<Button onClick={() => reset()}>Reset</Button>
 				</Box>
-			</Flex>
+			</Flex> */}
+
 
 			{socket ? (
 				<>
-					<div>
-						{"your socket id: " + socket.id}< br />
-						{"your account id: " + stats.id}< br />
-						{"your account balance: " + balance}< br />
-					</div>
-					{inLobby ? (
+					{/* if inGame is True, hide elements */}
+					{!inGame ? (
 						<>
-							< br />
-							{"Current room name: " + "not in a room"}< br />
-							{"Your game bet: " + pBet}< br />
-							<form
-								className=""
-								id="makeBetForm"
-								onSubmit={makeBet}>
-								<label className="">
-									Bet Amount:
-									<input className="ml-5" type="number" name="bet" />
-								</label>
-							</form>
-							<button
-								disabled={stats.userType === "GUEST" ? true : false}
-								form="makeBetForm"
-								className="tracking-widest shadow-lg shadow-cyan-500/50 font-bold text-3xl w-1/5 my-3 bg-rose-600 text-white py-3 px-6 rounded-md focus:outline-none focus:ring-4 focus:ring-rose-600 focus:ring-opacity-50 hover:bg-rose-500 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-rose-600">
-								BET
-							</button>
+							<div>
+								{"your socket id: " + socket.id}< br />
+								{"your account id: " + stats.id}< br />
+								{"your account balance: " + balance}< br />
+							</div>
+							{/* // { */}
+							{inLobby ? (
+								<>
+									< br />
+									{"Current room name: " + "not in a room"}< br />
+									{"Your game bet: " + pBet}< br />
+									<form
+										className=""
+										id="makeBetForm"
+										onSubmit={makeBet}>
+										<label className="">
+											Big Blind / Small Blind x 2:
+											<input className="ml-2 w-[20vw] h-8" type="number" name="bet" />
+										</label>
+										<button
+											disabled={stats.userType === "GUEST" ? true : false}
+											form="makeBetForm"
+											className="tracking-wider shadow-lg shadow-cyan-500/50 font-bold ml-2 text-2xl w-[12vh] mb-4 bg-rose-600 text-white py-1 px-1 rounded-md focus:outline-none focus:ring-4 focus:ring-rose-600 focus:ring-opacity-50 hover:bg-rose-500 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-rose-600">
+											BET
+										</button>
+									</form>
+									{/* <button
+										disabled={stats.userType === "GUEST" ? true : false}
+										form="makeBetForm"
+										className="tracking-widest shadow-lg shadow-cyan-500/50 font-bold text-2xl w-[20vh] my-1 bg-rose-600 text-white py-2 px-2 rounded-md focus:outline-none focus:ring-4 focus:ring-rose-600 focus:ring-opacity-50 hover:bg-rose-500 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-rose-600">
+										BET
+									</button> */}
+								</>
+							) : (
+								<>
+									< br />
+									<p>{"Current room name: " + roomName}</p>
+									{/* {console.log(myRoom.roomName)} */}
+									<p>{"Current room bet: " + pBet}</p>
+									<p>{"Current room players: " + roomPlayerUsername}</p>
+								</>
+							)
+							}
 						</>
 					) : (
-						<div>
-							< br />
-							<p>{"Current room name: " + myRoom}</p>
-							<p>{"Current room bet: " + pBet}</p>
-							<p>{"Current room players: " + roomPlayerUsername}</p>
-						</div>
+						<></>
 					)}
 
 
@@ -244,7 +260,7 @@ export default function Lobby({ stats = [], game = [] }) {
 											// className={styles.button}
 											border="2px"
 											onClick={() => {
-												socket.emit("create", [pBet, stats.id]);
+												socket.emit("createPoker", [pBet, stats.id]);
 												setInLobby(false);
 											}}
 										>
@@ -272,7 +288,7 @@ export default function Lobby({ stats = [], game = [] }) {
 											return (
 												<>
 													<Box
-														key={"rooms_" + index}
+														// key={"rooms_" + index}
 														as="button"
 														border="2px"
 														borderRadius="md"
@@ -304,7 +320,11 @@ export default function Lobby({ stats = [], game = [] }) {
 									className="flex flex-col items-center justify-center"
 								>
 									<Suspense fallback={<h1>Loading room...</h1>}>
-										{!inLobby && <Game socket={socket} inLobby={setInLobby} roomPlayers={roomPlayers} bet={roomBet} />}
+										{!inLobby &&
+											<Game socket={socket} setInLobby={setInLobby} roomPlayers={roomPlayers}
+												bet={roomBet} room={myRoom} setInGame={setInGame}
+											/>
+										}
 									</Suspense>
 								</div>
 							)}
