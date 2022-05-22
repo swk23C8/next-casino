@@ -114,8 +114,8 @@ const WithSubnavigation = ({ children = null }) => {
 				<Flex
 					bg={useColorModeValue('white', 'gray.800')}
 					color={useColorModeValue('gray.600', 'white')}
-					minH={'60px'}
-					py={{ base: 2 }}
+					minH={'4vh'}
+					py={{ base: 1 }}
 					px={{ base: 4 }}
 					borderBottom={1}
 					borderStyle={'solid'}
@@ -287,7 +287,7 @@ const DesktopNav = () => {
 	const popoverContentBgColor = useColorModeValue('white', 'gray.800');
 
 	return (
-		<Stack direction={'row'} spacing={8} align={'center'}>
+		<Stack direction={'row'} spacing={'1vw'} align={'center'}>
 			{NAV_ITEMS.map((navItem) => (
 				<Box key={navItem.label}>
 					<Popover trigger={'hover'} placement={'bottom-start'}>
@@ -441,9 +441,9 @@ const NAV_ITEMS = [
 					height={35}
 					alt="DiceIcon2"
 				/>
-				<span className="text-xl font-semibold tracking-wide">
-					{/* Dice Games */}
-					Dice
+				<span className="text-[2vh] font-semibold tracking-wide">
+					Dice Games
+					{/* Dice */}
 				</span>
 			</div>
 		,
@@ -472,9 +472,9 @@ const NAV_ITEMS = [
 					height={35}
 					alt="CardIcon2"
 				/>
-				<span className="text-xl font-semibold tracking-wide">
-					{/* Card Games */}
-					Cards
+				<span className="text-[2vh] font-semibold tracking-wide">
+					Card Games
+					{/* Cards */}
 				</span>
 			</div>
 		,
@@ -496,7 +496,7 @@ const NAV_ITEMS = [
 			<div className="flex items-center space-x-1 rounded-md hover:bg-rose-100 transition px-3">
 				<PuzzleIcon className="shrink-0 w-8 h-8 text-rose-500" />
 
-				<span className="text-xl font-semibold tracking-wide">
+				<span className="text-[2vh] font-semibold tracking-wide">
 					{/* Paper & Pencil Games */}
 					{/* Pen & Paper Games */}
 					Board Games
@@ -521,8 +521,8 @@ const NAV_ITEMS = [
 			<div className="flex items-center space-x-1 rounded-md hover:bg-rose-100 transition px-3">
 				<BeakerIcon className="shrink-0 w-8 h-8 text-rose-500" />
 
-				<span className="text-xl font-semibold tracking-wide">
-					Playground
+				<span className="text-[2vh] font-semibold tracking-wide">
+					PlayGround
 				</span>
 			</div>
 		,
@@ -544,7 +544,7 @@ const NAV_ITEMS = [
 			<div className="flex items-center space-x-1 rounded-md hover:bg-rose-100 transition px-3">
 				<InformationCircleIcon className="shrink-0 w-8 h-8 text-rose-500" />
 
-				<span className="text-xl font-semibold tracking-wide">
+				<span className="text-[2vh] font-semibold tracking-wide">
 					More
 				</span>
 			</div>

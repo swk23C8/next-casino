@@ -8,8 +8,8 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const SOCKET_SERVER_URL = 'https://swk23c8.herokuapp.com';
-// const SOCKET_SERVER_URL = 'http://localhost:5000';
+// const SOCKET_SERVER_URL = 'https://swk23c8.herokuapp.com';
+const SOCKET_SERVER_URL = 'http://localhost:5000';
 
 export default function Lobby({ stats = [], game = [] }) {
 	const router = useRouter();
@@ -322,7 +322,7 @@ export default function Lobby({ stats = [], game = [] }) {
 									<Suspense fallback={<h1>Loading room...</h1>}>
 										{!inLobby &&
 											<Game socket={socket} setInLobby={setInLobby} roomPlayers={roomPlayers}
-												bet={roomBet} room={myRoom} setInGame={setInGame}
+												bet={roomBet} room={myRoom} setInGame={setInGame} balance={balance}
 											/>
 										}
 									</Suspense>

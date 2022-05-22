@@ -35,7 +35,7 @@ import { checkWinCon } from '@/components/Playground/Logic/WinCon';
 import { handleHands } from '@/components/Playground/Logic/Hands';
 import Board from "@/components/Playground/BoardScreen/Board";
 
-const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null, room = null, setInGame = null }) => {
+const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null, room = null, setInGame = null, balance = null }) => {
 	const matchStart = Array(9).fill().map((_, index) =>
 		Array(10).fill("")
 	)
@@ -318,7 +318,7 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 					<Grid templateRows={{ base: 'repeat (4, 1fr)', lg: 'repeat(2, 1fr)' }}
 						templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }}
 						gap={1.5}
-						mt='0.5'
+						mt='2.5vh'
 						alignItems='center'
 					>
 						{/* Top Left box */}
@@ -340,27 +340,27 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 
 						{/* Top Middle Box (2 wide) */}
 						<GridItem gridArea={{ base: '1/1/ span 1 / span 2', lg: '1/2/ span 1 / span 2' }} w='100%'>
-							<Heading bg={bg} p='2' borderRadius='10px' textAlign='center' size='lg'>
+							<Heading bg={bg} p='0.5' borderRadius='10px' textAlign='center' size='lg'>
 								{/* 🤜🆚🤛 */}
 								You 🆚 {opponent.current.username}
 							</Heading>
-							<Heading p='0.5' size='md' textAlign='center'>
+							<Heading pt='1' size='sm' textAlign='center'>
 								{/* if whosTurn is equals myMove */}
 								{whosTurn === myMove ? (
 									<>
-										<Text fontSize='sm' color='green.500'>
+										<Text color='green.500'>
 											It's your turn!
 										</Text>
 									</>
 								) : (
 
 									<>
-										<Text fontSize='sm' color='red.500'>
+										<Text color='red.500'>
 											It's not your turn yet!
 										</Text>
 									</>
 								)}
-								<span>Press 'Deal Cards' to get your Hand!</span>
+								{/* <span>Press 'Deal Cards' to get your Hand!</span> */}
 							</Heading>
 						</GridItem>
 
@@ -403,7 +403,7 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 							>
 								Showdown
 							</Button>
-							<Button
+							{/* <Button
 								onClick={() => {
 									socket.emit("resetDeck", socket.id);
 								}}
@@ -412,7 +412,7 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 								bg={'orange.200'}
 							>
 								Reset Deck
-							</Button>
+							</Button> */}
 						</GridItem>
 
 						{/* Borrom Middle Box (2 wide) */}
@@ -471,18 +471,18 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 										<SliderMark value={75} mt='5' ml='-2.5' fontSize='sm'>
 											75%
 										</SliderMark>
-										<SliderTrack>
-											<SliderFilledTrack />
+										<SliderTrack bg='rgb(254 205 211)'>
+											<SliderFilledTrack bg='rgb(244 63 94)' />
 										</SliderTrack>
 										<Tooltip
 											hasArrow
-											bg='teal.500'
+											bg='rgb(190 18 60)'
 											color='white'
 											placement='top'
 											isOpen={showTooltip}
 											label={`${sliderValue}%`}
 										>
-											<SliderThumb bg='rgb(17 94 89)' />
+											<SliderThumb bg='rgb(120 113 108)' />
 										</Tooltip>
 									</Slider>
 								</>
@@ -540,6 +540,7 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 							revealHands={revealHands}
 							currentPot={currentPot}
 							currentStake={currentStake}
+							balance={balance}
 						/>
 
 					</Flex>
