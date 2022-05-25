@@ -39,8 +39,8 @@ import Board from "@/components/Playground/BoardScreen/Board";
 
 
 const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null,
-	// room = null,
-	room,
+	room = null,
+	// room,
 	setInGame = null, balance = null }) => {
 	const matchStart = Array(9).fill().map((_, index) =>
 		Array(10).fill("")
@@ -219,15 +219,15 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 		}
 
 		if (currentStake === currentTopStake) {
-			console.log(currentStake)
-			console.log(currentTopStake)
-			console.log("check")
+			// console.log(currentStake)
+			// console.log(currentTopStake)
+			// console.log("check")
 			setCheckOrCall('Check')
 		}
 		else if (currentStake < currentTopStake) {
-			console.log(currentStake)
-			console.log(currentTopStake)
-			console.log("call")
+			// console.log(currentStake)
+			// console.log(currentTopStake)
+			// console.log("call")
 			setCheckOrCall('Call')
 		}
 
@@ -424,7 +424,8 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 		setGameOver(false)
 		// setGrid(matchStart)
 		setWhosTurn('SB')
-		console.log("logging inside game " + room)
+		console.log("logging inside game ")
+		console.log(room)
 		console.log("logging inside game2 " + room.deck)
 		setCurrentDeckTest(room.deck)
 		setInGame(true)

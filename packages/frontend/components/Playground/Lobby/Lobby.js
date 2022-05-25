@@ -8,8 +8,8 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const SOCKET_SERVER_URL = 'https://swk23c8.herokuapp.com';
-// const SOCKET_SERVER_URL = 'http://localhost:5000';
+// const SOCKET_SERVER_URL = 'https://swk23c8.herokuapp.com';
+const SOCKET_SERVER_URL = 'http://localhost:5000';
 
 export default function Lobby({ stats = [], game = [] }) {
 	const router = useRouter();
@@ -141,7 +141,8 @@ export default function Lobby({ stats = [], game = [] }) {
 			setRoomPlayers(args.player)
 			setMyRoom(args)
 			setRoomName(args.roomName)
-			console.log("logging inside lobby " + args)
+			console.log("logging inside lobby ")
+			console.log(args)
 			let playerusernames = args.player.map(player => player.username);
 			setRoomPlayersUsername(playerusernames)
 		});
@@ -286,6 +287,8 @@ export default function Lobby({ stats = [], game = [] }) {
 								<Flex flexWrap="wrap" margin="2rem" justifyContent={{ base: 'space-evenly', md: 'center' }}>
 									{
 										rooms.map((room, index) => {
+											{console.log("lol")}
+											{console.log(room)}
 											return (
 												<>
 													<Box
