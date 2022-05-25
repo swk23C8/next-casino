@@ -141,8 +141,6 @@ export default function Lobby({ stats = [], game = [] }) {
 			setRoomPlayers(args.player)
 			setMyRoom(args)
 			setRoomName(args.roomName)
-			console.log("logging inside lobby ")
-			console.log(args)
 			let playerusernames = args.player.map(player => player.username);
 			setRoomPlayersUsername(playerusernames)
 		});
@@ -197,6 +195,7 @@ export default function Lobby({ stats = [], game = [] }) {
 
 			{socket ? (
 				<>
+					{/* {console.log(myRoom)} */}
 					{/* if inGame is True, hide elements */}
 					{!inGame ? (
 						<>
@@ -237,7 +236,6 @@ export default function Lobby({ stats = [], game = [] }) {
 								<>
 									< br />
 									<p>{"Current room name: " + roomName}</p>
-									{/* {console.log(myRoom.roomName)} */}
 									<p>{"Current room bet: " + pBet}</p>
 									<p>{"Current room players: " + roomPlayerUsername}</p>
 								</>
@@ -287,8 +285,8 @@ export default function Lobby({ stats = [], game = [] }) {
 								<Flex flexWrap="wrap" margin="2rem" justifyContent={{ base: 'space-evenly', md: 'center' }}>
 									{
 										rooms.map((room, index) => {
-											{console.log("lol")}
-											{console.log(room)}
+											{ console.log("lol") }
+											{ console.log(room) }
 											return (
 												<>
 													<Box
@@ -324,7 +322,7 @@ export default function Lobby({ stats = [], game = [] }) {
 									className="flex flex-col items-center justify-center"
 								>
 									<Suspense fallback={<h1>Loading room...</h1>}>
-										{!inLobby &&
+										{(!inLobby && myRoom) &&
 											<Game socket={socket} setInLobby={setInLobby} roomPlayers={roomPlayers}
 												bet={roomBet} room={myRoom} setInGame={setInGame} balance={balance}
 											/>

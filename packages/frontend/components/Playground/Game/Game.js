@@ -424,12 +424,6 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 		setGameOver(false)
 		// setGrid(matchStart)
 		setWhosTurn('SB')
-		console.log("logging inside game ")
-		console.log(room)
-		console.log(socket)
-		console.log(roomPlayers)
-		console.log(bet)
-		console.log("logging inside game2 " + room.deck)
 		setCurrentDeckTest(room.deck)
 		setInGame(true)
 		deckLoaded.current = true
