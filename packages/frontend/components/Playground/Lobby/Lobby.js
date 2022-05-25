@@ -141,6 +141,7 @@ export default function Lobby({ stats = [], game = [] }) {
 			setRoomPlayers(args.player)
 			setMyRoom(args)
 			setRoomName(args.roomName)
+			console.log(args)
 			let playerusernames = args.player.map(player => player.username);
 			setRoomPlayersUsername(playerusernames)
 		});
