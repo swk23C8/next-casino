@@ -84,6 +84,7 @@ export default function Lobby({ stats = [], game = [] }) {
 	}
 
 	function reset() {
+		console.log("lol")
 		setMyRoom(null)
 		setRoomBet(game.pBet)
 		setRoomPlayers(null)
@@ -170,29 +171,6 @@ export default function Lobby({ stats = [], game = [] }) {
 	return (
 		<>
 			<ToastContainer />
-			{/* <Flex
-				// className={styles.menu}
-				flexDir={{ base: 'column', md: 'row' }}
-				justifyContent={{ base: "center", md: "space-between" }}
-				alignItems='center'
-				flexWrap="warp"
-				padding={{ base: '0.5rem', md: "1.5rem" }}>
-				<Box>Server Status:{socket ? " Connected" : " Not Connected"}</Box>
-				<Box>
-					Connected users: {socket ? (activeUsers) : ('Not Connected')}
-					<Button
-						onClick={() => {
-							socket.emit("report");
-						}}
-					>
-						Debug
-					</Button>
-					<Button onClick={() => socket.connect()}>Connect</Button>
-					<Button onClick={() => reset()}>Reset</Button>
-				</Box>
-			</Flex> */}
-
-
 			{socket ? (
 				<>
 					{/* {console.log(myRoom)} */}
