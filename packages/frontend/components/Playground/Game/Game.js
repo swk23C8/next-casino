@@ -65,7 +65,6 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 	const [hands, setHands] = useState(['1B', '1B'])
 	const [communityCardsTest, setCommunityCardsTest] = useState(['1B', '1B', '1B', '1B', '1B'])
 	const [revealHands, setRevealHands] = useState(false)
-	const deckLoaded = useRef(false)
 
 	const [sliderValue, setSliderValue] = useState(5)
 	const [showTooltip, setShowTooltip] = useState(false)
@@ -360,14 +359,18 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 	useEffect(() => {
 		if (!socket) return;
 		// if (currentDeckTest && !deckLoaded.current) {
-		if (currentDeckTest && !deckLoaded.current) {
-			// console.log(currentDeckTest)
-			asyncFn2()
+		// 	console.log("running game2")
+		// 	asyncFn2()
+		// }
+		if (currentDeckTest) {
+			if (currentDeckTest.length === 52) {
+				asyncFn2()
+			}
 		}
-		// }, [currentDeckTest])
 	}, [currentDeckTest])
 
 	const asyncFn2 = async () => {
+		console.log("running game")
 		// Your logic here
 		let longerDeck
 		if (newDeck.current) {
@@ -426,8 +429,6 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 		setWhosTurn('SB')
 		setCurrentDeckTest(room.deck)
 		setInGame(true)
-		deckLoaded.current = true
-		// dealCards()
 	}
 
 
@@ -472,8 +473,6 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 								You 🆚 {opponent.current.username}
 							</Heading>
 							<Heading pt='2' size='md' textAlign='center'>
-								{/* if deckLoaded.current is true set gameMessage to "Dealer is Shuffling the Cards" */}
-								{/* else if whosTurn is equals myMove */}
 								<Text color='green.500'>
 									{gameMessage}
 								</Text>
