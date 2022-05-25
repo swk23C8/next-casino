@@ -51,7 +51,7 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 	const [clickedSquare, setClickedSquare] = useState("NULL")
 	const [whosTurn, setWhosTurn] = useState('')
 	const [gameOver, setGameOver] = useState(false)
-	const [gameInfo, setGameInfo] = useState('Waiting for another player to connect....')
+	const [gameInfo, setGameInfo] = useState('Waiting for another player to connect..')
 	const [myMove, setMyMove] = useState('')
 	const opponent = useRef(null)
 	const me = useRef(null)
@@ -169,7 +169,7 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 		// startGame()
 		if (!socket) return;
 		socket.once('ready', (args) => {
-			setGameInfo(`Both players in room. Game will start shortly.....`)
+			setGameInfo(`Both players in room. Game will start shortly..`)
 		})
 		socket.on('myMove', args => {
 			setGameInfo(`You will be playing as "${args}"`)
