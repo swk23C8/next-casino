@@ -260,7 +260,7 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 
 			// setGameInfo(`${winner[0].username} won with ✨${args[0].descr}✨`)
 			// setGameInfo(winner[0].username + " won the game with " + "✨" + args[0].descr + "✨")
-			
+
 			if (args[1] === socket.id) {
 				setGameMessage(
 					<Text color='green.500'>
@@ -268,6 +268,7 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 					</Text>
 				)
 				setGameInfo(`You won with ✨${args[0].descr}✨`)
+				updateToken(currentPot - currentStake)
 			}
 			else {
 				setGameMessage(
@@ -276,6 +277,7 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 					</Text>
 				)
 				setGameInfo(`${winner[0].username} won with ✨${args[0].descr}✨`)
+				updateToken(-currentStake)
 			}
 			onOpen()
 
