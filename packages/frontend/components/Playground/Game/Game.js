@@ -38,7 +38,10 @@ import { handleHands } from '@/components/Playground/Logic/Hands';
 import Board from "@/components/Playground/BoardScreen/Board";
 
 
-const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null, room = null, setInGame = null, balance = null }) => {
+const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null,
+	// room = null,
+	room,
+	setInGame = null, balance = null }) => {
 	const matchStart = Array(9).fill().map((_, index) =>
 		Array(10).fill("")
 	)
@@ -421,7 +424,8 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 		setGameOver(false)
 		// setGrid(matchStart)
 		setWhosTurn('SB')
-		console.log(room)
+		console.log("logging inside game " + room)
+		console.log("logging inside game2 " + room.deck)
 		setCurrentDeckTest(room.deck)
 		setInGame(true)
 		deckLoaded.current = true
