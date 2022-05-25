@@ -290,13 +290,13 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 		})
 		socket.on('call', (args) => {
 			console.log("received call")
-			console.log(args)
+			// console.log(args)
 			setWhosTurn(args[0])
 			setCurrentPot(args[1])
 		})
 		socket.on('raise', (args) => {
 			console.log("received raise")
-			console.log(args)
+			// console.log(args)
 			setWhosTurn(args[0])
 			setCurrentPot(args[1])
 			setCurrentTopStake(args[3])

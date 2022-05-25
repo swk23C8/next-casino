@@ -285,8 +285,6 @@ export default function Lobby({ stats = [], game = [] }) {
 								<Flex flexWrap="wrap" margin="2rem" justifyContent={{ base: 'space-evenly', md: 'center' }}>
 									{
 										rooms.map((room, index) => {
-											{ console.log("lol") }
-											{ console.log(room) }
 											return (
 												<>
 													<Box
