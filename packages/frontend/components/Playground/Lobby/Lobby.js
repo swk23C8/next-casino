@@ -144,8 +144,8 @@ export default function Lobby({ stats = [], game = [] }) {
 			let playerusernames = args.player.map(player => player.username);
 			setRoomPlayersUsername(playerusernames)
 		});
-		socket.on("reset", (args) => {
-			console.log("reset called");
+		socket.on("resetPoker", (args) => {
+			console.log("resetPoker called");
 			reset()
 		});
 		socket.on("receiveBalance", (args) => {
@@ -292,9 +292,9 @@ export default function Lobby({ stats = [], game = [] }) {
 														as="button"
 														border="2px"
 														borderRadius="md"
-														m={4}
+														p={1}
 														// boxSize="10rem"
-														width="35%"
+														width="auto"
 														onClick={
 															() => {
 																joinRoom(room, roomsBets[index])
@@ -303,10 +303,10 @@ export default function Lobby({ stats = [], game = [] }) {
 														}
 													>
 														<p>
-															{"NAME: " + room}<br />
+															<b>Room Name:</b> <br />{room}<br />
 														</p>
 														<p>
-															{"BET: " + roomsBets[index]}<br />
+															<b>Big Blind:</b>  {roomsBets[index]}<br />
 														</p>
 													</Box>
 												</>

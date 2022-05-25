@@ -168,7 +168,7 @@ const WithSubnavigation = ({ children = null }) => {
 								onClick={() => {
 									session?.user ? router.push('/stats') : openModal();
 								}}
-								className="hidden sm:block hover:bg-gray-200 transition rounded-md px-4 py-2 font-semibold text-gray-800 hover:text-gray-600"
+								className="hidden sm:block hover:bg-gray-200 transition rounded-md px-4 py-2 font-normal text-gray-800 hover:text-gray-600"
 							>
 								Account Stats
 							</button>
@@ -289,7 +289,9 @@ const DesktopNav = () => {
 	return (
 		<Stack direction={'row'} spacing={'1vw'} align={'center'}>
 			{NAV_ITEMS.map((navItem) => (
-				<Box key={navItem.label}>
+				<Box
+					key={navItem.label + "desktop"}
+				>
 					<Popover trigger={'hover'} placement={'bottom-start'}>
 						<PopoverTrigger>
 							<Link
@@ -369,7 +371,7 @@ const MobileNav = () => {
 			p={4}
 			display={{ md: 'none' }}>
 			{NAV_ITEMS.map((navItem) => (
-				<MobileNavItem key={navItem.label} {...navItem} />
+				<MobileNavItem key={navItem.label + "mobile"} {...navItem} />
 			))}
 		</Stack>
 	);
@@ -441,7 +443,7 @@ const NAV_ITEMS = [
 					height={35}
 					alt="DiceIcon2"
 				/>
-				<span className="text-[2vh] font-semibold tracking-wide">
+				<span className="text-[1.9vh] font-semibold tracking-wide">
 					Dice Games
 					{/* Dice */}
 				</span>
@@ -472,7 +474,7 @@ const NAV_ITEMS = [
 					height={35}
 					alt="CardIcon2"
 				/>
-				<span className="text-[2vh] font-semibold tracking-wide">
+				<span className="text-[1.9vh] font-semibold tracking-wide">
 					Card Games
 					{/* Cards */}
 				</span>
@@ -496,7 +498,7 @@ const NAV_ITEMS = [
 			<div className="flex items-center space-x-1 rounded-md hover:bg-rose-100 transition px-3">
 				<PuzzleIcon className="shrink-0 w-8 h-8 text-rose-500" />
 
-				<span className="text-[2vh] font-semibold tracking-wide">
+				<span className="text-[1.9vh] font-semibold tracking-wide">
 					{/* Paper & Pencil Games */}
 					{/* Pen & Paper Games */}
 					Board Games
@@ -521,8 +523,8 @@ const NAV_ITEMS = [
 			<div className="flex items-center space-x-1 rounded-md hover:bg-rose-100 transition px-3">
 				<BeakerIcon className="shrink-0 w-8 h-8 text-rose-500" />
 
-				<span className="text-[2vh] font-semibold tracking-wide">
-					PlayGround
+				<span className="text-[1.9vh] font-semibold tracking-wide">
+					Play Ground
 				</span>
 			</div>
 		,
@@ -544,7 +546,7 @@ const NAV_ITEMS = [
 			<div className="flex items-center space-x-1 rounded-md hover:bg-rose-100 transition px-3">
 				<InformationCircleIcon className="shrink-0 w-8 h-8 text-rose-500" />
 
-				<span className="text-[2vh] font-semibold tracking-wide">
+				<span className="text-[1.9vh] font-semibold tracking-wide">
 					More
 				</span>
 			</div>

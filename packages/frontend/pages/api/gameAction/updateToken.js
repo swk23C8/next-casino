@@ -21,11 +21,12 @@ export default async function handler(req, res) {
 
 	const body = req.body;
 
+	// console.log(body.e)
 	// Check if the bet amount is less than zero
-	if (body.e !== "loss" && body.e !== "win") {
-		console.log("Please enter a valid game action.");
-		return res.status(400).json({ message: 'Please enter a valid game action.' });
-	}
+	// if (body.e !== "loss" && body.e !== "win") {
+	// 	console.log("Please enter a valid game action.");
+	// 	return res.status(400).json({ message: 'Please enter a valid game action.' });
+	// }
 
 	// Update bet amount
 	if (req.method === 'PATCH') {
@@ -35,7 +36,7 @@ export default async function handler(req, res) {
 				const newBalance = await prisma.user.update({
 					where: { id: user.id },
 					data: {
-						gameTokens: user.gameTokens-userGameState.pBet,
+						gameTokens: user.gameTokens - userGameState.pBet,
 					}
 				});
 				return res.status(200).json({
@@ -48,11 +49,44 @@ export default async function handler(req, res) {
 				const newBalance = await prisma.user.update({
 					where: { id: user.id },
 					data: {
-						gameTokens: user.gameTokens+userGameState.pBet,
+						gameTokens: user.gameTokens + userGameState.pBet,
 					}
 				});
 				return res.status(200).json({
 					message: 'Win amount updated successfully.',
+					newToken: newBalance.gameTokens,
+				});
+			}
+			// Update the user's game state : CASE + or - number
+			else if (typeof body.e === "number") {
+				if (body.e > 0) {
+					// console.log("you win" + body.e)
+					const newBalance = await prisma.user.update({
+						where: { id: user.id },
+						data: {
+							gameTokens: user.gameTokens + body.e,
+						}
+					});
+					return res.status(200).json({
+						message: 'Win amount updated successfully.',
+						newToken: newBalance.gameTokens,
+					});
+				}
+				else if (body.e < 0) {
+					// console.log("you lose" + body.e)
+					const newBalance = await prisma.user.update({
+						where: { id: user.id },
+						data: {
+							gameTokens: user.gameTokens + body.e,
+						}
+					});
+					return res.status(200).json({
+						message: 'Win amount updated successfully.',
+						newToken: newBalance.gameTokens,
+					});
+				}
+				return res.status(200).json({
+					message: 'Bet amount updated successfully.',
 					newToken: newBalance.gameTokens,
 				});
 			}

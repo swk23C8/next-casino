@@ -5,7 +5,7 @@ import Image from 'next/image';
 const Board = ({ blocks, handleClick, socket, lastMove, setLastMove, myMove, whosTurn, gameOver,
 	hands,
 	// myHand,
-	communityCardsTest, currentDeckTest, revealHands, currentPot, currentStake, balance
+	communityCardsTest, currentDeckTest, revealHands, currentPot, currentStake, balance, currentTopStake
 }) => {
 	let myHand = ['1B', '1B']
 	let opponentHand = ['1B', '1B']
@@ -26,26 +26,39 @@ const Board = ({ blocks, handleClick, socket, lastMove, setLastMove, myMove, who
 		}
 	}
 	return (
-		// <div className="table border-2 border-solid border-black"></div>
 		<div>
-			<div className="rounded-md px-[1vw] bg-rose-200">
-				<span className="text-[2vh] font-semibold tracking-wide">Your Balance: {balance}</span><br />
-				<span className="text-[2vh] font-semibold tracking-wide">Position: {myMove}</span><br />
-				<span className="text-[2vh] font-semibold tracking-wide">Your Bet: {currentStake}</span><br />
-				<span className="text-[2vh] font-semibold tracking-wide">Current Pot: {currentPot}</span><br />
-			</div>
+			<table className="bg-white text-gray-900 w-full shadow-none">
+				<thead>
+					<tr>
+						<th className="bg-rose-700 text-white p-2 w-auto border border-black">Balance</th>
+						<th className="bg-rose-700 text-white p-2 w-auto border border-black">Position</th>
+						<th className="bg-rose-700 text-white p-2 w-auto border border-black">Stake</th>
+						<th className="bg-rose-700 text-white p-2 w-auto border border-black">Top Bet</th>
+						<th className="bg-rose-700 text-white p-2 w-auto border border-black">Pot</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr className="bg-blue-100 text-blue-900 text-center">
+						<td className="p-2 border-x border-black">${balance}</td>
+						<td className="p-2 border-x border-black">{myMove}</td>
+						<td className="p-2 border-x border-black">${currentStake}</td>
+						<td className="p-2 border-x border-black">${currentTopStake}</td>
+						<td className="p-2 border-x border-black">${currentPot}</td>
+					</tr>
+				</tbody>
+			</table>
 
 			<div className="block-row">
-				<table class="bg-white text-gray-900 w-full shadow-none">
+				<table className="bg-white text-gray-900 w-full shadow-none">
 					<thead>
 						<tr>
-							<th class="bg-rose-900 text-white p-1 text-[2vh]">Your Hand</th>
-							<th class="bg-rose-900 text-white p-1 text-[2vh]">Opponent's Hand</th>
+							<th className="bg-rose-900 text-white p-1 text-[2vh]">Your Hand</th>
+							<th className="bg-rose-900 text-white p-1 text-[2vh]">Opponent's Hand</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="bg-blue-100 text-blue-900 ">
-							<td class="p-2">
+						<tr className="bg-blue-100 text-blue-900 ">
+							<td className="p-2">
 								<div className="flex items-center content-center justify-center text-center">
 									{myHand && myHand.map((card, i) => {
 										return (
@@ -60,12 +73,12 @@ const Board = ({ blocks, handleClick, socket, lastMove, setLastMove, myMove, who
 											// // </div>
 
 											<div className="relative mr-[0.5vw]
-											h-[15vh] w-[21vw]
-											2xl:h-[22vh] 2xl:w-[8vw]
-											xl:h-[15vw] xl:w-[10vw]
-											lg:h-[15vw] lg:w-[10vw]
-											md:h-[15vw] md:w-[10vw]
-											sm:h-[15vw] sm:w-[10vw]">
+											h-[14vh] w-[20vw]
+											2xl:h-[20vh] 2xl:w-[7vw]
+											xl:h-[20vh] xl:w-[10vw]
+											lg:h-[19vh] lg:w-[11vw]
+											md:h-[15vh] md:w-[10vw]
+											sm:h-[15vh] sm:w-[10vw]">
 												<Image
 													src={`/images/${card}.svg`}
 													layout="fill"
@@ -78,19 +91,26 @@ const Board = ({ blocks, handleClick, socket, lastMove, setLastMove, myMove, who
 									})}
 								</div>
 							</td>
-							<td class="p-2">
+							<td className="p-2">
 								<div className="flex items-center content-center justify-center text-center">
 									{revealHands ?
 										opponentHand.map((card, i) => {
 											return (
-												// <div className="mr-[0.5vw]">
-												<Image
-													src={`/images/${card}.svg`}
-													width={90}
-													height={135}
-													alt={'1B'}
-												/>
-												// </div>
+												<div className="relative mr-[0.5vw]
+											h-[14vh] w-[20vw]
+											2xl:h-[20vh] 2xl:w-[7vw]
+											xl:h-[20vh] xl:w-[10vw]
+											lg:h-[19vh] lg:w-[11vw]
+											md:h-[15vh] md:w-[10vw]
+											sm:h-[15vh] sm:w-[10vw]">
+													<Image
+														src={`/images/${card}.svg`}
+														layout="fill"
+														// width='90vw'
+														// height='135vw'
+														alt={card}
+													/>
+												</div>
 											)
 										})
 										:
@@ -115,12 +135,12 @@ const Board = ({ blocks, handleClick, socket, lastMove, setLastMove, myMove, who
 
 										<>
 											<div className="relative mr-[0.5vw]
-											h-[15vh] w-[21vw]
-											2xl:h-[22vh] 2xl:w-[8vw]
-											xl:h-[15vw] xl:w-[10vw]
-											lg:h-[15vw] lg:w-[10vw]
-											md:h-[15vw] md:w-[10vw]
-											sm:h-[15vw] sm:w-[10vw]">
+											h-[14vh] w-[20vw]
+											2xl:h-[20vh] 2xl:w-[7vw]
+											xl:h-[20vh] xl:w-[10vw]
+											lg:h-[19vh] lg:w-[11vw]
+											md:h-[15vh] md:w-[10vw]
+											sm:h-[15vh] sm:w-[10vw]">
 												<Image
 													src={`/images/1B.svg`}
 													layout="fill"
@@ -130,12 +150,12 @@ const Board = ({ blocks, handleClick, socket, lastMove, setLastMove, myMove, who
 												/>
 											</div>
 											<div className="relative mr-[0.5vw]
-											h-[15vh] w-[21vw]
-											2xl:h-[22vh] 2xl:w-[8vw]
-											xl:h-[15vw] xl:w-[10vw]
-											lg:h-[15vw] lg:w-[10vw]
-											md:h-[15vw] md:w-[10vw]
-											sm:h-[15vw] sm:w-[10vw]">
+											h-[14vh] w-[20vw]
+											2xl:h-[20vh] 2xl:w-[7vw]
+											xl:h-[20vh] xl:w-[10vw]
+											lg:h-[19vh] lg:w-[11vw]
+											md:h-[15vh] md:w-[10vw]
+											sm:h-[15vh] sm:w-[10vw]">
 												<Image
 													src={`/images/1B.svg`}
 													layout="fill"
@@ -202,23 +222,23 @@ const Board = ({ blocks, handleClick, socket, lastMove, setLastMove, myMove, who
 				</div>
 			</div> */}
 
-			<div className="block-row items-center content-center justify-center text-center">
+			<div className="block-row items-center content-center justify-center text-center bg-blue-100">
 				<div className="mb-[0.2vh] bg-rose-900 text-white">
 					<span className="text-[2vh] font-semibold tracking-wide rounded-md">Community Cards {' '}</span>
 				</div>
-				<div className="flex gap-[0.9vw] mt-[0.5vh]">
+				<div className="flex gap-[0.6vw] p-[0.5vw] mt-1">
 					{communityCardsTest && communityCardsTest.map((card, i) => {
 						if (card === '') {
 							card = '1B'
 						}
 						return (
 							<div className="relative
-							h-[32vw] w-[19vw]
-							2xl:h-[11vw] 2xl:w-[8vw]
-							xl:h-[15vw] xl:w-[10vw]
-							lg:h-[15vw] lg:w-[10vw]
-							md:h-[10vw] md:w-[10vw]
-							sm:h-[15vw] sm:w-[10vw]">
+							h-[14vh] w-[19vw]
+							2xl:h-[20vh] 2xl:w-[7vw]
+							xl:h-[20vh] xl:w-[10vw]
+							lg:h-[20vh] lg:w-[11vw]
+							md:h-[10vh] md:w-[10vw]
+							sm:h-[15vh] sm:w-[10vw]">
 								<Image
 									src={`/images/${card}.svg`}
 									layout="fill"
