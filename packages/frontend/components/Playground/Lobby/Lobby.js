@@ -20,12 +20,14 @@ export default function Lobby({ stats = [], game = [] }) {
 	const [inGame, setInGame] = useState(false);
 	const [activeUsers, setActiveUsers] = useState(0)
 	const [myRoom, setMyRoom] = useState(null)
-	const [pBet, setPBet] = useState(game.pBet);
+	// const [pBet, setPBet] = useState(game.pBet);
+	const [pBet, setPBet] = useState(0);
 
 	const [balance, setBalance] = useState(stats.gameTokens);
 
 	const [roomName, setRoomName] = useState(null);
-	const [roomBet, setRoomBet] = useState(game.pBet)
+	// const [roomBet, setRoomBet] = useState(game.pBet)
+	const [roomBet, setRoomBet] = useState(0)
 	const [roomPlayers, setRoomPlayers] = useState(null)
 	const [roomPlayerUsername, setRoomPlayersUsername] = useState(null)
 
