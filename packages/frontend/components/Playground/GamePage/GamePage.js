@@ -38,7 +38,7 @@ const GamePage = ({ stats = [], game = [] }) => {
 				Welcome to the Playground!
 			</h2>
 			<h2 className="text-center text-2xl font-bold text-black">
-				⚠️Currently Testing Card Games (Poker & Blackjack) ⚠️
+				⚠️Currently Testing Card Games (Go-Stop/Matgo) ⚠️
 			</h2>
 
 			{/* button to initiate gameState by calling api */}
@@ -61,8 +61,9 @@ const GamePage = ({ stats = [], game = [] }) => {
 							startGame();
 						}
 					}}
+					disabled={true}
 				>
-					Start Game
+					Start Game (disabled currently)
 				</button>
 			</div>
 
