@@ -115,7 +115,7 @@ const WithSubnavigation = ({ children = null }) => {
 					bg={useColorModeValue('white', 'gray.800')}
 					color={useColorModeValue('gray.600', 'white')}
 					minH={'4vh'}
-					py={{ base: 1 }}
+					py={{ base: 0.3, sm: 0.3, md: 1, lg: 1, xl: 1 }}
 					px={{ base: 4 }}
 					borderBottom={1}
 					borderStyle={'solid'}
@@ -368,7 +368,7 @@ const MobileNav = () => {
 	return (
 		<Stack
 			bg={useColorModeValue('white', 'gray.800')}
-			p={4}
+			p={2}
 			display={{ md: 'none' }}>
 			{NAV_ITEMS.map((navItem) => (
 				<MobileNavItem key={navItem.label + "mobile"} {...navItem} />
@@ -384,7 +384,7 @@ const MobileNavItem = ({ label, children, href }) => {
 		<Stack spacing={4} onClick={children && onToggle}>
 			<Flex
 				// width={'100%'}
-				py={2}
+				py={1}
 				as={Link}
 				href={href ?? '#'}
 				justify={'space-between'}
@@ -482,7 +482,7 @@ const NAV_ITEMS = [
 		,
 		children: [
 			{
-				label: "Heads up Texas hold'em",
+				label: "Heads up Poker",
 				subLabel: "Multiplayer Poker with Texas hold 'em Rules",
 				href: '/poker',
 			},

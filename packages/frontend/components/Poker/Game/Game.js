@@ -35,7 +35,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { checkWinCon } from '@/components/Playground/Logic/WinCon';
 import { handleHands } from '@/components/Playground/Logic/Hands';
-import Board from "@/components/Playground/BoardScreen/Board";
+import Board from "@/components/Poker/BoardScreen/Board";
 
 
 const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null,
@@ -449,7 +449,8 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 						gap={1.5}
 						mt='0.7vh'
 						alignItems='center'
-					// w={'50vw'}
+						// maxWidth={'50%'}
+						width={{ base: '97vw', md: '50%', lg: '50%', xl: '37%' }}
 					>
 						{/* Top Left box */}
 						<GridItem gridArea={{ base: '5/1/ span 1 / span 1', lg: '1/1/ span 1 / span 1' }} w='100%' textAlign='center'>
@@ -462,6 +463,9 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 								bg={'orange.200'}
 								disabled={!gameOver}
 								mb='1.5vh'
+								height='3.5vh'
+								// size={{ base: '20vh', sm: '20vh', md: '20vh', lg: '20vh', xl: '20vh' }}
+								// size={{ base: 'xs', sm: 'sm', md: 'md', lg: 'lg', xl: 'lg' }}
 							>
 								Leave Game
 							</Button>
@@ -473,9 +477,9 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 
 						{/* Top Middle Box (2 wide) */}
 						<GridItem gridArea={{ base: '1/1/ span 1 / span 3', lg: '1/2/ span 1 / span 2' }} w='100%'>
-							<Heading bg={bg} p='1.5' px='3.5vw' borderRadius='10px' textAlign='center' size='lg' >
-								{/* 🤜🆚🤛 */}
-								You 🆚 {opponent.current.username}
+							<Heading bg={bg} p='1.5' px='1.5vw' borderRadius='10px' textAlign='center'
+								noOfLines={3} fontSize={{ base: '5vw', md: '2.1vw', lg: '1.5vh', xl: '2vh' }}>
+								You <br />🆚<br /> {opponent.current.username}
 							</Heading>
 							<Heading pt='2' size='md' textAlign='center'>
 								<Text color='green.500'>
@@ -587,10 +591,11 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 									setCurrentStake(currentTopStake);
 								}}
 								width='25%'
-								height='30px'
+								height='3.5vh'
 								m={1}
 								bg={'orange.300'}
 								disabled={!(whosTurn === myMove)}
+								
 							>
 								{checkOrCall}
 							</Button>
@@ -614,7 +619,7 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 									socket.emit('fold', [socket.id, whosTurn, currentStake, currentTopStake, currentPot, roomBB, roomSB]);
 								}}
 								width='25%'
-								height='30px'
+								height='3.5vh'
 								m={1}
 								bg={'orange.300'}
 								disabled={!(whosTurn === myMove)}
@@ -713,6 +718,9 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 								bg={'orange.200'}
 								mb='1.5vh'
 								px={7}
+								height='3.5vh'
+								// size={{ base: '20vh', sm: '20vh', md: '20vh', lg: '20vh', xl: '20vh' }}
+								// size={{ base: 'xs', sm: 'sm', md: 'md', lg: 'lg', xl: 'lg' }}
 							>
 								Rematch
 							</Button>

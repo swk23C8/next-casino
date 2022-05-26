@@ -30,20 +30,20 @@ const Board = ({ blocks, handleClick, socket, lastMove, setLastMove, myMove, who
 			<table className="bg-white text-gray-900 w-full shadow-none">
 				<thead>
 					<tr>
-						<th className="bg-rose-700 text-white p-2 w-auto border border-black">Balance</th>
-						<th className="bg-rose-700 text-white p-2 w-auto border border-black">Position</th>
-						<th className="bg-rose-700 text-white p-2 w-auto border border-black">Stake</th>
-						<th className="bg-rose-700 text-white p-2 w-auto border border-black">Top Bet</th>
-						<th className="bg-rose-700 text-white p-2 w-auto border border-black">Pot</th>
+						<th className="bg-rose-700 text-white p-0 w-auto border border-black">Balance</th>
+						<th className="bg-rose-700 text-white p-0 w-auto border border-black">Position</th>
+						<th className="bg-rose-700 text-white p-0 w-auto border border-black">Stake</th>
+						<th className="bg-rose-700 text-white p-0 w-auto border border-black">Top Bet</th>
+						<th className="bg-rose-700 text-white p-0 w-auto border border-black">Pot</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr className="bg-blue-100 text-blue-900 text-center">
-						<td className="p-2 border-x border-black">${balance}</td>
-						<td className="p-2 border-x border-black">{myMove}</td>
-						<td className="p-2 border-x border-black">${currentStake}</td>
-						<td className="p-2 border-x border-black">${currentTopStake}</td>
-						<td className="p-2 border-x border-black">${currentPot}</td>
+						<td className="p-1 border-x border-black">${balance}</td>
+						<td className="p-1 border-x border-black">{myMove}</td>
+						<td className="p-1 border-x border-black">${currentStake}</td>
+						<td className="p-1 border-x border-black">${currentTopStake}</td>
+						<td className="p-1 border-x border-black">${currentPot}</td>
 					</tr>
 				</tbody>
 			</table>
@@ -52,8 +52,8 @@ const Board = ({ blocks, handleClick, socket, lastMove, setLastMove, myMove, who
 				<table className="bg-white text-gray-900 w-full shadow-none">
 					<thead>
 						<tr>
-							<th className="bg-rose-900 text-white p-1 text-[2vh]">Your Hand</th>
-							<th className="bg-rose-900 text-white p-1 text-[2vh]">Opponent's Hand</th>
+							<th className="bg-rose-900 text-white text-[2vh]">Your Hand</th>
+							<th className="bg-rose-900 text-white text-[2vh]">Opponent's Hand</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -75,7 +75,7 @@ const Board = ({ blocks, handleClick, socket, lastMove, setLastMove, myMove, who
 											<div className="relative mr-[0.5vw]
 											h-[14vh] w-[20vw]
 											2xl:h-[18vh] 2xl:w-[6.5vw]
-											xl:h-[20vh] xl:w-[10vw]
+											xl:h-[19vh] xl:w-[9.5vw]
 											lg:h-[19vh] lg:w-[11vw]
 											md:h-[15vh] md:w-[10vw]
 											sm:h-[15vh] sm:w-[10vw]">
@@ -99,7 +99,7 @@ const Board = ({ blocks, handleClick, socket, lastMove, setLastMove, myMove, who
 												<div className="relative mr-[0.5vw]
 											h-[14vh] w-[20vw]
 											2xl:h-[18vh] 2xl:w-[6.5vw]
-											xl:h-[20vh] xl:w-[10vw]
+											xl:h-[19vh] xl:w-[9.5vw]
 											lg:h-[19vh] lg:w-[11vw]
 											md:h-[15vh] md:w-[10vw]
 											sm:h-[15vh] sm:w-[10vw]">
@@ -137,7 +137,7 @@ const Board = ({ blocks, handleClick, socket, lastMove, setLastMove, myMove, who
 											<div className="relative mr-[0.5vw]
 											h-[14vh] w-[20vw]
 											2xl:h-[18vh] 2xl:w-[6.5vw]
-											xl:h-[20vh] xl:w-[10vw]
+											xl:h-[19vh] xl:w-[9.5vw]
 											lg:h-[19vh] lg:w-[11vw]
 											md:h-[15vh] md:w-[10vw]
 											sm:h-[15vh] sm:w-[10vw]">
@@ -152,7 +152,7 @@ const Board = ({ blocks, handleClick, socket, lastMove, setLastMove, myMove, who
 											<div className="relative mr-[0.5vw]
 											h-[14vh] w-[20vw]
 											2xl:h-[18vh] 2xl:w-[6.5vw]
-											xl:h-[20vh] xl:w-[10vw]
+											xl:h-[19vh] xl:w-[9.5vw]
 											lg:h-[19vh] lg:w-[11vw]
 											md:h-[15vh] md:w-[10vw]
 											sm:h-[15vh] sm:w-[10vw]">
@@ -235,7 +235,7 @@ const Board = ({ blocks, handleClick, socket, lastMove, setLastMove, myMove, who
 							<div className="relative
 							h-[14vh] w-[19vw]
 							2xl:h-[18vh] 2xl:w-[6.5vw]
-							xl:h-[20vh] xl:w-[10vw]
+							xl:h-[19vh] xl:w-[9.5vw]
 							lg:h-[20vh] lg:w-[11vw]
 							md:h-[10vh] md:w-[10vw]
 							sm:h-[15vh] sm:w-[10vw]">
