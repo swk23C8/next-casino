@@ -1,8 +1,6 @@
-// import { prisma } from '@/lib/prisma';
 import axios from 'axios';
 import { useState } from 'react';
-import Play from '@/components/Poker/Play/Play';
-
+import Lobby from '@/components/Poker/Lobby/Lobby';
 
 const GamePage = ({ stats = [], game = [] }) => {
 	const [isGameStarted, setIsGameStarted] = useState(false);
@@ -14,16 +12,16 @@ const GamePage = ({ stats = [], game = [] }) => {
 	};
 
 	let data = {
-		bDie_1: 0,
-		bDie_2: 0,
-		bDie_3: 0,
-		bScore: 0,
-		pDie_1: 0,
-		pDie_2: 0,
-		pDie_3: 0,
-		pScore: 0,
+		// bDie_1: 0,
+		// bDie_2: 0,
+		// bDie_3: 0,
+		// bScore: 0,
+		// pDie_1: 0,
+		// pDie_2: 0,
+		// pDie_3: 0,
+		// pScore: 0,
 		pBet: 0,
-		result: "",
+		// result: "",
 		userId: stats.id,
 	};
 
@@ -31,16 +29,16 @@ const GamePage = ({ stats = [], game = [] }) => {
 		<>
 
 			<h1 className="flex justify-center text-xl font-medium text-black">
-				⚠️This game is in closed alpha stages.⚠️
+				This is a playground where we test things!
 			</h1>
 			<h1 className="flex justify-center text-xl font-medium text-black">
 				Please feel free to try out the available features and report any bugs!
 			</h1>
 			<h2 className="flex justify-center text-2xl font-bold text-black py-5">
-				Welcome to Poker!
+				Welcome to the Playground!
 			</h2>
 			<h2 className="text-center text-2xl font-bold text-black">
-				⚠️This is a multiplayer game that requires more than 1 person!⚠️
+				⚠️Currently Testing Card Games (Poker & Blackjack) ⚠️
 			</h2>
 
 			{/* button to initiate gameState by calling api */}
@@ -48,7 +46,7 @@ const GamePage = ({ stats = [], game = [] }) => {
 				<button
 					className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
 					onClick={() => {
-						if (userStats.id === 'GUEST') {
+						if ((userStats.id).startsWith('GUEST')) {
 							// setGameState(data);
 							startGame();
 						}
@@ -70,8 +68,7 @@ const GamePage = ({ stats = [], game = [] }) => {
 
 		</>
 	) : (
-		// <Play stats={stats} game={game} />
-		<>Game is Not available for this account 😰</>
+		<Lobby stats={stats} game={game} />
 	)
 }
 

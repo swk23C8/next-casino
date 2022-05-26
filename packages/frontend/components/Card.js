@@ -24,9 +24,9 @@ const Card = ({
    // <Link href={`/users/${id}`}>
    <a className="block w-full border border-sky-500 hover:border-2 rounded-md">
       {/* <div className="relative"> */}
-         {/* <UserIcon className="left-0 w-8 h-8 text-gray-500" /> */}
+      {/* <UserIcon className="left-0 w-8 h-8 text-gray-500" /> */}
 
-         {/* <div className="bg-gray-200 rounded-lg shadow overflow-hidden aspect-w-16 aspect-h-9">
+      {/* <div className="bg-gray-200 rounded-lg shadow overflow-hidden aspect-w-16 aspect-h-9">
             <UserIcon className="absolute top-0 left-0 w-8 h-8 text-gray-500" />
          </div> */}
       {/* </div> */}
@@ -36,7 +36,7 @@ const Card = ({
       </div>
       <ol className="mt-1 inline-flex items-center space-x-1 text-gray-500">
          <li>
-            <span>{gameTokens ?? 0} Tokens</span>
+            <span>&nbsp;${gameTokens ?? 0}</span>
             <span aria-hidden="true"> | </span>
          </li>
          <li>

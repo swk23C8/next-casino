@@ -482,7 +482,7 @@ const NAV_ITEMS = [
 		,
 		children: [
 			{
-				label: 'Poker',
+				label: "Heads up Texas hold'em",
 				subLabel: "Multiplayer Poker with Texas hold 'em Rules",
 				href: '/poker',
 			},

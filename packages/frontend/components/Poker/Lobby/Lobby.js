@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import io from "socket.io-client";
-const Game = React.lazy(() => import("@/components/Playground/Game/Game"));
+const Game = React.lazy(() => import("@/components/Poker/Game/Game"));
 import { Box, Button, Center, Flex, Spacer } from "@chakra-ui/react";
 // import styles from "../../styles/Lobby.module.css";
 import axios from 'axios';
@@ -24,8 +24,8 @@ export default function Lobby({ stats = [], game = [] }) {
 	// const [pBet, setPBet] = useState(0);
 
 	// if game.pBet is undefined, set it to 0
-	// const [pBet, setPBet] = useState(game.pBet ? game.pBet : 0);
-	const [pBet, setPBet] = useState((game) => game.pBet ? game.pBet : 0);
+	const [pBet, setPBet] = useState(game.pBet ? game.pBet : 0);
+	// const [pBet, setPBet] = useState((game) => game.pBet ? game.pBet : 0);
 	// const [number, setNumber] = useState(() => expensiveFunction())
 
 
@@ -33,7 +33,8 @@ export default function Lobby({ stats = [], game = [] }) {
 
 	const [roomName, setRoomName] = useState(null);
 	// const [roomBet, setRoomBet] = useState(game.pBet)
-	const [roomBet, setRoomBet] = useState((game) => game.pBet ? game.pBet : 0)
+	const [roomBet, setRoomBet] = useState(game.pBet ? game.pBet : 0)
+	// const [roomBet, setRoomBet] = useState((game) => game.pBet ? game.pBet : 0)
 	const [roomPlayers, setRoomPlayers] = useState(null)
 	const [roomPlayerUsername, setRoomPlayersUsername] = useState(null)
 
