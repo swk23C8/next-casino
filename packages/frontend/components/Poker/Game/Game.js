@@ -286,28 +286,57 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 			socket.off('solveHands')
 		})
 		socket.on('call', (args) => {
-			toast('✔️👌 Call Received!', {
-				position: "top-left",
-				autoClose: 5000,
-				hideProgressBar: false,
-				closeOnClick: true,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-			});
+			console.log(args)
+			console.log(myMove)
+			if (args[0] === myMove) {
+				toast('✔️👌 Call/Check Sent!', {
+					position: "top-left",
+					autoClose: 5000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+				});
+			}
+			else {
+				toast('✔️👌 Call/Check Received!', {
+					position: "top-left",
+					autoClose: 5000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+				});
+			}
+
 			setWhosTurn(args[0])
 			setCurrentPot(args[1])
 		})
 		socket.on('raise', (args) => {
-			toast('📈☝️ Raise Received!', {
-				position: "top-left",
-				autoClose: 5000,
-				hideProgressBar: false,
-				closeOnClick: true,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-			});
+			if (args[0] === myMove) {
+				toast('📈☝️ Raise Sent!', {
+					position: "top-left",
+					autoClose: 5000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+				});
+			}
+			else {
+				toast('📈☝️ Raise Received!', {
+					position: "top-left",
+					autoClose: 5000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+				});
+			}
 			setWhosTurn(args[0])
 			setCurrentPot(args[1])
 			setCurrentTopStake(args[3])
