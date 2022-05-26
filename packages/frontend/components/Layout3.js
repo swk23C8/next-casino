@@ -102,10 +102,10 @@ const WithSubnavigation = ({ children = null }) => {
 	return (
 		<>
 			<Head>
-				<title>GratisGames | The Modern Casino</title>
+				<title>GratisGames | The Free Casino</title>
 				<meta
 					name="title"
-					content="Play Casino Games for Free | The Modern Casino"
+					content="Play Casino Games for Free | The Free Casino"
 				/>
 				<link rel="icon" href="/favicon.ico" />
 				<meta name="google-site-verification" content="Q8f9yc4NaHFd_VZQ08Qgrf2gTNFZI0v1VubOBhe99FU" />
