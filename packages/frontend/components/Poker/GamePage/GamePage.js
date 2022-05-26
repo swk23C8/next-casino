@@ -12,16 +12,16 @@ const GamePage = ({ stats = [], game = [] }) => {
 	};
 
 	let data = {
-		// bDie_1: 0,
-		// bDie_2: 0,
-		// bDie_3: 0,
-		// bScore: 0,
-		// pDie_1: 0,
-		// pDie_2: 0,
-		// pDie_3: 0,
-		// pScore: 0,
+		bDie_1: 0,
+		bDie_2: 0,
+		bDie_3: 0,
+		bScore: 0,
+		pDie_1: 0,
+		pDie_2: 0,
+		pDie_3: 0,
+		pScore: 0,
 		pBet: 0,
-		// result: "",
+		result: "",
 		userId: stats.id,
 	};
 
