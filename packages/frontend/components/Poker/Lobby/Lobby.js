@@ -95,7 +95,7 @@ export default function Lobby({ stats = [], game = [] }) {
 	function reset() {
 		console.log("lol")
 		setMyRoom(null)
-		setRoomBet(game.pBet)
+		setRoomBet(game?.pBet ? game.pBet : 0)
 		setRoomPlayers(null)
 		setInLobby(true)
 	}
