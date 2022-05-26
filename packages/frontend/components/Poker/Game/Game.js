@@ -286,10 +286,28 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 			socket.off('solveHands')
 		})
 		socket.on('call', (args) => {
+			toast('✔️👌 Call Received!', {
+				position: "top-left",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
 			setWhosTurn(args[0])
 			setCurrentPot(args[1])
 		})
 		socket.on('raise', (args) => {
+			toast('📈☝️ Raise Received!', {
+				position: "top-left",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
 			setWhosTurn(args[0])
 			setCurrentPot(args[1])
 			setCurrentTopStake(args[3])
@@ -297,7 +315,7 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 		socket.on('fold', (args) => {
 			if (args[0] === myMove) {
 				if (currentPot === 0) {
-					toast('🦄 Wow so GUEST! Free Game!', {
+					toast('🏆 Your Opponent Folded!', {
 						position: "top-left",
 						autoClose: 5000,
 						hideProgressBar: false,
@@ -308,12 +326,21 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 					});
 				}
 				else {
+					toast('🏆 Your Opponent Folded!', {
+						position: "top-left",
+						autoClose: 5000,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+					});
 					updateToken(currentPot - currentStake)
 				}
 			}
 			else {
 				if (currentPot === 0) {
-					toast('🦄 Wow! Free Game!', {
+					toast('😭 You Folded!', {
 						position: "top-left",
 						autoClose: 5000,
 						hideProgressBar: false,
@@ -324,6 +351,15 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 					});
 				}
 				else {
+					toast('😭 You Folded!', {
+						position: "top-left",
+						autoClose: 5000,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+					});
 					updateToken(-currentStake)
 				}
 			}
@@ -464,8 +500,8 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 								disabled={!gameOver}
 								mb='1.5vh'
 								height='3.5vh'
-								// size={{ base: '20vh', sm: '20vh', md: '20vh', lg: '20vh', xl: '20vh' }}
-								// size={{ base: 'xs', sm: 'sm', md: 'md', lg: 'lg', xl: 'lg' }}
+							// size={{ base: '20vh', sm: '20vh', md: '20vh', lg: '20vh', xl: '20vh' }}
+							// size={{ base: 'xs', sm: 'sm', md: 'md', lg: 'lg', xl: 'lg' }}
 							>
 								Leave Game
 							</Button>
@@ -595,7 +631,7 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 								m={1}
 								bg={'orange.300'}
 								disabled={!(whosTurn === myMove)}
-								
+
 							>
 								{checkOrCall}
 							</Button>
@@ -719,8 +755,8 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 								mb='1.5vh'
 								px={7}
 								height='3.5vh'
-								// size={{ base: '20vh', sm: '20vh', md: '20vh', lg: '20vh', xl: '20vh' }}
-								// size={{ base: 'xs', sm: 'sm', md: 'md', lg: 'lg', xl: 'lg' }}
+							// size={{ base: '20vh', sm: '20vh', md: '20vh', lg: '20vh', xl: '20vh' }}
+							// size={{ base: 'xs', sm: 'sm', md: 'md', lg: 'lg', xl: 'lg' }}
 							>
 								Rematch
 							</Button>
