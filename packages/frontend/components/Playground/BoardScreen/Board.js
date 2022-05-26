@@ -74,7 +74,7 @@ const Board = ({ blocks, handleClick, socket, lastMove, setLastMove, myMove, who
 
 											<div className="relative mr-[0.5vw]
 											h-[14vh] w-[20vw]
-											2xl:h-[20vh] 2xl:w-[7vw]
+											2xl:h-[18vh] 2xl:w-[6.5vw]
 											xl:h-[20vh] xl:w-[10vw]
 											lg:h-[19vh] lg:w-[11vw]
 											md:h-[15vh] md:w-[10vw]
@@ -98,7 +98,7 @@ const Board = ({ blocks, handleClick, socket, lastMove, setLastMove, myMove, who
 											return (
 												<div className="relative mr-[0.5vw]
 											h-[14vh] w-[20vw]
-											2xl:h-[20vh] 2xl:w-[7vw]
+											2xl:h-[18vh] 2xl:w-[6.5vw]
 											xl:h-[20vh] xl:w-[10vw]
 											lg:h-[19vh] lg:w-[11vw]
 											md:h-[15vh] md:w-[10vw]
@@ -136,7 +136,7 @@ const Board = ({ blocks, handleClick, socket, lastMove, setLastMove, myMove, who
 										<>
 											<div className="relative mr-[0.5vw]
 											h-[14vh] w-[20vw]
-											2xl:h-[20vh] 2xl:w-[7vw]
+											2xl:h-[18vh] 2xl:w-[6.5vw]
 											xl:h-[20vh] xl:w-[10vw]
 											lg:h-[19vh] lg:w-[11vw]
 											md:h-[15vh] md:w-[10vw]
@@ -151,7 +151,7 @@ const Board = ({ blocks, handleClick, socket, lastMove, setLastMove, myMove, who
 											</div>
 											<div className="relative mr-[0.5vw]
 											h-[14vh] w-[20vw]
-											2xl:h-[20vh] 2xl:w-[7vw]
+											2xl:h-[18vh] 2xl:w-[6.5vw]
 											xl:h-[20vh] xl:w-[10vw]
 											lg:h-[19vh] lg:w-[11vw]
 											md:h-[15vh] md:w-[10vw]
@@ -222,7 +222,7 @@ const Board = ({ blocks, handleClick, socket, lastMove, setLastMove, myMove, who
 				</div>
 			</div> */}
 
-			<div className="block-row items-center content-center justify-center text-center bg-blue-100">
+			<div className="block-row items-center content-center justify-center text-center bg-blue-100 h-fill">
 				<div className="mb-[0.2vh] bg-rose-900 text-white">
 					<span className="text-[2vh] font-semibold tracking-wide rounded-md">Community Cards {' '}</span>
 				</div>
@@ -234,7 +234,7 @@ const Board = ({ blocks, handleClick, socket, lastMove, setLastMove, myMove, who
 						return (
 							<div className="relative
 							h-[14vh] w-[19vw]
-							2xl:h-[20vh] 2xl:w-[7vw]
+							2xl:h-[18vh] 2xl:w-[6.5vw]
 							xl:h-[20vh] xl:w-[10vw]
 							lg:h-[20vh] lg:w-[11vw]
 							md:h-[10vh] md:w-[10vw]

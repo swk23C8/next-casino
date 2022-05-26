@@ -131,6 +131,17 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 				progress: undefined,
 			});
 		}
+		else if (currentPot === 0) {
+			toast('🦄 Wow! Free Game!', {
+				position: "top-left",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
+		}
 		else {
 			axios.patch('/api/gameAction/updateToken', { e, })
 				.then(res => {
@@ -138,7 +149,7 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 					socket.emit('updateBalance', res.data.newToken);
 				})
 				.catch(err => {
-					// console.log(err)
+					console.log(err)
 					notifyError();
 				})
 		}
@@ -218,45 +229,32 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 		}
 
 		if (currentStake === currentTopStake) {
-			// console.log(currentStake)
-			// console.log(currentTopStake)
-			// console.log("check")
 			setCheckOrCall('Check')
 		}
 		else if (currentStake < currentTopStake) {
-			// console.log(currentStake)
-			// console.log(currentTopStake)
-			// console.log("call")
 			setCheckOrCall('Call')
 		}
 
 
 		// receive my hand
 		socket.on('hands', (args) => {
-			// console.log("lol")
 			setHands(args)
 			socket.off('hands')
 		})
 		socket.on('currentDeck', (args) => {
-			console.log("received currentDeck")
 			setCurrentDeckTest(args)
-			// console.log(currentDeckTest)
 
 			socket.off('currentDeck')
 		})
 		socket.on('communityCards', (args) => {
-			console.log("received communityCards")
 			setCommunityCardsTest(args)
-			// console.log(communityCardsTest)
 			socket.off('communityCards')
 		})
 		socket.on('solveHands', (args) => {
-			console.log("received solveHands")
 
 			let winner = roomPlayers.filter(object => {
 				return object.socketID === args[1];
 			})
-			// console.log(winner[0].username)
 			// setGameInfo(`${args[1] === 'win' ? '🦄 Wow so easy! You win!': '🦄 Wow so hard! You lose!'}`)
 			// setGameInfo(`"${args[1]}" won the game`)
 
@@ -283,38 +281,51 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 			}
 			onOpen()
 
-			console.log(args)
 			setRevealHands(true)
+			setGameOver(true)
 			socket.off('solveHands')
 		})
 		socket.on('call', (args) => {
-			console.log("received call")
-			// console.log(args)
 			setWhosTurn(args[0])
 			setCurrentPot(args[1])
 		})
 		socket.on('raise', (args) => {
-			console.log("received raise")
-			// console.log(args)
 			setWhosTurn(args[0])
 			setCurrentPot(args[1])
 			setCurrentTopStake(args[3])
 		})
 		socket.on('fold', (args) => {
-			console.log("received fold")
 			if (args[0] === myMove) {
-				console.log("Opponent folded")
-				// console.log(currentStake)
-				updateToken(currentPot - currentStake)
-				// updateToken(currentStake)
-				// setGameInfo(`${args[1]} folded. You won ${currentPot}`)
+				if (currentPot === 0) {
+					toast('🦄 Wow so GUEST! Free Game!', {
+						position: "top-left",
+						autoClose: 5000,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+					});
+				}
+				else {
+					updateToken(currentPot - currentStake)
+				}
 			}
 			else {
-				console.log("I folded")
-				// console.log(currentStake)
-				// updateToken(-(currentPot - currentStake))
-				updateToken(-currentStake)
-				// setGameInfo(`You folded. You lost ${currentPot}`)
+				if (currentPot === 0) {
+					toast('🦄 Wow! Free Game!', {
+						position: "top-left",
+						autoClose: 5000,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+					});
+				}
+				else {
+					updateToken(-currentStake)
+				}
 			}
 
 			if (myMove === 'BB') {
@@ -326,17 +337,9 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 				setMyMove('BB')
 				setCurrentStake(bet)
 			}
-
-
-			setWhosTurn('SB')
-			setCurrentPot(bet + bet / 2)
-			setCurrentTopStake(args[3])
-			socket.emit('resetDeck')
-			asyncFn2()
+			setGameOver(true)
 		})
 		socket.on('resetDeck', (args) => {
-			// console.log("resetDeck2")
-			// console.log(args)
 			setCurrentDeckTest(args)
 			newDeck.current = args
 			// setCommunityCardsTest(['1B', '1B', '1B', '1B', '1B'])
@@ -359,7 +362,6 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 	useEffect(() => {
 		if (!socket) return;
 		// if (currentDeckTest && !deckLoaded.current) {
-		// 	console.log("running game2")
 		// 	asyncFn2()
 		// }
 		if (currentDeckTest) {
@@ -370,7 +372,6 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 	}, [currentDeckTest])
 
 	const asyncFn2 = async () => {
-		console.log("running game")
 		// Your logic here
 		let longerDeck
 		if (newDeck.current) {
@@ -384,7 +385,8 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 		else {
 			longerDeck = currentDeckTest
 		}
-		// console.log(newDeck.current)
+		setGameOver(false)
+		setRevealHands(false)
 		setTimeout(() => {
 			// send to server to start game
 			socket.emit("deal", [longerDeck]);
@@ -442,11 +444,12 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 			{myMove ? (
 				<>
 					{/* START - MAIN INFO GRID ABOVE THE GAME BOARD */}
-					<Grid templateRows={{ base: 'repeat (4, 1fr)', lg: 'repeat(2, 1fr)' }}
-						templateColumns={{ base: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }}
+					<Grid templateRows={{ base: 'repeat (5, 1fr)', lg: 'repeat(2, 0fr)' }}
+						templateColumns={{ base: 'repeat(3, 1fr)', lg: 'repeat(4, 1fr)' }}
 						gap={1.5}
-						mt='1.5vh'
+						mt='0.7vh'
 						alignItems='center'
+					// w={'50vw'}
 					>
 						{/* Top Left box */}
 						<GridItem gridArea={{ base: '5/1/ span 1 / span 1', lg: '1/1/ span 1 / span 1' }} w='100%' textAlign='center'>
@@ -457,6 +460,8 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 									socket.emit("leavePoker");
 								}}
 								bg={'orange.200'}
+								disabled={!gameOver}
+								mb='1.5vh'
 							>
 								Leave Game
 							</Button>
@@ -467,8 +472,8 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 						<GridItem></GridItem>
 
 						{/* Top Middle Box (2 wide) */}
-						<GridItem gridArea={{ base: '1/1/ span 1 / span 2', lg: '1/2/ span 1 / span 2' }} w='100%'>
-							<Heading bg={bg} p='1.5' borderRadius='10px' textAlign='center' size='lg'>
+						<GridItem gridArea={{ base: '1/1/ span 1 / span 3', lg: '1/2/ span 1 / span 2' }} w='100%'>
+							<Heading bg={bg} p='1.5' px='3.5vw' borderRadius='10px' textAlign='center' size='lg' >
 								{/* 🤜🆚🤛 */}
 								You 🆚 {opponent.current.username}
 							</Heading>
@@ -496,35 +501,62 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 						</GridItem>
 
 						{/* Borrom Middle Box (2 wide) */}
-						<GridItem gridArea={{ base: '2/1/ span 1 / span 2', lg: '2/2/ span 1 / span 2' }} w='100%' textAlign='center'>
-
-							<Button
+						<GridItem gridArea={{ base: '2/1/ span 1 / span 3', lg: '2/1/ span 1 / span 4' }} w='100%' textAlign='center'>
+							<div className="flex items-center content-center justify-center text-center">
+								<div className="relative mr-[5vw]
+											h-[14vh] w-[14vh]
+											2xl:h-[14vh] 2xl:w-[14vh]
+											xl:h-[14vh] xl:w-[14vh]
+											lg:h-[14vh] lg:w-[14vh]
+											md:h-[14vh] md:w-[14vh]
+											sm:h-[14vh] sm:w-[14vh]">
+									<Image
+										src={Shrek}
+										layout="fill"
+										// width='90vw'
+										// height='135vw'
+										alt={"Shrek"}
+									/>
+								</div>
+								<div className="relative mr-[0vw]
+											h-[14vh] w-[14vh]
+											2xl:h-[14vh] 2xl:w-[14vh]
+											xl:h-[14vh] xl:w-[14vh]
+											lg:h-[14vh] lg:w-[14vh]
+											md:h-[14vh] md:w-[14vh]
+											sm:h-[14vh] sm:w-[14vh]">
+									<Image
+										src={Shrek}
+										layout="fill"
+										// width='90vw'
+										// height='135vw'
+										alt={"Shrek"}
+									/>
+								</div>
+							</div>
+							{/* <Image src={Shrek} alt="Shrek" height={110} width={110} />
+							<Image src={Shrek} alt="Shrek" height={110} width={110} /> */}
+							{/* <Button
 								onClick={() => {
 									socket.emit("deal", [currentDeckTest]);
-									console.log("sent current deck")
-									console.log(currentDeckTest)
 								}}
 								width='25%'
 								m={1}
 								bg={'orange.200'}
 							>
 								Deal Cards
-							</Button>
-							<Button
+							</Button> */}
+							{/* <Button
 								onClick={() => {
 									socket.emit("communityCards", [currentDeckTest, communityCardsTest]);
-									console.log("sent current deck")
-									console.log(currentDeckTest)
-									console.log("sent communityCards")
-									console.log(communityCardsTest)
 								}}
 								width='35%'
 								m={1}
 								bg={'orange.200'}
 							>
 								Community Card
-							</Button>
-							<Button
+							</Button> */}
+							{/* <Button
 								onClick={() => {
 									socket.emit("testPoker", [currentDeckTest, communityCardsTest, hands]);
 								}}
@@ -533,7 +565,7 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 								bg={'orange.200'}
 							>
 								Showdown
-							</Button>
+							</Button> */}
 							{/* <Button
 								onClick={() => {
 									socket.emit("resetDeck", socket.id);
@@ -547,11 +579,10 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 						</GridItem>
 
 						{/* Borrom Middle Box (2 wide) */}
-						<GridItem gridArea={{ base: '3/1/ span 1 / span 2', lg: '3/2/ span 1 / span 2' }} w='100%' textAlign='center'>
+						<GridItem gridArea={{ base: '3/1/ span 1 / span 3', lg: '3/1/ span 1 / span 4' }} w='100%' textAlign='center'>
 
 							<Button
 								onClick={() => {
-									// console.log("call")
 									socket.emit('call', [socket.id, whosTurn, currentStake, currentTopStake, currentPot, communityCardsTest, currentDeckTest, myMove, hands]);
 									setCurrentStake(currentTopStake);
 								}}
@@ -566,7 +597,6 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 
 							{/* <Button
 								onClick={() => {
-									console.log("raise")
 									setSlider(!slider);
 								}}
 								width='25%'
@@ -591,7 +621,7 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 							>
 								Fold
 							</Button>
-							<div className="flex mt-[1vh]">
+							<div className="flex mt-[1vh] mb-[1vh]">
 								<>
 									<Slider
 										id='slider'
@@ -612,7 +642,6 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 										}
 										onChangeEnd={
 											(val) => {
-												// console.log(parseFloat((val * currentPot * 0.01).toFixed(2)))
 												// Math.round(((val * currentPot * 0.01) + Number.EPSILON) * 100) / 100
 												// setFinalSliderValue(Math.round(((val * currentPot * 0.01) + Number.EPSILON) * 100) / 100)
 												setFinalSliderValue(val * currentPot * 0.01)
@@ -646,9 +675,6 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 								</>
 								<Button
 									onClick={() => {
-										// console.log("Confirm Raise")
-										// console.log(finalSliderValue)
-										// console.log(currentStake)
 										socket.emit('raise', [socket.id, whosTurn, currentStake, currentTopStake, currentPot, finalSliderValue]);
 										setCurrentStake(Math.round(((currentStake + finalSliderValue) + Number.EPSILON) * 100) / 100)
 
@@ -669,13 +695,26 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 						</GridItem>
 
 						{/* Top Right box */}
-						<GridItem gridArea={{ base: '5/2/ span 1 / span 1', lg: '1/4/ span 1 / span 1' }} w='100%' textAlign='center'>
+						<GridItem gridArea={{ base: '5/3/ span 1 / span 1', lg: '1/4/ span 1 / span 1' }} w='100%' textAlign='center'>
 							<Button
-								rightIcon={<RefreshIcon />}
-								onClick={() => socket.emit('rematch')}
+								// rightIcon={<RefreshIcon />}
+								onClick={
+									() => {
+										socket.emit('rematch')
+										setWhosTurn('SB')
+										setCurrentPot(bet + bet / 2)
+										setCurrentTopStake(bet)
+										setRevealHands(false)
+										socket.emit('resetDeck')
+										asyncFn2()
+									}
+								}
+								disabled={!gameOver}
 								bg={'orange.200'}
+								mb='1.5vh'
+								px={7}
 							>
-								Rematch?
+								Rematch
 							</Button>
 						</GridItem>
 
@@ -683,12 +722,13 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 						<GridItem>
 
 						</GridItem>
-						<GridItem gridArea={{ base: '4/1/ span 1 / span 1', lg: '2/1/ span 2 / span 1' }} w='100%' textAlign='center'>
+
+						{/* <GridItem gridArea={{ base: '4/1/ span 1 / span 1', lg: '2/1/ span 2 / span 1' }} w='100%' textAlign='center'>
 							<Image src={Shrek} alt="Shrek" height={100} width={100} />
 						</GridItem>
 						<GridItem gridArea={{ base: '4/2/ span 1 / span 1', lg: '2/4/ span 2 / span 1' }} w='100%' textAlign='center'>
 							<Image src={Shrek} alt="Shrek" height={100} width={100} />
-						</GridItem>
+						</GridItem> */}
 					</Grid>
 					{/* END - MAIN INFO GRID ABOVE THE GAME BOARD */}
 
@@ -727,7 +767,8 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 				<>
 					{/* INFO SECTION SHOWING WHEN WAITING FOR OPPONENT TO JOIN A ROOM AFTER CREATION AND ON JOIN */}
 					<Heading textAlign={'center'} wordBreak='break-word'>
-						<pre>{gameInfo}</pre>
+						{/* <pre>{gameInfo}</pre> */}
+						{gameInfo}
 					</Heading>
 					<Button border='2px'
 						onClick={() => {
