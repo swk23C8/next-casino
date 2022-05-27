@@ -84,7 +84,7 @@ const Game = ({ stats = [], game = [] }) => {
             <title>Cee-Lo | Game</title>
             <meta name="description" content="Game page" />
          </Head>
-         <div className="mx-[0.5vw]">
+         <div className="px-[0.5vw] py-[1vh]">
             <GamePage stats={stats} game={game} />
          </div>
          {/* </Layout> */}
