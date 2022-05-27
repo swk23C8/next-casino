@@ -77,6 +77,7 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 	const [checkOrCall, setCheckOrCall] = useState()
 	const [slider, setSlider] = useState(false)
 	const [finalSliderValue, setFinalSliderValue] = useState(0)
+	const [solvedHands, setSolvedHands]	= useState(null)
 
 	const notifyWin = () => toast.success('🦄 Wow so easy! You win!', {
 		position: "top-left",
@@ -205,11 +206,17 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 
 	useEffect(() => {
 		if (!socket) return;
-
 		if (hands === ['1B', '1B']) {
 			setGameMessage(
 				<Text color='green.500'>
 					Dealer is Shuffling the Deck
+				</Text>
+			)
+		}
+		else if (gameOver) {
+			setGameMessage(
+				<Text color='Crimson' fontSize='lg'>
+					Game Over! Press Leave or Rematch
 				</Text>
 			)
 		}
@@ -251,7 +258,8 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 			socket.off('communityCards')
 		})
 		socket.on('solveHands', (args) => {
-
+			console.log(args)
+			setSolvedHands(args)
 			let winner = roomPlayers.filter(object => {
 				return object.socketID === args[1];
 			})
@@ -286,12 +294,12 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 			socket.off('solveHands')
 		})
 		socket.on('call', (args) => {
-			console.log(args)
-			console.log(myMove)
-			if (args[0] === myMove) {
+			// console.log(args)
+			// console.log(myMove)
+			if (args[0] !== myMove) {
 				toast('✔️👌 Call/Check Sent!', {
 					position: "top-left",
-					autoClose: 5000,
+					autoClose: 1000,
 					hideProgressBar: false,
 					closeOnClick: true,
 					pauseOnHover: true,
@@ -302,7 +310,7 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 			else {
 				toast('✔️👌 Call/Check Received!', {
 					position: "top-left",
-					autoClose: 5000,
+					autoClose: 1000,
 					hideProgressBar: false,
 					closeOnClick: true,
 					pauseOnHover: true,
@@ -315,10 +323,10 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 			setCurrentPot(args[1])
 		})
 		socket.on('raise', (args) => {
-			if (args[0] === myMove) {
+			if (args[0] !== myMove) {
 				toast('📈☝️ Raise Sent!', {
 					position: "top-left",
-					autoClose: 5000,
+					autoClose: 1000,
 					hideProgressBar: false,
 					closeOnClick: true,
 					pauseOnHover: true,
@@ -329,7 +337,7 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 			else {
 				toast('📈☝️ Raise Received!', {
 					position: "top-left",
-					autoClose: 5000,
+					autoClose: 1000,
 					hideProgressBar: false,
 					closeOnClick: true,
 					pauseOnHover: true,
@@ -346,7 +354,7 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 				if (currentPot === 0) {
 					toast('🏆 Your Opponent Folded!', {
 						position: "top-left",
-						autoClose: 5000,
+						autoClose: 1000,
 						hideProgressBar: false,
 						closeOnClick: true,
 						pauseOnHover: true,
@@ -357,7 +365,7 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 				else {
 					toast('🏆 Your Opponent Folded!', {
 						position: "top-left",
-						autoClose: 5000,
+						autoClose: 1000,
 						hideProgressBar: false,
 						closeOnClick: true,
 						pauseOnHover: true,
@@ -371,7 +379,7 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 				if (currentPot === 0) {
 					toast('😭 You Folded!', {
 						position: "top-left",
-						autoClose: 5000,
+						autoClose: 1000,
 						hideProgressBar: false,
 						closeOnClick: true,
 						pauseOnHover: true,
@@ -382,7 +390,7 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 				else {
 					toast('😭 You Folded!', {
 						position: "top-left",
-						autoClose: 5000,
+						autoClose: 1000,
 						hideProgressBar: false,
 						closeOnClick: true,
 						pauseOnHover: true,
@@ -403,6 +411,7 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 				setCurrentStake(bet)
 			}
 			setGameOver(true)
+			setRevealHands(true)
 		})
 		socket.on('resetDeck', (args) => {
 			setCurrentDeckTest(args)
@@ -421,7 +430,7 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 			if (socket) socket.off('fold')
 			if (socket) socket.off('resetDeck')
 		}
-	}, [socket, myHand, communityCardsTest, currentDeckTest, currentTopStake]);
+	}, [socket, myHand, communityCardsTest, currentDeckTest, currentTopStake, gameOver]);
 
 	// run useEffect once after 2 seconds currentDeckTest is received
 	useEffect(() => {
@@ -452,6 +461,7 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 		}
 		setGameOver(false)
 		setRevealHands(false)
+		setSolvedHands(null)
 		setTimeout(() => {
 			// send to server to start game
 			socket.emit("deal", [longerDeck]);
@@ -492,6 +502,7 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 
 	function startGame() {
 		setGameOver(false)
+		setSolvedHands(null)
 		// setGrid(matchStart)
 		setWhosTurn('SB')
 		setCurrentDeckTest(room.deck)
@@ -525,7 +536,7 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 									setInGame(false);
 									socket.emit("leavePoker");
 								}}
-								bg={'orange.200'}
+								bg={'red.300'}
 								disabled={!gameOver}
 								mb='1.5vh'
 								height='3.5vh'
@@ -658,8 +669,8 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 								width='25%'
 								height='3.5vh'
 								m={1}
-								bg={'orange.300'}
-								disabled={!(whosTurn === myMove)}
+								bg={'orange.400'}
+								disabled={(!(whosTurn === myMove) || gameOver)}
 
 							>
 								{checkOrCall}
@@ -686,8 +697,8 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 								width='25%'
 								height='3.5vh'
 								m={1}
-								bg={'orange.300'}
-								disabled={!(whosTurn === myMove)}
+								bg={'orange.400'}
+								disabled={(!(whosTurn === myMove) || gameOver)}
 							>
 								Fold
 							</Button>
@@ -708,7 +719,7 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 										mr={2}
 										disabled=
 										{
-											!(whosTurn === myMove) || (slider === true)
+											!(whosTurn === myMove) || (slider === true) || gameOver
 										}
 										onChangeEnd={
 											(val) => {
@@ -756,7 +767,7 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 									bg={'orange.400'}
 									disabled=
 									{
-										!(whosTurn === myMove) || (slider === true)
+										!(whosTurn === myMove) || (slider === true) || gameOver
 									}
 								>
 									Raise
@@ -775,12 +786,14 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 										setCurrentPot(bet + bet / 2)
 										setCurrentTopStake(bet)
 										setRevealHands(false)
+										setGameOver(false)
+										setSolvedHands(null)
 										socket.emit('resetDeck')
 										asyncFn2()
 									}
 								}
 								disabled={!gameOver}
-								bg={'orange.200'}
+								bg={'red.300'}
 								mb='1.5vh'
 								px={7}
 								height='3.5vh'
@@ -830,6 +843,7 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 							currentStake={currentStake}
 							balance={balance}
 							currentTopStake={currentTopStake}
+							solvedHands={solvedHands}
 						/>
 
 					</Flex>
