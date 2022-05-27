@@ -1,4 +1,4 @@
-import Layout from "@/components/Layout"
+import Layout from "@/components/Layout3"
 import Link from 'next/link';
 import {
 	HeartIcon,
