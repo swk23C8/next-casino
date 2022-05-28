@@ -89,13 +89,13 @@ const Board = ({ blocks, handleClick, socket, lastMove, setLastMove, myMove, who
 					</thead>
 					<tbody>
 						<tr className="bg-purple-100 text-blue-900 ">
-							<td className="p-2">
+							<td className="">
 								<div className="flex items-center content-center justify-center text-center">
 									{myHand && myHand.map((card, i) => {
 										if (fancySolvedHands.includes(card)) {
 											return (
-												<div className="relative mr-[0.5vw]
-														h-[14vh] w-[20vw]
+												<div className="relative mx-[0.2vw]
+														h-[17vh] w-[23vw]
 														2xl:h-[18vh] 2xl:w-[6.5vw]
 														xl:h-[19vh] xl:w-[9.5vw]
 														lg:h-[19vh] lg:w-[11vw]
@@ -114,8 +114,8 @@ const Board = ({ blocks, handleClick, socket, lastMove, setLastMove, myMove, who
 										}
 										else {
 											return (
-												<div className="relative mr-[0.5vw]
-														h-[14vh] w-[20vw]
+												<div className="relative mx-[0.2vw]
+														h-[17vh] w-[23vw]
 														2xl:h-[18vh] 2xl:w-[6.5vw]
 														xl:h-[19vh] xl:w-[9.5vw]
 														lg:h-[19vh] lg:w-[11vw]
@@ -135,14 +135,14 @@ const Board = ({ blocks, handleClick, socket, lastMove, setLastMove, myMove, who
 									})}
 								</div>
 							</td>
-							<td className="p-2">
+							<td className="">
 								<div className="flex items-center content-center justify-center text-center">
 									{revealHands ?
 										opponentHand.map((card, i) => {
 											if (fancySolvedHands.includes(card)) {
 												return (
-													<div className="relative mr-[0.5vw]
-															h-[14vh] w-[20vw]
+													<div className="relative mx-[0.2vw]
+															h-[17vh] w-[23vw]
 															2xl:h-[18vh] 2xl:w-[6.5vw]
 															xl:h-[19vh] xl:w-[9.5vw]
 															lg:h-[19vh] lg:w-[11vw]
@@ -162,8 +162,8 @@ const Board = ({ blocks, handleClick, socket, lastMove, setLastMove, myMove, who
 											}
 											else {
 												return (
-													<div className="relative mr-[0.5vw]
-															h-[14vh] w-[20vw]
+													<div className="relative mx-[0.2vw]
+															h-[17vh] w-[23vw]
 															2xl:h-[18vh] 2xl:w-[6.5vw]
 															xl:h-[19vh] xl:w-[9.5vw]
 															lg:h-[19vh] lg:w-[11vw]
@@ -184,8 +184,8 @@ const Board = ({ blocks, handleClick, socket, lastMove, setLastMove, myMove, who
 										})
 										:
 										<>
-											<div className="relative mr-[0.5vw]
-													h-[14vh] w-[20vw]
+											<div className="relative mx-[0.2vw]
+													h-[17vh] w-[23vw]
 													2xl:h-[18vh] 2xl:w-[6.5vw]
 													xl:h-[19vh] xl:w-[9.5vw]
 													lg:h-[19vh] lg:w-[11vw]
@@ -198,8 +198,8 @@ const Board = ({ blocks, handleClick, socket, lastMove, setLastMove, myMove, who
 													alt={'1B'}
 												/>
 											</div>
-											<div className="relative mr-[0.5vw]
-													h-[14vh] w-[20vw]
+											<div className="relative mx-[0.2vw]
+													h-[17vh] w-[23vw]
 													2xl:h-[18vh] 2xl:w-[6.5vw]
 													xl:h-[19vh] xl:w-[9.5vw]
 													lg:h-[19vh] lg:w-[11vw]
@@ -227,7 +227,7 @@ const Board = ({ blocks, handleClick, socket, lastMove, setLastMove, myMove, who
 				<div className="mb-[0.2vh] bg-rose-800 text-white">
 					<span className="text-[2vh] font-semibold tracking-wide rounded-md">Community Cards {' '}</span>
 				</div>
-				<div className="flex gap-[0.6vw] p-[0.5vw] mt-1">
+				<div className="flex gap-[0.01vw] mt-0">
 					{communityCardsTest && communityCardsTest.map((card, i) => {
 						if (card === '') {
 							card = '1B'
@@ -255,7 +255,7 @@ const Board = ({ blocks, handleClick, socket, lastMove, setLastMove, myMove, who
 						else {
 							return (
 								<div className="relative
-								h-[14vh] w-[19vw]
+								h-[15vh] w-[20vw]
 								2xl:h-[18vh] 2xl:w-[6.5vw]
 								xl:h-[19vh] xl:w-[9.5vw]
 								lg:h-[20vh] lg:w-[11vw]

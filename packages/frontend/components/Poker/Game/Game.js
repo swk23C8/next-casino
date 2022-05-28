@@ -557,7 +557,7 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 								noOfLines={3} fontSize={{ base: '5vw', md: '2.1vw', lg: '1.5vh', xl: '2vh' }}>
 								You <br />🆚<br /> {opponent.current.username}
 							</Heading>
-							<Heading pt='2' size='md' textAlign='center'>
+							<Heading pt='1' size='md' textAlign='center'>
 								<Text color='green.500'>
 									{gameMessage}
 								</Text>
@@ -583,13 +583,13 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 						{/* Borrom Middle Box (2 wide) */}
 						<GridItem gridArea={{ base: '2/1/ span 1 / span 3', lg: '2/1/ span 1 / span 4' }} w='100%' textAlign='center'>
 							<div className="flex items-center content-center justify-center text-center">
-								<div className="relative mr-[5vw]
-											h-[14vh] w-[14vh]
-											2xl:h-[14vh] 2xl:w-[14vh]
-											xl:h-[14vh] xl:w-[14vh]
-											lg:h-[14vh] lg:w-[14vh]
-											md:h-[14vh] md:w-[14vh]
-											sm:h-[14vh] sm:w-[14vh]">
+								<div className="relative mr-[1vw]
+											h-[10vh] w-[10vh]
+											2xl:h-[10vh] 2xl:w-[10vh]
+											xl:h-[10vh] xl:w-[10vh]
+											lg:h-[10vh] lg:w-[10vh]
+											md:h-[10vh] md:w-[10vh]
+											sm:h-[10vh] sm:w-[10vh]">
 									<Image
 										src={Shrek}
 										layout="fill"
@@ -599,12 +599,12 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 									/>
 								</div>
 								<div className="relative mr-[0vw]
-											h-[14vh] w-[14vh]
-											2xl:h-[14vh] 2xl:w-[14vh]
-											xl:h-[14vh] xl:w-[14vh]
-											lg:h-[14vh] lg:w-[14vh]
-											md:h-[14vh] md:w-[14vh]
-											sm:h-[14vh] sm:w-[14vh]">
+											h-[10vh] w-[10vh]
+											2xl:h-[10vh] 2xl:w-[10vh]
+											xl:h-[10vh] xl:w-[10vh]
+											lg:h-[10vh] lg:w-[10vh]
+											md:h-[10vh] md:w-[10vh]
+											sm:h-[10vh] sm:w-[10vh]">
 									<Image
 										src={Shrek}
 										layout="fill"

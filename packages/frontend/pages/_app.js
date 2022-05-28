@@ -60,7 +60,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
         <ChakraProvider>
           <Component {...pageProps} />
         </ChakraProvider>
-        {SomeFunctionalComponent()}
+        {/* {SomeFunctionalComponent()} */}
       </AuthProvider>
 
       <Toaster />
