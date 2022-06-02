@@ -394,37 +394,6 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 
 	}
 
-	function handleClick(socket, block, square) {
-		//if game is already over, prevent any further board changes
-		if (gameOver) {
-			return;
-		}
-		// if its not your turn, prevent changes to the game board
-		if (myMove !== whosTurn) {
-			alert('It is not your turn yet!')
-			return;
-		}
-		// if a square is clicked that has already has a move, prevent over-writes
-		if (grid[block][square]) {
-			grid[block][square] === whosTurn ? alert("You already went there!") :
-				alert(grid[block][square] + " already went there!")
-			return;
-		}
-		// if the block is already won, prevent changes to the that block
-		if (grid[block][9] !== '') {
-			grid[block][9] === whosTurn ? alert('You won this block!') :
-				alert(grid[block][9] + ' already won the block!')
-			return;
-		}
-		else {
-			// send to sever the valid move and who made it, sending player as well to help prevent stale states
-			socket.emit('test', { block: block, square: square, player: whosTurn, me: me.current }, () => {
-				console.log(`Sent server move ${square} for player ${whosTurn}`)
-			})
-			setTurnsLeft(turnsLeft - 1)
-		}
-	}
-
 	function startGame() {
 		setGameOver(false)
 		// setGrid(matchStart)
@@ -434,354 +403,65 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 	}
 
 
-
 	const bg = useColorModeValue('red.100', 'orange.200')
 
 	// inside 1 Board > 9 Blocks in each Board > 9 Squares in each Block
 	return (
 		<>
 			<ToastContainer />
-			{myMove ? (
-				<>
-					{/* START - MAIN INFO GRID ABOVE THE GAME BOARD */}
-					<Grid templateRows={{ base: 'repeat (5, 1fr)', lg: 'repeat(2, 0fr)' }}
-						templateColumns={{ base: 'repeat(3, 1fr)', lg: 'repeat(4, 1fr)' }}
-						gap={1.5}
-						mt='0.7vh'
-						alignItems='center'
-					// w={'50vw'}
-					>
-						{/* Top Left box */}
-						<GridItem gridArea={{ base: '5/1/ span 1 / span 1', lg: '1/1/ span 1 / span 1' }} w='100%' textAlign='center'>
-							<Button
-								onClick={() => {
-									setInLobby(true);
-									setInGame(false);
-									socket.emit("leavePoker");
-								}}
-								bg={'orange.200'}
-								disabled={!gameOver}
-								mb='1.5vh'
-							>
-								Leave Game
-							</Button>
+			{
+				myMove ? (
+					<>
+						{/* START - GAME BOARD AREA */}
+						<Flex flexWrap="wrap" alignItems="center" justifyContent="center"
+						// width="45vw"
+						// mb={4}
+						>
 
-						</GridItem>
+							<Board
+								blocks={grid}
+								hands={hands}
+								myHand={myHand}
+								socket={socket}
+								lastMove={lastMove}
+								setLastMove={setLastMove}
+								myMove={myMove}
+								whosTurn={whosTurn}
+								gameOver={gameOver}
+								communityCardsTest={communityCardsTest}
+								currentDeckTest={currentDeckTest}
+								revealHands={revealHands}
+								currentPot={currentPot}
+								currentStake={currentStake}
+								balance={balance}
+								currentTopStake={currentTopStake}
+							/>
 
-						{/* Bottom Left box */}
-						<GridItem></GridItem>
+						</Flex>
 
-						{/* Top Middle Box (2 wide) */}
-						<GridItem gridArea={{ base: '1/1/ span 1 / span 3', lg: '1/2/ span 1 / span 2' }} w='100%'>
-							<Heading bg={bg} p='1.5' px='3.5vw' borderRadius='10px' textAlign='center' size='lg' >
-								{/* 🤜🆚🤛 */}
-								You 🆚 {opponent.current.username}
-							</Heading>
-							<Heading pt='2' size='md' textAlign='center'>
-								<Text color='green.500'>
-									{gameMessage}
-								</Text>
-								{/* {whosTurn === myMove ?
-									(
-										<>
-											<Text color='green.500'>
-												It's your turn!
-											</Text>
-										</>
-									) :
-									(
-										<>
-											<Text color='red.500'>
-												It's not your turn yet!
-											</Text>
-										</>
-									)
-								} */}
-							</Heading>
-						</GridItem>
+						{/* END - GAME BOARD AREA */}
 
-						{/* Borrom Middle Box (2 wide) */}
-						<GridItem gridArea={{ base: '2/1/ span 1 / span 3', lg: '2/1/ span 1 / span 4' }} w='100%' textAlign='center'>
-							<div className="flex items-center content-center justify-center text-center">
-								<div className="relative mr-[5vw]
-											h-[14vh] w-[14vh]
-											2xl:h-[14vh] 2xl:w-[14vh]
-											xl:h-[14vh] xl:w-[14vh]
-											lg:h-[14vh] lg:w-[14vh]
-											md:h-[14vh] md:w-[14vh]
-											sm:h-[14vh] sm:w-[14vh]">
-									<Image
-										src={Shrek}
-										layout="fill"
-										// width='90vw'
-										// height='135vw'
-										alt={"Shrek"}
-									/>
-								</div>
-								<div className="relative mr-[0vw]
-											h-[14vh] w-[14vh]
-											2xl:h-[14vh] 2xl:w-[14vh]
-											xl:h-[14vh] xl:w-[14vh]
-											lg:h-[14vh] lg:w-[14vh]
-											md:h-[14vh] md:w-[14vh]
-											sm:h-[14vh] sm:w-[14vh]">
-									<Image
-										src={Shrek}
-										layout="fill"
-										// width='90vw'
-										// height='135vw'
-										alt={"Shrek"}
-									/>
-								</div>
-							</div>
-							{/* <Image src={Shrek} alt="Shrek" height={110} width={110} />
-							<Image src={Shrek} alt="Shrek" height={110} width={110} /> */}
-							{/* <Button
-								onClick={() => {
-									socket.emit("deal", [currentDeckTest]);
-								}}
-								width='25%'
-								m={1}
-								bg={'orange.200'}
-							>
-								Deal Cards
-							</Button> */}
-							{/* <Button
-								onClick={() => {
-									socket.emit("communityCards", [currentDeckTest, communityCardsTest]);
-								}}
-								width='35%'
-								m={1}
-								bg={'orange.200'}
-							>
-								Community Card
-							</Button> */}
-							{/* <Button
-								onClick={() => {
-									socket.emit("testPoker", [currentDeckTest, communityCardsTest, hands]);
-								}}
-								width='25%'
-								m={1}
-								bg={'orange.200'}
-							>
-								Showdown
-							</Button> */}
-							{/* <Button
-								onClick={() => {
-									socket.emit("resetDeck", socket.id);
-								}}
-								width='30%'
-								m={1}
-								bg={'orange.200'}
-							>
-								Reset Deck
-							</Button> */}
-						</GridItem>
-
-						{/* Borrom Middle Box (2 wide) */}
-						<GridItem gridArea={{ base: '3/1/ span 1 / span 3', lg: '3/1/ span 1 / span 4' }} w='100%' textAlign='center'>
-
-							<Button
-								onClick={() => {
-									socket.emit('call', [socket.id, whosTurn, currentStake, currentTopStake, currentPot, communityCardsTest, currentDeckTest, myMove, hands]);
-									setCurrentStake(currentTopStake);
-								}}
-								width='25%'
-								height='30px'
-								m={1}
-								bg={'orange.300'}
-								disabled={!(whosTurn === myMove)}
-							>
-								{checkOrCall}
-							</Button>
-
-							{/* <Button
-								onClick={() => {
-									setSlider(!slider);
-								}}
-								width='25%'
-								height='30px'
-								m={1}
-								bg={'orange.300'}
-								disabled={!(whosTurn === myMove)}
-							>
-								Raise
-							</Button> */}
-
-
-							<Button
-								onClick={() => {
-									socket.emit('fold', [socket.id, whosTurn, currentStake, currentTopStake, currentPot, roomBB, roomSB]);
-								}}
-								width='25%'
-								height='30px'
-								m={1}
-								bg={'orange.300'}
-								disabled={!(whosTurn === myMove)}
-							>
-								Fold
-							</Button>
-							<div className="flex mt-[1vh] mb-[1vh]">
-								<>
-									<Slider
-										id='slider'
-										defaultValue={5}
-										min={0}
-										max={100}
-										colorScheme='teal'
-										onChange={(v) => setSliderValue(v)}
-										onMouseEnter={() => setShowTooltip(true)}
-										onMouseLeave={() => setShowTooltip(false)}
-										step={1}
-										mb={2}
-										ml={1}
-										mr={2}
-										disabled=
-										{
-											!(whosTurn === myMove) || (slider === true)
-										}
-										onChangeEnd={
-											(val) => {
-												// Math.round(((val * currentPot * 0.01) + Number.EPSILON) * 100) / 100
-												// setFinalSliderValue(Math.round(((val * currentPot * 0.01) + Number.EPSILON) * 100) / 100)
-												setFinalSliderValue(val * currentPot * 0.01)
-											}
-										}
-									>
-										<SliderMark value={25} mt='4' ml='-2.5' fontSize='sm'>
-											25%
-										</SliderMark>
-										<SliderMark value={50} mt='4' ml='-2.5' fontSize='sm'>
-											50%
-										</SliderMark>
-										<SliderMark value={75} mt='4' ml='-2.5' fontSize='sm'>
-											75%
-										</SliderMark>
-										<SliderTrack bg='rgb(254 205 211)'>
-											<SliderFilledTrack bg='rgb(244 63 94)' />
-										</SliderTrack>
-										<Tooltip
-											hasArrow
-											bg='rgb(190 18 60)'
-											color='white'
-											placement='top'
-											isOpen={showTooltip}
-											label={"$" + parseFloat((sliderValue * currentPot * 0.01).toFixed(2))}
-										// label={`$${sliderValue*currentPot*0.01}`}
-										>
-											<SliderThumb bg='rgb(120 113 108)' />
-										</Tooltip>
-									</Slider>
-								</>
-								<Button
-									onClick={() => {
-										socket.emit('raise', [socket.id, whosTurn, currentStake, currentTopStake, currentPot, finalSliderValue]);
-										setCurrentStake(Math.round(((currentStake + finalSliderValue) + Number.EPSILON) * 100) / 100)
-
-										// setCurrentStake(currentStake + finalSliderValue);
-									}}
-									width='19%'
-									height='35px'
-									m={1}
-									bg={'orange.400'}
-									disabled=
-									{
-										!(whosTurn === myMove) || (slider === true)
-									}
-								>
-									Raise
-								</Button>
-							</div>
-						</GridItem>
-
-						{/* Top Right box */}
-						<GridItem gridArea={{ base: '5/3/ span 1 / span 1', lg: '1/4/ span 1 / span 1' }} w='100%' textAlign='center'>
-							<Button
-								// rightIcon={<RefreshIcon />}
-								onClick={
-									() => {
-										socket.emit('rematch')
-										setWhosTurn('SB')
-										setCurrentPot(bet + bet / 2)
-										setCurrentTopStake(bet)
-										setRevealHands(false)
-										socket.emit('resetDeck')
-										asyncFn2()
-									}
-								}
-								disabled={!gameOver}
-								bg={'orange.200'}
-								mb='1.5vh'
-								px={7}
-							>
-								Rematch
-							</Button>
-						</GridItem>
-
-						{/* Bottom Right Box */}
-						<GridItem>
-
-						</GridItem>
-
-						{/* <GridItem gridArea={{ base: '4/1/ span 1 / span 1', lg: '2/1/ span 2 / span 1' }} w='100%' textAlign='center'>
-							<Image src={Shrek} alt="Shrek" height={100} width={100} />
-						</GridItem>
-						<GridItem gridArea={{ base: '4/2/ span 1 / span 1', lg: '2/4/ span 2 / span 1' }} w='100%' textAlign='center'>
-							<Image src={Shrek} alt="Shrek" height={100} width={100} />
-						</GridItem> */}
-					</Grid>
-					{/* END - MAIN INFO GRID ABOVE THE GAME BOARD */}
-
-
-					{/* START - GAME BOARD AREA */}
-					<Flex flexWrap="wrap" alignItems="center" justifyContent="center"
-					// width="45vw"
-					// mb={4}
-					>
-
-						<Board
-							blocks={grid}
-							hands={hands}
-							myHand={myHand}
-							handleClick={handleClick}
-							socket={socket}
-							lastMove={lastMove}
-							setLastMove={setLastMove}
-							myMove={myMove}
-							whosTurn={whosTurn}
-							gameOver={gameOver}
-							communityCardsTest={communityCardsTest}
-							currentDeckTest={currentDeckTest}
-							revealHands={revealHands}
-							currentPot={currentPot}
-							currentStake={currentStake}
-							balance={balance}
-							currentTopStake={currentTopStake}
-						/>
-
-					</Flex>
-
-					{/* END - GAME BOARD AREA */}
-
-				</>) : (
-				<>
-					{/* INFO SECTION SHOWING WHEN WAITING FOR OPPONENT TO JOIN A ROOM AFTER CREATION AND ON JOIN */}
-					<Heading textAlign={'center'} wordBreak='break-word'>
-						{/* <pre>{gameInfo}</pre> */}
-						{gameInfo}
-					</Heading>
-					<Button border='2px'
-						onClick={() => {
-							setInLobby(true);
-							setInGame(false);
-							socket.emit("leavePoker");
-						}}
-						m='2'
-					>
-						Back to Lobby
-					</Button>
-				</>
-			)}
+					</>
+				) : (
+					<>
+						{/* INFO SECTION SHOWING WHEN WAITING FOR OPPONENT TO JOIN A ROOM AFTER CREATION AND ON JOIN */}
+						<Heading textAlign={'center'} wordBreak='break-word'>
+							{/* <pre>{gameInfo}</pre> */}
+							{gameInfo}
+						</Heading>
+						<Button border='2px'
+							onClick={() => {
+								setInLobby(true);
+								setInGame(false);
+								socket.emit("leavePoker");
+							}}
+							m='2'
+						>
+							Back to Lobby
+						</Button>
+					</>
+				)
+			}
 			<>
 				<Modal isOpen={isOpen} onClose={onClose} isCentered>
 					<ModalOverlay width='100%' height='100%' />

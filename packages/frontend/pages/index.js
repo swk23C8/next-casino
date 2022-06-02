@@ -44,6 +44,14 @@ export async function getServerSideProps() {
 
 export default function Home({ stats = [] }) {
 
+   const [sprites, setSprites] = useState(
+      ['adventurer', 'adventurer-neutral', 'avataaars', 'big-ears', 'big-ears-neutral', 'big-smile',
+         'bottts', 'croodles', 'croodles-neutral', 'identicon', 'initials', 'micah', 'miniavs',
+         'open-peeps', 'personas', 'pixel-art', 'pixel-art-neutral'
+      ]
+   )
+   const [randomSprite, setRandomSprite] = useState(sprites[Math.floor(Math.random() * sprites.length)]);
+
    return (
       // <Layout>
       <>
@@ -77,6 +85,8 @@ export default function Home({ stats = [] }) {
             </h2>
             <div className="flex justify-center items-center space-x-1">
                <Image src={Shrek} alt="Shrek" height={'400vw'} width={'400vw'} />
+               {/* <Image src={`https://avatars.dicebear.com/api/${randomSprite}/${stats.id}.svg`} height={'400vw'} width={'400vw'} alt="test" /> */}
+               {/* {console.log(stats)} */}
             </div>
 
             <h1 className="text-xl font-medium text-gray-800">

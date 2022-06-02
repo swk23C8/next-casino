@@ -2,7 +2,7 @@ import { useState, memo } from 'react';
 import Image from 'next/image';
 
 
-const Board = ({ blocks, handleClick, socket, lastMove, setLastMove, myMove, whosTurn, gameOver,
+const Board = ({ blocks, socket, lastMove, setLastMove, myMove, whosTurn, gameOver,
 	hands,
 	// myHand,
 	communityCardsTest, currentDeckTest, revealHands, currentPot, currentStake, balance, currentTopStake
@@ -27,228 +27,435 @@ const Board = ({ blocks, handleClick, socket, lastMove, setLastMove, myMove, who
 	}
 	return (
 		<div>
-			<table className="bg-white text-gray-900 w-full shadow-none">
-				<thead>
-					<tr>
-						<th className="bg-rose-700 text-white p-2 w-auto border border-black">Balance</th>
-						<th className="bg-rose-700 text-white p-2 w-auto border border-black">Position</th>
-						<th className="bg-rose-700 text-white p-2 w-auto border border-black">Stake</th>
-						<th className="bg-rose-700 text-white p-2 w-auto border border-black">Top Bet</th>
-						<th className="bg-rose-700 text-white p-2 w-auto border border-black">Pot</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr className="bg-blue-100 text-blue-900 text-center">
-						<td className="p-2 border-x border-black">${balance}</td>
-						<td className="p-2 border-x border-black">{myMove}</td>
-						<td className="p-2 border-x border-black">${currentStake}</td>
-						<td className="p-2 border-x border-black">${currentTopStake}</td>
-						<td className="p-2 border-x border-black">${currentPot}</td>
-					</tr>
-				</tbody>
-			</table>
-
-			<div className="block-row">
-				<table className="bg-white text-gray-900 w-full shadow-none">
-					<thead>
-						<tr>
-							<th className="bg-rose-900 text-white p-1 text-[2vh]">Your Hand</th>
-							<th className="bg-rose-900 text-white p-1 text-[2vh]">Opponent's Hand</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr className="bg-blue-100 text-blue-900 ">
-							<td className="p-2">
-								<div className="flex items-center content-center justify-center text-center">
-									{myHand && myHand.map((card, i) => {
-										return (
-											// <div className="mr-[0.2vw]">
-											// <Image
-											// 	src={`/images/${card}.svg`}
-											// 	// layout="fill"
-											// 	width='90'
-											// 	height='135'
-											// 	alt={card}
-											// />
-											// // </div>
-
-											<div className="relative mr-[0.5vw]
-											h-[14vh] w-[20vw]
-											2xl:h-[18vh] 2xl:w-[6.5vw]
-											xl:h-[20vh] xl:w-[10vw]
-											lg:h-[19vh] lg:w-[11vw]
-											md:h-[15vh] md:w-[10vw]
-											sm:h-[15vh] sm:w-[10vw]">
+			{/* grid with 1 col and 3 rows */}
+			{/* <div className="grid overflow-hidden grid-cols-1 grid-rows-3 gap-2 w-auto h-auto"> */}
+			<div className="grid overflow-hidden grid-cols-1 gap-2 w-auto h-full bg-lime-200 rounded-lg border border-black mt-[1vh]">
+				<div className="row-start-1 row-span-1 col-start-1 col-span-1 bg-lime-800 py-[0.5vh] rounded-lg">
+					<div className="flex h-[10vh]">
+						<div className="item w-[70vw] h-full">
+							{/* Opponent Cards */}
+							<div className="flex gap-[0.6vw]">
+								{/* My Cards */}
+								<div className="bg-[url('/images/hwatu/card_1.png')]
+									bg-[-700% -400% / cover]
+									h-[8.5vh] w-[3vw]
+									bg-[length:800%_600%]"
+								>
+									{/* 화투 */}
+								</div>
+								<div className="bg-[url('/images/hwatu/card_1.png')]
+									bg-[-700% -400% / cover]
+									h-[8.5vh] w-[3vw]
+									bg-[length:800%_600%]"
+								>
+									{/* 화투 */}
+								</div>
+								<div className="bg-[url('/images/hwatu/card_1.png')]
+									bg-[-700% -400% / cover]
+									h-[8.5vh] w-[3vw]
+									bg-[length:800%_600%]"
+								>
+									{/* 화투 */}
+								</div>
+							</div>
+						</div>
+						<div className="w-[10vw] h-full">
+							{/* <div className="grid overflow-hidden grid-cols-1 grid-rows-2 w-full"> */}
+							<div className="flex-inline overflow-hidden w-full px-[4.5%]">
+								<div className="w-[9vw] h-[6.2vh] justify-center">
+									<div className="flex flex-wrap gap-[1%] h-full bg-lime-600 justify-center rounded-lg content-center">
+										<div className="item w-1/6 py-[2%]">
+											<div className="relative w-[1vw] h-[1.2vw]">
 												<Image
-													src={`/images/${card}.svg`}
+													src={`/images/hwatu/card_back.jpg`}
+													alt="card_back"
 													layout="fill"
-													// width='90vw'
-													// height='135vw'
-													alt={card}
+												// width={23}
+												// height={25}
 												/>
 											</div>
+										</div>
+										<div className="item w-1/6 py-[1%]">
+											<div className="relative w-[1vw] h-[1.2vw]">
+												<Image
+													src={`/images/hwatu/card_back.jpg`}
+													alt="card_back"
+													layout="fill"
+												// width={23}
+												// height={25}
+												/>
+											</div>
+										</div>
+										<div className="item w-1/6 py-[1%]">
+											<div className="relative w-[1vw] h-[1.2vw]">
+												<Image
+													src={`/images/hwatu/card_back.jpg`}
+													alt="card_back"
+													layout="fill"
+												// width={23}
+												// height={25}
+												/>
+											</div>
+										</div>
+										<div className="item w-1/6 py-[1%]">
+											<div className="relative w-[1vw] h-[1.2vw]">
+												<Image
+													src={`/images/hwatu/card_back.jpg`}
+													alt="card_back"
+													layout="fill"
+												// width={23}
+												// height={25}
+												/>
+											</div>
+										</div>
+										<div className="item w-1/6 py-[1%]">
+											<div className="relative w-[1vw] h-[1.2vw]">
+												<Image
+													src={`/images/hwatu/card_back.jpg`}
+													alt="card_back"
+													layout="fill"
+												// width={23}
+												// height={25}
+												/>
+											</div>
+										</div>
+										<div className="item w-1/6 py-[1%]">
+											<div className="relative w-[1vw] h-[1.2vw]">
+												<Image
+													src={`/images/hwatu/card_back.jpg`}
+													alt="card_back"
+													layout="fill"
+												// width={23}
+												// height={25}
+												/>
+											</div>
+										</div>
+										<div className="item w-1/6 py-[1%]">
+											<div className="relative w-[1vw] h-[1.2vw]">
+												<Image
+													src={`/images/hwatu/card_back.jpg`}
+													alt="card_back"
+													layout="fill"
+												// width={23}
+												// height={25}
+												/>
+											</div>
+										</div>
+										<div className="item w-1/6 py-[1%]">
+											<div className="relative w-[1vw] h-[1.2vw]">
+												<Image
+													src={`/images/hwatu/card_back.jpg`}
+													alt="card_back"
+													layout="fill"
+												// width={23}
+												// height={25}
+												/>
+											</div>
+										</div>
+										<div className="item w-1/6 py-[1%]">
+											<div className="relative w-[1vw] h-[1.2vw]">
+												<Image
+													src={`/images/hwatu/card_back.jpg`}
+													alt="card_back"
+													layout="fill"
+												// width={23}
+												// height={25}
+												/>
+											</div>
+										</div>
+										<div className="item w-1/6 py-[1%]">
+											<div className="relative w-[1vw] h-[1.2vw]">
+												<Image
+													src={`/images/hwatu/card_back.jpg`}
+													alt="card_back"
+													layout="fill"
+												// width={23}
+												// height={25}
+												/>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div className="pt-[0.5vh]">
+									<div className="w-[9vw] bg-lime-600 rounded-lg">
+										<p className="text-white text-[2.3vh] font-extrabold tracking-widest text-center">
+											2<a className="text-black">고 </a>
+											2<a className="text-black">💩️ </a>
+											1<a className="text-black">🔔</a>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div className="row-start-2 row-span-1 col-start-1 col-span-1">
+					<div className="item w-[80vw] h-[45vh]">
+						{/* Main Area */}
+						<div class="item w-[70%] h-full">
+							<div class="flex flex-wrap justify-center gap-1 h-full">
+								<div class="item w-1/5 -space-x-[20%]">
+									<div className="bg-[url('/images/hwatu/card_1.png')]
+										bg-[-700% -400% / cover]
+										h-[12vh] w-[4.2vw]
+										bg-[length:800%_600%]"
+									>
+										{/* 화투 */}
+									</div>
+									<div className="bg-[url('/images/hwatu/card_1.png')]
+										bg-[-700% -400% / cover]
+										h-[12vh] w-[4.2vw]
+										bg-[length:800%_600%]"
+									>
+										{/* 화투 */}
+									</div>
+									<div className="bg-[url('/images/hwatu/card_1.png')]
+										bg-[-700% -400% / cover]
+										h-[12vh] w-[4.2vw]
+										bg-[length:800%_600%]"
+									>
+										{/* 화투 */}
+									</div>
+								</div>
+								<div class="item w-1/5">
+									<div className="bg-[url('/images/hwatu/card_1.png')]
+										bg-[-700% -400% / cover]
+										h-[12vh] w-[4.2vw]
+										bg-[length:800%_600%]"
+									>
+										{/* 화투 */}
+									</div>
+								</div>
+								<div class="item w-1/5">
+									<div className="bg-[url('/images/hwatu/card_1.png')]
+										bg-[-700% -400% / cover]
+										h-[12vh] w-[4.2vw]
+										bg-[length:800%_600%]"
+									>
+										{/* 화투 */}
+									</div>
+								</div>
+								<div class="item w-1/5">
+									<div className="bg-[url('/images/hwatu/card_1.png')]
+										bg-[-700% -400% / cover]
+										h-[12vh] w-[4.2vw]
+										bg-[length:800%_600%]"
+									>
+										{/* 화투 */}
+									</div>
+								</div>
+								<div class="item w-1/5 -space-x-[20%]">
+									<div className="bg-[url('/images/hwatu/card_1.png')]
+										bg-[-700% -400% / cover]
+										h-[12vh] w-[4.2vw]
+										bg-[length:800%_600%]"
+									>
+										{/* 화투 */}
+									</div>
+									<div className="bg-[url('/images/hwatu/card_1.png')]
+										bg-[-700% -400% / cover]
+										h-[12vh] w-[4.2vw]
+										bg-[length:800%_600%]"
+									>
+										{/* 화투 */}
+									</div>
+
+								</div>
+								<div class="item w-1/5">
+									<div className="bg-[url('/images/hwatu/card_1.png')]
+										bg-[-700% -400% / cover]
+										h-[12vh] w-[4.2vw]
+										bg-[length:800%_600%]"
+									>
+										{/* 화투 */}
+									</div>
+								</div>
+								<div class="item w-1/5">
+									<div className="bg-[url('/images/hwatu/card_1.png')]
+										bg-[-700% -400% / cover]
+										h-[12vh] w-[4.2vw]
+										bg-[length:800%_600%]"
+									>
+										{/* 화투 */}
+									</div>
+								</div>
+								<div class="item w-1/5">
+									<div className="bg-[url('/images/hwatu/card_1.png')]
+										bg-[-700% -400% / cover]
+										h-[12vh] w-[4.2vw]
+										bg-[length:800%_600%]"
+									>
+										{/* 화투 */}
+									</div>
+								</div>
+								<div class="item w-1/5">
+									<div className="bg-[url('/images/hwatu/card_1.png')]
+										bg-[-700% -400% / cover]
+										h-[12vh] w-[4.2vw]
+										bg-[length:800%_600%]"
+									>
+										{/* 화투 */}
+									</div>
+								</div>
+								<div class="item w-1/5">
+									<div className="bg-[url('/images/hwatu/card_1.png')]
+										bg-[-700% -400% / cover]
+										h-[12vh] w-[4.2vw]
+										bg-[length:800%_600%]"
+									>
+										{/* 화투 */}
+									</div>
+								</div>
+								<div class="item w-1/5">
+									<div className="bg-[url('/images/hwatu/card_1.png')]
+										bg-[-700% -400% / cover]
+										h-[12vh] w-[4.2vw]
+										bg-[length:800%_600%]"
+									>
+										{/* 화투 */}
+									</div>
+								</div>
+								<div class="item w-1/5">
+									<div className="bg-[url('/images/hwatu/card_1.png')]
+										bg-[-700% -400% / cover]
+										h-[12vh] w-[4.2vw]
+										bg-[length:800%_600%]"
+									>
+										{/* 화투 */}
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="item w-[10%] h-full">
+							<div class="flex-inline flex-wrap h-full">
+								<div class="item w-full h-1/3">
+									<div className="w-full border-2 border-black bg-lime-600 rounded">
+										<p className="text-white text-[2.5vh] font-bold tracking-widest my-[10%] w-[7vw] text-center">
+											3 Points
+										</p>
+									</div>
+								</div>
+								<div class="item w-auto h-1/3 ">
+									<div className="bg-[url('/images/hwatu/card_back.jpg')]
+										h-[14.5vh] w-[5.3vw]
+										border-r-[#500] border-b-[#500]
+										border-r-[0.5vw]	border-b-[0.5vw]
+										rounded-tr-[13%] rounded-bl-[13%]
+										text-center leading-[500%]"
+									>
+										x 19
+									</div>
+								</div>
+								<div class="item w-auto h-1/3">
+									<div className="w-full border-2 border-black bg-lime-600 rounded">
+										<p className="text-white text-[2.5vh] font-bold tracking-widest my-[10%] w-[7vw] text-center">
+											10 Points
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="item w-[20%] h-full">
+							<div class="flex-inline flex-wrap h-full w-full">
+								<div class="item w-auto h-2/5">
+									{/* Opponent Profile */}
+									<div class="flex items-center justify-between bg-red-200 rounded-lg p-5 w-[15vw] border border-black">
+										<div class="space-y-5 font-medium">
+											<div>GUEST</div>
+											<div class="text-md text-gray-600">$100</div>
+										</div>
+										<img class="w-[5vw] h-[5vw] rounded-full" src="/images/feltCute.png" alt="Shrek" />
+									</div>
+								</div>
+								<div class="item w-auto h-1/5">
+									<div className="h-[8vh] w-[15vw] bg-red-400 rounded-lg border border-black">
+										<p className="text-white text-[2.3vh] font-extrabold tracking-widest text-center py-[8%]">
+											Leave Game
+										</p>
+									</div>
+								</div>
+								<div class="item w-auto h-2/5">
+									{/* My Profile */}
+									<div class="flex items-center justify-between bg-red-200 rounded-lg p-5 w-[15vw] border border-black">
+										<div class="space-y-5 font-medium">
+											<div>THAAD</div>
+											<div class="text-md text-gray-600">$100</div>
+										</div>
+										<img class="w-[5vw] h-[5vw] rounded-full" src="/images/feltCute.png" alt="Shrek" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div className="row-start-3 row-span-1 col-start-1 col-span-1 bg-lime-800 rounded-lg">
+					<div className="item w-[80vw] h-[35vh]">
+						<div class="flex flex-col h-full">
+							<div class="item w-[80vw] h-1/3">
+								<div className="flex">
+									<div className="item w-[70vw] py-[2vh]">
+										<div className="flex gap-[0.6vw]">
+											{/* My Cards */}
+											<div className="bg-[url('/images/hwatu/card_1.png')]
+												bg-[-700% -400% / cover]
+												h-[9vh] w-[3.2vw]
+												bg-[length:800%_600%]"
+											>
+												{/* 화투 */}
+											</div>
+											<div className="bg-[url('/images/hwatu/card_1.png')]
+												bg-[-700% -400% / cover]
+												h-[9vh] w-[3.2vw]
+												bg-[length:800%_600%]"
+											>
+												{/* 화투 */}
+											</div>
+											<div className="bg-[url('/images/hwatu/card_1.png')]
+												bg-[-700% -400% / cover]
+												h-[9vh] w-[3.2vw]
+												bg-[length:800%_600%]"
+											>
+												{/* 화투 */}
+											</div>
+										</div>
+									</div>
+									<div className="w-[9vw] bg-lime-600 py-5 self-center rounded-lg">
+										<p className="text-white text-[2.3vh] font-extrabold tracking-widest text-center">
+											1<a className="text-black">고 </a>
+											2<a className="text-black">💩️ </a>
+											1<a className="text-black">🔔</a>
+										</p>
+									</div>
+								</div>
+							</div>
+							<div class="item w-[80vw] h-2/3 bg-lime-800">
+								{/* My Hand */}
+								{/* <div className="flex gap-[0.6vw] p-[0.5vw] mt-1 border-4 border-white rounded-lg w-[79vw] place-content-start"> */}
+								<div className="flex gap-[0.6vw] p-[0.5vw] mt-1 border-4 border-white rounded-lg w-[79vw] place-content-center">
+									{communityCardsTest.map((card, index) => {
+										return (
+											<>
+												<div className="bg-[url('/images/hwatu/card_1.png')]
+													bg-[-700% -400% / cover]
+													h-[18vh] w-[6vw]
+													bg-[length:800%_600%]"
+												>
+													{/* 화투 */}
+												</div>
+												<div className="bg-[url('/images/hwatu/card_1.png')]
+													bg-[-700% -400% / cover]
+													h-[18vh] w-[6vw]
+													bg-[length:800%_600%]"
+												>
+													{/* 화투 */}
+												</div>
+											</>
 										)
 									})}
 								</div>
-							</td>
-							<td className="p-2">
-								<div className="flex items-center content-center justify-center text-center">
-									{revealHands ?
-										opponentHand.map((card, i) => {
-											return (
-												<div className="relative mr-[0.5vw]
-											h-[14vh] w-[20vw]
-											2xl:h-[18vh] 2xl:w-[6.5vw]
-											xl:h-[20vh] xl:w-[10vw]
-											lg:h-[19vh] lg:w-[11vw]
-											md:h-[15vh] md:w-[10vw]
-											sm:h-[15vh] sm:w-[10vw]">
-													<Image
-														src={`/images/${card}.svg`}
-														layout="fill"
-														// width='90vw'
-														// height='135vw'
-														alt={card}
-													/>
-												</div>
-											)
-										})
-										:
-										// <>
-										// 	<Image
-										// 		src={`/images/1B.svg`}
-										// 		// width={100}
-										// 		// height={150}
-										// 		width='90'
-										// 		height='135'
-										// 		alt={'1B'}
-										// 	/>
-										// 	<Image
-										// 		src={`/images/1B.svg`}
-										// 		// width={100}
-										// 		// height={150}
-										// 		width='90'
-										// 		height='135'
-										// 		alt={'1B'}
-										// 	/>
-										// </>
-
-										<>
-											<div className="relative mr-[0.5vw]
-											h-[14vh] w-[20vw]
-											2xl:h-[18vh] 2xl:w-[6.5vw]
-											xl:h-[20vh] xl:w-[10vw]
-											lg:h-[19vh] lg:w-[11vw]
-											md:h-[15vh] md:w-[10vw]
-											sm:h-[15vh] sm:w-[10vw]">
-												<Image
-													src={`/images/1B.svg`}
-													layout="fill"
-													// width='90vw'
-													// height='135vw'
-													alt={'1B'}
-												/>
-											</div>
-											<div className="relative mr-[0.5vw]
-											h-[14vh] w-[20vw]
-											2xl:h-[18vh] 2xl:w-[6.5vw]
-											xl:h-[20vh] xl:w-[10vw]
-											lg:h-[19vh] lg:w-[11vw]
-											md:h-[15vh] md:w-[10vw]
-											sm:h-[15vh] sm:w-[10vw]">
-												<Image
-													src={`/images/1B.svg`}
-													layout="fill"
-													// width='90vw'
-													// height='135vw'
-													alt={'1B'}
-												/>
-											</div>
-										</>
-									}
-								</div>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-
-				{/* <span className="text-xl font-semibold tracking-wide">Your hand: {' '}</span>
-				<div className="flex gap-[0.4vw]">
-					<>
-						{myHand && myHand.map((card, i) => {
-							return (
-								<Image
-									src={`/images/${card}.svg`}
-									width={100}
-									height={150}
-									alt={card}
-								/>
-							)
-						})}
-					</>
-				</div> */}
-			</div>
-
-			{/* <div className="block-row">
-				<span className="text-xl font-semibold tracking-wide">Opponent's hand: {' '}</span>
-				<div className="flex gap-[0.4vw]">
-					{revealHands ?
-						opponentHand.map((card, i) => {
-							return (
-								<Image
-									src={`/images/${card}.svg`}
-									width={100}
-									height={150}
-									alt={'1B'}
-								/>
-							)
-						})
-						:
-						<>
-							<Image
-								src={`/images/1B.svg`}
-								width={100}
-								height={150}
-								alt={'1B'}
-							/>
-							<Image
-								src={`/images/1B.svg`}
-								width={100}
-								height={150}
-								alt={'1B'}
-							/>
-						</>
-					}
-				</div>
-			</div> */}
-
-			<div className="block-row items-center content-center justify-center text-center bg-blue-100 h-fill">
-				<div className="mb-[0.2vh] bg-rose-900 text-white">
-					<span className="text-[2vh] font-semibold tracking-wide rounded-md">Community Cards {' '}</span>
-				</div>
-				<div className="flex gap-[0.6vw] p-[0.5vw] mt-1">
-					{communityCardsTest && communityCardsTest.map((card, i) => {
-						if (card === '') {
-							card = '1B'
-						}
-						return (
-							<div className="relative
-							h-[14vh] w-[19vw]
-							2xl:h-[18vh] 2xl:w-[6.5vw]
-							xl:h-[20vh] xl:w-[10vw]
-							lg:h-[20vh] lg:w-[11vw]
-							md:h-[10vh] md:w-[10vw]
-							sm:h-[15vh] sm:w-[10vw]">
-								<Image
-									src={`/images/${card}.svg`}
-									layout="fill"
-									// width='90vw'
-									// height='135vw'
-									alt={card}
-								/>
 							</div>
-						)
-					})}
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

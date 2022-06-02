@@ -526,7 +526,7 @@ const Game = ({ socket = null, setInLobby = null, roomPlayers = null, bet = null
 						mt='0.7vh'
 						alignItems='center'
 						// maxWidth={'50%'}
-						width={{ base: '97vw', md: '50%', lg: '50%', xl: '37%' }}
+						width={{ base: '97vw', md: '50%', lg: '50%', xl: '33%' }}
 					>
 						{/* Top Left box */}
 						<GridItem gridArea={{ base: '5/1/ span 1 / span 1', lg: '1/1/ span 1 / span 1' }} w='100%' textAlign='center'>

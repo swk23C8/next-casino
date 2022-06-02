@@ -24,8 +24,8 @@ export default function Lobby({ stats = [], game = [] }) {
 	// const [pBet, setPBet] = useState(0);
 
 	// if game.pBet is undefined, set it to 0
-	// const [pBet, setPBet] = useState(game.pBet ? game.pBet : 0);
-	const [pBet, setPBet] = useState((game) => game.pBet ? game.pBet : 0);
+	const [pBet, setPBet] = useState(game?.pBet ? game.pBet : 0);
+	// const [pBet, setPBet] = useState((game) => game.pBet ? game.pBet : 0);
 	// const [number, setNumber] = useState(() => expensiveFunction())
 
 
@@ -33,7 +33,8 @@ export default function Lobby({ stats = [], game = [] }) {
 
 	const [roomName, setRoomName] = useState(null);
 	// const [roomBet, setRoomBet] = useState(game.pBet)
-	const [roomBet, setRoomBet] = useState((game) => game.pBet ? game.pBet : 0)
+	const [roomBet, setRoomBet] = useState(game?.pBet ? game.pBet : 0)
+	// const [roomBet, setRoomBet] = useState((game) => game.pBet ? game.pBet : 0)
 	const [roomPlayers, setRoomPlayers] = useState(null)
 	const [roomPlayerUsername, setRoomPlayersUsername] = useState(null)
 
@@ -94,7 +95,7 @@ export default function Lobby({ stats = [], game = [] }) {
 	function reset() {
 		console.log("lol")
 		setMyRoom(null)
-		setRoomBet(game.pBet)
+		setRoomBet(game?.pBet ? game.pBet : 0)
 		setRoomPlayers(null)
 		setInLobby(true)
 	}
